@@ -1,5 +1,7 @@
 // Main entry point initializing CSS and mounting game/UI events globally
 
+import './tailwind.css';
+import './custom.css';
 import './style.css';
 import { GameDatabase } from './db';
 import { GameUI } from './ui';

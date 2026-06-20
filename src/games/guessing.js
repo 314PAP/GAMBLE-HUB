@@ -12,13 +12,11 @@ export class GuessingGame {
     
     gridContainer.innerHTML = '';
     
-    // For Roulette (0-36), let's add a scroll-y height class or different styling if needed
+    // For Roulette (0-36), adjust columns if needed
     if (max - min > 10) {
       gridContainer.style.gridTemplateColumns = 'repeat(6, 1fr)';
-      gridContainer.style.maxHeight = '180px';
     } else {
       gridContainer.style.gridTemplateColumns = 'repeat(5, 1fr)';
-      gridContainer.style.maxHeight = 'none';
     }
 
     for (let i = min; i <= max; i++) {

@@ -50,6 +50,7 @@ export class GameManager {
     document.getElementById('hilo-area').style.display = 'none';
     document.getElementById('classic-inputs').style.display = 'none';
     document.getElementById('game-result').style.display = 'none';
+    document.getElementById('bet-area').style.display = 'grid';
 
     // Reset slot cell classes
     document.querySelectorAll('.slot-cell').forEach(c => c.classList.remove('win-active'));

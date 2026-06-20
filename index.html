@@ -114,7 +114,7 @@
             </div>
         </div>
 
-        <!-- NOVÁ HRA: VÍCE / MÉNĚ -->
+        <!-- HRA: VÍCE / MÉNĚ -->
         <div id="hilo-area" style="display:none;">
             <div class="hilo-container">
                 <div style="font-size:12px; color:var(--text-secondary); text-transform:uppercase; letter-spacing:1px;">Aktuální karta</div>
@@ -132,14 +132,14 @@
             </div>
         </div>
 
-        <!-- TLAČÍTKA ČÍSEL PRO KLASICKÉ HRY -->
+        <!-- TLAČÍTKA ČÍSEL PRO KLASICKÉ HRY (hádanka, kostka, ruleta) -->
         <div id="classic-inputs" style="display:none;">
-            <div class="text-center text-muted" style="margin-bottom:8px;">Vyber si číslo a vsadíš:</div>
-            <div class="number-grid" id="game-number-buttons"></div>
+            <p style="text-align:center; color:var(--text-secondary); font-size:13px; margin-bottom:8px;">Vyber si číslo:</p>
+            <div id="game-number-buttons" style="display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-bottom:12px;"></div>
         </div>
 
-        <!-- VOLBA SÁZKY -->
-        <div class="bet-buttons">
+        <!-- VOLBA SÁZKY (vždy viditelná ve hře) -->
+        <div id="bet-area" style="display:grid; grid-template-columns:repeat(5,1fr); gap:6px; margin-top:8px;">
             <button class="btn btn-bet" id="bet-10" onclick="nastavSazku(10)">10</button>
             <button class="btn btn-bet" id="bet-20" onclick="nastavSazku(20)">20</button>
             <button class="btn btn-bet" id="bet-50" onclick="nastavSazku(50)">50</button>
@@ -147,15 +147,16 @@
             <button class="btn btn-bet" id="bet-cust" onclick="ukazVlastniSazku()">✏️</button>
         </div>
 
-        <div id="custom-sazka-area" style="display:none;">
+        <!-- VLASTNÍ SÁZKA -->
+        <div id="custom-sazka-area" style="display:none; margin-top:8px;">
             <input type="number" id="game-sazka" placeholder="Vlastní sázka + Enter" onkeydown="checkEnter(event, potvrditVlastniSazku)">
         </div>
 
-        <!-- VÝSLEDKY -->
-        <div class="status-box" id="game-result" style="display:none;"></div>
-        
+        <!-- VÝSLEDKY (toast) -->
+        <div id="game-result" class="status-box" style="display:none; margin-top:10px; border:1px solid rgba(255,255,255,0.15); padding:10px; border-radius:12px; background:rgba(18,18,30,0.95); text-align:center; font-size:14px;"></div>
+
         <!-- LIŠTA DOLE -->
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-top:16px;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:16px;">
             <button class="btn" onclick="otevriStatsModal()">📊 Statistiky</button>
             <button class="btn btn-danger" onclick="navratDoHubu()">🚪 Menu</button>
         </div>
