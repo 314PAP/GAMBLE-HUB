@@ -712,6 +712,14 @@ input:focus {
   transform: translateY(20px);
   pointer-events: none;
 }
+@media (min-width: 768px) {
+  .container {
+    padding-bottom: 140px; /* extra space for bottom controls */
+  }
+  .status-box {
+    bottom: 200px; /* move toast higher on larger screens */
+  }
+}
 
 /* Sound mute floating button on top right of the container */
 .sound-toggle-btn {
