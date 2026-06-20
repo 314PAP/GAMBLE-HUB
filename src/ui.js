@@ -191,8 +191,13 @@ export class GameUI {
           // Support new " – " format and old "-" format for backwards compat
           const sep = item.includes(' – ') ? ' – ' : '-';
           const parts = item.split(sep);
-          const gamePart   = (parts[0] || '').trim();
+          let gamePart   = (parts[0] || '').trim();
           const statusPart = (parts[1] || '').trim();
+
+          // Clean up old "S:" prefix and format in history
+          gamePart = gamePart
+            .replace(/\(S:\s*(\d+)\s*(kč|Kč)?\)/gi, '($1 Kč)')
+            .replace(/\((\d+)\s*kč\)/gi, '($1 Kč)');
 
           const div = document.createElement('div');
           div.className = `history-item ${isWin ? 'win' : 'loss'}`;
@@ -299,4 +304,111 @@ export class GameUI {
       if (customArea) customArea.style.display = 'none';
     }
   }
+
+  toggleInfoPanel(gameId) {
+    const panel = document.getElementById('info-panel');
+    if (!panel) return;
+    
+    // If it's already open, close it
+    if (panel.style.display === 'flex') {
+      this.zavriInfoPanel();
+      return;
+    }
+    
+    const info = GAME_INFOS[gameId];
+    if (!info) return;
+    
+    const titleEl = document.getElementById('info-panel-title');
+    const bodyEl = document.getElementById('info-panel-body');
+    
+    if (titleEl) titleEl.innerText = info.title;
+    if (bodyEl) bodyEl.innerHTML = info.html;
+    
+    panel.style.display = 'flex';
+  }
+
+  zavriInfoPanel() {
+    const panel = document.getElementById('info-panel');
+    if (panel) {
+      panel.style.display = 'none';
+    }
+  }
 }
+
+const GAME_INFOS = {
+  1: {
+    title: "Hádanka 1-10",
+    html: `
+      <p>Vyberte si libovolné číslo v rozmezí <strong>1 až 10</strong> a vsaďte si.</p>
+      <ul>
+        <li><strong>Cíl hry:</strong> Uhodnout náhodně vylosované číslo.</li>
+        <li><strong>Výhra:</strong> <strong>10násobek (10x)</strong> vsazené částky.</li>
+      </ul>
+    `
+  },
+  2: {
+    title: "Hádanka 1-5",
+    html: `
+      <p>Vyberte si libovolné číslo v rozmezí <strong>1 až 5</strong> a vsaďte si.</p>
+      <ul>
+        <li><strong>Cíl hry:</strong> Uhodnout náhodně vylosované číslo.</li>
+        <li><strong>Výhra:</strong> <strong>5násobek (5x)</strong> vsazené částky.</li>
+      </ul>
+    `
+  },
+  3: {
+    title: "Kostka 1-6",
+    html: `
+      <p>Vyberte si libovolné číslo v rozmezí <strong>1 až 6</strong> a vsaďte si.</p>
+      <ul>
+        <li><strong>Cíl hry:</strong> Uhodnout hozené číslo na hrací kostce.</li>
+        <li><strong>Výhra:</strong> <strong>6násobek (6x)</strong> vsazené částky.</li>
+      </ul>
+    `
+  },
+  4: {
+    title: "Ruleta 0-36",
+    html: `
+      <p>Vyberte si libovolné číslo v rozmezí <strong>0 až 36</strong> na hracím poli a vsaďte si.</p>
+      <ul>
+        <li><strong>Cíl hry:</strong> Uhodnout vylosované číslo.</li>
+        <li><strong>Výhra:</strong> <strong>36násobek (36x)</strong> vsazené částky.</li>
+      </ul>
+    `
+  },
+  5: {
+    title: "Automat Bary 3x3",
+    html: `
+      <p>Tříválcový výherní automat s 3 viditelnými symboly na každém válci a <strong>5 výherními liniemi</strong> (3 horizontální, 2 diagonální).</p>
+      <ul>
+        <li><strong>Jak hrát:</strong> Nastavte sázku a stiskněte <strong>SPIN</strong>, případně zapněte režim <strong>AUTO</strong>.</li>
+        <li><strong>Cíl hry:</strong> Získat 3 stejné symboly v jakékoli výherní linii.</li>
+        <li><strong>Výplatní tabulka (násobiče):</strong></li>
+      </ul>
+      <table style="width:100%; border-collapse: collapse; margin-top:8px; font-size:13px;">
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
+          <th style="text-align:left; padding:4px;">Symbol</th>
+          <th style="text-align:right; padding:4px;">Výhra</th>
+        </tr>
+        <tr><td style="padding:4px;">🍒 Třešeň</td><td style="text-align:right; padding:4px; color:var(--neon-green)">2x sázka</td></tr>
+        <tr><td style="padding:4px;">🛎 Zvonek</td><td style="text-align:right; padding:4px; color:var(--neon-green)">5x sázka</td></tr>
+        <tr><td style="padding:4px;">🍋 Citron</td><td style="text-align:right; padding:4px; color:var(--neon-green)">8x sázka</td></tr>
+        <tr><td style="padding:4px;">⭐ Hvězda</td><td style="text-align:right; padding:4px; color:var(--neon-green)">15x sázka</td></tr>
+        <tr><td style="padding:4px;">💎 Diamant</td><td style="text-align:right; padding:4px; color:var(--neon-green)">30x sázka</td></tr>
+        <tr style="font-weight:bold; color:var(--neon-gold);"><td style="padding:4px;">7️⃣ Sedmička</td><td style="text-align:right; padding:4px;">100x sázka (JACKPOT)</td></tr>
+      </table>
+    `
+  },
+  6: {
+    title: "Více / Méně (Hi-Lo)",
+    html: `
+      <p>Karetní hra, ve které odhadujete hodnotu další karty. Hraje se s kartami s hodnotami <strong>od 1 do 10</strong>.</p>
+      <ul>
+        <li><strong>Začátek hry:</strong> Na začátku je vygenerována počáteční karta v rozmezí 2 až 9.</li>
+        <li><strong>Jak hrát:</strong> Tipněte si, zda bude další karta <strong>VYŠŠÍ ▲</strong> nebo <strong>NIŽŠÍ ▼</strong> než ta aktuální.</li>
+        <li><strong>Při shodě (stejná karta):</strong> Pokud má nová karta stejnou hodnotu, máte 50% šanci na výhru.</li>
+        <li><strong>Výhra:</strong> <strong>2násobek (2x)</strong> vsazené částky při správném odhadu.</li>
+      </ul>
+    `
+  }
+};

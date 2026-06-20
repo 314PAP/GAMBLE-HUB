@@ -150,9 +150,16 @@ window.otevriStatsModal = () => {
     ui.openStatsModal(gm.currentPlayer);
   }
 };
-
 window.zavriStatsModal = () => {
   ui.closeStatsModal();
+};
+
+window.toggleInfoPanel = () => {
+  ui.toggleInfoPanel(gm.activeGameId);
+};
+
+window.zavriInfoPanel = () => {
+  ui.zavriInfoPanel();
 };
 
 window.exportovatData = () => {

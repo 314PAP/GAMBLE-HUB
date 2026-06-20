@@ -877,3 +877,128 @@ input:focus {
   color: var(--text-secondary);
   font-size: 13px;
 }
+
+/* Game title and Info toggle */
+.game-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-info-toggle {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--neon-blue);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 5px var(--neon-blue-glow);
+}
+
+.btn-info-toggle:hover {
+  background: var(--neon-blue);
+  color: #05050a;
+  transform: scale(1.15) rotate(15deg);
+  box-shadow: 0 0 12px var(--neon-blue);
+}
+
+/* Info Panel Overlay */
+.info-panel {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 200;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(8px);
+  padding: 16px;
+}
+
+.info-panel-content {
+  background: rgba(18, 18, 30, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: var(--shadow-premium);
+  animation: infoPanelScale 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+}
+
+@keyframes infoPanelScale {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.info-panel-header {
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#info-panel-title {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--neon-blue);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.info-panel-close {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 18px;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.info-panel-close:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--neon-pink);
+  transform: rotate(90deg);
+}
+
+.info-panel-body {
+  padding: 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  max-height: 350px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.info-panel-body p {
+  margin-bottom: 12px;
+}
+
+.info-panel-body ul {
+  margin-left: 20px;
+  margin-bottom: 12px;
+}
+
+.info-panel-body li {
+  margin-bottom: 6px;
+}
+
+.info-panel-body strong {
+  color: var(--neon-orange);
+}
