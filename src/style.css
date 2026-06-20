@@ -601,7 +601,7 @@ input:focus {
 /* Classic games number grid */
 .number-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
   gap: 8px;
   margin: 12px 0;
   max-height: 190px;
@@ -610,6 +610,13 @@ input:focus {
   background: rgba(0, 0, 0, 0.2);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+@media (max-width: 480px) {
+  .number-grid {
+    grid-template-columns: repeat(auto-fit, minmax(25px, 1fr));
+    font-size: 12px;
+  }
 }
 
 .btn-num {

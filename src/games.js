@@ -89,6 +89,8 @@ export class GameManager {
         break;
     }
 
+    // Reset number buttons for classic games (e.g., roulette) to clear previous selections
+    this.ui.resetNumberButtons();
     this.ui.showScreen('screen-game');
   }
 

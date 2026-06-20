@@ -21,6 +21,15 @@ export class GameUI {
     }
   }
 
+  // Resets number buttons grid state
+  resetNumberButtons() {
+    const btns = document.querySelectorAll('.btn-num');
+    btns.forEach(btn => {
+      btn.classList.remove('selected', 'winning');
+      btn.disabled = false;
+    });
+  }
+
   // Displays SweetAlert toast/alert
   showAlert(type, title, text) {
     Swal.fire({
@@ -385,6 +394,27 @@ const GAME_INFOS = {
         <li><strong>Cíl hry:</strong> Získat 3 stejné symboly v jakékoli výherní linii.</li>
         <li><strong>Výplatní tabulka (násobiče):</strong></li>
       </ul>
+      <style>
+.number-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
+  gap: 8px;
+  margin: 12px 0;
+  max-height: 190px;
+  overflow-y: auto;
+  padding: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+@media (max-width: 480px) {
+  .number-grid {
+    grid-template-columns: repeat(auto-fit, minmax(25px, 1fr));
+    font-size: 12px;
+  }
+}
+</style>
       <table style="width:100%; border-collapse: collapse; margin-top:8px; font-size:13px;">
         <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
           <th style="text-align:left; padding:4px;">Symbol</th>
