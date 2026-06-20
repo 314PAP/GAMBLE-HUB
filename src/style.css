@@ -694,18 +694,18 @@ input:focus {
 /* Result box - floating absolute panel that appears at the bottom */
 .status-box {
   position: absolute;
-  bottom: 85px;
+  bottom: 120px; /* move higher to avoid covering grid */
   left: 20px;
   right: 20px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 14px;
-  border-radius: 16px;
+  padding: 10px; /* smaller padding */
+  border-radius: 12px;
   background-color: rgba(18, 18, 30, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   text-align: center;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 13px; /* slightly smaller */
+  line-height: 1.4;
   z-index: 90;
   display: none;
   opacity: 0;

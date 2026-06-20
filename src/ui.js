@@ -27,6 +27,11 @@ export class GameUI {
     btns.forEach(btn => {
       btn.classList.remove('selected', 'winning');
       btn.disabled = false;
+      // Clear any inline losing styles
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.style.borderColor = '';
+      btn.style.boxShadow = '';
     });
   }
 
