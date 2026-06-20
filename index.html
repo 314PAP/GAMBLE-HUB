@@ -84,7 +84,10 @@
     <!-- 3. GAME SCREEN -->
     <div id="screen-game" class="screen">
         <div class="profile-mini">
-            <div id="game-title" style="font-weight:bold; color:var(--neon-blue); font-family: 'Orbitron', sans-serif;">HERNA</div>
+            <div class="game-title-row">
+                <div id="game-title" style="font-weight:bold; color:var(--neon-blue); font-family: 'Orbitron', sans-serif;">HERNA</div>
+                <button class="btn-info-toggle" id="btn-game-info" onclick="toggleInfoPanel()" title="Jak se hraje">ⓘ</button>
+            </div>
             <div class="profile-balance">
                 <span id="game-player-money"></span> <span>Kč</span>
             </div>
@@ -184,6 +187,17 @@
     </div>
 </div>
 
-<script type="module" src="/src/main.js"></script>
+<!-- INFO PANEL OVERLAY -->
+<div id="info-panel" class="info-panel" onclick="zavriInfoPanel()">
+    <div class="info-panel-content" onclick="event.stopPropagation()">
+        <div class="info-panel-header">
+            <span id="info-panel-title">Jak se hraje</span>
+            <button class="info-panel-close" onclick="zavriInfoPanel()">✕</button>
+        </div>
+        <div id="info-panel-body" class="info-panel-body"></div>
+    </div>
+</div>
+
+
 </body>
 </html>

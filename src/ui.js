@@ -188,9 +188,11 @@ export class GameUI {
       } else {
         stats.historie.forEach(item => {
           const isWin = item.includes('VÝHRA');
-          const parts = item.split('-');
-          const gamePart = parts[0] || '';
-          const statusPart = parts[1] || '';
+          // Support new " – " format and old "-" format for backwards compat
+          const sep = item.includes(' – ') ? ' – ' : '-';
+          const parts = item.split(sep);
+          const gamePart   = (parts[0] || '').trim();
+          const statusPart = (parts[1] || '').trim();
 
           const div = document.createElement('div');
           div.className = `history-item ${isWin ? 'win' : 'loss'}`;
