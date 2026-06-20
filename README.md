@@ -100,3 +100,5 @@ Projekt obsahuje předpřipravený CI/CD workflow, který aplikaci automaticky n
 
 ## 💾 Záloha logiky
 Pokud byste potřebovali nahlédnout do původní monolitické verze kódu nebo obnovit původní chování hry, soubor **`index3.html`** zůstal zcela nedotčen a slouží jako reference původní herní logiky.
+
+<!-- Build trigger timestamp: 2026-06-20T23:23:50+02:00 -->
