@@ -205,6 +205,8 @@ export class GameManager {
     this.guessing.play(selectedNum, min, max, this.activeBet, multiplier, (res) => {
       this.lockGameControls(false);
       this.processGameResult(res.isWin, res.winAmount, gameName, res.resultText);
+      // Ensure previous selections are cleared for next round
+      this.ui.resetNumberButtons();
     });
   }
 
