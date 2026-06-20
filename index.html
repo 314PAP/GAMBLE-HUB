@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎰 Neon Gamble Club 🎰</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎰</text></svg>">
+</head>
+<body>
+
+<div class="container">
+    <!-- 1. LOGIN SCREEN -->
+    <div id="screen-login" class="screen active">
+        <h1>🎰 NEON CLUB 🎰</h1>
+        <div class="leaderboard">
+            <div class="leaderboard-title">
+                <span>🏆 Top 5 Hráči</span>
+            </div>
+            <div id="leaderboard-content" class="flex-col gap-sm">
+                Načítám rekordy...
+            </div>
+        </div>
+        <div class="flex-col gap-sm">
+            <button class="btn btn-primary" onclick="otevriPrihlaseni()">
+                <span>Vstoupit do herny</span>
+            </button>
+            <button class="btn btn-success" onclick="otevriRegistraci()">
+                <span>Nový hráč (100 Kč)</span>
+            </button>
+            <div class="export-import-row">
+                <button class="btn btn-icon-only" onclick="exportovatData()">
+                    <span>📋 Export</span>
+                </button>
+                <button class="btn btn-icon-only" onclick="document.getElementById('file-input').click()">
+                    <span>📥 Import</span>
+                </button>
+            </div>
+        </div>
+        <input type="file" id="file-input" style="display:none" onchange="importovatData(event)">
+    </div>
+
+    <!-- 1B. SEZNAM ÚČTŮ -->
+    <div id="screen-select-user" class="screen">
+        <h2>👥 Vyber Účet</h2>
+        <div id="users-list" class="users-list"></div>
+        <button class="btn btn-danger margin-top-md" onclick="zpetDoMenu()">Zpět</button>
+    </div>
+
+    <!-- 1C. REGISTRACE -->
+    <div id="screen-register" class="screen">
+        <h2>🆕 Nový Hráč</h2>
+        <input type="text" id="reg-name" placeholder="Zadej jméno" onkeydown="checkEnter(event, potvrditRegistraci)">
+        <div class="flex-col gap-sm">
+            <button class="btn btn-success" onclick="potvrditRegistraci()">Vytvořit účet</button>
+            <button class="btn btn-danger" onclick="zpetDoMenu()">Zpět</button>
+        </div>
+    </div>
+
+    <!-- 2. MAIN HUB -->
+    <div id="screen-hub" class="screen">
+        <div class="profile-mini">
+            <div class="profile-username">
+                <span>👤</span> <span id="hub-player-name"></span>
+            </div>
+            <div class="profile-balance">
+                <span id="hub-player-money"></span> <span>Kč</span>
+            </div>
+        </div>
+        <div class="hub-grid">
+            <button class="btn btn-primary" onclick="spustitHru(5)">🎰 AUTOMAT BARY 3x3</button>
+            <button class="btn btn-success" onclick="spustitHru(6)">🃏 VÍCE / MÉNĚ (Hi-Lo)</button>
+            <button class="btn" onclick="spustitHru(4)">🔴 Ruleta 0-36 (36x)</button>
+            <button class="btn" onclick="spustitHru(1)">🎲 Hádanka 1-10 (10x)</button>
+            <button class="btn" onclick="spustitHru(2)">🎲 Hádanka 1-5 (5x)</button>
+            <button class="btn" onclick="spustitHru(3)">🎲 Kostka 1-6 (6x)</button>
+        </div>
+        <button class="btn btn-danger" onclick="odhlasitSe()">Opustit hernu</button>
+    </div>
+
+    <!-- 3. GAME SCREEN -->
+    <div id="screen-game" class="screen">
+        <div class="profile-mini">
+            <div id="game-title" style="font-weight:bold; color:var(--neon-blue); font-family: 'Orbitron', sans-serif;">HERNA</div>
+            <div class="profile-balance">
+                <span id="game-player-money"></span> <span>Kč</span>
+            </div>
+        </div>
+
+        <!-- AUTOMAT MATICE -->
+        <div id="slots-area" style="display:none;">
+            <div class="slot-machine">
+                <div class="slot-grid">
+                    <div class="slot-reel" id="reel-0">
+                        <div class="slot-reel-container" id="reel-container-0"></div>
+                    </div>
+                    <div class="slot-reel" id="reel-1">
+                        <div class="slot-reel-container" id="reel-container-1"></div>
+                    </div>
+                    <div class="slot-reel" id="reel-2">
+                        <div class="slot-reel-container" id="reel-container-2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="slot-controls">
+                <button class="btn btn-success" id="btn-spin-slots" onclick="kliknutoCislo(0)" style="margin:0;">SPIN 🎰</button>
+                <button class="btn btn-auto" id="btn-auto-slots" onclick="toggleAutoPlay()" style="margin:0;">AUTO</button>
+            </div>
+        </div>
+
+        <!-- NOVÁ HRA: VÍCE / MÉNĚ -->
+        <div id="hilo-area" style="display:none;">
+            <div class="hilo-container">
+                <div style="font-size:12px; color:var(--text-secondary); text-transform:uppercase; letter-spacing:1px;">Aktuální karta</div>
+                <div class="card-viewport">
+                    <div class="hilo-card">
+                        <div class="card-face card-front" id="hilo-current-card">5</div>
+                        <div class="card-face card-back"></div>
+                    </div>
+                </div>
+                <div style="font-size:11px; color:var(--text-secondary); margin-bottom:10px; text-transform:uppercase;">Další bude...</div>
+                <div class="hilo-btns">
+                    <button class="btn btn-primary" id="btn-hilo-high" onclick="hrajHiLo('H')">VYŠŠÍ ▲</button>
+                    <button class="btn btn-danger" id="btn-hilo-low" onclick="hrajHiLo('L')">NIŽŠÍ ▼</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TLAČÍTKA ČÍSEL PRO KLASICKÉ HRY -->
+        <div id="classic-inputs" style="display:none;">
+            <div class="text-center text-muted" style="margin-bottom:8px;">Vyber si číslo a vsadíš:</div>
+            <div class="number-grid" id="game-number-buttons"></div>
+        </div>
+
+        <!-- VOLBA SÁZKY -->
+        <div class="bet-buttons">
+            <button class="btn btn-bet" id="bet-10" onclick="nastavSazku(10)">10</button>
+            <button class="btn btn-bet" id="bet-20" onclick="nastavSazku(20)">20</button>
+            <button class="btn btn-bet" id="bet-50" onclick="nastavSazku(50)">50</button>
+            <button class="btn btn-bet" id="bet-100" onclick="nastavSazku(100)">100</button>
+            <button class="btn btn-bet" id="bet-cust" onclick="ukazVlastniSazku()">✏️</button>
+        </div>
+
+        <div id="custom-sazka-area" style="display:none;">
+            <input type="number" id="game-sazka" placeholder="Vlastní sázka + Enter" onkeydown="checkEnter(event, potvrditVlastniSazku)">
+        </div>
+
+        <!-- VÝSLEDKY -->
+        <div class="status-box" id="game-result" style="display:none;"></div>
+        
+        <!-- LIŠTA DOLE -->
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-top:16px;">
+            <button class="btn" onclick="otevriStatsModal()">📊 Statistiky</button>
+            <button class="btn btn-danger" onclick="navratDoHubu()">🚪 Menu</button>
+        </div>
+    </div>
+
+    <!-- 4. SOCKA SCREEN -->
+    <div id="screen-socka" class="screen socka-screen">
+        <div class="socka-icon">💀</div>
+        <h2 class="socka-title">Čistá Kasa</h2>
+        <p id="socka-text" class="socka-desc"></p>
+        <button class="btn btn-danger" onclick="zpetDoMenu()">Zpět na začátek</button>
+    </div>
+</div>
+
+<!-- STATISTIKY -->
+<div id="stats-modal" class="modal" onclick="zavriStatsModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <h3 class="modal-header">📊 Přehled Hráče</h3>
+        <div id="modal-stats-data" style="font-size:14px; margin-bottom:12px; line-height:1.5;"></div>
+        
+        <!-- Chart.js doughnut chart container -->
+        <div class="stats-chart-container">
+            <canvas id="stats-chart"></canvas>
+        </div>
+
+        <h4 style="margin:16px 0 6px 0; font-size:13px; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.5px;">Posledních 10 her:</h4>
+        <div id="modal-history-data" style="max-height:150px; overflow-y:auto; padding-right:2px; display:flex; flex-direction:column; gap:6px;"></div>
+        <button class="btn btn-danger margin-top-md" onclick="zavriStatsModal()">Zavřít</button>
+    </div>
+</div>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
