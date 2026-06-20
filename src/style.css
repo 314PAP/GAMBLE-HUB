@@ -18,6 +18,8 @@
   --neon-blue-glow: rgba(0, 180, 216, 0.4);
   --neon-gold: #ffee00;
   --neon-gold-glow: rgba(255, 238, 0, 0.4);
+  --neon-purple: #bd00ff;
+  --neon-purple-glow: rgba(189, 0, 255, 0.4);
   
   --shadow-premium: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
   --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
@@ -107,14 +109,24 @@ h1 {
   font-family: 'Orbitron', sans-serif;
   font-weight: 900;
   text-align: center;
-  font-size: 28px;
-  letter-spacing: 2px;
-  background: linear-gradient(135deg, var(--neon-orange) 0%, #ff5500 100%);
+  font-size: 26px;
+  letter-spacing: 4px;
+  background: linear-gradient(135deg, #fff04d 0%, var(--neon-gold) 30%, var(--neon-orange) 70%, #ff2200 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 24px;
-  text-shadow: 0 0 30px var(--neon-orange-glow);
   text-transform: uppercase;
+  position: relative;
+  animation: titleFlicker 4s infinite;
+  filter: drop-shadow(0 0 12px rgba(255, 200, 0, 0.7));
+}
+
+@keyframes titleFlicker {
+  0%, 95%, 100% { opacity: 1; filter: drop-shadow(0 0 12px rgba(255, 200, 0, 0.7)); }
+  96% { opacity: 0.85; filter: drop-shadow(0 0 4px rgba(255, 200, 0, 0.3)); }
+  97% { opacity: 1; filter: drop-shadow(0 0 16px rgba(255, 200, 0, 0.9)); }
+  98% { opacity: 0.9; filter: drop-shadow(0 0 6px rgba(255, 200, 0, 0.4)); }
 }
 
 h2 {
@@ -269,6 +281,43 @@ input:focus {
   box-shadow: 0 6px 20px var(--neon-blue-glow);
 }
 
+/* Premium Custom Button Gradients */
+.btn-gold {
+  background: linear-gradient(135deg, var(--neon-gold) 0%, #d4af37 100%);
+  border: none;
+  color: #05050a;
+  box-shadow: 0 4px 15px var(--neon-gold-glow);
+  font-weight: 800;
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, #fff04d 0%, #e6be45 100%);
+  box-shadow: 0 6px 20px var(--neon-gold-glow);
+  color: #000;
+}
+
+.btn-red {
+  background: linear-gradient(135deg, #ff3333 0%, #990000 100%);
+  border: none;
+  box-shadow: 0 4px 15px rgba(255, 51, 51, 0.4);
+}
+
+.btn-red:hover {
+  background: linear-gradient(135deg, #ff6666 0%, #b30000 100%);
+  box-shadow: 0 6px 20px rgba(255, 51, 51, 0.5);
+}
+
+.btn-purple {
+  background: linear-gradient(135deg, #d300ff 0%, #7a0099 100%);
+  border: none;
+  box-shadow: 0 4px 15px rgba(211, 0, 255, 0.4);
+}
+
+.btn-purple:hover {
+  background: linear-gradient(135deg, #e066ff 0%, #9400b3 100%);
+  box-shadow: 0 6px 20px rgba(211, 0, 255, 0.5);
+}
+
 /* User Selection List */
 .users-list {
   max-height: 250px;
@@ -410,10 +459,43 @@ input:focus {
   align-items: center;
   justify-content: center;
   font-size: 32px;
+  transition: text-shadow 0.3s ease, transform 0.2s ease;
 }
 
 .slot-cell.win-active {
   animation: cellGlow 0.2s infinite alternate;
+}
+
+/* Individual symbol neon glows to attract gamblers */
+.slot-cell.sym-cherry {
+  text-shadow: 0 0 12px rgba(255, 0, 85, 0.8), 0 0 24px rgba(255, 0, 85, 0.4);
+}
+
+.slot-cell.sym-bell {
+  text-shadow: 0 0 12px rgba(255, 238, 0, 0.8), 0 0 24px rgba(255, 238, 0, 0.4);
+}
+
+.slot-cell.sym-lemon {
+  text-shadow: 0 0 12px rgba(255, 255, 0, 0.8), 0 0 24px rgba(255, 255, 0, 0.4);
+}
+
+.slot-cell.sym-star {
+  text-shadow: 0 0 12px rgba(255, 159, 28, 0.9), 0 0 24px rgba(255, 159, 28, 0.5);
+}
+
+.slot-cell.sym-diamond {
+  text-shadow: 0 0 12px rgba(0, 180, 216, 0.9), 0 0 24px rgba(0, 180, 216, 0.5);
+}
+
+.slot-cell.sym-seven {
+  text-shadow: 0 0 15px rgba(255, 0, 85, 1), 0 0 35px rgba(255, 0, 85, 0.6);
+  font-weight: 900;
+  animation: pulseSeven 0.8s infinite alternate;
+}
+
+@keyframes pulseSeven {
+  from { transform: scale(1); }
+  to { transform: scale(1.15); }
 }
 
 @keyframes cellGlow {

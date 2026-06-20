@@ -1,6 +1,15 @@
 import gsap from 'gsap';
 import { sound } from '../sound';
 
+const symbolClasses = {
+  "🍒": "sym-cherry",
+  "🛎": "sym-bell",
+  "🍋": "sym-lemon",
+  "⭐": "sym-star",
+  "💎": "sym-diamond",
+  "7️⃣": "sym-seven"
+};
+
 export class SlotMachineGame {
   constructor(symbols, winningLines) {
     this.symbols = symbols;
@@ -29,7 +38,7 @@ export class SlotMachineGame {
       
       items.forEach(sym => {
         const cell = document.createElement('div');
-        cell.className = 'slot-cell';
+        cell.className = `slot-cell ${symbolClasses[sym] || 'sym-default'}`;
         cell.innerText = sym;
         container.appendChild(cell);
       });
@@ -82,7 +91,7 @@ export class SlotMachineGame {
       container.innerHTML = '';
       spinSymbols.forEach(sym => {
         const cell = document.createElement('div');
-        cell.className = 'slot-cell';
+        cell.className = `slot-cell ${symbolClasses[sym] || 'sym-default'}`;
         cell.innerText = sym;
         container.appendChild(cell);
       });

@@ -160,7 +160,7 @@ window.exportovatData = () => {
   const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
   const link = document.createElement('a');
   link.setAttribute("href", dataStr);
-  link.setAttribute("download", "neon_hub_data.json");
+  link.setAttribute("download", "gamblehub_data.json");
   document.body.appendChild(link);
   link.click();
   link.remove();
