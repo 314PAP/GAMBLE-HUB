@@ -1,4 +1,5 @@
 import gsap from 'gsap';
+import { sound } from '../sound';
 
 export class HiloGame {
   constructor() {
@@ -21,6 +22,7 @@ export class HiloGame {
   play(tip, betAmount, onComplete) {
     if (this.isAnimating) return;
     this.isAnimating = true;
+    sound.playFlip();
 
     const card = document.querySelector('.hilo-card');
     if (!card) {

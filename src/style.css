@@ -594,23 +594,67 @@ input:focus {
   box-shadow: 0 0 12px var(--neon-blue-glow);
 }
 
-/* Result box */
+/* Result box - floating absolute panel that appears at the bottom */
 .status-box {
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 12px;
-  margin: 16px 0;
-  border-radius: 12px;
-  background-color: rgba(0, 0, 0, 0.25);
+  position: absolute;
+  bottom: 85px;
+  left: 20px;
+  right: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 14px;
+  border-radius: 16px;
+  background-color: rgba(18, 18, 30, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   text-align: center;
   font-size: 14px;
   line-height: 1.5;
-  animation: pulseGlow 2s infinite alternate;
+  z-index: 90;
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
 }
 
-@keyframes pulseGlow {
-  from { border-color: rgba(255, 255, 255, 0.05); }
-  to { border-color: rgba(255, 255, 255, 0.12); }
+/* Sound mute floating button on top right of the container */
+.sound-toggle-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 99;
+  font-size: 16px;
+  transition: all 0.2s ease;
 }
+
+.sound-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.sound-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+.sound-toggle-btn.muted::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 20px;
+  background: var(--neon-pink);
+  transform: rotate(45deg);
+  box-shadow: 0 0 5px var(--neon-pink-glow);
+}
+
 
 /* Modal styling */
 .modal {

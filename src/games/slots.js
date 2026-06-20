@@ -1,4 +1,5 @@
 import gsap from 'gsap';
+import { sound } from '../sound';
 
 export class SlotMachineGame {
   constructor(symbols, winningLines) {
@@ -42,6 +43,7 @@ export class SlotMachineGame {
   spin(betAmount, userBalance, onComplete) {
     if (this.isSpinning) return;
     this.isSpinning = true;
+    sound.playSpin();
 
     // Determine final symbols for this spin
     const finalMatrix = [];

@@ -4,6 +4,7 @@ import './style.css';
 import { GameDatabase } from './db';
 import { GameUI } from './ui';
 import { GameManager } from './games';
+import { sound } from './sound';
 
 // Initialize core components
 const db = new GameDatabase();
@@ -194,7 +195,43 @@ window.checkEnter = (event, callback) => {
   }
 };
 
+// Sound mute handler
+window.toggleMuteState = () => {
+  const isMuted = sound.toggleMute();
+  const toggleBtn = document.getElementById('global-sound-toggle');
+  if (toggleBtn) {
+    if (isMuted) {
+      toggleBtn.classList.add('muted');
+    } else {
+      toggleBtn.classList.remove('muted');
+    }
+  }
+};
+
 // Initial setup on window load
 document.addEventListener('DOMContentLoaded', () => {
   ui.renderLeaderboard();
+
+  // Load sound settings
+  const toggleBtn = document.getElementById('global-sound-toggle');
+  if (toggleBtn) {
+    if (sound.isMuted()) {
+      toggleBtn.classList.add('muted');
+    } else {
+      toggleBtn.classList.remove('muted');
+    }
+  }
+
+  // Global click listener for button sound effects
+  document.addEventListener('click', (e) => {
+    const target = e.target;
+    if (
+      target.closest('button') || 
+      target.closest('.btn-num') || 
+      target.closest('.btn-bet') || 
+      target.closest('.sound-toggle-btn')
+    ) {
+      sound.playClick();
+    }
+  });
 });
