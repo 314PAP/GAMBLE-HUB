@@ -73,9 +73,9 @@ export class GameManager {
         this.guessing.generateGrid(1, 6, (num) => this.playGuessingGame(num, 1, 6, 6, "Kostka"));
         break;
       case 4:
-        titleEl.innerText = "🔴 RULETA 0-36";
+        titleEl.innerText = "🔴 RULETA 0-35";
         document.getElementById('classic-inputs').style.display = 'block';
-        this.guessing.generateGrid(0, 36, (num) => this.playGuessingGame(num, 0, 36, 36, "Ruleta"));
+        this.guessing.generateGrid(0, 35, (num) => this.playGuessingGame(num, 0, 35, 35, "Ruleta"));
         break;
       case 5:
         titleEl.innerText = "🎰 AUTOMAT BARY";
