@@ -11,6 +11,7 @@ Původní jednoduchý neonový design byl povýšen na prémiový zážitek insp
 - **Neonová barevná paleta**: Pečlivě vybrané neonové odstíny (oranžová, zelená, růžová, modrá a zlatá) s dynamickými stíny a pulzujícími zářemi na tmavém radiálním pozadí.
 - **Prémiová typografie**: Integrace moderních Google Fonts – **Orbitron** pro herní nadpisy a retro-arcade styl a **Outfit** pro perfektně čitelné texty a UI prvky.
 - **Plná responzivita**: Rozhraní je optimalizováno pro mobilní zařízení (na výšku) i stolní počítače.
+- **Plovoucí oznámení (Win-Toast)**: Výsledky hry se nyní nezobrazují ve statickém elementu (který natahoval výšku aplikace), ale v absolutně napoziciovaném glassmorphic panelu (toastu), který se plynule vysune zespodu pomocí GSAP, chvíli visí nad ovládacími prvky a automaticky sjede dolů a zmizí. Vhodné pro telefony s omezenou výškou.
 
 ---
 
@@ -29,7 +30,11 @@ Všechny zastaralé animace a nativní prohlížečové dialogy byly kompletně 
    - V modálním okně statistik se nyní zobrazuje interaktivní prstencový graf (doughnut chart) poměru výher a proher konkrétního hráče s responzivní legendou a neonovým zbarvením.
 
 4. **Canvas Confetti**:
-   - Při výhře vystřelí barevné konfety. U běžné výhry jde o rychlý středový výstřel, při trefení Jackpolu (tři sedmičky `7️⃣`) se spustí masivní ohňostrojová kaskáda konfet po stranách obrazovky.
+   - Při výhře vystřelí barevné konfety. U běžné výhry jde o rychlý středový výstřel, při trefení Jackpolu (trefení tří sedmiček `7️⃣`) se spustí masivní ohňostrojová kaskáda konfet po stranách obrazovky.
+
+5. **Web Audio API (Syntetizované zvukové efekty)**:
+   - Integrován vlastní zvukový syntezátor [sound.js](file:///Users/pipap/projects/gamblehub/src/sound.js). Tóny a efekty (arpeggia, točení slotů, otočení karty Hi-Lo, fanfára jackpotu a klesající tón bankrotu) jsou generovány dynamicky.
+   - V pravém horním rohu je umístěno plovoucí tlačítko 🔊/🔇 dostupné ve všech obrazovkách. Stav ztlumení se ukládá do LocalStorage a kliknutí na jakékoliv interaktivní tlačítko přehraje tichý klik.
 
 ---
 
@@ -45,6 +50,7 @@ Aplikace byla rozdělena do logických modulů (Separation of Concerns):
 │   │   ├── hilo.js                # Logika a 3D animace otáčení karet pro Hi-Lo
 │   │   └── guessing.js            # Logika číselných her (Ruleta, Kostka, atd.) s efektem točení
 │   ├── db.js                      # Databázová vrstva (LocalStorage, hráči, statistiky, import/export)
+│   ├── sound.js                   # Zvukový syntezátor (Web Audio API, mute stav)
 │   ├── ui.js                      # UI manažer (obrazovky, modály, grafy, konfety a SweetAlert)
 │   ├── games.js                   # Hlavní orchestrátor sázek, autoplay režimu a her
 │   ├── style.css                  # Kompletní stylový předpis s neon design systémem
