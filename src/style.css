@@ -149,54 +149,9 @@ h2 {
   text-transform: uppercase;
 }
 
-/* Leaderboard */
-.leaderboard {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 20px;
-}
 
-.leaderboard-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 12px;
-  color: var(--neon-orange);
-  letter-spacing: 1px;
-  margin-bottom: 12px;
-  text-transform: uppercase;
-}
 
-.leaderboard-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 4px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-  font-size: 14px;
-}
 
-.leaderboard-row:last-child {
-  border-bottom: none;
-}
-
-.leaderboard-rank {
-  font-weight: bold;
-  color: var(--text-secondary);
-}
-
-.leaderboard-name {
-  flex-grow: 1;
-  padding-left: 12px;
-  color: var(--text-primary);
-}
-
-.leaderboard-val {
-  font-weight: 700;
-  color: var(--neon-green);
-}
 
 /* Inputs & Buttons */
 input {
@@ -327,98 +282,9 @@ input:focus {
   box-shadow: 0 6px 20px rgba(211, 0, 255, 0.5);
 }
 
-/* User Selection List */
-.users-list {
-  max-height: 250px;
-  overflow-y: auto;
-  margin: 15px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding-right: 4px;
-}
 
-.user-row {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  animation: slideIn 0.2s ease-out;
-}
 
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(-10px); }
-  to { opacity: 1; transform: translateX(0); }
-}
 
-.btn-user-select {
-  flex-grow: 1;
-  text-align: left;
-  justify-content: flex-start;
-  padding-left: 16px;
-}
-
-.btn-delete {
-  width: 50px;
-  min-width: 50px;
-  background: rgba(255, 0, 85, 0.15);
-  border: 1px solid rgba(255, 0, 85, 0.3);
-  color: var(--neon-pink);
-  padding: 0;
-  height: 50px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-delete:hover {
-  background: var(--neon-pink);
-  color: #fff;
-  border-color: var(--neon-pink);
-}
-
-/* Mini Profile */
-.profile-mini {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--panel-border);
-  padding: 12px 18px;
-  border-radius: 16px;
-  margin-bottom: 16px;
-  font-size: 14px;
-}
-
-.profile-username {
-  font-weight: 600;
-  color: var(--neon-blue);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.profile-balance {
-  font-weight: 700;
-  color: var(--neon-orange);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* Hub Grid buttons */
-.hub-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-@media (max-width: 480px) {
-  .hub-grid {
-    grid-template-columns: 1fr;
-  }
-}
 
 /* Slot Machine design */
 .slot-machine {
@@ -842,20 +708,9 @@ input:focus {
   background: rgba(255, 0, 85, 0.05);
 }
 
-/* Charts and stats structure */
-.stats-chart-container {
-  position: relative;
-  width: 100%;
-  height: 150px;
-  margin: 16px 0;
-}
 
-/* Import/export area */
-.export-import-row {
-  display: flex;
-  gap: 8px;
-  margin-top: 12px;
-}
+
+
 
 .btn-icon-only {
   font-size: 12px;
@@ -892,12 +747,7 @@ input:focus {
   line-height: 1.5;
 }
 
-/* Utility layout flex spacing */
-.flex-col {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+
 
 .flex-row-center {
   display: flex;

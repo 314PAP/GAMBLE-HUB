@@ -16,26 +16,26 @@
     <!-- 1. LOGIN SCREEN -->
     <div id="screen-login" class="screen active">
         <h1>🎰 GAMBLE HUB 🎰</h1>
-        <div class="leaderboard">
-            <div class="leaderboard-title">
+        <div class="bg-black/30 border border-white/5 rounded-2xl p-4 mb-5">
+            <div class="flex items-center gap-2 font-['Orbitron',sans-serif] text-[12px] text-[#ff5500] tracking-wider mb-3 uppercase">
                 <span>🏆 Top 5 Hráči</span>
             </div>
-            <div id="leaderboard-content" class="flex-col gap-sm">
+            <div id="leaderboard-content" class="flex flex-col gap-2">
                 Načítám rekordy...
             </div>
         </div>
-        <div class="flex-col gap-sm">
+        <div class="flex flex-col gap-3">
             <button class="btn btn-primary" onclick="otevriPrihlaseni()">
                 <span>Vstoupit do herny</span>
             </button>
             <button class="btn btn-success" onclick="otevriRegistraci()">
                 <span>Nový hráč (100 Kč)</span>
             </button>
-            <div class="export-import-row">
-                <button class="btn btn-icon-only" onclick="exportovatData()">
+            <div class="flex gap-2 mt-3">
+                <button class="btn text-xs py-2.5 flex-1" onclick="exportovatData()">
                     <span>📋 Export</span>
                 </button>
-                <button class="btn btn-icon-only" onclick="document.getElementById('file-input').click()">
+                <button class="btn text-xs py-2.5 flex-1" onclick="document.getElementById('file-input').click()">
                     <span>📥 Import</span>
                 </button>
             </div>
@@ -46,15 +46,15 @@
     <!-- 1B. SEZNAM ÚČTŮ -->
     <div id="screen-select-user" class="screen">
         <h2>👥 Vyber Účet</h2>
-        <div id="users-list" class="users-list"></div>
-        <button class="btn btn-danger margin-top-md" onclick="zpetDoMenu()">Zpět</button>
+        <div id="users-list" class="max-h-[250px] overflow-y-auto my-4 flex flex-col gap-2.5 pr-1"></div>
+        <button class="btn btn-danger mt-4" onclick="zpetDoMenu()">Zpět</button>
     </div>
 
     <!-- 1C. REGISTRACE -->
     <div id="screen-register" class="screen">
         <h2>🆕 Nový Hráč</h2>
         <input type="text" id="reg-name" placeholder="Zadej jméno" onkeydown="checkEnter(event, potvrditRegistraci)">
-        <div class="flex-col gap-sm">
+        <div class="flex flex-col gap-2.5">
             <button class="btn btn-success" onclick="potvrditRegistraci()">Vytvořit účet</button>
             <button class="btn btn-danger" onclick="zpetDoMenu()">Zpět</button>
         </div>
@@ -62,15 +62,15 @@
 
     <!-- 2. MAIN HUB -->
     <div id="screen-hub" class="screen">
-        <div class="profile-mini">
-            <div class="profile-username">
+        <div class="flex justify-between items-center bg-black/30 border border-[#2a2a35] py-3 px-4.5 rounded-2xl mb-4 text-sm">
+            <div class="font-semibold text-[#00f0ff] flex items-center gap-1.5">
                 <span>👤</span> <span id="hub-player-name"></span>
             </div>
-            <div class="profile-balance">
+            <div class="font-bold text-[#ff5500] flex items-center gap-1.5">
                 <span id="hub-player-money"></span> <span>Kč</span>
             </div>
         </div>
-        <div class="hub-grid">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
             <button class="btn btn-gold" onclick="spustitHru(5)">🎰 AUTOMAT BARY 3x3</button>
             <button class="btn btn-danger" onclick="spustitHru(6)">🃏 VÍCE / MÉNĚ (Hi-Lo)</button>
             <button class="btn btn-red" onclick="spustitHru(4)">🔴 Ruleta 0-36 (36x)</button>
@@ -83,12 +83,12 @@
 
     <!-- 3. GAME SCREEN -->
     <div id="screen-game" class="screen">
-        <div class="profile-mini">
-            <div class="game-title-row">
+        <div class="flex justify-between items-center bg-black/30 border border-[#2a2a35] py-3 px-4.5 rounded-2xl mb-4 text-sm">
+            <div class="game-title-row flex items-center gap-2">
                 <div id="game-title" style="font-weight:bold; color:var(--neon-blue); font-family: 'Orbitron', sans-serif;">HERNA</div>
                 <button class="btn-info-toggle" id="btn-game-info" onclick="toggleInfoPanel()" title="Jak se hraje">ⓘ</button>
             </div>
-            <div class="profile-balance">
+            <div class="font-bold text-[#ff5500] flex items-center gap-1.5">
                 <span id="game-player-money"></span> <span>Kč</span>
             </div>
         </div>
@@ -175,16 +175,16 @@
 <div id="stats-modal" class="modal" onclick="zavriStatsModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <h3 class="modal-header">📊 Přehled Hráče</h3>
-        <div id="modal-stats-data" style="font-size:14px; margin-bottom:12px; line-height:1.5;"></div>
+        <div id="modal-stats-data" class="text-[14px] mb-3 leading-relaxed"></div>
         
         <!-- Chart.js doughnut chart container -->
-        <div class="stats-chart-container">
+        <div class="relative w-full h-[150px] my-4">
             <canvas id="stats-chart"></canvas>
         </div>
 
-        <h4 style="margin:16px 0 6px 0; font-size:13px; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.5px;">Posledních 10 her:</h4>
-        <div id="modal-history-data" style="max-height:150px; overflow-y:auto; padding-right:2px; display:flex; flex-direction:column; gap:6px;"></div>
-        <button class="btn btn-danger margin-top-md" onclick="zavriStatsModal()">Zavřít</button>
+        <h4 class="mt-4 mb-1.5 text-[13px] text-[#94a3b8] uppercase tracking-wider">Posledních 10 her:</h4>
+        <div id="modal-history-data" class="max-h-[150px] overflow-y-auto pr-0.5 flex flex-col gap-1.5"></div>
+        <button class="btn btn-danger mt-4" onclick="zavriStatsModal()">Zavřít</button>
     </div>
 </div>
 

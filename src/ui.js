@@ -64,10 +64,10 @@ export class GameUI {
     let html = '';
     scores.slice(0, 5).forEach((record, idx) => {
       html += `
-        <div class="leaderboard-row">
-          <span class="leaderboard-rank">#${idx + 1}</span>
-          <span class="leaderboard-name">${record.jmeno}</span>
-          <span class="leaderboard-val">${record.castka} Kč</span>
+        <div class="flex justify-between items-center py-2 px-1 border-b border-white/5 text-sm last:border-b-0">
+          <span class="font-bold text-[#94a3b8]">#${idx + 1}</span>
+          <span class="flex-grow pl-3 text-white">${record.jmeno}</span>
+          <span class="font-bold text-[#00ff99]">${record.castka} Kč</span>
         </div>
       `;
     });
@@ -91,15 +91,15 @@ export class GameUI {
     usernames.forEach(username => {
       const balance = players[username];
       const row = document.createElement('div');
-      row.className = 'user-row';
+      row.className = 'flex items-center gap-2 animate-[slideIn_0.2s_ease-out]';
 
       const selectBtn = document.createElement('button');
-      selectBtn.className = 'btn btn-user-select';
+      selectBtn.className = 'btn flex-1 text-left justify-start pl-4';
       selectBtn.innerHTML = `<span style="color:var(--text-secondary)">👤</span> <span style="font-weight:600">${username}</span> <span style="margin-left:auto; color:var(--neon-green)">${balance} Kč</span>`;
       selectBtn.onclick = () => onSelect(username);
 
       const deleteBtn = document.createElement('button');
-      deleteBtn.className = 'btn-delete';
+      deleteBtn.className = 'w-[50px] min-w-[50px] h-[50px] bg-[#ff0055]/15 border border-[#ff0055]/30 text-[#ff0055] p-0 rounded-xl flex items-center justify-center transition-colors hover:bg-[#ff0055] hover:text-white hover:border-[#ff0055]';
       deleteBtn.innerHTML = '🗑️';
       deleteBtn.onclick = (e) => {
         e.stopPropagation();
