@@ -30,13 +30,13 @@ export class HiloGame {
       return;
     }
 
-    const nextNumber = Math.floor(Math.random() * 10) + 1; // Card value between 1 and 10
-    let isWin = false;
-
-    // Game logic
-    if (tip === 'H' && nextNumber > this.currentNumber) isWin = true;
-    if (tip === 'L' && nextNumber < this.currentNumber) isWin = true;
-    if (nextNumber === this.currentNumber) isWin = Math.random() > 0.5; // Random 50% chance on tie
+    let nextNumber;
+do {
+  nextNumber = Math.floor(Math.random() * 10) + 1; // Card value between 1 and 10
+} while (nextNumber === this.currentNumber);
+let isWin = false;
+if (tip === 'H' && nextNumber > this.currentNumber) isWin = true;
+if (tip === 'L' && nextNumber < this.currentNumber) isWin = true;
 
     const originalNumber = this.currentNumber;
     
