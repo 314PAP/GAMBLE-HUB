@@ -31,7 +31,7 @@ export class GameUI {
   resetNumberButtons() {
     const btns = document.querySelectorAll('.btn-num');
     btns.forEach(btn => {
-      btn.classList.remove('selected', 'winning');
+      btn.classList.remove('selected', 'winning', 'losing');
       btn.disabled = false;
       // Clear any inline losing styles
       btn.style.background = '';

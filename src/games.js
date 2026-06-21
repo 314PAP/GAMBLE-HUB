@@ -207,7 +207,8 @@ export class GameManager {
     const resBox = document.getElementById('game-result');
     if (resBox) resBox.style.display = 'none';
 
-    // Lock UI during animation
+    // Lock UI during animation and reset previous selection highlights
+    this.ui.resetNumberButtons();
     this.lockGameControls(true);
 
     this.guessing.play(selectedNum, min, max, this.activeBet, multiplier, (res) => {
