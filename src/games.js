@@ -130,7 +130,10 @@ export class GameManager {
     this.db.checkMilestones(this.currentPlayer, oldBalance - this.activeBet, newBalance);
     
     // Odeslat aktuální skóre na Firebase (async, fire & forget)
-    if (this.api) this.api.submitScore(this.currentPlayer, newBalance);
+    if (this.api) {
+      this.api.submitScore(this.currentPlayer, newBalance);
+      this.api.submitMatch(this.currentPlayer, gameName, this.activeBet, resultText, isWin, isWin ? winAmount : -this.activeBet);
+    }
 
     // Update UI profile
     this.ui.updateMiniProfile(this.currentPlayer, newBalance);

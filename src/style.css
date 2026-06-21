@@ -896,3 +896,47 @@ input:focus {
 .info-panel-body strong {
   color: var(--neon-orange);
 }
+
+/* Interactive Leaderboard Card hover styles */
+.leaderboard-card-clickable {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.leaderboard-card-clickable:hover {
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 8px 30px rgba(0, 240, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Modal sizing adjustments */
+#explorer-modal .modal-content {
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Custom select styling for modal */
+#explorer-modal select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 14px;
+  padding-right: 28px !important;
+}
+
+#explorer-modal select:focus {
+  outline: none;
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 10px var(--neon-blue-glow);
+}
+
+#explorer-modal input:focus {
+  outline: none;
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 10px var(--neon-blue-glow);
+}
+
+#explorer-modal button {
+  transition: all 0.2s ease;
+}

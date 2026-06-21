@@ -8,6 +8,11 @@ export class GameUI {
     this.api = api;
     this.activeScreen = 'screen-login';
     this.statsChartInstance = null;
+    this.leaderboardData = [];
+    this.historyData = [];
+    this.activeExplorerTab = 'leaderboard';
+    this.historySortField = 'timestamp';
+    this.historySortAsc = false;
   }
 
   // Transitions between screens with a fade effect
@@ -366,6 +371,230 @@ export class GameUI {
     if (panel) {
       panel.style.display = 'none';
     }
+  }
+
+  // Open the Global History & Leaderboard Explorer modal
+  async openExplorer() {
+    const modal = document.getElementById('explorer-modal');
+    if (!modal) return;
+    modal.style.display = 'flex';
+
+    // Reset search inputs and filters
+    const searchL = document.getElementById('leaderboard-search');
+    if (searchL) searchL.value = '';
+    const searchH = document.getElementById('history-search');
+    if (searchH) searchH.value = '';
+    const filterG = document.getElementById('history-filter-game');
+    if (filterG) filterG.value = '';
+    const filterR = document.getElementById('history-filter-result');
+    if (filterR) filterR.value = '';
+
+    // Set default tab
+    this.prepniExplorerTab('leaderboard');
+
+    // Show loading
+    const listL = document.getElementById('explorer-leaderboard-list');
+    if (listL) listL.innerHTML = `<span class="text-[#475569] text-xs italic p-4 text-center block">🔄 Načítám žebříček...</span>`;
+    const listH = document.getElementById('explorer-history-list');
+    if (listH) listH.innerHTML = `<span class="text-[#475569] text-xs italic p-4 text-center block">🔄 Načítám historii...</span>`;
+
+    try {
+      // Fetch both datasets concurrently
+      const [leaderboard, history] = await Promise.all([
+        this.api.getGlobalLeaderboard(),
+        this.api.getGlobalMatches()
+      ]);
+
+      this.leaderboardData = leaderboard;
+      this.historyData = history;
+
+      this.renderExplorerLeaderboard();
+      this.renderExplorerHistory();
+    } catch (e) {
+      console.error("Failed to load explorer data", e);
+      if (listL) listL.innerHTML = `<span class="text-[#ff0055] text-xs p-4 text-center block">Chyba při načítání dat</span>`;
+      if (listH) listH.innerHTML = `<span class="text-[#ff0055] text-xs p-4 text-center block">Chyba při načítání dat</span>`;
+    }
+  }
+
+  closeExplorer() {
+    const modal = document.getElementById('explorer-modal');
+    if (modal) modal.style.display = 'none';
+  }
+
+  prepniExplorerTab(tabName) {
+    this.activeExplorerTab = tabName;
+    const tabLeaderboard = document.getElementById('explorer-tab-leaderboard');
+    const tabHistory = document.getElementById('explorer-tab-history');
+    const secLeaderboard = document.getElementById('explorer-sec-leaderboard');
+    const secHistory = document.getElementById('explorer-sec-history');
+
+    if (tabName === 'leaderboard') {
+      if (tabLeaderboard) {
+        tabLeaderboard.classList.add('border-[#ff9f1c]', 'text-[#ff9f1c]');
+        tabLeaderboard.classList.remove('border-transparent', 'text-[#94a3b8]');
+      }
+      if (tabHistory) {
+        tabHistory.classList.remove('border-[#ff9f1c]', 'text-[#ff9f1c]');
+        tabHistory.classList.add('border-transparent', 'text-[#94a3b8]');
+      }
+      if (secLeaderboard) secLeaderboard.style.display = 'block';
+      if (secHistory) secHistory.style.display = 'none';
+    } else {
+      if (tabHistory) {
+        tabHistory.classList.add('border-[#ff9f1c]', 'text-[#ff9f1c]');
+        tabHistory.classList.remove('border-transparent', 'text-[#94a3b8]');
+      }
+      if (tabLeaderboard) {
+        tabLeaderboard.classList.remove('border-[#ff9f1c]', 'text-[#ff9f1c]');
+        tabLeaderboard.classList.add('border-transparent', 'text-[#94a3b8]');
+      }
+      if (secLeaderboard) secLeaderboard.style.display = 'none';
+      if (secHistory) secHistory.style.display = 'block';
+    }
+  }
+
+  renderExplorerLeaderboard(filteredData = null) {
+    const list = document.getElementById('explorer-leaderboard-list');
+    if (!list) return;
+
+    const data = filteredData || this.leaderboardData;
+    if (data.length === 0) {
+      list.innerHTML = `<span class="text-[#475569] text-xs italic p-4 text-center block">Žádní hráči nenalezeni</span>`;
+      return;
+    }
+
+    let html = '';
+    const medals = ['🥇', '🥈', '🥉'];
+    data.forEach((record, idx) => {
+      // Find overall index from original data for correct medal/ranking
+      const originalIdx = this.leaderboardData.findIndex(r => r.jmeno === record.jmeno);
+      const medal = medals[originalIdx] || `#${originalIdx + 1}`;
+
+      html += `
+        <div class="flex justify-between items-center py-2.5 px-3 bg-white/5 border border-white/5 rounded-xl text-sm transition-all hover:bg-white/10">
+          <span class="font-bold text-[#94a3b8] w-6 text-center">${medal}</span>
+          <span class="flex-grow pl-3 text-white font-medium">${record.jmeno}</span>
+          <span class="font-bold text-[#2ec4b6]">${record.castka} Kč</span>
+        </div>
+      `;
+    });
+    list.innerHTML = html;
+  }
+
+  renderExplorerHistory(filteredData = null) {
+    const list = document.getElementById('explorer-history-list');
+    if (!list) return;
+
+    const data = filteredData || this.historyData;
+    if (data.length === 0) {
+      list.innerHTML = `<span class="text-[#475569] text-xs italic p-4 text-center block">Žádná historie her nenalezena</span>`;
+      return;
+    }
+
+    let html = '';
+    data.forEach(item => {
+      const isWin = item.isWin;
+      const winVal = item.winAmount;
+      const formattedWin = winVal > 0 ? `+${winVal} Kč` : `${winVal} Kč`;
+      const timeString = item.timestamp ? new Date(item.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'}) : '';
+
+      // Map internal game code to user-friendly label
+      let gameLabel = item.gameName;
+      if (item.gameName === 'Bary3x3') gameLabel = '🎰 Automat';
+      else if (item.gameName === 'VíceMéně') gameLabel = '🃏 Hi-Lo';
+
+      html += `
+        <div class="flex justify-between items-center py-2 px-3 bg-white/5 border-l-4 ${isWin ? 'border-l-[#2ec4b6]' : 'border-l-[#ff0055]'} rounded-r-xl text-xs">
+          <div class="flex flex-col gap-0.5">
+            <span class="font-semibold text-white">${item.username}</span>
+            <span class="text-[10px] text-[#475569]">${gameLabel} – ${timeString}</span>
+          </div>
+          <div class="flex flex-col items-end gap-0.5">
+            <span class="font-bold ${isWin ? 'text-[#2ec4b6]' : 'text-[#ff0055]'}">${formattedWin}</span>
+            <span class="text-[10px] text-[#94a3b8] opacity-75">${item.resultText || ''}</span>
+          </div>
+        </div>
+      `;
+    });
+    list.innerHTML = html;
+  }
+
+  filtrujLeaderboard() {
+    const searchVal = (document.getElementById('leaderboard-search')?.value || '').trim().toLowerCase();
+    if (!searchVal) {
+      this.renderExplorerLeaderboard();
+      return;
+    }
+
+    const filtered = this.leaderboardData.filter(r => r.jmeno.toLowerCase().includes(searchVal));
+    this.renderExplorerLeaderboard(filtered);
+  }
+
+  filtrujHistorii() {
+    const searchVal = (document.getElementById('history-search')?.value || '').trim().toLowerCase();
+    const gameVal = document.getElementById('history-filter-game')?.value || '';
+    const resultVal = document.getElementById('history-filter-result')?.value || '';
+
+    let filtered = [...this.historyData];
+
+    // Filter by name
+    if (searchVal) {
+      filtered = filtered.filter(item => item.username.toLowerCase().includes(searchVal));
+    }
+
+    // Filter by game
+    if (gameVal) {
+      filtered = filtered.filter(item => item.gameName === gameVal);
+    }
+
+    // Filter by result
+    if (resultVal) {
+      if (resultVal === 'win') {
+        filtered = filtered.filter(item => item.isWin);
+      } else {
+        filtered = filtered.filter(item => !item.isWin);
+      }
+    }
+
+    // Sort the filtered results based on current sorting selection
+    this.sortHistoryData(filtered);
+    this.renderExplorerHistory(filtered);
+  }
+
+  seradHistorii(columnName) {
+    if (this.historySortField === columnName) {
+      this.historySortAsc = !this.historySortAsc;
+    } else {
+      this.historySortField = columnName;
+      this.historySortAsc = false;
+    }
+    this.filtrujHistorii();
+  }
+
+  sortHistoryData(data) {
+    const field = this.historySortField;
+    const asc = this.historySortAsc;
+
+    data.sort((a, b) => {
+      let valA = a[field];
+      let valB = b[field];
+
+      if (field === 'timestamp') {
+        valA = new Date(valA || 0).getTime();
+        valB = new Date(valB || 0).getTime();
+      } else if (field === 'winAmount') {
+        valA = Number(valA || 0);
+        valB = Number(valB || 0);
+      } else if (typeof valA === 'string') {
+        valA = valA.toLowerCase();
+        valB = valB.toLowerCase();
+      }
+
+      if (valA < valB) return asc ? -1 : 1;
+      if (valA > valB) return asc ? 1 : -1;
+      return 0;
+    });
   }
 }
 

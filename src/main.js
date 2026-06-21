@@ -158,6 +158,25 @@ window.zavriStatsModal = () => {
   ui.closeStatsModal();
 };
 
+window.otevriExplorer = () => {
+  ui.openExplorer();
+};
+window.zavriExplorer = () => {
+  ui.closeExplorer();
+};
+window.prepniExplorerTab = (tabName) => {
+  ui.prepniExplorerTab(tabName);
+};
+window.filtrujLeaderboard = () => {
+  ui.filtrujLeaderboard();
+};
+window.filtrujHistorii = () => {
+  ui.filtrujHistorii();
+};
+window.seradHistorii = (columnName) => {
+  ui.seradHistorii(columnName);
+};
+
 window.toggleInfoPanel = () => {
   ui.toggleInfoPanel(gm.activeGameId);
 };

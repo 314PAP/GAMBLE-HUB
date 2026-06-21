@@ -58,4 +58,44 @@ export class API {
     }
     return Promise.resolve(true);
   }
+
+  // Odešle záznam o zápasu do historie na Firebase
+  async submitMatch(username, gameName, bet, resultText, isWin, winAmount) {
+    if (this.isOnline) {
+      try {
+        const matchesCol = collection(this.firestore, "matches");
+        const matchDoc = doc(matchesCol);
+        await setDoc(matchDoc, {
+          username,
+          gameName,
+          bet,
+          resultText,
+          isWin,
+          winAmount,
+          timestamp: new Date().toISOString()
+        });
+      } catch (e) {
+        console.error('Failed to submit match to Firebase', e);
+      }
+    }
+  }
+
+  // Získá globální historii her z Firebase
+  async getGlobalMatches() {
+    if (this.isOnline) {
+      try {
+        const q = query(collection(this.firestore, "matches"), orderBy("timestamp", "desc"), limit(100));
+        const querySnapshot = await getDocs(q);
+        const results = [];
+        querySnapshot.forEach((doc) => {
+          results.push(doc.data());
+        });
+        return results;
+      } catch (e) {
+        console.error('Failed to fetch global matches', e);
+        return [];
+      }
+    }
+    return [];
+  }
 }
