@@ -17,7 +17,7 @@
     <div id="screen-login" class="screen active">
         <h1>GAMBLE HUB</h1>
         <div class="leaderboard-card-clickable bg-black/30 border border-white/5 rounded-2xl p-4 mb-5 cursor-pointer transition-all hover:border-[#d4af37]/50 hover:shadow-[0_0_15px_rgba(212,175,55,0.15)]" onclick="otevriExplorer()">
-            <div class="flex items-center justify-between font-['Orbitron',sans-serif] text-[12px] text-[#ff5500] tracking-wider mb-3 uppercase">
+            <div class="flex items-center justify-between font-['Orbitron',sans-serif] text-[12px] text-[var(--neon-gold)] tracking-wider mb-3 uppercase">
                 <span class="flex items-center gap-1.5">🏆 Top Hráči <span class="leaderboard-badge"></span></span>
                 <span class="text-[10px] text-[#475569] lowercase tracking-normal font-sans italic hover:text-[#ffd700]">detaily ➔</span>
             </div>
@@ -37,7 +37,7 @@
 
     <!-- 1B. SEZNAM ÚČTŮ -->
     <div id="screen-select-user" class="screen">
-        <h2>👥 Vyber Účet</h2>
+        <h2 style="color: var(--neon-purple);">👥 Vyber Účet</h2>
         <div id="users-list" class="max-h-[250px] overflow-y-auto my-4 flex flex-col gap-2.5 pr-1"></div>
         <button class="btn btn-danger mt-4" onclick="zpetDoMenu()">Zpět</button>
     </div>

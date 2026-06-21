@@ -1,0 +1,204 @@
+/* src/components/buttons.css */
+/* Unified button styles for premium gold theme */
+/* All button variants share the same base appearance */
+/* Neon arcade button base */
+.btn,
+.btn-success,
+.btn-danger,
+.btn-info,
+.btn-primary,
+.btn-red,
+.btn-purple,
+.btn-auto,
+.btn-bet,
+.btn-num,
+.btn-icon-only {
+  background: #000000; /* deep black */
+  border: 2px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  padding: 14px 20px;
+  width: 100%;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: 0 4px 6px -1px rgba(0,255,255,0.3);
+}
+
+/* Hover neon glow */
+.btn:hover,
+.btn-success:hover,
+.btn-danger:hover,
+.btn-info:hover,
+.btn-primary:hover,
+.btn-red:hover,
+.btn-purple:hover,
+.btn-auto:hover,
+.btn-bet:hover,
+.btn-num:hover,
+.btn-icon-only:hover {
+  transform: translateY(-2px);
+  background: rgba(0,255,255,0.2);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 12px var(--neon-cyan-glow);
+}
+
+/* Hover state – subtle gold glow and upward lift */
+.btn:hover,
+.btn-success:hover,
+.btn-danger:hover,
+.btn-info:hover,
+.btn-primary:hover,
+.btn-red:hover,
+.btn-purple:hover,
+.btn-auto:hover,
+.btn-bet:hover,
+.btn-num:hover,
+.btn-icon-only:hover {
+  transform: translateY(-2px);
+  background: rgba(212,175,55,0.2);
+  border-color: var(--neon-gold);
+  box-shadow: 0 0 12px var(--neon-gold-glow);
+}
+
+/* Active state – reset lift */
+.btn:active,
+.btn-success:active,
+.btn-danger:active,
+.btn-info:active,
+.btn-primary:active,
+.btn-red:active,
+.btn-purple:active,
+.btn-auto:active,
+.btn-bet:active,
+.btn-num:active,
+.btn-icon-only:active {
+  transform: translateY(0);
+}
+
+/* Ensure inner text/icons inherit gold colour */
+.btn *,
+.btn-success *,
+.btn-danger *,
+.btn-info *,
+.btn-primary *,
+.btn-red *,
+.btn-purple *,
+.btn-auto *,
+.btn-bet *,
+.btn-num *,
+.btn-icon-only * {
+  color: var(--neon-gold) !important;
+}
+
+/* Specific overrides for .btn-num to maintain square shape and smaller font */
+.btn-num {
+  aspect-ratio: 1;
+  width: auto;
+  min-width: 0;
+  padding: 0;
+  font-size: 11px;
+  border-radius: 8px;
+  font-weight: 700;
+  transition: all 0.15s ease;
+  box-sizing: border-box;
+}
+
+/* Hide any legacy icons inside number buttons */
+.btn i,
+.btn svg {
+  display: none;
+}
+
+/* Existing icon hide for .btn-num remains */
+
+
+/* .btn-icon-only specific size */
+.btn-icon-only {
+  font-size: 12px;
+  padding: 10px;
+}
+
+.btn-info,
+  .btn-primary,
+  .btn-red,
+  .btn-purple,
+  .btn-auto,
+  .btn-bet,
+  .btn-num,
+  .btn-icon-only {
+    background: #000000; /* black background */
+    border: 2px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    padding: 14px 20px;
+    width: 100%;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 4px 6px -1px rgba(0,255,255,0.3);
+  }
+
+/* Hover state – subtle gold glow and upward lift */
+.btn:hover,
+.btn-success:hover,
+.btn-danger:hover,
+.btn-info:hover,
+.btn-primary:hover,
+.btn-red:hover,
+.btn-purple:hover,
+.btn-auto:hover,
+.btn-bet:hover,
+.btn-num:hover,
+.btn-icon-only:hover {
+  transform: translateY(-2px);
+  background: rgba(212,175,55,0.2);
+  border-color: var(--neon-gold);
+  box-shadow: 0 0 12px var(--neon-gold-glow);
+}
+
+/* Active state – reset lift */
+.btn:active,
+.btn-success:active,
+.btn-danger:active,
+.btn-info:active,
+.btn-primary:active,
+.btn-red:active,
+.btn-purple:active,
+.btn-auto:active,
+.btn-bet:active,
+.btn-num:active,
+.btn-icon-only:active {
+  transform: translateY(0);
+}
+
+/* Ensure inner text/icons inherit gold colour */
+.btn *,
+.btn-success *,
+.btn-danger *,
+.btn-info *,
+.btn-primary *,
+.btn-red *,
+.btn-purple *,
+.btn-auto *,
+.btn-bet *,
+.btn-num *,
+.btn-icon-only * {
+  color: var(--neon-gold) !important;
+}
+
+/* Hide any legacy icons inside number buttons */
+.btn-num i,
+.btn-num svg {
+  display: none;
+}

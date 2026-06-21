@@ -1,0 +1,50 @@
+/* neon theme */
+/* Apply neon glow to panels and cards */
+.panel,
+.modal-content,
+.info-panel-content {
+  background: var(--panel-bg);
+  border: 2px solid var(--neon-gold);
+  box-shadow: 0 0 12px var(--neon-gold-glow);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  color: var(--text-primary);
+}
+
+/* Neon card for leaderboard items */
+.leaderboard-card-clickable {
+  background: rgba(0,0,0,0.5);
+  border: 2px solid var(--neon-blue);
+  box-shadow: 0 0 10px var(--neon-blue-glow);
+  transition: all 0.2s ease;
+}
+.leaderboard-card-clickable:hover {
+  border-color: var(--neon-gold);
+  box-shadow: 0 0 15px var(--neon-gold-glow);
+  transform: translateY(-2px);
+}
+
+/* Neon text glow utility */
+.neon-text {
+  color: var(--neon-gold);
+  text-shadow: 0 0 6px var(--neon-gold-glow), 0 0 12px var(--neon-gold-glow);
+}
+
+/* Apply neon borders to input fields */
+input,
+select,
+textarea {
+  background: rgba(0,0,0,0.3);
+  border: 2px solid var(--neon-purple);
+  color: var(--text-primary);
+  padding: 8px;
+  border-radius: 6px;
+  box-shadow: 0 0 5px var(--neon-purple-glow);
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--neon-gold);
+  box-shadow: 0 0 8px var(--neon-gold-glow);
+}

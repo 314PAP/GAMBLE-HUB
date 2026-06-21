@@ -86,7 +86,7 @@ export class GameUI {
       scores.slice(0, 5).forEach((record, idx) => {
         const medal = medals[idx] || `#${idx + 1}`;
         html += `
-          <div class="flex justify-between items-center py-2 px-1 border-b border-white/5 text-sm last:border-b-0">
+          <div class="leaderboard-item flex justify-between items-center py-2 px-1 text-sm">
             <span class="font-bold text-[#94a3b8] w-6 text-center">${medal}</span>
             <span class="flex-grow pl-3 text-white font-medium">${record.jmeno}</span>
             <span class="font-bold text-[#00ff99]">${record.castka} Kč</span>
@@ -117,15 +117,20 @@ export class GameUI {
       const balance = players[username];
       const row = document.createElement('div');
       row.className = 'flex items-center gap-2 animate-[slideIn_0.2s_ease-out]';
+      row.style.background = 'rgba(0,0,0,0.5)';
+      row.style.border = '2px solid var(--neon-purple)';
+      row.style.borderRadius = '12px';
+      row.style.padding = '4px';
+      row.style.marginBottom = '4px';
 
       const selectBtn = document.createElement('button');
-      selectBtn.className = 'btn flex-1 text-left justify-start pl-4';
-      selectBtn.innerHTML = `<span style="color:var(--text-secondary)">👤</span> <span style="font-weight:600">${username}</span> <span style="margin-left:auto; color:var(--neon-green)">${balance} Kč</span>`;
+      selectBtn.className = 'btn flex-1 text-left justify-start pl-4 account-btn bg-[var(--neon-purple)] border-2 border-[var(--neon-purple)] text-[var(--text-primary)]';
+      selectBtn.innerHTML = `<span class="account-name font-semibold text-[var(--text-primary)]">${username}</span> <span class="ml-auto text-[var(--neon-green)]">${balance} Kč</span>`;
       selectBtn.onclick = () => onSelect(username);
 
       const deleteBtn = document.createElement('button');
       deleteBtn.className = 'w-[50px] min-w-[50px] h-[50px] bg-[#ff0055]/15 border border-[#ff0055]/30 text-[#ff0055] p-0 rounded-xl flex items-center justify-center transition-colors hover:bg-[#ff0055] hover:text-white hover:border-[#ff0055]';
-      deleteBtn.innerHTML = '🗑️';
+      deleteBtn.innerHTML = '<span class="text-[20px]">🗑️</span>';      
       deleteBtn.onclick = (e) => {
         e.stopPropagation();
         
