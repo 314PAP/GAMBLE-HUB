@@ -1,4 +1,6 @@
 // Guessing games module (Guess 1-10, Guess 1-5, Dice, Roulette) with grid roll animations
+import gsap from 'gsap';
+import { sound } from '../sound';
 
 export class GuessingGame {
   constructor() {
