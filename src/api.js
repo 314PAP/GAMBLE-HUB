@@ -1,42 +1,61 @@
-// api.js - Abstrakce pro budoucí online připojení (Leaderboards, Účty)
-// V současnosti využívá lokální db.js jako fallback. Později se zde napojí fetch/axios.
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, doc, setDoc, getDocs, query, orderBy, limit } from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBvSU7f_QWDK1AkWtXcVaOkLrrzrukHOYE",
+  authDomain: "gamblehub-db.firebaseapp.com",
+  projectId: "gamblehub-db",
+  storageBucket: "gamblehub-db.firebasestorage.app",
+  messagingSenderId: "44269751263",
+  appId: "1:44269751263:web:c415d1004a73276fb5526a"
+};
 
 export class API {
   constructor(localDb) {
     this.db = localDb;
-    this.isOnline = false; // Příznak, zda používáme reálný server
-    this.baseUrl = 'https://api.gamblehub.example.com';
+    this.isOnline = false;
+    
+    try {
+      this.app = initializeApp(firebaseConfig);
+      this.firestore = getFirestore(this.app);
+      this.isOnline = true;
+    } catch(e) {
+      console.error("Firebase init failed", e);
+    }
   }
 
-  // Získá globální leaderboard (zatím lokální)
+  // Získá globální leaderboard z Firebase
   async getGlobalLeaderboard() {
     if (this.isOnline) {
       try {
-        const response = await fetch(`${this.baseUrl}/leaderboard`);
-        return await response.json();
+        const q = query(collection(this.firestore, "leaderboard"), orderBy("castka", "desc"), limit(10));
+        const querySnapshot = await getDocs(q);
+        const results = [];
+        querySnapshot.forEach((doc) => {
+          results.push({ jmeno: doc.id, castka: doc.data().castka });
+        });
+        return results;
       } catch (e) {
         console.error('Failed to fetch global leaderboard', e);
-        return this.db.getLeaderboard(); // fallback
+        return this.db.getLeaderboard(); // fallback na lokální
       }
     } else {
       return Promise.resolve(this.db.getLeaderboard());
     }
   }
 
-  // Odešle skóre hráče na server
+  // Odešle skóre hráče na server (pouze nejvyšší dosažené)
   async submitScore(username, balance) {
-    if (this.isOnline) {
+    if (this.isOnline && balance > 100) {
       try {
-        await fetch(`${this.baseUrl}/score`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, balance })
-        });
+        await setDoc(doc(this.firestore, "leaderboard", username), {
+          castka: balance,
+          updatedAt: new Date().toISOString()
+        }, { merge: true });
       } catch (e) {
-        console.error('Failed to submit score', e);
+        console.error('Failed to submit score to Firebase', e);
       }
     }
-    // V lokálním DB se skóre už ukládá jinde (savePlayers), ale sem by se dal přidat lokální sync
     return Promise.resolve(true);
   }
 }

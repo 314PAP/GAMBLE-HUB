@@ -3,8 +3,9 @@ import confetti from 'canvas-confetti';
 import Chart from 'chart.js/auto';
 
 export class GameUI {
-  constructor(db) {
+  constructor(db, api) {
     this.db = db;
+    this.api = api;
     this.activeScreen = 'screen-login';
     this.statsChartInstance = null;
   }
@@ -50,28 +51,47 @@ export class GameUI {
     });
   }
 
-  // Renders the leaderboard (Top 5 players) on login screen
-  renderLeaderboard() {
+  // Renders the leaderboard (Top 5 players) – async, fetches from Firebase if available
+  async renderLeaderboard() {
     const container = document.getElementById('leaderboard-content');
     if (!container) return;
 
-    const scores = this.db.getLeaderboard();
-    if (scores.length === 0) {
-      container.innerHTML = `<span style="color:#64748b; font-size:13px;">Zatím žádné rekordy...</span>`;
-      return;
-    }
+    // Loading stav
+    container.innerHTML = `<span class="text-[#475569] text-xs italic">🔄 Načítám žebříček...</span>`;
 
-    let html = '';
-    scores.slice(0, 5).forEach((record, idx) => {
-      html += `
-        <div class="flex justify-between items-center py-2 px-1 border-b border-white/5 text-sm last:border-b-0">
-          <span class="font-bold text-[#94a3b8]">#${idx + 1}</span>
-          <span class="flex-grow pl-3 text-white">${record.jmeno}</span>
-          <span class="font-bold text-[#00ff99]">${record.castka} Kč</span>
-        </div>
-      `;
-    });
-    container.innerHTML = html;
+    try {
+      const scores = await this.api.getGlobalLeaderboard();
+      const isOnline = this.api.isOnline;
+
+      if (scores.length === 0) {
+        container.innerHTML = `<span class="text-[#475569] text-[13px]">Zatím žádné rekordy...</span>`;
+        return;
+      }
+
+      const badge = isOnline
+        ? `<span class="text-[10px] text-[#00ff99] bg-[#00ff99]/10 border border-[#00ff99]/30 px-1.5 py-0.5 rounded-full ml-2">🌐 Online</span>`
+        : `<span class="text-[10px] text-[#475569] bg-white/5 border border-white/10 px-1.5 py-0.5 rounded-full ml-2">💾 Lokální</span>`;
+
+      // Update leaderboard title to show online/offline status
+      const titleEl = document.querySelector('#screen-login .leaderboard-badge');
+      if (titleEl) titleEl.innerHTML = badge;
+
+      let html = '';
+      const medals = ['🥇', '🥈', '🥉'];
+      scores.slice(0, 5).forEach((record, idx) => {
+        const medal = medals[idx] || `#${idx + 1}`;
+        html += `
+          <div class="flex justify-between items-center py-2 px-1 border-b border-white/5 text-sm last:border-b-0">
+            <span class="font-bold text-[#94a3b8] w-6 text-center">${medal}</span>
+            <span class="flex-grow pl-3 text-white font-medium">${record.jmeno}</span>
+            <span class="font-bold text-[#00ff99]">${record.castka} Kč</span>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    } catch (e) {
+      container.innerHTML = `<span class="text-[#475569] text-[13px]">Nepodařilo se načíst žebříček.</span>`;
+    }
   }
 
   // Renders the list of accounts with custom selection and delete handlers

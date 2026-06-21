@@ -7,11 +7,13 @@ import { GameDatabase } from './db';
 import { GameUI } from './ui';
 import { GameManager } from './games';
 import { sound } from './sound';
+import { API } from './api';
 
 // Initialize core components
 const db = new GameDatabase();
-const ui = new GameUI(db);
-const gm = new GameManager(db, ui);
+const api = new API(db);
+const ui = new GameUI(db, api);
+const gm = new GameManager(db, ui, api);
 
 // Global event handlers mounted on 'window' for HTML compatibility
 window.otevriPrihlaseni = () => {
@@ -34,7 +36,7 @@ window.otevriRegistraci = () => {
 window.zpetDoMenu = () => {
   gm.stopAutoPlay();
   ui.showScreen('screen-login');
-  ui.renderLeaderboard();
+  ui.renderLeaderboard(); // async – stáhne z Firebase
 };
 
 window.navratDoHubu = () => {
@@ -230,6 +232,9 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleBtn.classList.remove('muted');
     }
   }
+
+  // Načteme žebříček hned při startu (stáhne z Firebase)
+  ui.renderLeaderboard();
 
   // Global click listener for button sound effects
   document.addEventListener('click', (e) => {

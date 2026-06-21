@@ -22,7 +22,21 @@ export class GameDatabase {
   }
 
   getLeaderboard() {
-    return [...this.scoreTable].sort((a, b) => b.castka - a.castka);
+    // Odstranění duplicit – pro každého hráče zachováme jen to nejvyšší zaznamenané skóre
+    const maxScores = {};
+    this.scoreTable.forEach(record => {
+      if (!maxScores[record.jmeno] || maxScores[record.jmeno] < record.castka) {
+        maxScores[record.jmeno] = record.castka;
+      }
+    });
+
+    // Převedeme zpět na pole a seřadíme od nejvyššího
+    const uniqueLeaderboard = Object.keys(maxScores).map(jmeno => ({
+      jmeno,
+      castka: maxScores[jmeno]
+    }));
+
+    return uniqueLeaderboard.sort((a, b) => b.castka - a.castka);
   }
 
   createPlayer(username) {
@@ -80,16 +94,22 @@ export class GameDatabase {
   }
 
   checkMilestones(username, oldBalance, newBalance) {
-    const milestones = [200, 300, 400, 500, 600, 700, 800, 900, 1000, 1500, 2000, 3000, 5000, 10000];
-    let recordAdded = false;
-    milestones.forEach(m => {
-      if (oldBalance < m && newBalance >= m) {
+    // Už nepotřebujeme specifické milníky, prostě si pamatujeme nejvyšší skóre nad 100 Kč (což je starting balance)
+    if (newBalance > 100) {
+      // Zjistíme, jestli hráč už v tabulce má záznam
+      const existingRecordIndex = this.scoreTable.findIndex(r => r.jmeno === username);
+      
+      if (existingRecordIndex !== -1) {
+        // Hráč už je v tabulce, aktualizujeme pouze pokud je nové skóre vyšší
+        if (newBalance > this.scoreTable[existingRecordIndex].castka) {
+          this.scoreTable[existingRecordIndex].castka = newBalance;
+          this.saveAll();
+        }
+      } else {
+        // Úplně nový rekordman
         this.scoreTable.push({ jmeno: username, castka: newBalance });
-        recordAdded = true;
+        this.saveAll();
       }
-    });
-    if (recordAdded) {
-      this.saveAll();
     }
   }
 

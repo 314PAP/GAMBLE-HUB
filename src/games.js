@@ -7,9 +7,10 @@ import { GuessingGame } from './games/guessing';
 import { sound } from './sound';
 
 export class GameManager {
-  constructor(db, ui) {
+  constructor(db, ui, api) {
     this.db = db;
     this.ui = ui;
+    this.api = api;
     
     // Configs
     this.symbols = ["🍒", "🛎", "🍋", "⭐", "💎", "7️⃣"];
@@ -127,6 +128,9 @@ export class GameManager {
     // Log in DB
     this.db.recordMatch(this.currentPlayer, gameName, this.activeBet, resultText, isWin);
     this.db.checkMilestones(this.currentPlayer, oldBalance - this.activeBet, newBalance);
+    
+    // Odeslat aktuální skóre na Firebase (async, fire & forget)
+    if (this.api) this.api.submitScore(this.currentPlayer, newBalance);
 
     // Update UI profile
     this.ui.updateMiniProfile(this.currentPlayer, newBalance);
