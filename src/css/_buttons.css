@@ -109,4 +109,10 @@
   padding: 10px;
 }
 
-/* Additional component overrides (if any) can be added here */
+/* Losing number highlight */
+.btn-num.losing {
+  background: var(--neon-pink) !important;
+  color: #000000 !important;
+  border-color: var(--neon-purple);
+  box-shadow: 0 0 12px var(--neon-pink-glow);
+}

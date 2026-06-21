@@ -52,33 +52,11 @@ export class GuessingGame {
       }
     });
 
-    // Start rolling animation
+    // Start rolling animation using GSAP for rich, smooth visuals
     let currentIdx = 0;
-    let speed = 40; // Initial speed in ms
-    let elapsed = 0;
-    const duration = 1000; // total animation time in ms
-    
-    const roll = () => {
-      // Clear previous winning highlight
-      buttons.forEach(b => b.classList.remove('winning'));
-      
-      // Pick a random button to light up (excluding the selected one to keep it distinct)
-      let randomBtn;
-      do {
-        randomBtn = buttons[Math.floor(Math.random() * buttons.length)];
-      } while (buttons.length > 1 && parseInt(randomBtn.dataset.num) === selectedNum);
-      
-      randomBtn.classList.add('winning');
-      
-      elapsed += speed;
-      if (elapsed < duration - 200) {
-        // Fast rolling phase
-        setTimeout(roll, speed);
-      } else if (elapsed < duration) {
-        // Slowing down phase
-        speed += 60;
-        setTimeout(roll, speed);
-      } else {
+    const totalSteps = 16;
+    const tl = gsap.timeline({
+      onComplete: () => {
         // Final landing
         buttons.forEach(b => b.classList.remove('winning'));
         
@@ -86,19 +64,18 @@ export class GuessingGame {
         const winBtn = buttons.find(b => parseInt(b.dataset.num) === winningNum);
         if (winBtn) {
           winBtn.classList.add('winning');
+          gsap.fromTo(winBtn, { scale: 0.8 }, { scale: 1.1, duration: 0.4, yoyo: true, repeat: 1, ease: 'back.out(2)' });
         }
 
-        // Keep selected button highlighted as red if it was a loss, or green if win
+        // Keep selected button highlighted
         const selBtn = buttons.find(b => parseInt(b.dataset.num) === selectedNum);
         if (selBtn) {
           if (isWin) {
             selBtn.classList.remove('selected');
             selBtn.classList.add('winning');
           } else {
-            selBtn.style.background = 'var(--neon-pink)';
-            selBtn.style.color = '#fff';
-            selBtn.style.borderColor = 'var(--neon-pink)';
-            selBtn.style.boxShadow = '0 0 12px var(--neon-pink-glow)';
+            selBtn.classList.add('losing');
+            gsap.fromTo(selBtn, { scale: 0.8 }, { scale: 1.0, duration: 0.3, ease: 'power2.out' });
           }
         }
 
@@ -109,8 +86,23 @@ export class GuessingGame {
           resultText: `Tvá volba: ${selectedNum} | Padlo: ${winningNum}`
         });
       }
-    };
+    });
 
-    setTimeout(roll, speed);
+    // Create a sequential glowing wave across the buttons
+    for (let step = 0; step < totalSteps; step++) {
+      const targetBtn = buttons[Math.floor(Math.random() * buttons.length)];
+      const stepDuration = 0.05 + (step / totalSteps) * 0.15; // Slow down effect
+
+      tl.to(targetBtn, {
+        duration: stepDuration,
+        onStart: () => {
+          buttons.forEach(b => b.classList.remove('winning'));
+          if (parseInt(targetBtn.dataset.num) !== selectedNum) {
+            targetBtn.classList.add('winning');
+          }
+          sound.playClick();
+        }
+      });
+    }
   }
 }
