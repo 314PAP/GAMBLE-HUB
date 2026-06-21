@@ -1,0 +1,106 @@
+/* src/css/_slot.css */
+/* Slot Machine: machine shell, reels, cells, controls */
+
+.slot-machine {
+  background: #09090f;
+  border: 2px solid var(--neon-gold);
+  border-radius: 20px;
+  padding: 12px;
+  margin: 16px 0;
+  box-shadow: 0 0 25px rgba(255, 238, 0, 0.25);
+  position: relative;
+}
+
+.slot-machine::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  height: 2px;
+  background: rgba(255, 215, 0, 0.2);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.slot-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.slot-reel {
+  height: 100%;
+  position: relative;
+  background: linear-gradient(180deg, #101018 0%, #1e1e2d 50%, #101018 100%);
+  border: 1px solid rgba(0, 240, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.slot-reel-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.slot-cell {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  transition: text-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.slot-cell.win-active {
+  animation: cellGlow 0.2s infinite alternate;
+}
+
+/* Symbol neon glows */
+.slot-cell.sym-cherry {
+  text-shadow: 0 0 12px rgba(255, 0, 85, 0.8), 0 0 24px rgba(255, 0, 85, 0.4);
+}
+
+.slot-cell.sym-bell {
+  text-shadow: 0 0 12px rgba(255, 238, 0, 0.8), 0 0 24px rgba(255, 238, 0, 0.4);
+}
+
+.slot-cell.sym-lemon {
+  text-shadow: 0 0 12px rgba(255, 255, 0, 0.8), 0 0 24px rgba(255, 255, 0, 0.4);
+}
+
+.slot-cell.sym-star {
+  text-shadow: 0 0 12px rgba(255, 159, 28, 0.9), 0 0 24px rgba(255, 159, 28, 0.5);
+}
+
+.slot-cell.sym-diamond {
+  text-shadow: 0 0 12px rgba(0, 180, 216, 0.9), 0 0 24px rgba(0, 180, 216, 0.5);
+}
+
+.slot-cell.sym-seven {
+  text-shadow: 0 0 15px rgba(255, 0, 85, 1), 0 0 35px rgba(255, 0, 85, 0.6);
+  font-weight: 900;
+  animation: pulseSeven 0.8s infinite alternate;
+}
+
+@keyframes pulseSeven {
+  from { transform: scale(1); }
+  to { transform: scale(1.15); }
+}
+
+@keyframes cellGlow {
+  from { background: rgba(255, 159, 28, 0.2); box-shadow: inset 0 0 10px var(--neon-orange-glow); }
+  to { background: rgba(255, 238, 0, 0.4); box-shadow: inset 0 0 20px var(--neon-gold-glow); }
+}
+
+.slot-controls {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 12px;
+  margin: 12px 0;
+}

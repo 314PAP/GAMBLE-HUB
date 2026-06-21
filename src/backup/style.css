@@ -1,33 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Outfit:wght@300;400;500;600;700&display=swap');
 @import "./theme.css";
 @import "./components/buttons.css";
-:root {
-  --bg-gradient: radial-gradient(circle at 50% 30%, #201a0f 0%, #090805 100%);
-  --panel-bg: rgba(22, 19, 14, 0.85);
-  --panel-border: rgba(212, 175, 55, 0.15);
-  --text-primary: #fbf8f0;
-  --text-secondary: #c2b095;
-  
-  /* Neon & Premium Gold Palette */
-  --neon-orange: #ff9f1c;
-  --neon-orange-glow: rgba(255, 159, 28, 0.4);
-  --neon-green: #21c496;
-  --neon-green-glow: rgba(33, 196, 150, 0.4);
-  --neon-pink: #e01256;
-  --neon-pink-glow: rgba(224, 18, 86, 0.4);
-  --neon-blue: #00ffff;
-  --neon-blue-glow: rgba(0, 255, 255, 0.4);
-  --neon-cyan: #00ffff;
-  --neon-cyan-glow: rgba(0, 255, 255, 0.4);
-  --neon-purple: #bd00ff;
-  --neon-purple-glow: rgba(189, 0, 255, 0.4);
-  --neon-gold: #ffd700; /* kept but unused */
-  --neon-gold-glow: rgba(255, 215, 0, 0.45);
-  
-  --shadow-premium: 0 25px 50px -12px rgba(0, 0, 0, 0.85);
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-  --glass-blur: blur(20px);
-}
+/* Variable definitions moved to ./css/_variables.css */
 
 * {
   box-sizing: border-box;

@@ -1,57 +1,122 @@
-# Gamble-Hub Style Guide & UI Dokumentace
+# Gamble-Hub Style Guide & CSS Dokumentace
 
-Tento dokument slouží jako centrální reference pro design systém aplikace. Přecházíme na modulární systém pomocí **Tailwind CSS**, který zajišťuje konzistentní a responzivní design.
+Tento dokument popisuje aktuální modulární strukturu CSS a design systém aplikace.
 
-## 1. Barevná Paleta a Design Tokeny (Tailwind config)
+## 1. Adresářová struktura
 
-Aplikace využívá tmavý, "glassmorphism" vzhled s výraznými neonovými akcenty, připomínající moderní cyberpunkové nebo herní UI.
+```
+src/
+├── css/
+│   ├── _variables.css    // CSS custom properties (barevná paleta, glow, shadow)
+│   ├── _reset.css        // *, html, body, scrollbar
+│   ├── _typography.css   // Google fonty, h1/h2, .neon-text, @keyframes
+│   ├── _layout.css       // .container, .screen, grid/flex helpers, media queries
+│   ├── _components.css   // Tlačítka, inputy, modály, info-panel, sound-toggle
+│   ├── _slot.css         // Automat: reels, cells, symboly, slot-controls
+│   ├── _hilo.css         // Hi-Lo karty, number-grid, bet-buttons, .status-box
+│   └── main.css          // Jediný entry point – importuje všechny moduly
+├── tailwind.css          // Tailwind v4 base (@tailwind base/components/utilities)
+├── theme.css             // Globální .panel, .neon-text, input/select/textarea theme
+├── backup/               // Zálohy před-refaktoringem
+│   ├── style.css
+│   ├── components_buttons.css
+│   ├── _buttons_old.css
+│   └── ...
+```
 
-### Základní barvy
-* **Pozadí (Background):** Temně modrá/černá s gradientem (v Tailwindu dostupné přes speciální kontejnerové třídy nebo `bg-[#0a0a0f]`).
-* **Panely (Panels):** Poloprůhledné černé vrstvy s blur efektem (`backdrop-blur`).
-* **Text:** 
-  * Primární: `#f5f5fa` (např. `text-white` s mírným ztmavením)
-  * Sekundární: `#94a3b8` (Tailwind `text-slate-400` nebo `text-muted`)
+## 2. Entry point
 
-### Neonové Akcenty (Custom Tailwind Colors)
-V `tailwind.config.js` by měly být nadefinovány (nebo brzy budou) tyto specifické barvy pro tlačítka a zvýraznění:
-* `neon-blue`: `#00f0ff`
-* `neon-pink`: `#ff0055`
-* `neon-green`: `#00ff99`
-* `neon-orange`: `#ff5500`
-* `neon-gold`: `#ffe600`
+Vše importuje **`src/css/main.css`**, který je naimportován v `src/main.js`:
 
-## 2. Hlavní UI Komponenty
+```js
+import './css/main.css';
+```
 
-Pro zachování čistoty HTML se používají Tailwind utility, ale opakující se složité struktury (jako prémiová tlačítka) jsou seskupeny v `style.css` pomocí direktivy `@apply`.
+HTML (`index.html`) žádný `<link>` na CSS neobsahuje – vše prochází Vite/PostCSS pipeline.
 
-### Tlačítka (Buttons)
-Základní tlačítko se vyvolá přidáním utility tříd. Pro složitější gradienty s neonovými stíny zachováváme třídy jako:
-* `.btn-primary` (oranžové/červené tóny)
-* `.btn-success` (zelené/tyrkysové tóny)
-* `.btn-danger` (růžové/červené tóny)
-* `.btn-info` (modré tóny)
-* `.btn-gold` (zlaté prémiové tlačítko pro automaty)
-* **Příklad použití v HTML:**
-  ```html
-  <button class="btn btn-primary w-full">Vstoupit</button>
-  ```
+## 3. Pořadí importů v main.css
 
-### Herní Čísla (Number Grid)
-Pro klasické hry (Ruleta, Hádanky) používáme plně responzivní CSS Grid.
-* **Kontejner:** Převeden z fixního flexboxu na klasický CSS Grid v `#game-number-buttons` (s ohledem na počet čísel).
-* **Tlačítka (`.btn-num`):** Čtvercová tlačítka (`aspect-ratio: 1`), která se dynamicky přizpůsobují šířce sloupce. 
-* **Stavy tlačítek:** Třídy `.selected` a `.winning` mění barvu na `neon-blue` resp. `neon-green` a přidávají glow efekt (box-shadow).
+1. `../tailwind.css` – Tailwind v4 utility (kompilováno Vitem)
+2. `../theme.css` – `.panel`, `.neon-text`, input theming
+3. `./_variables.css` – CSS custom properties (`--neon-*`, `--glass-*`)
+4. `./_reset.css` – `* { box-sizing… }`, `html/body`, scrollbar
+5. `./_typography.css` – font import, `h1`, `h2`, `.neon-text`
+6. `./_layout.css` – `.container`, `.screen`, `.flex-row-center`, media queries
+7. `./_components.css` – tlačítka, inputy, modály, sound-toggle, glass ripple
+8. `./_slot.css` – `.slot-machine`, `.slot-reel`, `.slot-cell` symboly
+9. `./_hilo.css` – `.hilo-container`, karty, `.btn-bet`, `.status-box`
 
-### Hlavní Kontejner (Container)
-Celá aplikace žije uvnitř hlavního wrapperu `.container` (případně Tailwind ekvivalentní utility):
-* Původní maximální šířka 440px byla pro desktop rozšířena (např. `max-w-3xl`).
-* Poskytuje `backdrop-filter: blur()`, `border` a vnitřní `overflow-y: auto`, aby herní prvky (zejména dlouhá ruleta) nelezly do spodní řídící lišty a daly se pohodlně scrollovat.
+## 4. Design tokeny (CSS proměnné)
 
-## 3. Responzivita
-Aplikace funguje stylem **Mobile-First**.
-Základní (bez prefixu) Tailwind třídy se aplikují na mobilní telefony. Prefixy `sm:`, `md:` a `lg:` se používají k rozšíření UI pro tablety a desktopy.
-* **Typický příklad v ruletě:** Sázková tlačítka mají na mobilu `grid-cols-2`, na desktopu (od velikosti `sm:`) se roztáhnou na `sm:grid-cols-4`.
+Definováno v `_variables.css`:
+
+| Proměnná | Hodnota | Použití |
+|----------|---------|---------|
+| `--bg-gradient` | `radial-gradient(...)` | Pozadí `body` |
+| `--panel-bg` | `rgba(13,0,26,0.6)` | `.container`, modály |
+| `--panel-border` | `rgba(189,0,255,0.3)` | Border panelů |
+| `--text-primary` | `#ffd700` | Hlavní text |
+| `--text-secondary` | `#00ffff` | Vedlejší text |
+| `--neon-gold` / `--neon-gold-glow` | `#ffd700` / `rgba(255,215,0,0.65)` | Zlaté akcenty |
+| `--neon-purple` / `--neon-purple-glow` | `#bd00ff` / `rgba(189,0,255,0.6)` | Hlavní border/glow |
+| `--neon-cyan` / `--neon-cyan-glow` | `#00ffff` / `rgba(0,255,255,0.6)` | Cyan akcenty |
+| `--neon-blue` / `--neon-blue-glow` | `#00f0ff` / `rgba(0,240,255,0.6)` | Modré akcenty |
+| `--neon-pink` / `--neon-pink-glow` | `#ff007f` / `rgba(255,0,127,0.6)` | Růžové akcenty |
+| `--neon-green` / `--neon-green-glow` | `#39ff14` / `rgba(57,255,20,0.6)` | Zelené akcenty |
+| `--neon-orange` / `--neon-orange-glow` | `#ff9f1c` / `rgba(255,159,28,0.6)` | Oranžové akcenty |
+| `--shadow-premium` | `0 0 30px rgba(189,0,255,0.25), ...` | Premium shadow |
+| `--glass-blur` | `blur(25px)` | Backdrop filter hodnota |
+
+## 5. Komponenty
+
+### Tlačítka (`.btn`, `.btn-*`)
+Unified base v `_components.css`:
+- Všechny varianty sdílejí základ: `rgba(189,0,255,0.08)` bg, cyan border, gold text
+- Hover: purple border, cyan text/glow, lift `translateY(-2px)`
+- Active: reset lift
+- Speciální override: `.btn-auto` (černé, purple border), `.btn-num` (čtvercové)
+- Skrytí ikon: `.btn i, .btn svg, .btn-num i, .btn-num svg { display:none; }`
+
+### Inputy
+V `_components.css`: `input, select, textarea` – tmavé sklo, orange focus glow.
+
+### Modály (.modal)
+- `.modal` – fixed overlay, `rgba(13,0,26,0.9)`, `backdrop-blur(15px)`
+- `.modal-content` – purple border, premium shadow, scale-in animace
+- `.modal-header` – Orbitron font, gold text-shadow
+
+### Info Panel (.info-panel)
+- Stejné principy jako `.modal` ale z-index 200
+- Header s blue title, gold close button (hover rotate 90°)
+
+### Slot Machine (_slot.css)
+- `.slot-machine` – tmavé pozadí, gold border, gold glow
+- `.slot-reel` – gradient `#101018 → #1e1e2d`
+- `.slot-cell.sym-*` – neonové glowy pro každý symbol
+- `cellGlow`, `pulseSeven` animace
+
+### Hi-Lo (_hilo.css)
+- `.hilo-card` – 3D flip (`rotateY(180deg)`)
+- `.card-front` / `.card-back` – gradienty + border
+- `.btn-bet` – černé s purple border, selected stav má blue glow
+
+### Status Box (.status-box)
+- Fixed toast – `bottom: 150px`, purple border, blur
+- `.show` class spustí `toastIn` animaci (definováno v `_components.css`)
+
+## 6. Responzivita
+
+Breakpointy v `_layout.css`:
+- `@media (max-width: 600px)` – `.container` zmenšený padding, `border-radius: 16px`, `max-height: 100vh`
+- `@media (max-width: 480px)` – header stack (`flex-direction: column`), zvětšený `margin-right` u money, menší sound-toggle
+
+## 7. Tailwind v4
+
+Projekt používá Tailwind CSS v4 (`@tailwindcss/postcss`). Utility třídy se applikují přímo v HTML (např. `flex`, `grid-cols-2`, `text-[var(--neon-gold)]`). V build čas se generuje `dist/assets/index-*.css`. Nemusí se konfigurovat `tailwind.config.js` – v4 používá CSS-based konfiguraci.
+
+## 8. Zálohy
+
+Původní `src/style.css` (monolistický, ~900 řádků) je zálohován v `src/backup/style.css`. Dále: `components_buttons.css`, `_buttons_old.css`, `_components_old.css`, `_layout_old.css`, `_reset_old.css`, `_typography_old.css`, `tailwind.css`, `custom.css`, `theme.css`.
 
 ---
-*Tento dokument bude průběžně doplňován a aktualizován tak, jak bude postupovat refaktoring směrem k čistému Tailwind CSS.*
+*Dokumentace aktualizována po CSS modularizaci (2026-06-21).*

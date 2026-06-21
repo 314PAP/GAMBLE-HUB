@@ -1,5 +1,4 @@
-/* Backup of original style.css */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Outfit:wght@300;400;500;600;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Outfit:wght@300;400;500;600;700&display=swap');
 @import "./theme.css";
 @import "./components/buttons.css";
 :root {
@@ -29,4 +28,4 @@
   --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
   --glass-blur: blur(20px);
 }
-/* rest of original style.css omitted for brevity */
+/* ... rest of file omitted for brevity */

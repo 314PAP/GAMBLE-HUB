@@ -53,8 +53,19 @@ Aplikace byla rozdělena do logických modulů (Separation of Concerns):
 │   ├── sound.js                   # Zvukový syntezátor (Web Audio API, mute stav)
 │   ├── ui.js                      # UI manažer (obrazovky, modály, grafy, konfety a SweetAlert)
 │   ├── games.js                   # Hlavní orchestrátor sázek, autoplay režimu a her
-│   ├── style.css                  # Kompletní stylový předpis s neon design systémem
-│   └── main.js                    # Vstupní bod, inicializace a globální provázání eventů
+│   ├── css/
+│   │   ├── _variables.css       // CSS custom properties (barevná paleta, glow, shadow)
+│   │   ├── _reset.css           // *, html, body, scrollbar
+│   │   ├── _typography.css      // Google fonty, h1/h2, @keyframes
+│   │   ├── _layout.css          // .container, .screen, helpers, media queries
+│   │   ├── _components.css      // Tlačítka, inputy, modály, sound-toggle, glass
+│   │   ├── _slot.css            // Automat: reels, cells, symboly, glow animace
+│   │   ├── _hilo.css            // Hi-Lo karty, number-grid, bet-buttons, .status-box
+│   │   └── main.css             // Jediný CSS entry point
+│   ├── tailwind.css             // Tailwind v4 base (@tailwind base/components/utilities)
+│   ├── theme.css                // Globální .panel, .neon-text, input theming
+│   ├── backup/                  // Zálohy před-refaktoringem
+│   └── main.js                  // Vstupní bod, importuje ./css/main.css
 ├── index.html                     # Hlavní vstupní HTML šablona pro Vite
 ├── index3.html                    # Původní verze hry (zachována bokem jako záloha)
 ├── package.json                   # Konfigurace závislostí a skriptů

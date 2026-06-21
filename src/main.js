@@ -1,18 +1,23 @@
 // Main entry point initializing CSS and mounting game/UI events globally
 
-import './custom.css';
+import { ClientWebSocket } from './clientWebSocket.js';
 import './css/main.css';
 import { GameDatabase } from './db';
 import { GameUI } from './ui';
 import { GameManager } from './games';
 import { sound } from './sound';
 import { API } from './api';
+import { initButtonAnimations } from './animations/buttons.js';
 
 // Initialize core components
 const db = new GameDatabase();
 const api = new API(db);
 const ui = new GameUI(db, api);
 const gm = new GameManager(db, ui, api);
+
+// Initialize WebSocket connection
+const wsUrl = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/GAMBLE-HUB/';
+window.clientWS = new ClientWebSocket(wsUrl);
 
 // Global event handlers mounted on 'window' for HTML compatibility
 window.otevriPrihlaseni = () => {
@@ -275,12 +280,29 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', (e) => {
     const target = e.target;
     if (
-      target.closest('button') || 
-      target.closest('.btn-num') || 
-      target.closest('.btn-bet') || 
+      target.closest('button') ||
+      target.closest('.btn-num') ||
+      target.closest('.btn-bet') ||
       target.closest('.sound-toggle-btn')
     ) {
       sound.playClick();
     }
   });
+
+  // Button specific actions
+  const btnEnter = document.getElementById('btn-enter');
+  if (btnEnter) {
+    btnEnter.addEventListener('click', () => {
+      if (window.otevriPrihlaseni) window.otevriPrihlaseni();
+    });
+  }
+
+  const btnCreate = document.getElementById('btn-create-player');
+  if (btnCreate) {
+    btnCreate.addEventListener('click', () => {
+      if (window.otevriRegistraci) window.otevriRegistraci();
+    });
+  }
+
+  initButtonAnimations();
 });

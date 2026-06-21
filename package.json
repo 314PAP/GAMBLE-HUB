@@ -14,7 +14,7 @@
     "canvas-confetti": "^1.9.3",
     "chart.js": "^4.4.2",
     "firebase": "^12.15.0",
-    "gsap": "^3.12.5",
+    "gsap": "^3.15.0",
     "lucide": "^0.368.0",
     "sweetalert2": "^11.10.8"
   },

@@ -1,0 +1,149 @@
+/* src/css/_hilo.css */
+/* Hi-Lo cards, classic games grid, bet buttons, status-box */
+
+.hilo-container {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--panel-border);
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  margin: 16px 0;
+}
+
+.card-viewport {
+  perspective: 1000px;
+  width: 100px;
+  height: 140px;
+  margin: 16px auto;
+}
+
+.hilo-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hilo-card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.card-front {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 2px solid var(--neon-blue);
+  color: var(--text-primary);
+  font-size: 40px;
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 0 0 10px var(--neon-blue-glow);
+}
+
+.card-back {
+  background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%);
+  border: 2px solid var(--neon-pink);
+  transform: rotateY(180deg);
+}
+
+.card-back::after {
+  content: '🎰';
+  font-size: 32px;
+}
+
+.hilo-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* Classic games number grid */
+.number-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  margin: 12px auto;
+  max-width: 400px;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  border: 1px solid rgba(189, 0, 255, 0.1);
+}
+
+#game-number-buttons {
+  display: grid !important;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  border: 1px solid rgba(189, 0, 255, 0.1);
+}
+
+/* Bets bar */
+.bet-buttons, #bet-area {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.btn-bet {
+  background: #000000;
+  border: 2px solid var(--neon-purple);
+  color: var(--neon-purple);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-bet:hover {
+  border-color: var(--neon-gold);
+  color: var(--neon-gold);
+}
+
+.btn-bet.selected {
+  border-color: var(--neon-blue);
+  color: var(--text-primary);
+  background: rgba(0, 180, 216, 0.15);
+  box-shadow: 0 0 12px var(--neon-blue-glow);
+}
+
+/* Result box / toast */
+.status-box {
+  position: absolute;
+  bottom: 150px;
+  left: 20px;
+  right: 20px;
+  border: 2px solid var(--neon-purple);
+  padding: 10px;
+  border-radius: 12px;
+  background-color: rgba(18, 0, 36, 0.95);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.4;
+  z-index: 90;
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+}

@@ -13,9 +13,11 @@
 .btn-bet,
 .btn-num,
 .btn-icon-only {
-  background: #000000; /* deep black */
-  border: 2px solid var(--neon-cyan);
-  color: var(--neon-cyan);
+  background: rgba(255, 255, 255, 0.08); /* glassy translucent */
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-primary);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   padding: 14px 20px;
   width: 100%;
   border-radius: 14px;
@@ -27,7 +29,23 @@
   justify-content: center;
   gap: 8px;
   transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
-  box-shadow: 0 4px 6px -1px rgba(0,255,255,0.3);
+  box-shadow: 0 0 12px var(--neon-blue-glow);
+}
+
+/* Hover glow */
+.btn:hover,
+.btn-success:hover,
+.btn-danger:hover,
+.btn-info:hover,
+.btn-primary:hover,
+.btn-red:hover,
+.btn-purple:hover,
+.btn-auto:hover,
+.btn-bet:hover,
+.btn-num:hover,
+.btn-icon-only:hover {
+  box-shadow: 0 0 20px var(--neon-pink-glow);
+  transform: translateY(-2px);
 }
 
 /* Hover neon glow */
@@ -127,30 +145,7 @@
   padding: 10px;
 }
 
-.btn-info,
-  .btn-primary,
-  .btn-red,
-  .btn-purple,
-  .btn-auto,
-  .btn-bet,
-  .btn-num,
-  .btn-icon-only {
-    background: #000000; /* black background */
-    border: 2px solid var(--neon-cyan);
-    color: var(--neon-cyan);
-    padding: 14px 20px;
-    width: 100%;
-    border-radius: 14px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
-    box-shadow: 0 4px 6px -1px rgba(0,255,255,0.3);
-  }
+/* Legacy black‑background button styles removed – glassy styles are defined above */
 
 /* Hover state – subtle gold glow and upward lift */
 .btn:hover,
@@ -203,5 +198,11 @@
 /* Hide any legacy icons inside number buttons */
 .btn-num i,
 .btn-num svg {
+  display: none;
+}
+
+/* Hide all icons in any button */
+[class*="btn"] i,
+[class*="btn"] svg {
   display: none;
 }

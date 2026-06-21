@@ -3,49 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎰 GAMBLE HUB 🎰</title>
+    <title>GAMBLE HUB</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎰</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="/assets/node_icon.svg">
 </head>
 <body>
 
 <div class="container">
     <!-- Global Sound Toggle -->
-    <div class="sound-toggle-btn" id="global-sound-toggle" onclick="toggleMuteState()">🔊</div>
+    <div class="sound-toggle-btn" id="global-sound-toggle" onclick="toggleMuteState()">Sound</div>
 
     <!-- 1. LOGIN SCREEN -->
     <div id="screen-login" class="screen active">
         <h1>GAMBLE HUB</h1>
         <div class="leaderboard-card-clickable bg-[rgba(13,0,26,0.6)] border border-[rgba(189,0,255,0.3)] rounded-2xl p-4 mb-5 cursor-pointer transition-all hover:border-[var(--neon-gold)] hover:shadow-[0_0_15px_var(--neon-gold-glow)]" onclick="otevriExplorer()">
             <div class="flex items-center justify-between font-['Orbitron',sans-serif] text-[12px] text-[var(--neon-gold)] tracking-wider mb-3 uppercase" style="text-shadow: 0 0 5px var(--neon-gold-glow);">
-                <span class="flex items-center gap-1.5">🏆 Top Hráči <span class="leaderboard-badge"></span></span>
+                <span class="flex items-center gap-1.5">Top Hráči <span class="leaderboard-badge"></span></span>
                 <span class="text-[10px] text-[var(--neon-cyan)] lowercase tracking-normal font-sans italic hover:text-[var(--neon-gold)]" style="text-shadow: 0 0 5px var(--neon-cyan-glow);">detaily ➔</span>
             </div>
             <div id="leaderboard-content" class="flex flex-col gap-2">
-                <span class="text-[var(--neon-gold)] text-xs italic" style="text-shadow: 0 0 5px var(--neon-gold-glow);">🔄 Načítám žebříček...</span>
+                <span class="text-[var(--neon-gold)] text-xs italic" style="text-shadow: 0 0 5px var(--neon-gold-glow);">Načítám žebříček...</span>
             </div>
             <div id="visit-counter" class="text-center text-sm mt-2" style="color: var(--neon-cyan); text-shadow: 0 0 5px var(--neon-cyan-glow);"></div>
         </div>
         <div class="flex flex-col gap-3">
-            <button class="btn btn-primary" onclick="otevriPrihlaseni()">
-                <span>Vstoupit do herny</span>
-            </button>
-            <button class="btn btn-success" onclick="otevriRegistraci()">
-                <span>Nový hráč (100 Kč)</span>
-            </button>
+            <button id="btn-enter" class="btn btn-primary" onclick="otevriPrihlaseni()"><span class="icon-node"></span> Vstoupit do herny</button>
+            <button id="btn-create-player" class="btn btn-success" onclick="otevriRegistraci()"><span class="icon-node"></span> Nový hráč (100 Kč)</button>
         </div>
     </div>
 
     <!-- 1B. SEZNAM ÚČTŮ -->
     <div id="screen-select-user" class="screen">
-        <h2 style="color: var(--neon-purple);">👥 Vyber Účet</h2>
+        <h2 style="color: var(--neon-purple);">Vyber Účet</h2>
         <div id="users-list" class="max-h-[250px] overflow-y-auto my-4 flex flex-col gap-2.5 pr-1"></div>
         <button class="btn btn-danger mt-4" onclick="zpetDoMenu()">Zpět</button>
     </div>
 
     <!-- 1C. REGISTRACE -->
     <div id="screen-register" class="screen">
-        <h2>🆕 Nový Hráč</h2>
+        <h2><span class="icon-node"></span> Nový Hráč</h2>
         <input type="text" id="reg-name" placeholder="Zadej jméno" onkeydown="checkEnter(event, potvrditRegistraci)">
         <div class="flex flex-col gap-2.5">
             <button class="btn btn-success" onclick="potvrditRegistraci()">Vytvořit účet</button>
@@ -57,19 +53,19 @@
     <div id="screen-hub" class="screen">
         <div class="flex justify-between items-center bg-[rgba(13,0,26,0.65)] border-2 border-[var(--neon-purple)] py-3 px-4.5 rounded-2xl mb-4 text-sm" style="box-shadow: 0 0 10px var(--neon-purple-glow);">
             <div class="font-semibold text-[var(--neon-gold)] flex items-center gap-1.5" style="text-shadow: 0 0 5px var(--neon-gold-glow);">
-                <span>👤</span> <span id="hub-player-name"></span>
+                <span class="icon-node"></span> <span id="hub-player-name"></span>
             </div>
             <div class="font-bold text-[var(--neon-green)] flex items-center gap-1.5" style="text-shadow: 0 0 5px var(--neon-green-glow);">
                 <span id="hub-player-money"></span> <span>Kč</span>
             </div>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-            <button class="btn btn-gold" onclick="spustitHru(5)">🎰 AUTOMAT BARY 3x3</button>
-            <button class="btn btn-danger" onclick="spustitHru(6)">🃏 VÍCE / MÉNĚ (Hi-Lo)</button>
-            <button class="btn btn-red" onclick="spustitHru(4)">🔴 Ruleta 0-36 (36x)</button>
-            <button class="btn btn-info" onclick="spustitHru(1)">🎲 Hádanka 1-10 (10x)</button>
-            <button class="btn btn-primary" onclick="spustitHru(2)">🎲 Hádanka 1-5 (5x)</button>
-            <button class="btn btn-purple" onclick="spustitHru(3)">🎲 Kostka 1-6 (6x)</button>
+            <button class="btn btn-gold" onclick="spustitHru(5)"><span class="icon-node"></span> AUTOMAT BARY 3x3</button>
+            <button class="btn btn-danger" onclick="spustitHru(6)"><span class="icon-node"></span> VÍCE / MÉNĚ (Hi-Lo)</button>
+            <button class="btn btn-red" onclick="spustitHru(4)"><span class="icon-node"></span> Ruleta 0-36 (36x)</button>
+            <button class="btn btn-info" onclick="spustitHru(1)"><span class="icon-node"></span> Hádanka 1-10 (10x)</button>
+            <button class="btn btn-primary" onclick="spustitHru(2)"><span class="icon-node"></span> Hádanka 1-5 (5x)</button>
+            <button class="btn btn-purple" onclick="spustitHru(3)"><span class="icon-node"></span> Kostka 1-6 (6x)</button>
         </div>
         <button class="btn btn-danger" onclick="odhlasitSe()">Opustit hernu</button>
     </div>
@@ -102,8 +98,8 @@
                 </div>
             </div>
             <div class="slot-controls">
-                <button class="btn btn-success" id="btn-spin-slots" onclick="kliknutoCislo(0)" style="margin:0;">SPIN 🎰</button>
-                <button class="btn btn-auto" id="btn-auto-slots" onclick="toggleAutoPlay()" style="margin:0;">AUTO</button>
+                <button class="btn btn-success" id="btn-spin-slots" onclick="kliknutoCislo(0)" style="margin:0;"><span class="icon-node"></span> SPIN</button>
+                <button class="btn btn-auto" id="btn-auto-slots" onclick="toggleAutoPlay()" style="margin:0;"><span class="icon-node"></span> AUTO</button>
             </div>
         </div>
 
@@ -119,8 +115,8 @@
                 </div>
                 <div style="font-size:11px; color:var(--text-secondary); margin-bottom:10px; text-transform:uppercase;">Další bude...</div>
                 <div class="hilo-btns">
-                    <button class="btn btn-primary" id="btn-hilo-high" onclick="hrajHiLo('H')">VYŠŠÍ ▲</button>
-                    <button class="btn btn-danger" id="btn-hilo-low" onclick="hrajHiLo('L')">NIŽŠÍ ▼</button>
+                    <button class="btn btn-primary" id="btn-hilo-high" onclick="hrajHiLo('H')"><span class="icon-node"></span> VYŠŠÍ</button>
+                    <button class="btn btn-danger" id="btn-hilo-low" onclick="hrajHiLo('L')"><span class="icon-node"></span> NIŽŠÍ</button>
                 </div>
             </div>
         </div>
@@ -133,11 +129,11 @@
 
         <!-- VOLBA SÁZKY (vždy viditelná ve hře) -->
         <div id="bet-area" style="display:grid; grid-template-columns:repeat(5,1fr); gap:6px; margin-top:8px;">
-            <button class="btn btn-bet" id="bet-10" onclick="nastavSazku(10)">10</button>
-            <button class="btn btn-bet" id="bet-20" onclick="nastavSazku(20)">20</button>
-            <button class="btn btn-bet" id="bet-50" onclick="nastavSazku(50)">50</button>
-            <button class="btn btn-bet" id="bet-100" onclick="nastavSazku(100)">100</button>
-            <button class="btn btn-bet" id="bet-cust" onclick="ukazVlastniSazku()">✏️</button>
+            <button class="btn btn-success" id="bet-10" onclick="nastavSazku(10)"><span class="icon-node"></span> 10</button>
+            <button class="btn btn-success" id="bet-20" onclick="nastavSazku(20)"><span class="icon-node"></span> 20</button>
+            <button class="btn btn-success" id="bet-50" onclick="nastavSazku(50)"><span class="icon-node"></span> 50</button>
+            <button class="btn btn-success" id="bet-100" onclick="nastavSazku(100)"><span class="icon-node"></span> 100</button>
+            <button class="btn btn-success" id="bet-cust" onclick="ukazVlastniSazku()"><span class="icon-node"></span></button>
         </div>
 
         <!-- VLASTNÍ SÁZKA -->
@@ -150,8 +146,8 @@
 
         <!-- LIŠTA DOLE -->
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:16px;">
-            <button class="btn" onclick="otevriStatsModal()">📊 Statistiky</button>
-            <button class="btn btn-danger" onclick="navratDoHubu()">🚪 Menu</button>
+            <button class="btn" onclick="otevriStatsModal()">Statistiky</button>
+            <button class="btn btn-danger" onclick="navratDoHubu()">Menu</button>
         </div>
     </div>
 
@@ -167,7 +163,7 @@
 <!-- STATISTIKY -->
 <div id="stats-modal" class="modal" onclick="zavriStatsModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
-        <h3 class="modal-header">📊 Přehled Hráče</h3>
+        <h3 class="modal-header">Přehled Hráče</h3>
         <div id="modal-stats-data" class="text-[14px] mb-3 leading-relaxed"></div>
         
         <!-- Chart.js doughnut chart container -->
@@ -184,11 +180,11 @@
 <!-- EXPLORER MODAL (Global Match History & Leaderboard Detail) -->
 <div id="explorer-modal" class="modal" onclick="zavriExplorer()">
     <div class="modal-content !max-w-[550px]" onclick="event.stopPropagation()">
-        <h3 class="modal-header">🌐 Globální Historie & Žebříček</h3>
+        <h3 class="modal-header">Globální Historie & Žebříček</h3>
         
          <!-- Tabs to switch between Full Leaderboard and Match History -->
         <div class="flex gap-2 mb-4 border-b border-[rgba(189,0,255,0.2)] pb-2">
-            <button id="explorer-tab-leaderboard" class="flex-1 py-1.5 text-sm font-bold border-b-2 border-[var(--neon-orange)] text-[var(--neon-orange)] bg-transparent" onclick="prepniExplorerTab('leaderboard')">🏆 Celý Žebříček</button>
+            <button id="explorer-tab-leaderboard" class="flex-1 py-1.5 text-sm font-bold border-b-2 border-[var(--neon-orange)] text-[var(--neon-orange)] bg-transparent" onclick="prepniExplorerTab('leaderboard')">Celý Žebříček</button>
             <button id="explorer-tab-history" class="flex-1 py-1.5 text-sm font-bold border-b-2 border-transparent text-[var(--neon-gold)] bg-transparent" onclick="prepniExplorerTab('history')">📜 Globální Historie</button>
         </div>
 
@@ -209,12 +205,12 @@
                 <div class="flex gap-2">
                     <select id="history-filter-game" class="flex-1 text-sm bg-[rgba(13,0,26,0.6)] border border-[var(--neon-purple)] rounded-xl px-2 py-2 text-[var(--neon-gold)]" onchange="filtrujHistorii()">
                         <option value="">Všechny hry</option>
-                        <option value="Bary3x3">🎰 Automat</option>
-                        <option value="VíceMéně">🃏 Hi-Lo</option>
-                        <option value="Ruleta">🔴 Ruleta</option>
-                        <option value="Hádanka 1-10">🎲 Hádanka 1-10</option>
-                        <option value="Hádanka 1-5">🎲 Hádanka 1-5</option>
-                        <option value="Kostka">🎲 Kostka</option>
+                        <option value="Bary3x3"><span class="icon-node"></span> Automat</option>
+                        <option value="VíceMéně"><span class="icon-node"></span> Hi-Lo</option>
+                        <option value="Ruleta"><span class="icon-node"></span> Ruleta</option>
+                        <option value="Hádanka 1-10"><span class="icon-node"></span> Hádanka 1-10</option>
+                        <option value="Hádanka 1-5"><span class="icon-node"></span> Hádanka 1-5</option>
+                        <option value="Kostka"><span class="icon-node"></span> Kostka</option>
                     </select>
                     <select id="history-filter-result" class="flex-1 text-sm bg-[rgba(13,0,26,0.6)] border border-[var(--neon-purple)] rounded-xl px-2 py-2 text-[var(--neon-gold)]" onchange="filtrujHistorii()">
                         <option value="">Výsledek</option>

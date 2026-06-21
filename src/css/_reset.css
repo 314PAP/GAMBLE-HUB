@@ -1,5 +1,6 @@
 /* src/css/_reset.css */
-/* Global reset and base styles */
+/* Global resets, base html/body, scrollbar */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -8,10 +9,13 @@
   user-select: none;
 }
 
+html, body {
+  min-height: 100vh;
+}
+
 body {
   background: var(--bg-gradient);
   color: var(--text-primary);
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,8 +23,16 @@ body {
   overflow-x: hidden;
 }
 
-/* Scrollbar Styles */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: rgba(13, 0, 26, 0.4); }
-::-webkit-scrollbar-thumb { background: rgba(189, 0, 255, 0.3); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(189, 0, 255, 0.6); }
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.15);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.35);
+}

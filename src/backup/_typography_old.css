@@ -1,7 +1,5 @@
 /* src/css/_typography.css */
-/* Google font imports, headings, text utilities */
-
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Outfit:wght@300;400;500;600;700&display=swap');
+/* Typography styles and keyframes */
 
 h1 {
   font-family: 'Orbitron', sans-serif;
@@ -37,10 +35,4 @@ h2 {
   color: var(--neon-gold);
   text-shadow: 0 0 8px var(--neon-gold-glow);
   text-transform: uppercase;
-}
-
-/* Neon text glow utility */
-.neon-text {
-  color: var(--neon-gold);
-  text-shadow: 0 0 6px var(--neon-gold-glow), 0 0 12px var(--neon-gold-glow);
 }
