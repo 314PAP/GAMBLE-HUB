@@ -15,11 +15,11 @@
 
     <!-- 1. LOGIN SCREEN -->
     <div id="screen-login" class="screen active">
-        <h1>🎰 GAMBLE HUB 🎰</h1>
-        <div class="leaderboard-card-clickable bg-black/30 border border-white/5 rounded-2xl p-4 mb-5 cursor-pointer transition-all hover:border-[#00f0ff]/50 hover:shadow-[0_0_15px_rgba(0,240,255,0.15)]" onclick="otevriExplorer()">
+        <h1>GAMBLE HUB</h1>
+        <div class="leaderboard-card-clickable bg-black/30 border border-white/5 rounded-2xl p-4 mb-5 cursor-pointer transition-all hover:border-[#d4af37]/50 hover:shadow-[0_0_15px_rgba(212,175,55,0.15)]" onclick="otevriExplorer()">
             <div class="flex items-center justify-between font-['Orbitron',sans-serif] text-[12px] text-[#ff5500] tracking-wider mb-3 uppercase">
                 <span class="flex items-center gap-1.5">🏆 Top Hráči <span class="leaderboard-badge"></span></span>
-                <span class="text-[10px] text-[#475569] lowercase tracking-normal font-sans italic hover:text-[#00f0ff]">detaily ➔</span>
+                <span class="text-[10px] text-[#475569] lowercase tracking-normal font-sans italic hover:text-[#ffd700]">detaily ➔</span>
             </div>
             <div id="leaderboard-content" class="flex flex-col gap-2">
                 <span class="text-[#475569] text-xs italic">🔄 Načítám žebříček...</span>
@@ -32,16 +32,7 @@
             <button class="btn btn-success" onclick="otevriRegistraci()">
                 <span>Nový hráč (100 Kč)</span>
             </button>
-            <div class="flex gap-2 mt-3">
-                <button class="btn text-xs py-2.5 flex-1" onclick="exportovatData()">
-                    <span>📋 Export</span>
-                </button>
-                <button class="btn text-xs py-2.5 flex-1" onclick="document.getElementById('file-input').click()">
-                    <span>📥 Import</span>
-                </button>
-            </div>
         </div>
-        <input type="file" id="file-input" style="display:none" onchange="importovatData(event)">
     </div>
 
     <!-- 1B. SEZNAM ÚČTŮ -->
@@ -64,7 +55,7 @@
     <!-- 2. MAIN HUB -->
     <div id="screen-hub" class="screen">
         <div class="flex justify-between items-center bg-black/30 border border-[#2a2a35] py-3 px-4.5 rounded-2xl mb-4 text-sm">
-            <div class="font-semibold text-[#00f0ff] flex items-center gap-1.5">
+            <div class="font-semibold text-[#ffd700] flex items-center gap-1.5">
                 <span>👤</span> <span id="hub-player-name"></span>
             </div>
             <div class="font-bold text-[#ff5500] flex items-center gap-1.5">
