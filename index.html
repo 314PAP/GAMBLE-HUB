@@ -16,15 +16,15 @@
     <!-- 1. LOGIN SCREEN -->
     <div id="screen-login" class="screen active">
         <h1>GAMBLE HUB</h1>
-        <div class="leaderboard-card-clickable bg-black/30 border border-white/5 rounded-2xl p-4 mb-5 cursor-pointer transition-all hover:border-[#d4af37]/50 hover:shadow-[0_0_15px_rgba(212,175,55,0.15)]" onclick="otevriExplorer()">
-            <div class="flex items-center justify-between font-['Orbitron',sans-serif] text-[12px] text-[var(--neon-gold)] tracking-wider mb-3 uppercase">
+        <div class="leaderboard-card-clickable bg-[rgba(13,0,26,0.6)] border border-[rgba(189,0,255,0.3)] rounded-2xl p-4 mb-5 cursor-pointer transition-all hover:border-[var(--neon-gold)] hover:shadow-[0_0_15px_var(--neon-gold-glow)]" onclick="otevriExplorer()">
+            <div class="flex items-center justify-between font-['Orbitron',sans-serif] text-[12px] text-[var(--neon-gold)] tracking-wider mb-3 uppercase" style="text-shadow: 0 0 5px var(--neon-gold-glow);">
                 <span class="flex items-center gap-1.5">🏆 Top Hráči <span class="leaderboard-badge"></span></span>
-                <span class="text-[10px] text-[#475569] lowercase tracking-normal font-sans italic hover:text-[#ffd700]">detaily ➔</span>
+                <span class="text-[10px] text-[var(--neon-cyan)] lowercase tracking-normal font-sans italic hover:text-[var(--neon-gold)]" style="text-shadow: 0 0 5px var(--neon-cyan-glow);">detaily ➔</span>
             </div>
             <div id="leaderboard-content" class="flex flex-col gap-2">
-                <span class="text-[#475569] text-xs italic">🔄 Načítám žebříček...</span>
+                <span class="text-[var(--neon-gold)] text-xs italic" style="text-shadow: 0 0 5px var(--neon-gold-glow);">🔄 Načítám žebříček...</span>
             </div>
-            <div id="visit-counter" class="text-center text-sm mt-2"></div>
+            <div id="visit-counter" class="text-center text-sm mt-2" style="color: var(--neon-cyan); text-shadow: 0 0 5px var(--neon-cyan-glow);"></div>
         </div>
         <div class="flex flex-col gap-3">
             <button class="btn btn-primary" onclick="otevriPrihlaseni()">
@@ -55,11 +55,11 @@
 
     <!-- 2. MAIN HUB -->
     <div id="screen-hub" class="screen">
-        <div class="flex justify-between items-center bg-black/30 border border-[#2a2a35] py-3 px-4.5 rounded-2xl mb-4 text-sm">
-            <div class="font-semibold text-[#ffd700] flex items-center gap-1.5">
+        <div class="flex justify-between items-center bg-[rgba(13,0,26,0.65)] border-2 border-[var(--neon-purple)] py-3 px-4.5 rounded-2xl mb-4 text-sm" style="box-shadow: 0 0 10px var(--neon-purple-glow);">
+            <div class="font-semibold text-[var(--neon-gold)] flex items-center gap-1.5" style="text-shadow: 0 0 5px var(--neon-gold-glow);">
                 <span>👤</span> <span id="hub-player-name"></span>
             </div>
-            <div class="font-bold text-[#ff5500] flex items-center gap-1.5">
+            <div class="font-bold text-[var(--neon-green)] flex items-center gap-1.5" style="text-shadow: 0 0 5px var(--neon-green-glow);">
                 <span id="hub-player-money"></span> <span>Kč</span>
             </div>
         </div>
@@ -76,12 +76,12 @@
 
     <!-- 3. GAME SCREEN -->
     <div id="screen-game" class="screen">
-        <div class="flex justify-between items-center bg-black/30 border border-[#2a2a35] py-3 px-4.5 rounded-2xl mb-4 text-sm">
+        <div class="flex justify-between items-center bg-[rgba(13,0,26,0.65)] border-2 border-[var(--neon-purple)] py-3 px-4.5 rounded-2xl mb-4 text-sm" style="box-shadow: 0 0 10px var(--neon-purple-glow);">
             <div class="game-title-row flex items-center gap-2">
-                <div id="game-title" style="font-weight:bold; color:var(--neon-blue); font-family: 'Orbitron', sans-serif;">HERNA</div>
+                <div id="game-title" style="font-weight:bold; color:var(--neon-blue); font-family: 'Orbitron', sans-serif; text-shadow: 0 0 5px var(--neon-blue-glow);">HERNA</div>
                 <button class="btn-info-toggle" id="btn-game-info" onclick="toggleInfoPanel()" title="Jak se hraje">ⓘ</button>
             </div>
-            <div class="font-bold text-[#ff5500] flex items-center gap-1.5">
+            <div class="font-bold text-[var(--neon-green)] flex items-center gap-1.5" style="text-shadow: 0 0 5px var(--neon-green-glow);">
                 <span id="game-player-money"></span> <span>Kč</span>
             </div>
         </div>
@@ -175,7 +175,7 @@
             <canvas id="stats-chart"></canvas>
         </div>
 
-        <h4 class="mt-4 mb-1.5 text-[13px] text-[#94a3b8] uppercase tracking-wider">Posledních 10 her:</h4>
+        <h4 class="mt-4 mb-1.5 text-[13px] text-[var(--neon-cyan)] uppercase tracking-wider" style="text-shadow: 0 0 4px var(--neon-cyan-glow);">Posledních 10 her:</h4>
         <div id="modal-history-data" class="max-h-[150px] overflow-y-auto pr-0.5 flex flex-col gap-1.5"></div>
         <button class="btn btn-danger mt-4" onclick="zavriStatsModal()">Zavřít</button>
     </div>
@@ -186,16 +186,16 @@
     <div class="modal-content !max-w-[550px]" onclick="event.stopPropagation()">
         <h3 class="modal-header">🌐 Globální Historie & Žebříček</h3>
         
-        <!-- Tabs to switch between Full Leaderboard and Match History -->
-        <div class="flex gap-2 mb-4 border-b border-white/10 pb-2">
-            <button id="explorer-tab-leaderboard" class="flex-1 py-1.5 text-sm font-semibold border-b-2 border-[#ff9f1c] text-[#ff9f1c] bg-transparent" onclick="prepniExplorerTab('leaderboard')">🏆 Celý Žebříček</button>
-            <button id="explorer-tab-history" class="flex-1 py-1.5 text-sm font-semibold border-b-2 border-transparent text-[#94a3b8] bg-transparent" onclick="prepniExplorerTab('history')">📜 Globální Historie</button>
+         <!-- Tabs to switch between Full Leaderboard and Match History -->
+        <div class="flex gap-2 mb-4 border-b border-[rgba(189,0,255,0.2)] pb-2">
+            <button id="explorer-tab-leaderboard" class="flex-1 py-1.5 text-sm font-bold border-b-2 border-[var(--neon-orange)] text-[var(--neon-orange)] bg-transparent" onclick="prepniExplorerTab('leaderboard')">🏆 Celý Žebříček</button>
+            <button id="explorer-tab-history" class="flex-1 py-1.5 text-sm font-bold border-b-2 border-transparent text-[var(--neon-gold)] bg-transparent" onclick="prepniExplorerTab('history')">📜 Globální Historie</button>
         </div>
 
         <!-- Section 1: Full Leaderboard Detail -->
         <div id="explorer-sec-leaderboard">
             <div class="mb-3">
-                <input type="text" id="leaderboard-search" class="w-full text-sm bg-black/25 border border-white/10 rounded-xl px-3 py-2 text-white" placeholder="Hledat hráče..." oninput="filtrujLeaderboard()">
+                <input type="text" id="leaderboard-search" class="w-full text-sm bg-[rgba(13,0,26,0.6)] border border-[var(--neon-purple)] rounded-xl px-3 py-2 text-[var(--neon-gold)]" placeholder="Hledat hráče..." oninput="filtrujLeaderboard()">
             </div>
             <div id="explorer-leaderboard-list" class="max-h-[300px] overflow-y-auto flex flex-col gap-2 pr-1">
                 <!-- Will be populated dynamically -->
@@ -205,9 +205,9 @@
         <!-- Section 2: Global Match History with filters/sorting -->
         <div id="explorer-sec-history" style="display: none;">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
-                <input type="text" id="history-search" class="text-sm bg-black/25 border border-white/10 rounded-xl px-3 py-2 text-white" placeholder="Hledat hráče..." oninput="filtrujHistorii()">
+                <input type="text" id="history-search" class="text-sm bg-[rgba(13,0,26,0.6)] border border-[var(--neon-purple)] rounded-xl px-3 py-2 text-[var(--neon-gold)]" placeholder="Hledat hráče..." oninput="filtrujHistorii()">
                 <div class="flex gap-2">
-                    <select id="history-filter-game" class="flex-1 text-sm bg-black/25 border border-white/10 rounded-xl px-2 py-2 text-[#94a3b8]" onchange="filtrujHistorii()">
+                    <select id="history-filter-game" class="flex-1 text-sm bg-[rgba(13,0,26,0.6)] border border-[var(--neon-purple)] rounded-xl px-2 py-2 text-[var(--neon-gold)]" onchange="filtrujHistorii()">
                         <option value="">Všechny hry</option>
                         <option value="Bary3x3">🎰 Automat</option>
                         <option value="VíceMéně">🃏 Hi-Lo</option>
@@ -216,7 +216,7 @@
                         <option value="Hádanka 1-5">🎲 Hádanka 1-5</option>
                         <option value="Kostka">🎲 Kostka</option>
                     </select>
-                    <select id="history-filter-result" class="flex-1 text-sm bg-black/25 border border-white/10 rounded-xl px-2 py-2 text-[#94a3b8]" onchange="filtrujHistorii()">
+                    <select id="history-filter-result" class="flex-1 text-sm bg-[rgba(13,0,26,0.6)] border border-[var(--neon-purple)] rounded-xl px-2 py-2 text-[var(--neon-gold)]" onchange="filtrujHistorii()">
                         <option value="">Výsledek</option>
                         <option value="win">Pouze výhry</option>
                         <option value="loss">Pouze prohry</option>
@@ -225,10 +225,10 @@
             </div>
 
             <!-- Sorting headers -->
-            <div class="flex justify-between items-center px-2 py-1 text-[11px] text-[#475569] uppercase font-bold tracking-wider border-b border-white/5 mb-1.5">
-                <button class="bg-transparent border-0 p-0 text-[11px] text-[#475569] hover:text-white" onclick="seradHistorii('timestamp')">Čas ⇅</button>
-                <button class="bg-transparent border-0 p-0 text-[11px] text-[#475569] hover:text-white" onclick="seradHistorii('username')">Hráč ⇅</button>
-                <button class="bg-transparent border-0 p-0 text-[11px] text-[#475569] hover:text-white" onclick="seradHistorii('winAmount')">Výhra ⇅</button>
+            <div class="flex justify-between items-center px-2 py-1 text-[11px] text-[var(--neon-gold)] uppercase font-bold tracking-wider border-b border-[rgba(189,0,255,0.2)] mb-1.5">
+                <button class="bg-transparent border-0 p-0 text-[11px] text-[var(--neon-gold)] hover:text-[var(--neon-cyan)]" onclick="seradHistorii('timestamp')" style="text-shadow: 0 0 4px var(--neon-gold-glow);">Čas ⇅</button>
+                <button class="bg-transparent border-0 p-0 text-[11px] text-[var(--neon-gold)] hover:text-[var(--neon-cyan)]" onclick="seradHistorii('username')" style="text-shadow: 0 0 4px var(--neon-gold-glow);">Hráč ⇅</button>
+                <button class="bg-transparent border-0 p-0 text-[11px] text-[var(--neon-gold)] hover:text-[var(--neon-cyan)]" onclick="seradHistorii('winAmount')" style="text-shadow: 0 0 4px var(--neon-gold-glow);">Výhra ⇅</button>
             </div>
 
             <div id="explorer-history-list" class="max-h-[250px] overflow-y-auto flex flex-col gap-2 pr-1">

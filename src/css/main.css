@@ -1,0 +1,25 @@
+/* src/css/main.css */
+/* Aggregate entry point for all CSS modules */
+
+/* Tailwind base utilities – kept separate for Vite/PostCSS processing */
+@import "../tailwind.css";
+
+/* Core design tokens and resets */
+@import "./_variables.css";
+@import "./_reset.css";
+
+/* Typography and keyframe animations */
+@import "./_typography.css";
+
+/* Layout helpers and glass‑morphism utilities */
+@import "./_layout.css";
+
+/* Global custom styles */
+@import "../custom.css";
+
+/* Theme files */
+@import "../theme.css";
+
+/* Component modules */
+@import "./_buttons.css";
+@import "./_components.css";

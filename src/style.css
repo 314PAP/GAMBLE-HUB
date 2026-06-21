@@ -661,14 +661,15 @@ input:focus {
 
 .history-item, .leaderboard-item {
   margin: 6px 0;
+  color: var(--neon-gold) !important;
 }
 
 
 /* Override explorer leaderboard list items */
 .explorer-leaderboard-list > div {
   background: rgba(0,0,0,0.6) !important;
-  border: 2px solid var(--neon-purple) !important;
-  color: var(--neon-purple) !important;
+  border: none !important;
+  color: var(--neon-gold) !important;
 }
 
 
@@ -679,7 +680,7 @@ input:focus {
 /* Override explorer leaderboard list items */
 .explorer-leaderboard-list > div {
   background: rgba(0,0,0,0.6) !important;
-  border: 2px solid var(--neon-gold) !important;
+  border: none !important;
   color: var(--neon-gold) !important;
 }
 

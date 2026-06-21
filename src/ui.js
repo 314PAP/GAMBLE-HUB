@@ -66,20 +66,20 @@ export class GameUI {
     if (!container) return;
 
     // Loading stav
-    container.innerHTML = `<span class="text-[#475569] text-xs italic">🔄 Načítám žebříček...</span>`;
+    container.innerHTML = `<span class="text-[#ffd700] text-xs italic">🔄 Načítám žebříček...</span>`;
 
     try {
       const scores = await this.api.getGlobalLeaderboard();
       const isOnline = this.api.isOnline;
 
       if (scores.length === 0) {
-        container.innerHTML = `<span class="text-[#475569] text-[13px]">Zatím žádné rekordy...</span>`;
+        container.innerHTML = `<span class="text-[#ffd700] text-[13px]">Zatím žádné rekordy...</span>`;
         return;
       }
 
       const badge = isOnline
-        ? `<span class="text-[10px] text-[#00ff99] bg-[#00ff99]/10 border border-[#00ff99]/30 px-1.5 py-0.5 rounded-full ml-2">🌐 Online</span>`
-        : `<span class="text-[10px] text-[#475569] bg-white/5 border border-white/10 px-1.5 py-0.5 rounded-full ml-2">💾 Lokální</span>`;
+          ? `<span class="text-[10px] text-[#00ff99] bg-[#00ff99]/10 border border-[#00ff99]/30 px-1.5 py-0.5 rounded-full ml-2">🌐 Online</span>`
+          : `<span class="text-[10px] text-[#ffd700] bg-[#ffd700]/5 border border-[#ffd700]/10 px-1.5 py-0.5 rounded-full ml-2">💾 Lokální</span>`;
 
       // Update leaderboard title to show online/offline status
       const titleEl = document.querySelector('#screen-login .leaderboard-badge');
@@ -91,15 +91,15 @@ export class GameUI {
         const medal = medals[idx] || `#${idx + 1}`;
         html += `
           <div class="leaderboard-item flex justify-between items-center py-2 px-1 text-sm">
-            <span class="font-bold text-[#94a3b8] w-6 text-center">${medal}</span>
-            <span class="flex-grow pl-3 text-white font-medium">${record.jmeno}</span>
-            <span class="font-bold text-[#00ff99]">${record.castka} Kč</span>
+            <span class="font-bold text-[var(--neon-gold)] w-6 text-center" style="text-shadow: 0 0 5px var(--neon-gold-glow);">${medal}</span>
+            <span class="flex-grow pl-3 font-semibold" style="color: var(--neon-gold); text-shadow: 0 0 5px var(--neon-gold-glow);">${record.jmeno}</span>
+            <span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow);">${record.castka} Kč</span>
           </div>
         `;
       });
       container.innerHTML = html;
     } catch (e) {
-      container.innerHTML = `<span class="text-[#475569] text-[13px]">Nepodařilo se načíst žebříček.</span>`;
+      container.innerHTML = `<span class="text-[var(--neon-pink)] text-[13px]" style="text-shadow: 0 0 5px var(--neon-pink-glow);">Nepodařilo se načíst žebříček.</span>`;
     }
   }
 
@@ -128,8 +128,8 @@ export class GameUI {
       row.style.marginBottom = '4px';
 
       const selectBtn = document.createElement('button');
-      selectBtn.className = 'btn flex-1 text-left justify-start pl-4 account-btn bg-[var(--neon-purple)] border-2 border-[var(--neon-purple)] text-[var(--text-primary)]';
-      selectBtn.innerHTML = `<span class="account-name font-semibold text-[var(--text-primary)]">${username}</span> <span class="ml-auto text-[var(--neon-green)]">${balance} Kč</span>`;
+      selectBtn.className = 'btn flex-1 text-left justify-start pl-4 account-btn';
+      selectBtn.innerHTML = `<span class="account-name font-semibold" style="color: var(--neon-gold); text-shadow: 0 0 5px var(--neon-gold-glow);">${username}</span> <span class="ml-auto" style="color: var(--neon-green); text-shadow: 0 0 5px var(--neon-green-glow);">${balance} Kč</span>`;
       selectBtn.onclick = () => onSelect(username);
 
       const deleteBtn = document.createElement('button');
@@ -144,7 +144,7 @@ export class GameUI {
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#ff0055',
-          cancelButtonColor: '#475569',
+          cancelButtonColor: '#ffd700',
           confirmButtonText: 'Ano, smazat',
           cancelButtonText: 'Zrušit',
           background: '#12121c',
@@ -403,9 +403,9 @@ export class GameUI {
 
     // Show loading
     const listL = document.getElementById('explorer-leaderboard-list');
-    if (listL) listL.innerHTML = `<span class="text-[#475569] text-xs italic p-4 text-center block">🔄 Načítám žebříček...</span>`;
+    if (listL) listL.innerHTML = `<span class="text-[#ffd700] text-xs italic p-4 text-center block">🔄 Načítám žebříček...</span>`;
     const listH = document.getElementById('explorer-history-list');
-    if (listH) listH.innerHTML = `<span class="text-[#475569] text-xs italic p-4 text-center block">🔄 Načítám historii...</span>`;
+    if (listH) listH.innerHTML = `<span class="text-[#ffd700] text-xs italic p-4 text-center block">🔄 Načítám historii...</span>`;
 
     try {
       // Fetch both datasets concurrently
@@ -441,22 +441,22 @@ export class GameUI {
     if (tabName === 'leaderboard') {
       if (tabLeaderboard) {
         tabLeaderboard.classList.add('border-[#ff9f1c]', 'text-[#ff9f1c]');
-        tabLeaderboard.classList.remove('border-transparent', 'text-[#94a3b8]');
+        tabLeaderboard.classList.remove('border-transparent', 'text-[#ffd700]');
       }
       if (tabHistory) {
         tabHistory.classList.remove('border-[#ff9f1c]', 'text-[#ff9f1c]');
-        tabHistory.classList.add('border-transparent', 'text-[#94a3b8]');
+        tabHistory.classList.add('border-transparent', 'text-[#ffd700]');
       }
       if (secLeaderboard) secLeaderboard.style.display = 'block';
       if (secHistory) secHistory.style.display = 'none';
     } else {
       if (tabHistory) {
         tabHistory.classList.add('border-[#ff9f1c]', 'text-[#ff9f1c]');
-        tabHistory.classList.remove('border-transparent', 'text-[#94a3b8]');
+        tabHistory.classList.remove('border-transparent', 'text-[#ffd700]');
       }
       if (tabLeaderboard) {
         tabLeaderboard.classList.remove('border-[#ff9f1c]', 'text-[#ff9f1c]');
-        tabLeaderboard.classList.add('border-transparent', 'text-[#94a3b8]');
+        tabLeaderboard.classList.add('border-transparent', 'text-[#ffd700]');
       }
       if (secLeaderboard) secLeaderboard.style.display = 'none';
       if (secHistory) secHistory.style.display = 'block';
@@ -469,7 +469,7 @@ export class GameUI {
 
     const data = filteredData || this.leaderboardData;
     if (data.length === 0) {
-      list.innerHTML = `<span class="text-[#475569] text-xs italic p-4 text-center block">Žádní hráči nenalezeni</span>`;
+      list.innerHTML = `<span class="text-[var(--neon-pink)] text-xs italic p-4 text-center block" style="text-shadow: 0 0 5px var(--neon-pink-glow);">Žádní hráči nenalezeni</span>`;
       return;
     }
 
@@ -481,10 +481,10 @@ export class GameUI {
       const medal = medals[originalIdx] || `#${originalIdx + 1}`;
 
       html += `
-        <div class="flex justify-between items-center py-2.5 px-3 bg-white/5 border border-white/5 rounded-xl text-sm transition-all hover:bg-white/10">
-          <span class="font-bold text-[#94a3b8] w-6 text-center">${medal}</span>
-          <span class="flex-grow pl-3 text-white font-medium">${record.jmeno}</span>
-          <span class="font-bold text-[#2ec4b6]">${record.castka} Kč</span>
+        <div class="flex justify-between items-center py-2.5 px-3 bg-[rgba(13,0,26,0.7)] border border-[rgba(189,0,255,0.25)] rounded-xl text-sm transition-all hover:bg-[rgba(189,0,255,0.15)]">
+          <span class="font-bold text-[var(--neon-gold)] w-6 text-center" style="text-shadow: 0 0 5px var(--neon-gold-glow);">${medal}</span>
+          <span class="flex-grow pl-3 text-[var(--neon-gold)] font-semibold" style="text-shadow: 0 0 5px var(--neon-gold-glow);">${record.jmeno}</span>
+          <span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow);">${record.castka} Kč</span>
         </div>
       `;
     });
@@ -497,7 +497,7 @@ export class GameUI {
 
     const data = filteredData || this.historyData;
     if (data.length === 0) {
-      list.innerHTML = `<span class="text-[#475569] text-xs italic p-4 text-center block">Žádná historie her nenalezena</span>`;
+      list.innerHTML = `<span class="text-[var(--neon-gold)] text-xs italic p-4 text-center block" style="text-shadow: 0 0 5px var(--neon-gold-glow);">Žádná historie her nenalezena</span>`;
       return;
     }
 
@@ -514,14 +514,14 @@ export class GameUI {
       else if (item.gameName === 'VíceMéně') gameLabel = '🃏 Hi-Lo';
 
       html += `
-        <div class="flex justify-between items-center py-2 px-3 bg-white/5 border-l-4 ${isWin ? 'border-l-[#2ec4b6]' : 'border-l-[#ff0055]'} rounded-r-xl text-xs">
+        <div class="flex justify-between items-center py-2 px-3 bg-[rgba(13,0,26,0.7)] border-l-4 ${isWin ? 'border-l-[var(--neon-green)]' : 'border-l-[var(--neon-pink)]'} border border-[rgba(189,0,255,0.25)] rounded-r-xl text-xs">
           <div class="flex flex-col gap-0.5">
-            <span class="font-semibold text-white">${item.username}</span>
-            <span class="text-[10px] text-[#475569]">${gameLabel} – ${timeString}</span>
+            <span class="font-semibold text-[var(--neon-gold)]" style="text-shadow: 0 0 5px var(--neon-gold-glow);">${item.username}</span>
+            <span class="text-[10px] text-[var(--text-secondary)]">${gameLabel} – ${timeString}</span>
           </div>
           <div class="flex flex-col items-end gap-0.5">
-            <span class="font-bold ${isWin ? 'text-[#2ec4b6]' : 'text-[#ff0055]'}">${formattedWin}</span>
-            <span class="text-[10px] text-[#94a3b8] opacity-75">${item.resultText || ''}</span>
+            <span class="font-bold ${isWin ? 'text-[var(--neon-green)]' : 'text-[var(--neon-pink)]'}" style="text-shadow: 0 0 5px ${isWin ? 'var(--neon-green-glow)' : 'var(--neon-pink-glow)'};">${formattedWin}</span>
+            <span class="text-[10px] text-[var(--neon-gold)] opacity-75">${item.resultText || ''}</span>
           </div>
         </div>
       `;
@@ -668,7 +668,7 @@ const GAME_INFOS = {
   padding: 4px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.03);
+  border: 1.5px solid var(--neon-gold);
 }
 
 @media (max-width: 480px) {

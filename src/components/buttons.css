@@ -118,7 +118,10 @@
 /* Existing icon hide for .btn-num remains */
 
 
-/* .btn-icon-only specific size */
+/* .history-item, .leaderboard-item {
+  margin: 6px 0;
+}
+.text-gold { color: var(--neon-gold) !important; }.btn-icon-only specific size */
 .btn-icon-only {
   font-size: 12px;
   padding: 10px;

@@ -1,0 +1,27 @@
+:root {
+  --bg-gradient: radial-gradient(circle at 50% 30%, #0d001a 0%, #030008 100%);
+  --panel-bg: rgba(13, 0, 26, 0.6);
+  --panel-border: rgba(189, 0, 255, 0.3);
+  --text-primary: #ffd700;
+  --text-secondary: #00ffff;
+  
+  /* Neon & Premium Gold Palette */
+  --neon-orange: #ff9f1c;
+  --neon-orange-glow: rgba(255, 159, 28, 0.6);
+  --neon-green: #39ff14; /* vibrant neon green */
+  --neon-green-glow: rgba(57, 255, 20, 0.6);
+  --neon-pink: #ff007f; /* vibrant neon pink */
+  --neon-pink-glow: rgba(255, 0, 127, 0.6);
+  --neon-blue: #00f0ff;
+  --neon-blue-glow: rgba(0, 240, 255, 0.6);
+  --neon-cyan: #00ffff;
+  --neon-cyan-glow: rgba(0, 255, 255, 0.6);
+  --neon-purple: #bd00ff;
+  --neon-purple-glow: rgba(189, 0, 255, 0.6);
+  --neon-gold: #ffd700;
+  --neon-gold-glow: rgba(255, 215, 0, 0.65);
+  
+  --shadow-premium: 0 0 30px rgba(189, 0, 255, 0.25), inset 0 0 15px rgba(0, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+  --glass-blur: blur(25px);
+}
