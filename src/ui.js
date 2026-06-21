@@ -44,12 +44,16 @@ export class GameUI {
   // Displays SweetAlert toast/alert
   showAlert(type, title, text) {
     Swal.fire({
-      icon: type, // 'success', 'error', 'warning', 'info'
+      toast: true,
+      position: 'top-end',
+      icon: type,
       title: title,
       text: text,
       background: '#12121c',
       color: '#f8fafc',
-      confirmButtonColor: '#ff9f1c',
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true,
       customClass: {
         popup: 'swal-custom-popup'
       }

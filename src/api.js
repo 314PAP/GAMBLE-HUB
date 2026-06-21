@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, doc, setDoc, getDocs, query, orderBy, limit } from "firebase/firestore";
+import { getFirestore, collection, doc, setDoc, getDocs, getDoc, query, orderBy, limit, increment } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBvSU7f_QWDK1AkWtXcVaOkLrrzrukHOYE",
@@ -45,6 +45,29 @@ export class API {
   }
 
   // Odešle skóre hráče na server (pouze nejvyšší dosažené)
+  /**
+   * Record a visit for given IP, incrementing per-IP and global counters.
+   * Returns an object { ipCount, total }.
+   */
+  async recordVisit(ip) {
+    if (!this.isOnline) return { ipCount: Number(localStorage.getItem('visitCount') || 0) + 1, total: null };
+    try {
+      const { increment } = await import('firebase/firestore');
+      const ipRef = doc(this.firestore, 'visits', ip);
+      await setDoc(ipRef, { count: increment(1) }, { merge: true });
+      const globalRef = doc(this.firestore, 'visits', 'global');
+      await setDoc(globalRef, { total: increment(1) }, { merge: true });
+      const ipSnap = await getDoc(ipRef);
+      const globalSnap = await getDoc(globalRef);
+      const ipCount = ipSnap.data()?.count || 1;
+      const total = globalSnap.data()?.total || 1;
+      return { ipCount, total };
+    } catch (e) {
+      console.error('Visit record failed', e);
+      return { ipCount: Number(localStorage.getItem('visitCount') || 0) + 1, total: null };
+    }
+  }
+
   async submitScore(username, balance) {
     if (this.isOnline && balance > 100) {
       try {

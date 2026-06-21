@@ -241,6 +241,23 @@ window.toggleMuteState = () => {
 // Initial setup on window load
 document.addEventListener('DOMContentLoaded', () => {
   ui.renderLeaderboard();
+// Visit counter
+(async () => {
+  try {
+    const ipRes = await fetch('https://api.ipify.org?format=json');
+    const { ip } = await ipRes.json();
+    const visitData = await api.recordVisit(ip);
+    const { ipCount, total } = visitData;
+    const visitorNumber = total !== null ? total : ipCount;
+    const counterEl = document.getElementById('visit-counter');
+    if (counterEl) {
+      counterEl.textContent = `👽 ${ipCount}/${total}`;
+      ui.showAlert('info', 'Vítej!', `Jsi tu po ${ipCount}/${total}`);
+    }
+  } catch (e) {
+    console.error('Visit counter failed', e);
+  }
+})();
 
   // Load sound settings
   const toggleBtn = document.getElementById('global-sound-toggle');

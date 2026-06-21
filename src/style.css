@@ -71,7 +71,7 @@ body {
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--panel-border);
   border-radius: 24px;
-  padding: 28px 32px;
+  padding: 28px 80px 28px 32px;
   box-shadow: var(--glass-shadow), var(--shadow-premium);
   position: relative;
   overflow-y: auto;
@@ -556,22 +556,48 @@ input:focus {
 
   
 .sound-toggle-btn {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.2);
-  border: 2px solid var(--neon-purple);
-  color: var(--neon-purple);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 99;
-  font-size: 16px;
-  transition: all 0.2s ease;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.2);
+    border: 2px solid var(--neon-purple);
+    color: var(--neon-purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 99;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+/* Ensure money display does not overlap sound toggle */
+#hub-player-money {
+    margin-right: 60px; /* space to avoid overlap */
+}
+
+@media (max-width: 480px) {
+    #hub-player-money {
+        margin-right: 80px;
+    }
+    /* Adjust hub and game money spacing on mobile */
+    #game-player-money { margin-right: 0; }
+    /* Reduce sound toggle size */
+    .sound-toggle-btn { width: 30px; height: 30px; font-size: 14px; }
+    /* Stack header elements vertically */
+    .screen > .flex.justify-between.items-center {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .screen > .flex.justify-between.items-center .btn-info-toggle {
+        align-self: flex-end;
+    }
+    .container { padding: 16px 20px; }
+
 }
 
 .sound-toggle-btn:hover {
