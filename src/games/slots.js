@@ -154,9 +154,16 @@ export class SlotMachineGame {
         this.currentMatrix[idx0] === this.currentMatrix[idx1] &&
         this.currentMatrix[idx1] === this.currentMatrix[idx2]
       ) {
-        // Multiply bet based on symbol
-        const multiplier = (this.currentMatrix[idx0] === '7️⃣') ? 50 : 5;
-        if (multiplier === 50) isJackpot = true;
+        const multipliers = {
+          '🍒': 2,
+          '🛎': 5,
+          '🍋': 8,
+          '⭐': 15,
+          '💎': 30,
+          '7️⃣': 100
+        };
+        const multiplier = multipliers[this.currentMatrix[idx0]] || 5;
+        if (this.currentMatrix[idx0] === '7️⃣') isJackpot = true;
         
         winAmount += betAmount * multiplier;
         
