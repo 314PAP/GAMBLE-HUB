@@ -21,9 +21,25 @@ export class GuessingGame {
       gridContainer.style.gridTemplateColumns = 'repeat(5, 1fr)';
     }
 
+    // Classic roulette number colors
+    const redNums = [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
+    const blackNums = [2,4,6,8,10,11,13,15,17,20,22,24,26,28,29,31,33,35];
+
     for (let i = min; i <= max; i++) {
       const btn = document.createElement('button');
       btn.className = 'btn-num';
+      
+      // === RULE 2: Retro Digital Contrast – casino colors for roulette ===
+      if (min === 0 && max === 35) {
+        if (i === 0) {
+          btn.classList.add('green-num');
+        } else if (redNums.includes(i)) {
+          btn.classList.add('red-num');
+        } else {
+          btn.classList.add('black-num');
+        }
+      }
+      
       btn.innerText = i;
       btn.dataset.num = i;
       btn.onclick = () => {

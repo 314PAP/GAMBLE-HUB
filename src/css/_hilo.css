@@ -85,11 +85,15 @@
   grid-template-columns: repeat(6, 1fr);
   gap: 6px;
   padding: 16px;
-  background: rgba(0, 0, 0, 0.2);
+  background:
+    var(--screen-glass-sheen),
+    var(--screen-bg-gradient);
   border-radius: 12px;
-  border: 1px solid rgba(189, 0, 255, 0.1);
+  border: 2px solid var(--screen-border-color);
+  box-shadow: var(--screen-inset);
   max-width: 100%;
   margin: 24px auto;
+  position: relative;
 }
 
 .number-grid {
@@ -101,72 +105,6 @@
   width: 100%;
   margin-top: 0;
   margin-bottom: 0;
-}
-
-/* Bets bar */
-.bet-buttons, #bet-area {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
-  justify-content: center;
-}
-
-.btn-bet {
-  width: auto;
-  min-width: 50px;
-  max-width: 70px;
-  height: 36px;
-  padding: 0 10px;
-  font-size: 12px;
-  border-radius: 8px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 30%),
-    #000000;
-  border: 2px solid var(--neon-purple);
-  color: var(--neon-purple);
-  cursor: pointer;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  text-shadow: 0 0 6px var(--neon-purple-glow);
-  transition:
-    transform 0.08s cubic-bezier(0.2, 0.9, 0.3, 1),
-    border-color 0.18s ease,
-    color 0.18s ease,
-    box-shadow 0.18s ease;
-  box-shadow:
-    0 0 10px var(--neon-purple-glow),
-    inset 0 1px 6px rgba(255, 255, 255, 0.12),
-    inset 0 -4px 8px rgba(0, 0, 0, 0.6);
-}
-
-.btn-bet:hover {
-  border-color: var(--neon-gold);
-  color: var(--neon-gold);
-  text-shadow: 0 0 8px var(--neon-gold-glow);
-  transform: translateY(-1px);
-  box-shadow:
-    0 0 12px var(--neon-gold-glow),
-    inset 0 1px 8px rgba(255, 255, 255, 0.16),
-    inset 0 -4px 10px rgba(0, 0, 0, 0.6);
-}
-
-.btn-bet:active {
-  transform: translateY(2px);
-  box-shadow:
-    0 0 8px var(--neon-purple-glow),
-    inset 0 2px 6px rgba(0, 0, 0, 0.5);
-}
-
-.btn-bet.selected {
-  border-color: var(--neon-blue);
-  color: var(--neon-blue);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 34%),
-    rgba(0, 180, 216, 0.15);
-  text-shadow: 0 0 8px var(--neon-blue-glow);
-  box-shadow: 0 0 12px var(--neon-blue-glow);
 }
 
 /* Result box / toast */

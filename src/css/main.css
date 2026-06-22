@@ -7,7 +7,8 @@
 
 /* 2. Naše vlastní komponenty vložíme do správné vrstvy, aby přebily základní utility */
 @layer components {
-  @import "./_components.css";
+  @import "./_buttons.css";
+  @import "./_panels.css";
   @import "./_slot.css";
   @import "./_hilo.css";
 }
