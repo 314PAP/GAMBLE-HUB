@@ -1,13 +1,11 @@
 /* src/css/_hilo.css */
 /* Hi-Lo cards, classic games grid, bet buttons, status-box */
 
-.hilo-container {
-  background: rgba(0,0,0,0.3);
-  border: 1px solid var(--panel-border);
-  border-radius: 20px;
-  padding: 20px;
-  text-align: center;
-  margin: 16px 0;
+@media (max-width: 480px) {
+  .hilo-container {
+    padding: 16px;
+    margin-bottom: 24px;
+  }
 }
 
 .card-viewport {
@@ -64,65 +62,110 @@
 }
 
 .hilo-btns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 12px;
   margin-top: 16px;
+  justify-content: center;
+}
+
+.hilo-btns .btn,
+.hilo-btns .btn-primary,
+.hilo-btns .btn-danger {
+  width: auto;
+  min-width: 80px;
+  max-width: 120px;
+  height: 44px;
+  padding: 0 16px;
+  font-size: 14px;
 }
 
 /* Classic games number grid */
-.number-grid {
+:is(.number-grid, #game-number-buttons) {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 6px;
-  margin: 12px auto;
-  max-width: 400px;
-  padding: 8px;
+  padding: 16px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 12px;
   border: 1px solid rgba(189, 0, 255, 0.1);
+  max-width: 100%;
+  margin: 24px auto;
+}
+
+.number-grid {
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
 
 #game-number-buttons {
-  display: grid !important;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 6px;
   width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 8px;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 12px;
-  border: 1px solid rgba(189, 0, 255, 0.1);
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 /* Bets bar */
 .bet-buttons, #bet-area {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin-top: 10px;
+  justify-content: center;
 }
 
 .btn-bet {
-  background: #000000;
+  width: auto;
+  min-width: 50px;
+  max-width: 70px;
+  height: 36px;
+  padding: 0 10px;
+  font-size: 12px;
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 30%),
+    #000000;
   border: 2px solid var(--neon-purple);
   color: var(--neon-purple);
-  border-radius: 8px;
   cursor: pointer;
-  font-weight: 600;
-  transition: all 0.2s ease;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-shadow: 0 0 6px var(--neon-purple-glow);
+  transition:
+    transform 0.08s cubic-bezier(0.2, 0.9, 0.3, 1),
+    border-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease;
+  box-shadow:
+    0 0 10px var(--neon-purple-glow),
+    inset 0 1px 6px rgba(255, 255, 255, 0.12),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.6);
 }
 
 .btn-bet:hover {
   border-color: var(--neon-gold);
   color: var(--neon-gold);
+  text-shadow: 0 0 8px var(--neon-gold-glow);
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 12px var(--neon-gold-glow),
+    inset 0 1px 8px rgba(255, 255, 255, 0.16),
+    inset 0 -4px 10px rgba(0, 0, 0, 0.6);
+}
+
+.btn-bet:active {
+  transform: translateY(2px);
+  box-shadow:
+    0 0 8px var(--neon-purple-glow),
+    inset 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
 .btn-bet.selected {
   border-color: var(--neon-blue);
-  color: var(--text-primary);
-  background: rgba(0, 180, 216, 0.15);
+  color: var(--neon-blue);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 34%),
+    rgba(0, 180, 216, 0.15);
+  text-shadow: 0 0 8px var(--neon-blue-glow);
   box-shadow: 0 0 12px var(--neon-blue-glow);
 }
 

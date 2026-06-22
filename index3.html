@@ -522,19 +522,19 @@
         document.getElementById('classic-inputs').style.display = "none";
 
         if(id === 5) {
-            document.getElementById('game-title').innerText = "🎰 AUTOMAT BARY";
+            document.getElementById('game-title').innerText = "AUTOMAT BARY";
             document.getElementById('slots-area').style.display = "block";
         } else if(id === 6) {
-            document.getElementById('game-title').innerText = "🃏 VÍCE / MÉNĚ";
+            document.getElementById('game-title').innerText = "VÍCE / MÉNĚ";
             document.getElementById('hilo-area').style.display = "block";
             hiloAktualniCislo = Math.floor(Math.random() * 8) + 2; // 2 až 9 do startu
             document.getElementById('hilo-current-card').innerText = hiloAktualniCislo;
         } else {
             document.getElementById('classic-inputs').style.display = "block";
-            if(id === 1) { document.getElementById('game-title').innerText = "🎲 HÁDANKA 1-10"; vygenerujCiselnik(1, 10); }
-            else if(id === 2) { document.getElementById('game-title').innerText = "🎲 HÁDANKA 1-5"; vygenerujCiselnik(1, 5); }
-            else if(id === 3) { document.getElementById('game-title').innerText = "🎲 KOSTKA"; vygenerujCiselnik(1, 6); }
-            else if(id === 4) { document.getElementById('game-title').innerText = "🔴 RULETA"; vygenerujCiselnik(0, 36); }
+            if(id === 1) { document.getElementById('game-title').innerText = "HÁDANKA 1-10"; vygenerujCiselnik(1, 10); }
+            else if(id === 2) { document.getElementById('game-title').innerText = "HÁDANKA 1-5"; vygenerujCiselnik(1, 5); }
+            else if(id === 3) { document.getElementById('game-title').innerText = "KOSTKA"; vygenerujCiselnik(1, 6); }
+            else if(id === 4) { document.getElementById('game-title').innerText = "RULETA"; vygenerujCiselnik(0, 36); }
         }
         prepniObrazovku('screen-game');
     }

@@ -1,24 +1,13 @@
-/* src/css/main.css */
-/* Aggregate entry point – imports all CSS modules in dependency order */
-
-/* Tailwind base utilities (processed by Vite/PostCSS) */
+/* 1. Nejdříve importujeme Tailwind a základní vrstvy */
 @import "../tailwind.css";
-
-/* Core resets and variables */
 @import "./_variables.css";
 @import "./_reset.css";
-
-/* Typography */
 @import "./_typography.css";
-
-/* Layout: container, screens, utilities, media queries */
 @import "./_layout.css";
 
-/* Components: buttons, inputs, modals, panels, scrollbar, sound toggle, utilities */
-@import "./_components.css";
-
-/* Game-specific: slot machine */
-@import "./_slot.css";
-
-/* Game-specific: hi-lo cards + classic games grid/bets */
-@import "./_hilo.css";
+/* 2. Naše vlastní komponenty vložíme do správné vrstvy, aby přebily základní utility */
+@layer components {
+  @import "./_components.css";
+  @import "./_slot.css";
+  @import "./_hilo.css";
+}

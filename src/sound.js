@@ -91,7 +91,7 @@ class SoundManager {
 
   // ─── Sound effects ────────────────────────────────────────────────────────
 
-  // Short click for button presses.
+  // Short mechanical microswitch click for button presses.
   playClick() {
     if (this.muted) return;
     this.initContext();
@@ -101,16 +101,17 @@ class SoundManager {
     const osc  = this._createOsc();
     const gain = ctx.createGain();
 
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(450, now);
-    osc.frequency.exponentialRampToValueAtTime(150, now + 0.08);
-    gain.gain.setValueAtTime(0.05, now);
-    gain.gain.linearRampToValueAtTime(0.0001, now + 0.08);
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(900, now);
+    osc.frequency.exponentialRampToValueAtTime(260, now + 0.035);
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.16, now + 0.004);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.045);
 
     osc.connect(gain);
     gain.connect(ctx.destination);
     osc.start(now);
-    osc.stop(now + 0.08);
+    osc.stop(now + 0.05);
   }
 
   // Card flip sweep.

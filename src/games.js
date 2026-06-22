@@ -60,32 +60,32 @@ export class GameManager {
 
     switch (gameId) {
       case 1:
-        titleEl.innerText = "🎲 HÁDANKA 1-10";
+        titleEl.innerText = "HÁDANKA 1-10";
         document.getElementById('classic-inputs').style.display = 'block';
         this.guessing.generateGrid(1, 10, (num) => this.playGuessingGame(num, 1, 10, 10, "Hádanka 1-10"));
         break;
       case 2:
-        titleEl.innerText = "🎲 HÁDANKA 1-5";
+        titleEl.innerText = "HÁDANKA 1-5";
         document.getElementById('classic-inputs').style.display = 'block';
         this.guessing.generateGrid(1, 5, (num) => this.playGuessingGame(num, 1, 5, 5, "Hádanka 1-5"));
         break;
       case 3:
-        titleEl.innerText = "🎲 KOSTKA 1-6";
+        titleEl.innerText = "KOSTKA 1-6";
         document.getElementById('classic-inputs').style.display = 'block';
         this.guessing.generateGrid(1, 6, (num) => this.playGuessingGame(num, 1, 6, 6, "Kostka"));
         break;
       case 4:
-        titleEl.innerText = "🔴 RULETA 0-35";
+        titleEl.innerText = "RULETA 0-35";
         document.getElementById('classic-inputs').style.display = 'block';
         this.guessing.generateGrid(0, 35, (num) => this.playGuessingGame(num, 0, 35, 35, "Ruleta"));
         break;
       case 5:
-        titleEl.innerText = "🎰 AUTOMAT BARY";
+        titleEl.innerText = "AUTOMAT BARY";
         document.getElementById('slots-area').style.display = 'block';
         this.slots.initReels();
         break;
       case 6:
-        titleEl.innerText = "🃏 VÍCE / MÉNĚ (Hi-Lo)";
+        titleEl.innerText = "VÍCE / MÉNĚ (Hi-Lo)";
         document.getElementById('hilo-area').style.display = 'block';
         this.hilo.init();
         break;

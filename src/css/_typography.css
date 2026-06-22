@@ -16,15 +16,7 @@ h1 {
   margin-bottom: 24px;
   text-transform: uppercase;
   position: relative;
-  animation: titleFlicker 5s infinite;
   filter: drop-shadow(0 0 10px var(--neon-gold-glow));
-}
-
-@keyframes titleFlicker {
-  0%, 95%, 100% { opacity: 1; filter: drop-shadow(0 0 10px var(--neon-gold-glow)); }
-  96% { opacity: 0.9; filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.2)); }
-  97% { opacity: 1; filter: drop-shadow(0 0 12px var(--neon-gold-glow)); }
-  98% { opacity: 0.93; filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.3)); }
 }
 
 h2 {

@@ -8,6 +8,16 @@ import { GameManager } from './games';
 import { sound } from './sound';
 import { API } from './api';
 import { initButtonAnimations } from './animations/buttons.js';
+import {
+  initTitleFlicker,
+  initModalAnimations,
+  initInfoPanelAnimations,
+  initStatusBoxAnimation,
+  initSockaShake,
+  initPulseSeven,
+  initNeonFlicker,
+  initIdlePulse,
+} from './animations/ui.js';
 
 // Initialize core components
 const db = new GameDatabase();
@@ -283,6 +293,8 @@ document.addEventListener('DOMContentLoaded', () => {
       target.closest('button') ||
       target.closest('.btn-num') ||
       target.closest('.btn-bet') ||
+      target.closest('.btn-spin-slots') ||
+      target.closest('.btn-auto-slots') ||
       target.closest('.sound-toggle-btn')
     ) {
       sound.playClick();
@@ -305,4 +317,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   initButtonAnimations();
+
+  initTitleFlicker();
+  initSockaShake();
+  initPulseSeven();
+  initModalAnimations();
+  initInfoPanelAnimations();
+  initStatusBoxAnimation();
+
+  // === RULE 4: Idle life for game elements ===
+  // Neon flicker on game title when game screen is active
+  const gameTitle = document.getElementById('game-title');
+  if (gameTitle) {
+    initNeonFlicker(gameTitle, 'rgba(0, 240, 255, 0.6)');
+  }
+  // Idle pulse on spin button when slots are shown
+  const spinBtn = document.getElementById('btn-spin-slots');
+  if (spinBtn) {
+    initIdlePulse(spinBtn);
+  }
 });

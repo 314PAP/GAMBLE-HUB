@@ -1,6 +1,7 @@
 import Swal from 'sweetalert2';
 import confetti from 'canvas-confetti';
 import Chart from 'chart.js/auto';
+import { animateScreenIn } from './animations/ui.js';
 
 export class GameUI {
   constructor(db, api) {
@@ -24,6 +25,7 @@ export class GameUI {
     if (target) {
       target.classList.add('active');
       this.activeScreen = screenId;
+      animateScreenIn(target);
     }
   }
 
@@ -128,7 +130,7 @@ export class GameUI {
       row.style.marginBottom = '4px';
 
       const selectBtn = document.createElement('button');
-      selectBtn.className = 'btn flex-1 text-left justify-start pl-4 account-btn';
+      selectBtn.className = 'btn account-btn';
       selectBtn.innerHTML = `<span class="account-name font-semibold" style="color: var(--neon-gold); text-shadow: 0 0 5px var(--neon-gold-glow);">${username}</span> <span class="ml-auto" style="color: var(--neon-green); text-shadow: 0 0 5px var(--neon-green-glow);">${balance} Kč</span>`;
       selectBtn.onclick = () => onSelect(username);
 
@@ -510,8 +512,8 @@ export class GameUI {
 
       // Map internal game code to user-friendly label
       let gameLabel = item.gameName;
-      if (item.gameName === 'Bary3x3') gameLabel = '🎰 Automat';
-      else if (item.gameName === 'VíceMéně') gameLabel = '🃏 Hi-Lo';
+      if (item.gameName === 'Bary3x3') gameLabel = 'Automat';
+      else if (item.gameName === 'VíceMéně') gameLabel = 'Hi-Lo';
 
       html += `
         <div class="flex justify-between items-center py-2 px-3 bg-[rgba(13,0,26,0.7)] border-l-4 ${isWin ? 'border-l-[var(--neon-green)]' : 'border-l-[var(--neon-pink)]'} border border-[rgba(189,0,255,0.25)] rounded-r-xl text-xs">
