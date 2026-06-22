@@ -1,13 +1,11 @@
-/* src/css/_hilo.css */
-/* Hi-Lo cards, classic games grid, bet buttons, status-box */
+/* === Hi-Lo Game Specific Styles === */
 
-@media (max-width: 480px) {
-  .hilo-container {
-    padding: 16px;
-    margin-bottom: 24px;
-  }
+.hilo-container {
+  padding: 16px;
+  margin-bottom: 24px;
 }
 
+/* Hi-Lo Card Styling */
 .card-viewport {
   perspective: 1000px;
   width: 100px;
@@ -61,24 +59,6 @@
   font-size: 32px;
 }
 
-.hilo-btns {
-  display: flex;
-  gap: 12px;
-  margin-top: 16px;
-  justify-content: center;
-}
-
-.hilo-btns .btn,
-.hilo-btns .btn-primary,
-.hilo-btns .btn-danger {
-  width: auto;
-  min-width: 80px;
-  max-width: 120px;
-  height: 44px;
-  padding: 0 16px;
-  font-size: 14px;
-}
-
 /* Classic games number grid */
 :is(.number-grid, #game-number-buttons) {
   display: grid;
@@ -107,24 +87,21 @@
   margin-bottom: 0;
 }
 
-/* Result box / toast */
-.status-box {
-  position: absolute;
-  bottom: 150px;
-  left: 20px;
-  right: 20px;
-  border: 2px solid var(--neon-purple);
-  padding: 10px;
-  border-radius: 12px;
-  background-color: rgba(18, 0, 36, 0.95);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  text-align: center;
-  font-size: 13px;
-  line-height: 1.4;
-  z-index: 90;
-  display: none;
-  opacity: 0;
-  transform: translateY(20px);
-  pointer-events: none;
+/* Hi-Lo specific button overrides */
+.hilo-btns {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  justify-content: center;
+}
+
+.hilo-btns .btn,
+.hilo-btns .btn-primary,
+.hilo-btns .btn-danger {
+  width: auto;
+  min-width: 80px;
+  max-width: 120px;
+  height: 44px;
+  padding: 0 16px;
+  font-size: 14px;
 }

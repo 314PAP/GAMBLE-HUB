@@ -1,19 +1,19 @@
 /* === GAME HEADER & TITLE === */
 .game-header-bar {
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background:
     linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 50%),
-    linear-gradient(180deg, #020205 0%, #0a0a14 50%, #020205 100%) !important;
-  border: 2px solid #1a1a2e !important;
-  border-radius: 16px !important;
-  padding: 12px 16px !important;
-  margin-bottom: 16px !important;
+    linear-gradient(180deg, #020205 0%, #0a0a14 50%, #020205 100%);
+  border: 2px solid #1a1a2e;
+  border-radius: 16px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
   box-shadow:
     inset 0 2px 20px rgba(0,0,0,0.8),
     inset 0 -2px 10px rgba(0,0,0,0.4),
-    0 0 2px rgba(0,0,0,0.9) !important;
+    0 0 2px rgba(0,0,0,0.9);
   position: relative;
   overflow: hidden;
 }
@@ -29,13 +29,13 @@
 }
 
 .game-title {
-  font-family: 'Orbitron', sans-serif !important;
-  font-weight: 800 !important;
-  font-size: 15px !important;
-  letter-spacing: 1px !important;
-  text-transform: uppercase !important;
-  color: #00f0ff !important;
-  text-shadow: 0 0 8px rgba(0,240,255,0.6), 0 0 16px rgba(0,240,255,0.4) !important;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #00f0ff;
+  text-shadow: 0 0 8px rgba(0,240,255,0.6), 0 0 16px rgba(0,240,255,0.4);
   position: relative;
   z-index: 2;
 }
@@ -43,28 +43,28 @@
 
 /* === BET AREA GRID === */
 .bet-area-grid {
-  display: grid !important;
-  grid-template-columns: repeat(5, 1fr) !important;
-  gap: 6px !important;
-  margin-top: 8px !important;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  margin-top: 8px;
 }
 
 /* Number buttons container for classic games */
 .number-grid-bar {
-  display: flex !important;
-  flex-wrap: wrap !important;
-  gap: 6px !important;
-  justify-content: center !important;
-  margin-bottom: 12px !important;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 12px;
   background:
     linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 50%),
-    linear-gradient(180deg, #020205 0%, #0a0a14 50%, #020205 100%) !important;
-  border: 2px solid #1a1a2e !important;
-  border-radius: 12px !important;
+    linear-gradient(180deg, #020205 0%, #0a0a14 50%, #020205 100%);
+  border: 2px solid #1a1a2e;
+  border-radius: 12px;
   box-shadow:
     inset 0 2px 20px rgba(0,0,0,0.8),
-    inset 0 -2px 10px rgba(0,0,0,0.4) !important;
-  padding: 12px !important;
+    inset 0 -2px 10px rgba(0,0,0,0.4);
+  padding: 12px;
 }
 
 
@@ -322,60 +322,6 @@
 }
 
 
-/* === SLOT CONTROLS ROW === */
-.slot-controls {
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-  margin: 16px 0;
-}
-
-
-/* === Hi-Lo CARD === */
-.card-viewport {
-  perspective: 800px;
-  width: 110px;
-  height: 150px;
-  margin: 16px auto;
-}
-.hilo-card {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.hilo-card.flipped { transform: rotateY(180deg); }
-
-.card-face {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  border-radius: 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  border: 2px solid #1a1a2e;
-}
-.card-front {
-  background: linear-gradient(180deg, #1a1a2e, #0a0a14);
-  color: #ffd700;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 40px;
-  text-shadow: 0 0 10px rgba(255,215,0,0.5);
-  box-shadow:
-    inset 0 2px 10px rgba(0,0,0,0.5),
-    0 0 2px rgba(0,0,0,0.8);
-}
-.card-back {
-  background: linear-gradient(180deg, #1a1a2e, #0a0a14);
-  transform: rotateY(180deg);
-  font-size: 32px;
-}
-
-
 /* Explorer modal overrides */
 #explorer-modal .modal-content {
   max-height: 90vh;
@@ -389,7 +335,7 @@
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 14px;
-  padding-right: 28px !important;
+  padding-right: 28px;
 }
 
 #explorer-modal select:focus {

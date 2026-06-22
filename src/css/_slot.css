@@ -110,6 +110,7 @@
   font-weight: 900;
 }
 
+/* Slot controls */
 .slot-controls {
   display: flex;
   gap: 16px;
