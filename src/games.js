@@ -107,6 +107,19 @@ export class GameManager {
     return true;
   }
 
+  _startRound() {
+    if (!this.preGameChecks()) return false;
+
+    const balance = this.db.getPlayerBalance(this.currentPlayer);
+    this.db.updatePlayerBalance(this.currentPlayer, balance - this.activeBet);
+    this.ui.updateMiniProfile(this.currentPlayer, balance - this.activeBet);
+
+    const resBox = document.getElementById('game-result');
+    if (resBox) resBox.style.display = 'none';
+
+    return true;
+  }
+
   // Unified win/loss result processor
   processGameResult(isWin, winAmount, gameName, resultText, isJackpot = false) {
     const oldBalance = this.db.getPlayerBalance(this.currentPlayer);
@@ -196,25 +209,14 @@ export class GameManager {
 
   // Play numeric guessing games
   playGuessingGame(selectedNum, min, max, multiplier, gameName) {
-    if (!this.preGameChecks()) return;
+    if (!this._startRound()) return;
 
-    // Deduct bet
-    const balance = this.db.getPlayerBalance(this.currentPlayer);
-    this.db.updatePlayerBalance(this.currentPlayer, balance - this.activeBet);
-    this.ui.updateMiniProfile(this.currentPlayer, balance - this.activeBet);
-    
-    // Hide previous result
-    const resBox = document.getElementById('game-result');
-    if (resBox) resBox.style.display = 'none';
-
-    // Lock UI during animation and reset previous selection highlights
     this.ui.resetNumberButtons();
     this.lockGameControls(true);
 
     this.guessing.play(selectedNum, min, max, this.activeBet, multiplier, (res) => {
       this.lockGameControls(false);
       this.processGameResult(res.isWin, res.winAmount, gameName, res.resultText);
-      // Ensure previous selections are cleared for next round
       this.ui.resetNumberButtons();
     });
   }
@@ -222,16 +224,7 @@ export class GameManager {
   // Play Hi-Lo card game
   playHilo(tip) {
     if (this.hilo.isAnimating) return;
-    if (!this.preGameChecks()) return;
-
-    // Deduct bet
-    const balance = this.db.getPlayerBalance(this.currentPlayer);
-    this.db.updatePlayerBalance(this.currentPlayer, balance - this.activeBet);
-    this.ui.updateMiniProfile(this.currentPlayer, balance - this.activeBet);
-
-    // Hide previous result
-    const resBox = document.getElementById('game-result');
-    if (resBox) resBox.style.display = 'none';
+    if (!this._startRound()) return;
 
     this.lockGameControls(true);
 
@@ -244,17 +237,9 @@ export class GameManager {
   // Spin slots
   playSlots() {
     if (this.slots.isSpinning) return;
-    if (!this.preGameChecks()) return;
+    if (!this._startRound()) return;
 
-    // Deduct bet
     const balance = this.db.getPlayerBalance(this.currentPlayer);
-    this.db.updatePlayerBalance(this.currentPlayer, balance - this.activeBet);
-    this.ui.updateMiniProfile(this.currentPlayer, balance - this.activeBet);
-
-    // Hide result box during spin
-    const resBox = document.getElementById('game-result');
-    if (resBox) resBox.style.display = 'none';
-
     if (!this.autoPlayInterval) {
       this.lockGameControls(true);
     }
