@@ -11,10 +11,10 @@
 
 /* Hi-Lo Card Styling */
 .card-viewport {
-  perspective: 1200px;
-  width: 120px;
-  height: 168px;
-  margin: 8px auto;
+  perspective: 1000px;
+  width: 90px;
+  height: 126px;
+  margin: 6px auto;
   position: relative;
 }
 
