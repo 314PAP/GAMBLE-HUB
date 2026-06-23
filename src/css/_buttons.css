@@ -1,81 +1,79 @@
 /* === RULE 3: Massive 3D Mechanical Switch Buttons === */
-/* !important overrides Tailwind v4 preflight base-layer reset */
-
 /* Base button – no rounded corners, thick shadow, plastic look */
 .btn {
-  position: relative !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 8px !important;
-  padding: 14px 22px !important;
-  width: 100% !important;
-  min-height: 48px !important;
-  border: none !important;
-  border-radius: 6px !important;
-  cursor: pointer !important;
-  user-select: none !important;
-  font-family: 'Outfit', sans-serif !important;
-  font-size: 15px !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.06em !important;
-  text-transform: uppercase !important;
-  color: #fff !important;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.6) !important;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 22px;
+  width: 100%;
+  min-height: 48px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
   background:
     linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.05) 40%, transparent 60%),
     linear-gradient(180deg, rgba(0,0,0,0.25) 0%, transparent 50%),
-    #111118 !important;
+    #111118;
   box-shadow:
     0 6px 0 #000,
     0 8px 14px rgba(0,0,0,0.55),
     inset 0 1px 0 rgba(255,255,255,0.18),
-    inset 0 -3px 6px rgba(0,0,0,0.45) !important;
+    inset 0 -3px 6px rgba(0,0,0,0.45);
   transition:
     transform 0.08s cubic-bezier(0.2, 0.9, 0.3, 1),
     box-shadow 0.08s ease,
     border-color 0.18s ease,
     color 0.18s ease,
-    text-shadow 0.18s ease !important;
+    text-shadow 0.18s ease;
 }
 
 /* Physical press – button goes DOWN into the panel */
 .btn:active {
-  transform: translateY(6px) !important;
+  transform: translateY(6px);
   box-shadow:
     0 1px 0 #000,
     0 2px 4px rgba(0,0,0,0.5),
     inset 0 1px 0 rgba(255,255,255,0.1),
-    inset 0 -2px 4px rgba(0,0,0,0.5) !important;
+    inset 0 -2px 4px rgba(0,0,0,0.5);
 }
 
 /* Hover – slight lift, stronger glow */
 .btn:hover {
-  transform: translateY(-2px) !important;
+  transform: translateY(-2px);
   box-shadow:
     0 10px 0 #000,
     0 14px 20px rgba(0,0,0,0.6),
     inset 0 2px 4px rgba(255,255,255,0.22),
-    inset 0 -6px 12px rgba(0,0,0,0.45) !important;
+    inset 0 -6px 12px rgba(0,0,0,0.45);
 }
 
 /* Disabled – dead button */
 .btn:disabled,
 .btn:disabled:hover {
-  opacity: 0.35 !important;
-  cursor: not-allowed !important;
-  filter: grayscale(60%) !important;
-  text-shadow: none !important;
-  transform: none !important;
+  opacity: 0.35;
+  cursor: not-allowed;
+  filter: grayscale(60%);
+  text-shadow: none;
+  transform: none;
   box-shadow:
     0 3px 0 rgba(0,0,0,0.4),
-    inset 0 1px 2px rgba(0,0,0,0.5) !important;
+    inset 0 1px 2px rgba(0,0,0,0.5);
 }
 
 /* Inner text inherits button glow */
 .btn * {
-  color: inherit !important;
-  text-shadow: inherit !important;
+  color: inherit;
+  text-shadow: inherit;
 }
 
 /* Active LED pulse (for AUTO mode) */
@@ -95,76 +93,76 @@
 .btn-gold,
 .btn-gold:hover,
 .btn-gold:active {
-  border-top: 3px solid #ffd700 !important;
-  border-bottom: 3px solid #b8960a !important;
-  color: #ffd700 !important;
-  text-shadow: 0 0 8px rgba(255, 215, 0, 0.7), 0 0 16px rgba(255, 215, 0, 0.4) !important;
+  border-top: 3px solid #ffd700;
+  border-bottom: 3px solid #b8960a;
+  color: #ffd700;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.7), 0 0 16px rgba(255, 215, 0, 0.4);
   box-shadow:
     0 6px 0 #000,
     0 0 18px rgba(255, 215, 0, 0.25),
     0 8px 14px rgba(0,0,0,0.55),
     inset 0 1px 0 rgba(255,255,255,0.18),
-    inset 0 -3px 6px rgba(0,0,0,0.45) !important;
+    inset 0 -3px 6px rgba(0,0,0,0.45);
 }
 
 /* RED – danger / logout */
 .btn-danger,
 .btn-danger:hover,
 .btn-danger:active {
-  border-top: 3px solid #ff4757 !important;
-  border-bottom: 3px solid #a82030 !important;
-  color: #ff6b7a !important;
-  text-shadow: 0 0 8px rgba(255, 71, 87, 0.7), 0 0 16px rgba(255, 71, 87, 0.4) !important;
+  border-top: 3px solid #ff4757;
+  border-bottom: 3px solid #a82030;
+  color: #ff6b7a;
+  text-shadow: 0 0 8px rgba(255, 71, 87, 0.7), 0 0 16px rgba(255, 71, 87, 0.4);
 }
 
 /* CYAN – info / default panels */
 .btn-info,
 .btn-info:hover,
 .btn-info:active {
-  border-top: 3px solid #00f0ff !important;
-  border-bottom: 3px solid #008899 !important;
-  color: #00f0ff !important;
-  text-shadow: 0 0 8px rgba(0, 240, 255, 0.7), 0 0 16px rgba(0, 240, 255, 0.4) !important;
+  border-top: 3px solid #00f0ff;
+  border-bottom: 3px solid #008899;
+  color: #00f0ff;
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.7), 0 0 16px rgba(0, 240, 255, 0.4);
 }
 
 /* BLUE – primary actions */
 .btn-primary,
 .btn-primary:hover,
 .btn-primary:active {
-  border-top: 3px solid #3b82f6 !important;
-  border-bottom: 3px solid #1d4ed8 !important;
-  color: #60a5fa !important;
-  text-shadow: 0 0 8px rgba(59, 130, 246, 0.7), 0 0 16px rgba(59, 130, 246, 0.4) !important;
+  border-top: 3px solid #3b82f6;
+  border-bottom: 3px solid #1d4ed8;
+  color: #60a5fa;
+  text-shadow: 0 0 8px rgba(59, 130, 246, 0.7), 0 0 16px rgba(59, 130, 246, 0.4);
 }
 
 /* PINK – accent */
 .btn-pink,
 .btn-pink:hover,
 .btn-pink:active {
-  border-top: 3px solid #ec4899 !important;
-  border-bottom: 3px solid #9d174d !important;
-  color: #f472b6 !important;
-  text-shadow: 0 0 8px rgba(236, 72, 153, 0.7), 0 0 16px rgba(236, 72, 153, 0.4) !important;
+  border-top: 3px solid #ec4899;
+  border-bottom: 3px solid #9d174d;
+  color: #f472b6;
+  text-shadow: 0 0 8px rgba(236, 72, 153, 0.7), 0 0 16px rgba(236, 72, 153, 0.4);
 }
 
 /* PURPLE – AUTO / secondary */
 .btn-purple,
 .btn-purple:hover,
 .btn-purple:active {
-  border-top: 3px solid #a855f7 !important;
-  border-bottom: 3px solid #6b21a8 !important;
-  color: #c084fc !important;
-  text-shadow: 0 0 8px rgba(168, 85, 247, 0.7), 0 0 16px rgba(168, 85, 247, 0.4) !important;
+  border-top: 3px solid #a855f7;
+  border-bottom: 3px solid #6b21a8;
+  color: #c084fc;
+  text-shadow: 0 0 8px rgba(168, 85, 247, 0.7), 0 0 16px rgba(168, 85, 247, 0.4);
 }
 
 /* GREEN – success / SPIN */
 .btn-success,
 .btn-success:hover,
 .btn-success:active {
-  border-top: 3px solid #39ff14 !important;
-  border-bottom: 3px solid #1f9200 !important;
-  color: #39ff14 !important;
-  text-shadow: 0 0 10px rgba(57, 255, 20, 0.8), 0 0 20px rgba(57, 255, 20, 0.5) !important;
+  border-top: 3px solid #39ff14;
+  border-bottom: 3px solid #1f9200;
+  color: #39ff14;
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.8), 0 0 20px rgba(57, 255, 20, 0.5);
 }
 
 
@@ -172,177 +170,177 @@
 
 /* SPIN – poisoned neon green, strongest glow */
 .btn-spin-slots {
-  border-top: 4px solid #39ff14 !important;
-  border-bottom: 4px solid #1f9200 !important;
-  color: #39ff14 !important;
-  text-shadow: 0 0 12px rgba(57, 255, 20, 0.9), 0 0 24px rgba(57, 255, 20, 0.6) !important;
+  border-top: 4px solid #39ff14;
+  border-bottom: 4px solid #1f9200;
+  color: #39ff14;
+  text-shadow: 0 0 12px rgba(57, 255, 20, 0.9), 0 0 24px rgba(57, 255, 20, 0.6);
   box-shadow:
     0 8px 0 #000,
     0 0 28px rgba(57, 255, 20, 0.4),
     0 12px 22px rgba(0,0,0,0.6),
     inset 0 2px 6px rgba(255,255,255,0.22),
-    inset 0 -6px 14px rgba(0,0,0,0.45) !important;
-  min-width: 130px !important;
-  max-width: 160px !important;
+    inset 0 -6px 14px rgba(0,0,0,0.45);
+  min-width: 130px;
+  max-width: 160px;
 }
 
 .btn-spin-slots:active {
-  transform: translateY(6px) !important;
+  transform: translateY(6px);
   box-shadow:
     0 1px 0 #000,
     0 0 12px rgba(57, 255, 20, 0.5),
-    0 2px 6px rgba(0,0,0,0.5) !important;
+    0 2px 6px rgba(0,0,0,0.5);
 }
 
 /* BET buttons – cyan/blue compact */
 .btn-bet {
-  min-width: 56px !important;
-  max-width: 75px !important;
-  height: 44px !important;
-  padding: 0 10px !important;
-  font-size: 13px !important;
-  border-top: 3px solid #00f0ff !important;
-  border-bottom: 3px solid #008899 !important;
-  color: #00f0ff !important;
-  text-shadow: 0 0 6px rgba(0, 240, 255, 0.6) !important;
+  min-width: 56px;
+  max-width: 75px;
+  height: 44px;
+  padding: 0 10px;
+  font-size: 13px;
+  border-top: 3px solid #00f0ff;
+  border-bottom: 3px solid #008899;
+  color: #00f0ff;
+  text-shadow: 0 0 6px rgba(0, 240, 255, 0.6);
 }
 
 .btn-bet.selected {
   background:
     linear-gradient(180deg, rgba(0, 240, 255, 0.18), transparent 40%),
-    #111118 !important;
+    #111118;
   box-shadow:
     0 4px 0 #000,
     0 0 20px rgba(0, 240, 255, 0.45),
-    inset 0 0 12px rgba(0, 240, 255, 0.12) !important;
+    inset 0 0 12px rgba(0, 240, 255, 0.12);
   animation: ledPulse 1s ease-in-out infinite;
 }
 
 /* AUTO – purple compact */
 .btn-auto-slots {
-  min-width: 70px !important;
-  max-width: 90px !important;
-  height: 44px !important;
-  padding: 0 12px !important;
-  font-size: 13px !important;
-  border-top: 3px solid #a855f7 !important;
-  border-bottom: 3px solid #6b21a8 !important;
-  color: #c084fc !important;
-  text-shadow: 0 0 6px rgba(168, 85, 247, 0.6) !important;
+  min-width: 70px;
+  max-width: 90px;
+  height: 44px;
+  padding: 0 12px;
+  font-size: 13px;
+  border-top: 3px solid #a855f7;
+  border-bottom: 3px solid #6b21a8;
+  color: #c084fc;
+  text-shadow: 0 0 6px rgba(168, 85, 247, 0.6);
 }
 
 .btn-auto-slots.active {
   background:
     linear-gradient(180deg, rgba(168, 85, 247, 0.2), transparent 40%),
-    #111118 !important;
-  border-top-color: #39ff14 !important;
-  border-bottom-color: #1f9200 !important;
-  color: #39ff14 !important;
-  text-shadow: 0 0 10px rgba(57, 255, 20, 0.7) !important;
+    #111118;
+  border-top-color: #39ff14;
+  border-bottom-color: #1f9200;
+  color: #39ff14;
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.7);
   animation: ledPulse 0.8s ease-in-out infinite;
 }
 
 /* Ghost/transparent variant for secondary buttons */
 .btn-ghost {
-  background: transparent !important;
-  border: 2px solid #333 !important;
-  color: #aaa !important;
-  text-shadow: none !important;
-  box-shadow: none !important;
+  background: transparent;
+  border: 2px solid #333;
+  color: #aaa;
+  text-shadow: none;
+  box-shadow: none;
 }
 .btn-ghost:hover {
-  border-color: #555 !important;
-  color: #ddd !important;
+  border-color: #555;
+  color: #ddd;
 }
 .btn-ghost:active {
-  transform: translateY(2px) !important;
-  box-shadow: none !important;
+  transform: translateY(2px);
+  box-shadow: none;
 }
 
 
 /* === RETRO LED NUMBER TILES (.btn-num) === */
 
 .btn-num {
-  width: 46px !important;
-  height: 46px !important;
-  padding: 0 !important;
-  border: 1px solid #1a1a2e !important;
-  border-radius: 6px !important;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid #1a1a2e;
+  border-radius: 6px;
   background:
     linear-gradient(180deg, rgba(255,255,255,0.06), transparent 50%),
-    #010104 !important;
-  color: #b0b0c0 !important;
-  font-family: 'Orbitron', monospace !important;
-  font-size: 13px !important;
-  font-weight: 800 !important;
-  text-shadow: 0 0 6px rgba(0, 240, 255, 0.5) !important;
+    #010104;
+  color: #b0b0c0;
+  font-family: 'Orbitron', monospace;
+  font-size: 13px;
+  font-weight: 800;
+  text-shadow: 0 0 6px rgba(0, 240, 255, 0.5);
   box-shadow:
     inset 0 0 8px rgba(0,0,0,0.9),
-    0 0 2px rgba(0,0,0,0.8) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  cursor: pointer !important;
-  transition: all 0.06s ease !important;
+    0 0 2px rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.06s ease;
 }
 
 .btn-num:hover {
-  transform: scale(1.1) !important;
-  color: #fff !important;
-  border-color: #00f0ff !important;
-  text-shadow: 0 0 12px rgba(0, 240, 255, 0.8), 0 0 20px rgba(0, 240, 255, 0.5) !important;
+  transform: scale(1.1);
+  color: #fff;
+  border-color: #00f0ff;
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.8), 0 0 20px rgba(0, 240, 255, 0.5);
   box-shadow:
     inset 0 0 12px rgba(0, 240, 255, 0.2),
-    0 0 14px rgba(0, 240, 255, 0.35) !important;
+    0 0 14px rgba(0, 240, 255, 0.35);
 }
 
 /* Roulette casino colors */
 .btn-num.red-num {
   background:
     linear-gradient(180deg, rgba(255,60,60,0.3), transparent 50%),
-    #0a0204 !important;
-  border-color: #4a1515 !important;
-  color: #ff6b6b !important;
-  text-shadow: 0 0 8px rgba(255,60,60,0.7) !important;
+    #0a0204;
+  border-color: #4a1515;
+  color: #ff6b6b;
+  text-shadow: 0 0 8px rgba(255,60,60,0.7);
 }
 
 .btn-num.black-num {
   background:
     linear-gradient(180deg, rgba(255,255,255,0.04), transparent 50%),
-    #050508 !important;
-  border-color: #1f1f28 !important;
-  color: #c0c0d0 !important;
-  text-shadow: 0 0 6px rgba(0,240,255,0.4) !important;
+    #050508;
+  border-color: #1f1f28;
+  color: #c0c0d0;
+  text-shadow: 0 0 6px rgba(0,240,255,0.4);
 }
 
 .btn-num.green-num {
   background:
     linear-gradient(180deg, rgba(57,255,20,0.25), transparent 50%),
-    #020a04 !important;
-  border-color: #0a3a14 !important;
-  color: #5dff7f !important;
-  text-shadow: 0 0 10px rgba(57,255,20,0.7) !important;
+    #020a04;
+  border-color: #0a3a14;
+  color: #5dff7f;
+  text-shadow: 0 0 10px rgba(57,255,20,0.7);
 }
 
 /* States: selected / winning / losing */
 .btn-num.selected {
-  transform: scale(1.1) !important;
-  border-color: #00f0ff !important;
-  box-shadow: 0 0 12px rgba(0,240,255,0.5), inset 0 0 10px rgba(0,240,255,0.2) !important;
+  transform: scale(1.1);
+  border-color: #00f0ff;
+  box-shadow: 0 0 12px rgba(0,240,255,0.5), inset 0 0 10px rgba(0,240,255,0.2);
 }
 
 .btn-num.winning {
-  border-color: #39ff14 !important;
-  box-shadow: 0 0 14px rgba(57,255,20,0.7), inset 0 0 12px rgba(57,255,20,0.25) !important;
+  border-color: #39ff14;
+  box-shadow: 0 0 14px rgba(57,255,20,0.7), inset 0 0 12px rgba(57,255,20,0.25);
 }
 
 .btn-num.losing {
-  border-color: #ff007f !important;
-  box-shadow: 0 0 14px rgba(255,0,127,0.7), inset 0 0 12px rgba(255,0,127,0.25) !important;
+  border-color: #ff007f;
+  box-shadow: 0 0 14px rgba(255,0,127,0.7), inset 0 0 12px rgba(255,0,127,0.25);
 }
 
 /* Hide legacy icon elements inside buttons */
 .btn i, .btn svg,
 .btn-num i, .btn-num svg {
-  display: none !important;
+  display: none;
 }

@@ -107,7 +107,7 @@ Tento dokument definuje **neměnné designové standardy** pro celou aplikaci. V
 
 ### Pořadí změn:
 1. Vždy nejprve tato dokumentace (`docs/visual_guideline.md`).
-2. Úpravy CSS v tomto pořadí: `_variables.css` → `_layout.css` → `_slot.css` → `_components.css` → `_hilo.css` → `guessing styles`.
+2. Úpravy CSS v tomto pořadí: `_variables.css` → `_layout.css` → `_buttons.css` → `_panels.css` → `_slot.css` → `_hilo.css` → guessing styles.
 3. Poté úpravy HTML (`index.html`) – preferuj Tailwind v4 utility třídy pro rychlé úpravy, custom CSS pro komplexní efekty.
 4. Nakonec úpravy JS (`main.js`, `games/*.js`, `animations/ui.js`).
 

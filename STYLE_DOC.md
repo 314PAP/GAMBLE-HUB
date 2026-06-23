@@ -70,12 +70,14 @@ Definováno v `_variables.css`:
 ## 5. Komponenty
 
 ### Tlačítka (`.btn`, `.btn-*`)
-Unified base v `_components.css`:
-- Všechny varianty sdílejí základ: `rgba(189,0,255,0.08)` bg, cyan border, gold text
-- Hover: purple border, cyan text/glow, lift `translateY(-2px)`
-- Active: reset lift
-- Speciální override: `.btn-auto` (černé, purple border), `.btn-num` (čtvercové)
+Definováno v `_buttons.css` – massive 3D mechanical switch design:
+- Všechny varianty sdílejí základ: `#111118` bg, 6px bottom shadow for 3D depth
+- Hover: lift `translateY(-2px)`, zesílení box-shadow
+- Active: press `translateY(6px)`, snížení shadow pro fyzický dojem
+- Speciální varianty: `.btn-spin-slots`, `.btn-bet`, `.btn-auto-slots`, `.btn-num`
 - Skrytí ikon: `.btn i, .btn svg, .btn-num i, .btn-num svg { display:none; }`
+
+> **Důležité (2026-06-23):** Veškerá deklarace `!important` byla z `_buttons.css` a `_panels.css` odstraněna. Dříve sloužila k nucenému přepsání Tailwind v4 preflight základních restů. Díky tomu, že vlastní komponenty jsou v `@layer components` (což má vyšší prioritu než `@layer base`), je přepsání zaručeno samotnou vrstvou CSS Layers – speciální důraz (`!important`) není potřeba. Zároveň bylo smazáno `scripts/fix-legacy.js`, které námi odebrané `!important` opětovně přidávalo.
 
 ### Inputy
 V `_components.css`: `input, select, textarea` – tmavé sklo, orange focus glow.
