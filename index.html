@@ -20,7 +20,7 @@
             </div>
             <div id="visit-counter" class="text-center text-sm mt-2" style="color: var(--neon-cyan); text-shadow: 0 0 5px var(--neon-cyan-glow);"></div>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div style="display: flex; flex-direction: column; row-gap: 12px; column-gap: 12px; max-width: 100%;">
             <button id="btn-enter" class="btn btn-primary" onclick="otevriPrihlaseni()"><span class="icon-node"></span> Vstoupit do herny</button>
             <button id="btn-create-player" class="btn btn-success" onclick="otevriRegistraci()"><span class="icon-node"></span> Nový hráč (100 Kč)</button>
         </div>
@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2" style="gap: 24px;">
+        <div class="grid grid-cols-1 sm:grid-cols-2" style="gap: 12px;">
             <button class="btn btn-gold" onclick="spustitHru(5)"><span class="icon-node"></span> AUTOMAT</button>
             <button class="btn btn-danger" onclick="spustitHru(6)"><span class="icon-node"></span> HI-LOW</button>
             <button class="btn btn-red" onclick="spustitHru(4)"><span class="icon-node"></span> Ruleta 0-36 (36x)</button>
