@@ -49,6 +49,13 @@
   margin-top: 8px;
 }
 
+@media (max-width: 480px) {
+  .bet-area-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+  }
+}
+
 /* Number buttons container for classic games */
 .number-grid-bar {
   display: flex;
@@ -439,21 +446,4 @@
   }
 }
 
-/* === RESPONSIVE === */
-@media (max-width: 480px) {
-  .btn-num {
-    width: 38px;
-    height: 38px;
-    font-size: 11px;
-  }
-  .btn-bet {
-    min-width: 44px;
-    max-width: 58px;
-    height: 38px;
-    font-size: 11px;
-  }
-  .btn-spin-slots {
-    min-width: 100px;
-    max-width: 130px;
-  }
-}
+/* Old responsive moved to _layout.css */

@@ -194,15 +194,18 @@
 
 /* BET buttons – cyan/blue compact */
 .btn-bet {
-  min-width: 56px;
+  min-width: 44px;
   max-width: 75px;
   height: 44px;
-  padding: 0 10px;
-  font-size: 13px;
+  padding: 0 8px;
+  font-size: clamp(11px, 3vw, 13px);
   border-top: 3px solid #00f0ff;
   border-bottom: 3px solid #008899;
   color: #00f0ff;
   text-shadow: 0 0 6px rgba(0, 240, 255, 0.6);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .btn-bet.selected {

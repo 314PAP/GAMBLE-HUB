@@ -21,16 +21,16 @@ export class AccountsManager {
     usernames.forEach(username => {
       const balance = players[username];
       const row = document.createElement('div');
-      row.className = 'account-row flex items-center gap-2';
+      row.className = 'flex items-center justify-between w-full gap-2';
 
       const selectBtn = document.createElement('button');
-      selectBtn.className = 'btn account-btn';
-      selectBtn.innerHTML = `<span class="account-name font-semibold">${username}</span> <span class="ml-auto account-balance">${balance} Kč</span>`;
+      selectBtn.className = 'btn flex-1 min-w-0 text-left text-xs sm:text-sm';
+      selectBtn.innerHTML = `<span class="truncate block">${username}</span> <span class="account-balance ml-auto block truncate">${balance} Kč</span>`;
       selectBtn.onclick = () => onSelect(username);
 
       const deleteBtn = document.createElement('button');
-      deleteBtn.className = 'account-delete-btn';
-      deleteBtn.innerHTML = '<span class="text-[20px]">🗑️</span>';
+      deleteBtn.className = 'w-8 h-8 flex-shrink-0 flex items-center justify-center';
+      deleteBtn.innerHTML = '<span class="text-base sm:text-lg">🗑️</span>';
       deleteBtn.onclick = (e) => {
         e.stopPropagation();
         Swal.fire({
@@ -39,15 +39,9 @@ export class AccountsManager {
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#ff0055',
-          cancelButtonColor: '#ffd700',
-          confirmButtonText: 'Ano, smazat',
-          cancelButtonText: 'Zrušit',
-          background: '#12121c',
-          color: '#f8fafc'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            onDelete(username);
-          }
+          cancelButtonColor: '#333',
+          confirmButtonText: 'Smazat',
+          cancelButtonText: 'Zrušit'
         });
       };
 

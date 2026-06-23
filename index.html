@@ -44,12 +44,14 @@
     </div>
 
     <div id="screen-hub" class="screen">
-        <div class="game-header-bar mb-4 text-sm">
-            <div style="color: var(--neon-gold); text-shadow: 0 0 8px var(--neon-gold-glow);">
-                <span class="icon-node"></span> <span id="hub-player-name"></span>
-            </div>
-            <div style="color: var(--neon-green); text-shadow: 0 0 8px var(--neon-green-glow);">
-                <span id="hub-player-money"></span> <span>Kč</span>
+        <div class="game-header-bar mb-4">
+            <div class="flex items-center justify-between w-full gap-2">
+                <div class="text-xs sm:text-sm md:text-base truncate" style="color: var(--neon-gold); text-shadow: 0 0 8px var(--neon-gold-glow);">
+                    <span class="icon-node"></span> <span id="hub-player-name"></span>
+                </div>
+                <div class="text-xs sm:text-sm md:text-base whitespace-nowrap" style="color: var(--neon-green); text-shadow: 0 0 8px var(--neon-green-glow);">
+                    <span id="hub-player-money"></span> <span>Kč</span>
+                </div>
             </div>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
@@ -65,12 +67,14 @@
 
     <div id="screen-game" class="screen">
         <div class="game-header-bar">
-            <div class="game-title-row flex items-center gap-2">
-                <div id="game-title" class="game-title">HERNA</div>
-                <button class="btn-info-toggle" id="btn-game-info" onclick="toggleInfoPanel()" title="Jak se hraje">ⓘ</button>
-            </div>
-            <div style="color: var(--neon-green); text-shadow: 0 0 8px var(--neon-green-glow);">
-                <span id="game-player-money"></span> <span>Kč</span>
+            <div class="flex items-center justify-between w-full gap-2">
+                <div class="game-title-row flex items-center gap-2">
+                    <div id="game-title" class="game-title text-xs sm:text-sm md:text-base">HERNA</div>
+                    <button class="btn-info-toggle" id="btn-game-info" onclick="toggleInfoPanel()" title="Jak se hraje">ⓘ</button>
+                </div>
+                <div class="text-xs sm:text-sm md:text-base whitespace-nowrap" style="color: var(--neon-green); text-shadow: 0 0 8px var(--neon-green-glow);">
+                    <span id="game-player-money"></span> <span>Kč</span>
+                </div>
             </div>
         </div>
 
@@ -110,12 +114,12 @@
             <div id="game-number-buttons" class="number-grid-bar"></div>
         </div>
 
-        <div id="bet-area" class="bet-area-grid">
-            <button class="btn btn-bet" id="bet-10" onclick="nastavSazku(10)"><span class="icon-node"></span> 10</button>
-            <button class="btn btn-bet" id="bet-20" onclick="nastavSazku(20)"><span class="icon-node"></span> 20</button>
-            <button class="btn btn-bet" id="bet-50" onclick="nastavSazku(50)"><span class="icon-node"></span> 50</button>
-            <button class="btn btn-bet" id="bet-100" onclick="nastavSazku(100)"><span class="icon-node"></span> 100</button>
-            <button class="btn btn-bet" id="bet-cust" onclick="ukazVlastniSazku()"><span class="icon-node"></span></button>
+        <div id="bet-area" class="bet-area-grid grid grid-cols-4 sm:grid-cols-5 gap-1.5 sm:gap-2">
+            <button class="btn btn-bet text-xs sm:text-sm" id="bet-10" onclick="nastavSazku(10)"><span class="icon-node"></span> 10</button>
+            <button class="btn btn-bet text-xs sm:text-sm" id="bet-20" onclick="nastavSazku(20)"><span class="icon-node"></span> 20</button>
+            <button class="btn btn-bet text-xs sm:text-sm" id="bet-50" onclick="nastavSazku(50)"><span class="icon-node"></span> 50</button>
+            <button class="btn btn-bet text-xs sm:text-sm" id="bet-100" onclick="nastavSazku(100)"><span class="icon-node"></span> 100</button>
+            <button class="btn btn-bet text-xs sm:text-sm" id="bet-cust" onclick="ukazVlastniSazku()"><span class="icon-node"></span></button>
         </div>
 
         <div id="custom-sazka-area" style="display:none; margin-top:8px;">
