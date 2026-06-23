@@ -40,7 +40,7 @@ export const GAME_INFOS = {
     `
   },
   5: {
-    title: "Automat Bary 3x3",
+    title: "AUTOMAT",
     html: `
       <p>Tříválcový výherní automat s 3 viditelnými symboly na každém válci a <strong>5 výherními liniemi</strong> (3 horizontální, 2 diagonální).</p>
       <ul>

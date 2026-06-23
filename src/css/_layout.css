@@ -135,6 +135,15 @@
   font-size: 13px;
 }
 
+/* Game section spacing */
+#slots-area, #hilo-area, #classic-inputs, #bet-area, #custom-sazka-area, #game-result {
+  margin-top: 16px;
+}
+
+.slot-controls {
+  margin-top: 20px;
+}
+
 /* Form inputs */
 input, select, textarea {
   width: 100%;
@@ -181,15 +190,20 @@ input:focus, select:focus, textarea:focus {
     font-size: 10px;
   }
   .bet-area-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 4px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+  }
+  #slots-area, #hilo-area, #classic-inputs, #bet-area, #custom-sazka-area, #game-result {
+    margin-top: 10px;
+  }
+  .slot-controls {
+    margin-top: 10px;
+    gap: 10px;
   }
   .btn-bet {
-    min-width: auto;
-    max-width: none;
-    height: 38px;
-    padding: 0 4px;
-    font-size: 11px;
+    min-height: 32px;
+    padding: 4px 2px;
+    font-size: 10px;
     border-top-width: 2px;
     border-bottom-width: 2px;
   }

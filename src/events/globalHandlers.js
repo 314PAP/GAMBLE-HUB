@@ -94,7 +94,7 @@ export class GlobalEventHandlers {
         area.style.display = 'block';
         const input = document.getElementById('game-sazka');
         if (input) {
-          input.value = this.gm.activeBet;
+          input.value = '';
           input.focus();
         }
       } else {

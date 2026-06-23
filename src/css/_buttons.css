@@ -1,5 +1,9 @@
 /* === RULE 3: Massive 3D Mechanical Switch Buttons === */
 /* Base button – no rounded corners, thick shadow, plastic look */
+.btn, .btn-bet, .btn-spin-slots, .btn-auto-slots, .btn-num {
+  margin: 0;
+}
+
 .btn {
   position: relative;
   display: inline-flex;
@@ -194,11 +198,12 @@
 
 /* BET buttons – cyan/blue compact */
 .btn-bet {
-  min-width: 44px;
-  max-width: 75px;
-  height: 44px;
-  padding: 0 8px;
-  font-size: clamp(11px, 3vw, 13px);
+  min-width: 0;
+  max-width: none;
+  height: auto;
+  min-height: 36px;
+  padding: 6px 4px;
+  font-size: clamp(10px, 2.5vw, 13px);
   border-top: 3px solid #00f0ff;
   border-bottom: 3px solid #008899;
   color: #00f0ff;
@@ -246,14 +251,15 @@
 /* Ghost/transparent variant for secondary buttons */
 .btn-ghost {
   background: transparent;
-  border: 2px solid #333;
-  color: #aaa;
-  text-shadow: none;
+  border: 2px solid var(--neon-purple);
+  color: var(--neon-cyan);
+  text-shadow: 0 0 6px var(--neon-cyan-glow);
   box-shadow: none;
 }
 .btn-ghost:hover {
-  border-color: #555;
-  color: #ddd;
+  border-color: var(--neon-cyan);
+  color: var(--neon-gold);
+  text-shadow: 0 0 8px var(--neon-gold-glow);
 }
 .btn-ghost:active {
   transform: translateY(2px);

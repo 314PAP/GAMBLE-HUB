@@ -80,7 +80,7 @@ export class GameManager {
         this.guessing.generateGrid(0, 35, (num) => this.playGuessingGame(num, 0, 35, 35, "Ruleta"));
         break;
       case 5:
-        titleEl.innerText = "AUTOMAT BARY";
+        titleEl.innerText = "AUTOMAT";
         document.getElementById('slots-area').style.display = 'block';
         this.slots.initReels();
         break;
