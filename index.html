@@ -20,7 +20,7 @@
             </div>
             <div id="visit-counter" class="text-center text-sm mt-2" style="color: var(--neon-cyan); text-shadow: 0 0 5px var(--neon-cyan-glow);"></div>
         </div>
-        <div class="flex flex-col gap-3">
+        <div style="display: flex; flex-direction: column; gap: 24px;">
             <button id="btn-enter" class="btn btn-primary" onclick="otevriPrihlaseni()"><span class="icon-node"></span> Vstoupit do herny</button>
             <button id="btn-create-player" class="btn btn-success" onclick="otevriRegistraci()"><span class="icon-node"></span> Nový hráč (100 Kč)</button>
         </div>
@@ -52,9 +52,9 @@
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2" style="gap: 24px;">
             <button class="btn btn-gold" onclick="spustitHru(5)"><span class="icon-node"></span> AUTOMAT</button>
-            <button class="btn btn-danger" onclick="spustitHru(6)"><span class="icon-node"></span> VÍCE / MÉNĚ (Hi-Lo)</button>
+            <button class="btn btn-danger" onclick="spustitHru(6)"><span class="icon-node"></span> HI-LOW</button>
             <button class="btn btn-red" onclick="spustitHru(4)"><span class="icon-node"></span> Ruleta 0-36 (36x)</button>
             <button class="btn btn-info" onclick="spustitHru(1)"><span class="icon-node"></span> Hádanka 1-10 (10x)</button>
             <button class="btn btn-primary" onclick="spustitHru(2)"><span class="icon-node"></span> Hádanka 1-5 (5x)</button>
@@ -64,20 +64,20 @@
     </div>
 
     <div id="screen-game" class="screen">
-        <div class="game-header-bar">
+        <div class="game-header-bar" style="display: flex; flex-direction: column;">
             <div class="flex items-center justify-between w-full gap-2">
                 <div id="game-title" class="game-title">AUTOMAT</div>
-                <div class="flex items-center gap-4">
+                <div class="flex items-center gap-3">
                     <button class="btn-info-toggle" id="btn-game-info" onclick="toggleInfoPanel()" title="Jak se hraje">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
                     </button>
                     <div class="sound-toggle-btn" id="global-sound-toggle" onclick="toggleMuteState()" title="Zvuk">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
                     </div>
-                    <div class="text-[11px] sm:text-xs md:text-sm whitespace-nowrap" style="color: var(--neon-green); text-shadow: 0 0 8px var(--neon-green-glow);">
-                        <span id="game-player-money"></span> Kč
-                    </div>
                 </div>
+            </div>
+            <div class="text-center text-[11px] sm:text-xs md:text-sm mt-2" style="color: var(--neon-green); text-shadow: 0 0 8px var(--neon-green-glow);">
+                <span id="game-player-money"></span> Kč
             </div>
         </div>
 
@@ -178,7 +178,7 @@
                     <select id="history-filter-game" class="flex-1 text-sm bg-[rgba(13,0,26,0.6)] border border-[var(--neon-purple)] rounded-xl px-2 py-2 text-[var(--neon-gold)]" onchange="filtrujHistorii()">
                         <option value="">Všechny hry</option>
                         <option value="Bary3x3">Automat</option>
-                        <option value="VíceMéně">Hi-Lo</option>
+                        <option value="VíceMéně">HI-LOW</option>
                         <option value="Ruleta">Ruleta</option>
                         <option value="Hádanka 1-10">Hádanka 1-10</option>
                         <option value="Hádanka 1-5">Hádanka 1-5</option>

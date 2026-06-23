@@ -64,7 +64,7 @@ export class ExplorerManager {
 
       let gameLabel = item.gameName;
       if (item.gameName === 'Bary3x3') gameLabel = 'Automat';
-      else if (item.gameName === 'VíceMéně') gameLabel = 'Hi-Lo';
+      else if (item.gameName === 'VíceMéně') gameLabel = 'HI-LOW';
 
       html += `
         <div class="flex justify-between items-center py-2 px-3 bg-[rgba(13,0,26,0.7)] border-l-4 ${isWin ? 'border-l-[var(--neon-green)]' : 'border-l-[var(--neon-pink)]'} border border-[rgba(189,0,255,0.25)] rounded-r-xl text-xs">

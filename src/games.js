@@ -85,7 +85,7 @@ export class GameManager {
         this.slots.initReels();
         break;
       case 6:
-        titleEl.innerText = "VÍCE / MÉNĚ (Hi-Lo)";
+        titleEl.innerText = "HI-LOW";
         document.getElementById('hilo-area').style.display = 'block';
         this.hilo.init();
         break;

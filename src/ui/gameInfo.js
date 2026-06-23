@@ -63,7 +63,7 @@ export const GAME_INFOS = {
     `
   },
   6: {
-    title: "Více / Méně (Hi-Lo)",
+    title: "HI-LOW",
     html: `
       <p>Karetní hra, ve které odhadujete hodnotu další karty. Hraje se s kartami s hodnotami <strong>od 1 do 10</strong>.</p>
       <ul>
