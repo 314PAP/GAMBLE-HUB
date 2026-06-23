@@ -151,43 +151,13 @@ export class GameManager {
     // Update UI profile
     this.ui.updateMiniProfile(this.currentPlayer, newBalance);
 
-    // Render results box with GSAP floating animation
+// Render results box with GSAP floating animation
     const resBox = document.getElementById('game-result');
-    if (resBox) {
-      gsap.killTweensOf(resBox);
-      resBox.style.display = 'block';
-      
-      if (isWin) {
-        resBox.style.borderColor = 'var(--neon-green)';
-        resBox.style.boxShadow = '0 10px 25px rgba(0,0,0,0.5), 0 0 15px var(--neon-green-glow)';
-        resBox.innerHTML = `
-          <span style="color:var(--neon-green); font-size:16px; font-weight:800;">🎉 +${winAmount} Kč</span>
-          <br><small style="color:var(--text-secondary)">${resultText}</small>
-        `;
-      } else {
-        resBox.style.borderColor = 'var(--neon-pink)';
-        resBox.style.boxShadow = '0 10px 25px rgba(0,0,0,0.5), 0 0 15px var(--neon-pink-glow)';
-        resBox.innerHTML = `
-          <span style="color:var(--neon-pink); font-size:16px; font-weight:800;">❌ Prohra (-${this.activeBet} Kč)</span>
-          <br><small style="color:var(--text-secondary)">${resultText}</small>
-        `;
-      }
-
-      // Play sound effects
-      if (isWin) {
-        if (isJackpot) sound.playJackpot();
-        else sound.playWin();
-      } else {
-        sound.playLoss();
-      }
-
-      // GSAP toast slide in, hover, then fade out
-      gsap.set(resBox, { opacity: 0, y: 30 });
-      const tl = gsap.timeline();
-      tl.to(resBox, { opacity: 1, y: 0, duration: 0.35, ease: 'back.out(1.5)' })
-        .to(resBox, { opacity: 0, y: 20, duration: 0.4, ease: 'power2.in', delay: 2.2, onComplete: () => {
-          resBox.style.display = 'none';
-        }});
+    
+    if (isWin) {
+      this.ui.animateWinResult(resBox, winAmount, resultText, isJackpot);
+    } else {
+      this.ui.animateLossBalance(newBalance);
     }
 
     // Check if player went broke

@@ -69,7 +69,7 @@ export class API {
   }
 
   async submitScore(username, balance) {
-    if (this.isOnline && balance > 100) {
+    if (this.isOnline && balance > 500) {
       try {
         await setDoc(doc(this.firestore, "leaderboard", username), {
           castka: balance,

@@ -1,11 +1,13 @@
 import Swal from 'sweetalert2';
 import confetti from 'canvas-confetti';
+import gsap from 'gsap';
 import { animateScreenIn } from './animations/ui.js';
 import { GAME_INFOS } from './ui/gameInfo.js';
 import { LeaderboardManager } from './ui/Leaderboard.js';
 import { ExplorerManager } from './ui/Explorer.js';
 import { StatsManager } from './ui/Stats.js';
 import { AccountsManager } from './ui/Accounts.js';
+import { sound } from './sound';
 
 export class GameUI {
   constructor(db, api) {
@@ -114,6 +116,81 @@ export class GameUI {
         particleCount: 80,
         spread: 70,
         origin: { y: 0.7 }
+      });
+    }
+  }
+
+  animateWinResult(resBox, winAmount, resultText, isJackpot) {
+    import { gsap } from 'gsap';
+    const { sound } = require('./sound');
+    
+    if (resBox) {
+      gsap.killTweensOf(resBox);
+      resBox.style.display = 'block';
+      
+      resBox.style.borderColor = 'var(--neon-green)';
+      resBox.style.boxShadow = '0 10px 25px rgba(0,0,0,0.5), 0 0 20px var(--neon-green-glow), 0 0 40px var(--neon-green-glow)';
+      resBox.innerHTML = `
+        <span style="color:var(--neon-green); font-size:18px; font-weight:800; text-shadow:0 0 10px var(--neon-green-glow);">🎉 +${winAmount} Kč ${isJackpot ? '🔥' : ''}</span>
+        <br><small style="color:var(--neon-gold);">${resultText}</small>
+      `;
+
+      gsap.set(resBox, { opacity: 0, scale: 0.8, y: 20 });
+      const tl = gsap.timeline();
+      tl.to(resBox, { 
+        opacity: 1, 
+        scale: 1, 
+        y: 0, 
+        duration: 0.4, 
+        ease: 'back.out(1.7)' 
+      })
+      .to(resBox, { 
+        opacity: 0, 
+        scale: 0.9,
+        y: -10, 
+        duration: 0.5, 
+        ease: 'power2.in', 
+        delay: 2.5,
+        onComplete: () => {
+          resBox.style.display = 'none';
+        }
+      });
+    }
+  }
+
+  animateLossBalance(newBalance) {
+    import { gsap } from 'gsap';
+    const { sound } = require('./sound');
+    
+    const hubMoney = document.getElementById('hub-player-money');
+    const gameMoney = document.getElementById('game-player-money');
+    
+    const elements = [hubMoney, gameMoney].filter(el => el);
+    
+    if (elements.length > 0) {
+      gsap.killTweensOf(elements);
+      
+      elements.forEach(el => {
+        el.style.textShadow = '0 0 15px rgba(255, 0, 127, 0.8), 0 0 30px rgba(255, 0, 127, 0.5)';
+        el.style.color = 'var(--neon-pink)';
+      });
+      
+      gsap.fromTo(elements, {
+        scale: 1
+      }, {
+        scale: 1.15,
+        duration: 0.15,
+        ease: 'power2.out',
+        yoyo: true,
+        repeat: 1
+      });
+      
+      gsap.to(elements, {
+        color: '#f8fafc',
+        textShadow: '0 0 5px rgba(0, 240, 255, 0.4)',
+        duration: 0.8,
+        delay: 0.3,
+        ease: 'power2.out'
       });
     }
   }

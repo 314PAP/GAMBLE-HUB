@@ -48,7 +48,7 @@ export class GameDatabase {
       return { success: false, message: 'Tento hráč už existuje!' };
     }
 
-    this.uzivatele[username] = 100;
+    this.uzivatele[username] = 500;
     this.statistiky[username] = { vyhry: 0, prohry: 0, historie: [] };
     this.saveAll();
     return { success: true };
@@ -94,8 +94,8 @@ export class GameDatabase {
   }
 
   checkMilestones(username, oldBalance, newBalance) {
-    // Už nepotřebujeme specifické milníky, prostě si pamatujeme nejvyšší skóre nad 100 Kč (což je starting balance)
-    if (newBalance > 100) {
+    // Už nepotřebujeme specifické milníky, prostě si pamatujeme nejvyšší skóre nad 500 Kč (což je starting balance)
+    if (newBalance > 500) {
       // Zjistíme, jestli hráč už v tabulce má záznam
       const existingRecordIndex = this.scoreTable.findIndex(r => r.jmeno === username);
       
