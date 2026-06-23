@@ -8,8 +8,6 @@
 </head>
 <body>
 <div class="container">
-    <div class="sound-toggle-btn" id="global-sound-toggle" onclick="toggleMuteState()">Sound</div>
-
     <div id="screen-login" class="screen active">
         <h1>GAMBLE HUB</h1>
         <div class="leaderboard-card-clickable bg-[rgba(13,0,26,0.6)] border border-[rgba(189,0,255,0.3)] rounded-2xl p-4 mb-5 cursor-pointer transition-all hover:border-[var(--neon-gold)] hover:shadow-[0_0_15px_var(--neon-gold-glow)]" onclick="otevriExplorer()">
@@ -68,10 +66,22 @@
     <div id="screen-game" class="screen">
         <div class="game-header-bar">
             <div class="flex items-center justify-between w-full gap-2">
-                <div class="game-title-row flex items-center gap-2">
-                    <div id="game-title" class="game-title text-xs sm:text-sm md:text-base">HERNA</div>
-                    <button class="btn-info-toggle" id="btn-game-info" onclick="toggleInfoPanel()" title="Jak se hraje">ⓘ</button>
+                <div class="game-title-row flex items-center gap-1.5">
+                    <div id="game-title" class="game-title">AUTOMAT</div>
+                    <button class="btn-info-toggle" id="btn-game-info" onclick="toggleInfoPanel()" title="Jak se hraje">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                    </button>
                 </div>
+                <div class="flex items-center gap-1.5">
+                    <div class="text-[11px] sm:text-xs md:text-sm whitespace-nowrap" style="color: var(--neon-green); text-shadow: 0 0 8px var(--neon-green-glow);">
+                        <span id="game-player-money"></span> Kč
+                    </div>
+                    <div class="sound-toggle-btn" id="global-sound-toggle" onclick="toggleMuteState()" title="Zvuk">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
                 <div class="text-xs sm:text-sm md:text-base whitespace-nowrap" style="color: var(--neon-green); text-shadow: 0 0 8px var(--neon-green-glow);">
                     <span id="game-player-money"></span> <span>Kč</span>
                 </div>
@@ -114,12 +124,14 @@
             <div id="game-number-buttons" class="number-grid-bar"></div>
         </div>
 
-        <div id="bet-area" class="bet-area-grid grid grid-cols-4 sm:grid-cols-5 gap-1.5 sm:gap-2">
-            <button class="btn btn-bet text-xs sm:text-sm" id="bet-10" onclick="nastavSazku(10)"><span class="icon-node"></span> 10</button>
-            <button class="btn btn-bet text-xs sm:text-sm" id="bet-20" onclick="nastavSazku(20)"><span class="icon-node"></span> 20</button>
-            <button class="btn btn-bet text-xs sm:text-sm" id="bet-50" onclick="nastavSazku(50)"><span class="icon-node"></span> 50</button>
-            <button class="btn btn-bet text-xs sm:text-sm" id="bet-100" onclick="nastavSazku(100)"><span class="icon-node"></span> 100</button>
-            <button class="btn btn-bet text-xs sm:text-sm" id="bet-cust" onclick="ukazVlastniSazku()"><span class="icon-node"></span></button>
+        <div id="bet-area" class="grid grid-cols-5 gap-1">
+            <button class="btn btn-bet text-[10px] sm:text-xs py-1 px-0.5" id="bet-10" onclick="nastavSazku(10)"><span class="icon-node"></span> 10</button>
+            <button class="btn btn-bet text-[10px] sm:text-xs py-1 px-0.5" id="bet-20" onclick="nastavSazku(20)"><span class="icon-node"></span> 20</button>
+            <button class="btn btn-bet text-[10px] sm:text-xs py-1 px-0.5" id="bet-50" onclick="nastavSazku(50)"><span class="icon-node"></span> 50</button>
+            <button class="btn btn-bet text-[10px] sm:text-xs py-1 px-0.5" id="bet-100" onclick="nastavSazku(100)"><span class="icon-node"></span> 100</button>
+            <button class="btn btn-bet text-[10px] sm:text-xs py-1 px-0.5" id="bet-cust" onclick="ukazVlastniSazku()">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </button>
         </div>
 
         <div id="custom-sazka-area" style="display:none; margin-top:8px;">
@@ -128,8 +140,8 @@
 
         <div id="game-result" class="status-box" style="display:none; margin-top:10px;"></div>
 
-        <div class="grid grid-cols-2 gap-3 mt-4">
-            <button class="btn" onclick="otevriStatsModal()">Statistiky</button>
+        <div class="grid grid-cols-2 gap-4 w-full">
+            <button class="btn btn-info" onclick="otevriStatsModal()">Statistiky</button>
             <button class="btn btn-danger" onclick="navratDoHubu()">Menu</button>
         </div>
     </div>

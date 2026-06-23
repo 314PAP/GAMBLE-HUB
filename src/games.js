@@ -230,7 +230,7 @@ export class GameManager {
       if (!this.preGameChecks()) return;
       
       autoBtn.classList.add('active');
-      autoBtn.innerHTML = 'STOP 🛑';
+      autoBtn.innerHTML = '<span class="icon-node"></span> STOP';
       
       this.playSlots(); // Play first turn immediately
       
@@ -253,7 +253,7 @@ export class GameManager {
     const autoBtn = document.getElementById('btn-auto-slots');
     if (autoBtn) {
       autoBtn.classList.remove('active');
-      autoBtn.innerHTML = 'AUTO';
+      autoBtn.innerHTML = '<span class="icon-node"></span> AUTO';
     }
     this.lockGameControls(false);
   }
