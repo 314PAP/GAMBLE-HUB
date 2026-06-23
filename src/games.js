@@ -150,8 +150,7 @@ export class GameManager {
 
     // Update UI profile
     this.ui.updateMiniProfile(this.currentPlayer, newBalance);
-
-// Render results box with GSAP floating animation
+    
     const resBox = document.getElementById('game-result');
     
     if (isWin) {

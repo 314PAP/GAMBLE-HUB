@@ -121,9 +121,6 @@ export class GameUI {
   }
 
   animateWinResult(resBox, winAmount, resultText, isJackpot) {
-    import { gsap } from 'gsap';
-    const { sound } = require('./sound');
-    
     if (resBox) {
       gsap.killTweensOf(resBox);
       resBox.style.display = 'block';
@@ -159,9 +156,6 @@ export class GameUI {
   }
 
   animateLossBalance(newBalance) {
-    import { gsap } from 'gsap';
-    const { sound } = require('./sound');
-    
     const hubMoney = document.getElementById('hub-player-money');
     const gameMoney = document.getElementById('game-player-money');
     
@@ -170,27 +164,26 @@ export class GameUI {
     if (elements.length > 0) {
       gsap.killTweensOf(elements);
       
-      elements.forEach(el => {
-        el.style.textShadow = '0 0 15px rgba(255, 0, 127, 0.8), 0 0 30px rgba(255, 0, 127, 0.5)';
-        el.style.color = 'var(--neon-pink)';
-      });
-      
       gsap.fromTo(elements, {
-        scale: 1
+        scale: 1,
+        color: '#f8fafc',
+        textShadow: '0 0 5px rgba(0, 240, 255, 0.4)'
       }, {
         scale: 1.15,
+        color: 'var(--neon-pink)',
+        textShadow: '0 0 15px rgba(255, 0, 127, 0.8), 0 0 30px rgba(255, 0, 127, 0.5)',
         duration: 0.15,
         ease: 'power2.out',
         yoyo: true,
-        repeat: 1
+        repeat: 3,
+        repeatDelay: 0.1
       });
       
       gsap.to(elements, {
         color: '#f8fafc',
         textShadow: '0 0 5px rgba(0, 240, 255, 0.4)',
-        duration: 0.8,
-        delay: 0.3,
-        ease: 'power2.out'
+        duration: 0.6,
+        delay: 0.6
       });
     }
   }
