@@ -1,16 +1,21 @@
 /* === Hi-Lo Game Specific Styles === */
 
 .hilo-container {
-  padding: 16px;
+  padding: 20px;
   margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 }
 
 /* Hi-Lo Card Styling */
 .card-viewport {
-  perspective: 1000px;
-  width: 100px;
-  height: 140px;
-  margin: 16px auto;
+  perspective: 1200px;
+  width: 120px;
+  height: 168px;
+  margin: 8px auto;
+  position: relative;
 }
 
 .hilo-card {
@@ -30,33 +35,81 @@
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  border-radius: 14px;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   font-weight: 800;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  box-shadow: 
+    0 10px 30px rgba(0,0,0,0.4),
+    0 0 20px rgba(0, 240, 255, 0.15);
 }
 
 .card-front {
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  background: 
+    linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%),
+    linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
   border: 2px solid var(--neon-blue);
   color: var(--text-primary);
-  font-size: 40px;
+  font-size: 48px;
   font-family: 'Orbitron', sans-serif;
-  text-shadow: 0 0 10px var(--neon-blue-glow);
+  text-shadow: 0 0 20px var(--neon-blue-glow);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-front::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+.card-front::after {
+  content: '♠';
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  font-size: 16px;
+  color: var(--neon-blue);
+  opacity: 0.7;
 }
 
 .card-back {
-  background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%);
+  background: 
+    linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%),
+    linear-gradient(135deg, #1e1b4b 0%, #311042 100%);
   border: 2px solid var(--neon-pink);
   transform: rotateY(180deg);
+  box-shadow: 
+    0 10px 30px rgba(0,0,0,0.4),
+    0 0 20px rgba(168, 85, 247, 0.2);
 }
 
 .card-back::after {
   content: '🎰';
-  font-size: 32px;
+  font-size: 36px;
+}
+
+/* Card labels */
+.card-label {
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
 }
 
 /* Classic games number grid */
