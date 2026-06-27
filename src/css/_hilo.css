@@ -180,7 +180,8 @@
   position: relative;
   backdrop-filter: blur(12px);
   animation: framePulse 3s ease-in-out infinite;
-}
+  overflow: hidden;
+ }
 
 .dice-frame::before {
   content: '';
