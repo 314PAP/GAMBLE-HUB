@@ -214,6 +214,66 @@ class SoundManager {
   }
 
   // Jackpot fanfare.
+  playDiceRoll() {
+    if (this.muted) return;
+    this.initContext();
+    const ctx = this.ctx;
+    const now = ctx.currentTime;
+
+    const CLICKS = 20;
+    const STEP = 0.03;
+    const CLICK_DUR = 0.04;
+
+    for (let i = 0; i < CLICKS; i++) {
+      const t = now + i * STEP;
+      const freq = 200 + i * 25;
+
+      const osc = this._createOsc();
+      const gain = ctx.createGain();
+
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(freq, t);
+      gain.gain.setValueAtTime(0.04, t);
+      gain.gain.linearRampToValueAtTime(0.0001, t + CLICK_DUR);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(t);
+      osc.stop(t + CLICK_DUR);
+    }
+
+    setTimeout(() => {
+      this._spinPlaying = false;
+    }, CLICKS * STEP * 1000 + 50);
+  }
+
+  // Upward winning arpeggio.
+  playWin() {
+    if (this.muted) return;
+    this.initContext();
+    const ctx = this.ctx;
+    const now = ctx.currentTime;
+    const notes = [293.66, 329.63, 392.00, 523.25];
+
+    notes.forEach((freq, i) => {
+      const t    = now + i * 0.06;
+      const dur  = 0.25;
+      const osc  = this._createOsc();
+      const gain = ctx.createGain();
+
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, t);
+      gain.gain.setValueAtTime(0.1, t);
+      gain.gain.linearRampToValueAtTime(0.0001, t + dur);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(t);
+      osc.stop(t + dur);
+    });
+  }
+
+  // Jackpot fanfare.
   playJackpot() {
     if (this.muted) return;
     this.initContext();

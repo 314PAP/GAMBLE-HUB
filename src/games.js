@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { SlotMachineGame } from './games/slots';
 import { HiloGame } from './games/hilo';
 import { GuessingGame } from './games/guessing';
+import { DiceGame } from './games/dice';
 import { sound } from './sound';
 
 export class GameManager {
@@ -20,6 +21,7 @@ export class GameManager {
     this.slots = new SlotMachineGame(this.symbols, this.winningLines);
     this.hilo = new HiloGame();
     this.guessing = new GuessingGame();
+    this.dice = new DiceGame();
 
     // Active States
     this.activeGameId = 0; // 1: Guess 1-10, 2: Guess 1-5, 3: Dice, 4: Roulette, 5: Slots, 6: Hi-Lo
@@ -47,11 +49,19 @@ export class GameManager {
     this.setBet(10); // Reset to default bet
     
     // Hide game-specific areas in the DOM
-    document.getElementById('slots-area').style.display = 'none';
-    document.getElementById('hilo-area').style.display = 'none';
-    document.getElementById('classic-inputs').style.display = 'none';
-    document.getElementById('game-result').style.display = 'none';
-    document.getElementById('bet-area').style.display = 'grid';
+    const slotsArea = document.getElementById('slots-area');
+    const hiloArea = document.getElementById('hilo-area');
+    const classicInputs = document.getElementById('classic-inputs');
+    const diceArea = document.getElementById('dice-area');
+    const gameResult = document.getElementById('game-result');
+    const betArea = document.getElementById('bet-area');
+
+    if (slotsArea) slotsArea.style.display = 'none';
+    if (hiloArea) hiloArea.style.display = 'none';
+    if (classicInputs) classicInputs.style.display = 'none';
+    if (diceArea) diceArea.style.display = 'none';
+    if (gameResult) gameResult.style.display = 'none';
+    if (betArea) betArea.style.display = 'grid';
 
     // Reset slot cell classes
     document.querySelectorAll('.slot-cell').forEach(c => c.classList.remove('win-active'));
@@ -71,8 +81,12 @@ export class GameManager {
         break;
       case 3:
         titleEl.innerText = "KOSTKA 1-6";
-        document.getElementById('classic-inputs').style.display = 'block';
-        this.guessing.generateGrid(1, 6, (num) => this.playGuessingGame(num, 1, 6, 6, "Kostka"));
+        document.getElementById('classic-inputs').style.display = 'none';
+        document.getElementById('dice-area').style.display = 'block';
+        this.dice.init();
+        document.querySelectorAll('.dice-num-btn').forEach(btn => {
+          btn.onclick = () => this.dice.selectNumber(parseInt(btn.dataset.num));
+        });
         break;
       case 4:
         titleEl.innerText = "RULETA 0-35";
@@ -176,6 +190,24 @@ export class GameManager {
     this.ui.showScreen('screen-socka');
   }
 
+  // Play Dice game
+  playDiceGame() {
+    if (!this._startRound()) return;
+    if (this.dice.selectedNumber === null) {
+      this.ui.showAlert('warning', 'Vyber číslo', 'Nejprve klikni na kostku, na kterou vsadíš!');
+      return;
+    }
+
+    this.lockGameControls(true);
+
+    this.dice.roll((res) => {
+      this.lockGameControls(false);
+      const multiplier = 6;
+      this.processGameResult(res.isWin, res.isWin ? this.activeBet * multiplier : 0, "Kostka", res.resultText);
+      this.dice.clearSelection();
+    });
+  }
+
   // Play numeric guessing games
   playGuessingGame(selectedNum, min, max, multiplier, gameName) {
     if (!this._startRound()) return;
@@ -269,6 +301,15 @@ export class GameManager {
     document.querySelectorAll('.btn-num').forEach(b => {
       b.disabled = lock;
     });
+
+    // Disable dice number buttons
+    document.querySelectorAll('.dice-num-btn').forEach(b => {
+      b.disabled = lock;
+    });
+
+    // Disable dice roll button
+    const rollBtn = document.getElementById('btn-roll-dice');
+    if (rollBtn) rollBtn.disabled = lock;
 
     // Disable slot spin button
     const spinBtn = document.getElementById('btn-spin-slots');

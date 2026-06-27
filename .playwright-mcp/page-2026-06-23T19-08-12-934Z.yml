@@ -1,0 +1,6 @@
+- generic [ref=e2]:
+  - generic [ref=e35]:
+    - heading "Vyber Účet" [level=2] [ref=e36]
+    - generic [ref=e38]: Žádní vytvoření hráči.
+    - button "Zpět" [ref=e39] [cursor=pointer]
+  - text: ♠ 🎰

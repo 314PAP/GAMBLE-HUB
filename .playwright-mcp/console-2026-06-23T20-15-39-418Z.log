@@ -1,0 +1,20 @@
+[     619ms] [ERROR] WebSocket connection to 'ws://localhost:5179/GAMBLE-HUB/?token=EgOT9wKN3Q5V' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:801
+[     619ms] [ERROR] [vite] failed to connect to websocket (Error: WebSocket closed without opened.).  @ http://localhost:5173/GAMBLE-HUB/@vite/client:840
+[    1182ms] Error: WebSocket closed without opened.
+    at WebSocket.<anonymous> (http://localhost:5173/GAMBLE-HUB/@vite/client:454:22)
+[  241405ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: WebSocket opening handshake timed out @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:13
+[  241406ms] [ERROR] WebSocket error Event @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:41
+[  241406ms] [WARNING] WebSocket closed CloseEvent @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:36
+[  241406ms] [LOG] Reconnecting WebSocket in 1000ms @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:51
+[  482418ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: WebSocket opening handshake timed out @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:13
+[  482418ms] [ERROR] WebSocket error Event @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:41
+[  482419ms] [WARNING] WebSocket closed CloseEvent @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:36
+[  482419ms] [LOG] Reconnecting WebSocket in 2000ms @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:51
+[  508694ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: Connection closed before receiving a handshake response @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:13
+[  508694ms] [ERROR] WebSocket error Event @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:41
+[  508695ms] [WARNING] WebSocket closed CloseEvent @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:36
+[  508695ms] [LOG] Reconnecting WebSocket in 4000ms @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:51
+[  752701ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: WebSocket opening handshake timed out @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:13
+[  752701ms] [ERROR] WebSocket error Event @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:41
+[  752702ms] [WARNING] WebSocket closed CloseEvent @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:36
+[  752702ms] [LOG] Reconnecting WebSocket in 8000ms @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:51

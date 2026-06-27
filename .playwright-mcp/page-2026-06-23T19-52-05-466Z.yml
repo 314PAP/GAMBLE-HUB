@@ -1,0 +1,8 @@
+- generic [ref=e2]:
+  - generic [ref=e27]:
+    - heading "Nový Hráč" [level=2] [ref=e28]: Nový Hráč
+    - textbox "Zadej jméno" [active] [ref=e29]
+    - generic [ref=e30]:
+      - button "Vytvořit účet" [ref=e31] [cursor=pointer]
+      - button "Zpět" [ref=e32] [cursor=pointer]
+  - text: ♠ 🎰

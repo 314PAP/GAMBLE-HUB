@@ -1,0 +1,9 @@
+[     274ms] [ERROR] WebSocket connection to 'ws://localhost:5179/GAMBLE-HUB/?token=8HUAW5GhRq_2' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:801
+[     274ms] [ERROR] [vite] failed to connect to websocket (Error: WebSocket closed without opened.).  @ http://localhost:5173/GAMBLE-HUB/@vite/client:840
+[     311ms] Error: WebSocket closed without opened.
+    at WebSocket.<anonymous> (http://localhost:5173/GAMBLE-HUB/@vite/client:454:22)
+[  143162ms] ReferenceError: MathRandom is not defined
+    at DiceGame.roll (http://localhost:5173/GAMBLE-HUB/src/games/dice.js?t=1782243006023:65:27)
+    at GameManager.playDiceGame (http://localhost:5173/GAMBLE-HUB/src/games.js?t=1782243006023:193:15)
+    at window.hodKostkami (http://localhost:5173/GAMBLE-HUB/src/events/globalHandlers.js?t=1782241092323:119:15)
+    at HTMLButtonElement.onclick (http://localhost:5173/GAMBLE-HUB/:125:103)

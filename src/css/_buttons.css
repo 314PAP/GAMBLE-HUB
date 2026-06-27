@@ -255,8 +255,8 @@
 /* === RETRO LED NUMBER TILES (.btn-num) === */
 
 .btn-num {
-  width: 46px;
-  height: 46px;
+  width: clamp(36px, 8vw, 46px);
+  height: clamp(36px, 8vw, 46px);
   padding: 0;
   border: 1px solid #1a1a2e;
   border-radius: 6px;
@@ -265,7 +265,7 @@
     #010104;
   color: #b0b0c0;
   font-family: 'Orbitron', monospace;
-  font-size: 13px;
+  font-size: clamp(10px, 2.8vw, 13px);
   font-weight: 800;
   text-shadow: 0 0 6px rgba(0, 240, 255, 0.5);
   box-shadow:

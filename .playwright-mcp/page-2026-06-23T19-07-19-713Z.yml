@@ -1,0 +1,34 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - heading "GAMBLE HUB" [level=1] [ref=e4]
+    - generic [ref=e5] [cursor=pointer]:
+      - generic [ref=e6]:
+        - generic [ref=e7]:
+          - text: Top Hráči
+          - generic [ref=e8]: 🌐 Online
+        - generic [ref=e9]: detaily ➔
+      - generic [ref=e10]:
+        - generic [ref=e11]:
+          - generic [ref=e12]: 🥇
+          - generic [ref=e13]: 🧡💙💚
+          - generic [ref=e14]: 1008600 Kč
+        - generic [ref=e15]:
+          - generic [ref=e16]: 🥈
+          - generic [ref=e17]: Rrr
+          - generic [ref=e18]: 33000 Kč
+        - generic [ref=e19]:
+          - generic [ref=e20]: 🥉
+          - generic [ref=e21]: Uuu
+          - generic [ref=e22]: 1900 Kč
+        - generic [ref=e23]:
+          - generic [ref=e24]: "#4"
+          - generic [ref=e25]: Julek
+          - generic [ref=e26]: 1140 Kč
+        - generic [ref=e27]:
+          - generic [ref=e28]: "#5"
+          - generic [ref=e29]: olko
+          - generic [ref=e30]: 980 Kč
+    - generic [ref=e31]:
+      - button "Vstoupit do herny" [ref=e32] [cursor=pointer]: Vstoupit do herny
+      - button "NOVÝ HRÁČ" [ref=e33] [cursor=pointer]: NOVÝ HRÁČ
+  - text: ♠ 🎰

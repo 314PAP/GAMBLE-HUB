@@ -115,6 +115,10 @@ export class GlobalEventHandlers {
       if (area) area.style.display = 'none';
     };
 
+    window.hodKostkami = () => {
+      this.gm.playDiceGame();
+    };
+
     window.kliknutoCislo = (num) => {
       if (this.gm.activeGameId === 5) {
         this.gm.playSlots();

@@ -117,7 +117,27 @@
             <div id="game-number-buttons" class="number-grid-bar"></div>
         </div>
 
-        <div id="bet-area" class="bet-area-grid grid grid-cols-5">
+        <div id="dice-area" style="display:none;">
+            <p class="text-center text-[var(--text-secondary)] text-[13px] mb-6">Vyber číslo a stiskni START:</p>
+            <div class="flex justify-center mb-6">
+                <div id="dice-frame" class="dice-frame">
+                    <span id="dice-display" class="dice-display">?</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 gap-2 mb-6 dice-numbers-grid">
+                 <button class="btn btn-bet dice-num-btn" data-num="1">1</button>
+                 <button class="btn btn-bet dice-num-btn" data-num="2">2</button>
+                 <button class="btn btn-bet dice-num-btn" data-num="3">3</button>
+                 <button class="btn btn-bet dice-num-btn" data-num="4">4</button>
+                 <button class="btn btn-bet dice-num-btn" data-num="5">5</button>
+                 <button class="btn btn-bet dice-num-btn" data-num="6">6</button>
+             </div>
+            <div class="flex justify-center" style="margin-top: 24px;">
+                <button class="btn btn-spin-slots" id="btn-roll-dice" onclick="hodKostkami()"><span class="icon-node"></span> START</button>
+            </div>
+        </div>
+
+        <div id="bet-area" class="bet-area-grid grid grid-cols-5 mt-4">
             <button class="btn btn-bet text-[10px] sm:text-xs py-1 px-0.5" id="bet-10" onclick="nastavSazku(10)"><span class="icon-node"></span> 10</button>
             <button class="btn btn-bet text-[10px] sm:text-xs py-1 px-0.5" id="bet-20" onclick="nastavSazku(20)"><span class="icon-node"></span> 20</button>
             <button class="btn btn-bet text-[10px] sm:text-xs py-1 px-0.5" id="bet-50" onclick="nastavSazku(50)"><span class="icon-node"></span> 50</button>
