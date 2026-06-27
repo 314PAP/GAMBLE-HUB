@@ -255,6 +255,18 @@
   50% { transform: scale(1.15); }
 }
 
+/* Dice area root layout */
+#dice-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.dice-hidden {
+  display: none;
+}
+
 /* Dice number buttons grid - 2 rows of 3 columns */
 .dice-numbers-grid {
   display: grid;
@@ -263,6 +275,7 @@
   max-width: 280px;
   margin-left: auto;
   margin-right: auto;
+  justify-items: center;
 }
 
 .dice-num-btn {

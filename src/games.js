@@ -59,7 +59,7 @@ export class GameManager {
     if (slotsArea) slotsArea.style.display = 'none';
     if (hiloArea) hiloArea.style.display = 'none';
     if (classicInputs) classicInputs.style.display = 'none';
-    if (diceArea) diceArea.style.display = 'none';
+    if (diceArea) diceArea.classList.add('dice-hidden');
     if (gameResult) gameResult.style.display = 'none';
     if (betArea) betArea.style.display = 'grid';
 
@@ -82,10 +82,14 @@ export class GameManager {
       case 3:
         titleEl.innerText = "KOSTKA 1-6";
         document.getElementById('classic-inputs').style.display = 'none';
-        document.getElementById('dice-area').style.display = 'block';
+        document.getElementById('dice-area').classList.remove('dice-hidden');
         this.dice.init();
         document.querySelectorAll('.dice-num-btn').forEach(btn => {
-          btn.onclick = () => this.dice.selectNumber(parseInt(btn.dataset.num));
+          btn.onclick = () => {
+            if (this.dice.isPlaying) return;
+            this.dice.selectNumber(parseInt(btn.dataset.num));
+            this.playDiceGame();
+          };
         });
         break;
       case 4:

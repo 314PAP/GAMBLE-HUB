@@ -136,7 +136,7 @@
 }
 
 /* Game section spacing */
-#slots-area, #hilo-area, #classic-inputs, #bet-area, #custom-sazka-area, #game-result {
+#slots-area, #hilo-area, #classic-inputs, #dice-area, #bet-area, #custom-sazka-area, #game-result {
   margin-top: 16px;
 }
 
@@ -193,7 +193,7 @@ input:focus, select:focus, textarea:focus {
     grid-template-columns: repeat(5, 1fr);
     gap: 6px;
   }
-  #slots-area, #hilo-area, #classic-inputs, #bet-area, #custom-sazka-area, #game-result {
+  #slots-area, #hilo-area, #classic-inputs, #dice-area, #bet-area, #custom-sazka-area, #game-result {
     margin-top: 10px;
   }
   .slot-controls {

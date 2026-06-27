@@ -1,0 +1,5 @@
+[     154ms] [ERROR] WebSocket connection to 'ws://localhost:5179/GAMBLE-HUB/?token=g78grlbUmStZ' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:801
+[     154ms] [ERROR] [vite] failed to connect to websocket (Error: WebSocket closed without opened.).  @ http://localhost:5173/GAMBLE-HUB/@vite/client:840
+[     177ms] Error: WebSocket closed without opened.
+    at WebSocket.<anonymous> (http://localhost:5173/GAMBLE-HUB/@vite/client:454:22)
+[  210323ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://firestore.googleapis.com/google.firestore.v1.Firestore/Listen/channel?VER=8&database=projects%2Fgamblehub-db%2Fdatabases%2F(default)&gsessionid=ooITE8Q_S-DfeIJ5AFq5wEzPqnoi26V5Uu_3ksNWCEuDMHoF4fDC0Q&SID=8yqoYlrCpXzEdVY2OL1mZg&RID=17880&TYPE=terminate&zx=l6rijd3palfp:0
