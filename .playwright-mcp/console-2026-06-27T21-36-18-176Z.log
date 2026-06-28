@@ -14,3 +14,15 @@
 [  221013ms] [ERROR] WebSocket error Event @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:41
 [  221013ms] [WARNING] WebSocket closed CloseEvent @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:36
 [  221014ms] [LOG] Reconnecting WebSocket in 4000ms @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:51
+[  225015ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:13
+[  225015ms] [ERROR] WebSocket error Event @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:41
+[  225016ms] [WARNING] WebSocket closed CloseEvent @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:36
+[  225016ms] [LOG] Reconnecting WebSocket in 8000ms @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:51
+[  233018ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:13
+[  233018ms] [ERROR] WebSocket error Event @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:41
+[  233019ms] [WARNING] WebSocket closed CloseEvent @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:36
+[  233019ms] [LOG] Reconnecting WebSocket in 16000ms @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:51
+[  489034ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: WebSocket opening handshake timed out @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:13
+[  489034ms] [ERROR] WebSocket error Event @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:41
+[  489034ms] [WARNING] WebSocket closed CloseEvent @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:36
+[  489035ms] [ERROR] WebSocket max reconnection attempts reached @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:47

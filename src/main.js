@@ -1,4 +1,3 @@
-import { ClientWebSocket } from './clientWebSocket.js';
 import './css/main.css';
 import { GameDatabase } from './db';
 import { GameUI } from './ui';
@@ -22,9 +21,6 @@ const db = new GameDatabase();
 const api = new API(db);
 const ui = new GameUI(db, api);
 const gm = new GameManager(db, ui, api);
-
-const wsUrl = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/GAMBLE-HUB/';
-window.clientWS = new ClientWebSocket(wsUrl);
 
 new GlobalEventHandlers(db, api, ui, gm);
 
