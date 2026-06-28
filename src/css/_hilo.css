@@ -181,7 +181,8 @@
   backdrop-filter: blur(12px);
   animation: framePulse 3s ease-in-out infinite;
   overflow: hidden;
- }
+  margin-bottom: 16px;
+}
 
 .dice-frame::before {
   content: '';
@@ -260,7 +261,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 24px;
+}
+
+#dice-area > p {
+  margin-bottom: 4px;
 }
 
 .dice-hidden {
@@ -270,17 +275,17 @@
 /* Dice number buttons grid - 2 rows of 3 columns */
 .dice-numbers-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, auto);
   gap: 8px;
-  max-width: 280px;
-  margin-left: auto;
-  margin-right: auto;
+  justify-content: center;
   justify-items: center;
 }
 
 .dice-num-btn {
-  min-width: 48px;
+  min-width: 52px;
+  width: auto;
   height: 48px;
+  justify-self: center;
   font-size: 15px;
   font-weight: 800;
   border-radius: 10px;
@@ -289,11 +294,10 @@
 /* Responsive adjustments for dice area */
 @media (max-width: 480px) {
   .dice-numbers-grid {
-    max-width: 260px;
     gap: 6px;
   }
   .dice-num-btn {
-    min-width: 42px;
+    min-width: 44px;
     height: 42px;
     font-size: 14px;
   }
@@ -304,10 +308,10 @@
 }
 
 .dice-num-btn.selected {
-  border-color: var(--neon-gold) !important;
-  box-shadow: 0 0 24px var(--neon-gold-glow) !important;
+  border-color: var(--neon-gold);
+  box-shadow: 0 0 24px var(--neon-gold-glow);
   animation: ledPulse 0.8s ease-in-out infinite;
-  color: var(--neon-gold) !important;
+  color: var(--neon-gold);
 }
 
 @keyframes ledPulse {

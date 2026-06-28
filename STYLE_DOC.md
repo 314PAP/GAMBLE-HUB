@@ -9,19 +9,14 @@ src/
 ├── css/
 │   ├── _variables.css    // CSS custom properties (barevná paleta, glow, shadow)
 │   ├── _reset.css        // *, html, body, scrollbar
-│   ├── _typography.css   // Google fonty, h1/h2, .neon-text, @keyframes
+│   ├── _typography.css   // Google fonty, h1/h2, @keyframes
 │   ├── _layout.css       // .container, .screen, grid/flex helpers, media queries
-│   ├── _components.css   // Tlačítka, inputy, modály, info-panel, sound-toggle
+│   ├── _buttons.css      // Tlačítka, inputy, modály, info-panel, sound-toggle
+│   ├── _panels.css       // Header, modal, info-panel, leaderboard, dialogy
 │   ├── _slot.css         // Automat: reels, cells, symboly, slot-controls
 │   ├── _hilo.css         // Hi-Lo karty, number-grid, bet-buttons, .status-box
 │   └── main.css          // Jediný entry point – importuje všechny moduly
 ├── tailwind.css          // Tailwind v4 base (@tailwind base/components/utilities)
-├── theme.css             // Globální .panel, .neon-text, input/select/textarea theme
-├── backup/               // Zálohy před-refaktoringem
-│   ├── style.css
-│   ├── components_buttons.css
-│   ├── _buttons_old.css
-│   └── ...
 ```
 
 ## 2. Entry point
@@ -37,14 +32,11 @@ HTML (`index.html`) žádný `<link>` na CSS neobsahuje – vše prochází Vite
 ## 3. Pořadí importů v main.css
 
 1. `../tailwind.css` – Tailwind v4 utility (kompilováno Vitem)
-2. `../theme.css` – `.panel`, `.neon-text`, input theming
-3. `./_variables.css` – CSS custom properties (`--neon-*`, `--glass-*`)
-4. `./_reset.css` – `* { box-sizing… }`, `html/body`, scrollbar
-5. `./_typography.css` – font import, `h1`, `h2`, `.neon-text`
-6. `./_layout.css` – `.container`, `.screen`, `.flex-row-center`, media queries
-7. `./_components.css` – tlačítka, inputy, modály, sound-toggle, glass ripple
-8. `./_slot.css` – `.slot-machine`, `.slot-reel`, `.slot-cell` symboly
-9. `./_hilo.css` – `.hilo-container`, karty, `.btn-bet`, `.status-box`
+2. `./_variables.css` – CSS custom properties (`--neon-*`, `--glass-*`)
+3. `./_reset.css` – `* { box-sizing… }`, `html/body`, scrollbar
+4. `./_typography.css` – font import, `h1`, `h2`, @keyframes
+5. `./_layout.css` – `.container`, `.screen`, `.flex-row-center`, media queries
+6. `@layer components { ... }` – tlačítka, inputy, modály, slot, hilo
 
 ## 4. Design tokeny (CSS proměnné)
 
@@ -77,14 +69,14 @@ Definováno v `_buttons.css` – massive 3D mechanical switch design:
 - Speciální varianty: `.btn-spin-slots`, `.btn-bet`, `.btn-auto-slots`, `.btn-num`
 - Skrytí ikon: `.btn i, .btn svg, .btn-num i, .btn-num svg { display:none; }`
 
-> **Důležité (2026-06-23):** Veškerá deklarace `!important` byla z `_buttons.css` a `_panels.css` odstraněna. Dříve sloužila k nucenému přepsání Tailwind v4 preflight základních restů. Díky tomu, že vlastní komponenty jsou v `@layer components` (což má vyšší prioritu než `@layer base`), je přepsání zaručeno samotnou vrstvou CSS Layers – speciální důraz (`!important`) není potřeba. Zároveň bylo smazáno `scripts/fix-legacy.js`, které námi odebrané `!important` opětovně přidávalo.
+> **Důležité:** Veškerá deklarace `!important` byla z `_buttons.css` a `_panels.css` odstraněna. Dříve sloužila k nucenému přepsání Tailwind v4 preflight základních restů. Díky tomu, že vlastní komponenty jsou v `@layer components` (což má vyšší prioritu než `@layer base`), je přepsání zaručeno samotnou vrstvou CSS Layers – speciální důraz (`!important`) není potřeba. Zároveň bylo smazáno `scripts/fix-legacy.js`, které námi odebrané `!important` opětovně přidávalo.
 
 ### Inputy
-V `_components.css`: `input, select, textarea` – tmavé sklo, orange focus glow.
+V `_layout.css`: `input, select, textarea` – tmavé sklo, orange focus glow.
 
 ### Modály (.modal)
-- `.modal` – fixed overlay, `rgba(13,0,26,0.9)`, `backdrop-blur(15px)`
-- `.modal-content` – purple border, premium shadow, scale-in animace
+- `.modal` – fixed overlay, `rgba(2, 2, 5, 0.92)`, `backdrop-blur(18px)`
+- `.modal-content` – tmavé pozadí, purple border, premium shadow, scale-in animace
 - `.modal-header` – Orbitron font, gold text-shadow
 
 ### Info Panel (.info-panel)
@@ -93,32 +85,90 @@ V `_components.css`: `input, select, textarea` – tmavé sklo, orange focus glo
 
 ### Slot Machine (_slot.css)
 - `.slot-machine` – tmavé pozadí, gold border, gold glow
-- `.slot-reel` – gradient `#101018 → #1e1e2d`
+- `.slot-reel` – gradient `#010104 → #0a0a16`
 - `.slot-cell.sym-*` – neonové glowy pro každý symbol
-- `cellGlow`, `pulseSeven` animace
 
 ### Hi-Lo (_hilo.css)
 - `.hilo-card` – 3D flip (`rotateY(180deg)`)
 - `.card-front` / `.card-back` – gradienty + border
-- `.btn-bet` – černé s purple border, selected stav má blue glow
+- `.btn-bet` – černé s cyan border, selected stav má gold glow
 
 ### Status Box (.status-box)
-- Fixed toast – `bottom: 150px`, purple border, blur
-- `.show` class spustí `toastIn` animaci (definováno v `_components.css`)
+- Fixed toast – `bottom: 160px`, tmavé sklo, blur
 
 ## 6. Responzivita
 
 Breakpointy v `_layout.css`:
 - `@media (max-width: 600px)` – `.container` zmenšený padding, `border-radius: 16px`, `max-height: 100vh`
-- `@media (max-width: 480px)` – header stack (`flex-direction: column`), zvětšený `margin-right` u money, menší sound-toggle
+- `@media (max-width: 480px)` – header stack, menší bet buttons, gap adjust
 
 ## 7. Tailwind v4
 
-Projekt používá Tailwind CSS v4 (`@tailwindcss/postcss`). Utility třídy se applikují přímo v HTML (např. `flex`, `grid-cols-2`, `text-[var(--neon-gold)]`). V build čas se generuje `dist/assets/index-*.css`. Nemusí se konfigurovat `tailwind.config.js` – v4 používá CSS-based konfiguraci.
+Projekt používá Tailwind CSS v4 (`@tailwindcss/postcss`). Utility třídy se applikují přímo v HTML (např. `flex`, `grid-cols-2`, `text-[var(--neon-gold)]`, `gap-3`). V build čas se generuje `dist/assets/index-*.css`.
 
-## 8. Zálohy
+Konfigurace je v `tailwind.config.js` ( backwards-compatible JS config):
+- Rozšířená barevná paleta: `neon-*` barvy + kompletní `gray` paleta
+- Vlastní `boxShadow.premium`
 
-Původní `src/style.css` (monolistický, ~900 řádků) je zálohován v `src/backup/style.css`. Dále: `components_buttons.css`, `_buttons_old.css`, `_components_old.css`, `_layout_old.css`, `_reset_old.css`, `_typography_old.css`, `tailwind.css`, `custom.css`, `theme.css`.
+## 8. Sémantické HTML (2026-06-28 refaktoring)
 
----
-*Dokumentace aktualizována po CSS modularizaci (2026-06-21).*
+Provedená změna v `index.html`:
+- `<div class="container">` → `<main class="container">`
+- `<div class="screen ...">` → `<section class="screen ...">`
+- `<div class="game-header-bar">` → `<header class="game-header-bar">`
+- Zachovány všechny `id` atributy pro kompatibilitu s JS
+
+## 9. CSS Konflikty a jejich řešení
+
+### Duplicitní pravidla
+- `_panels.css`: Odstraněny duplicitní definice `.leaderboard-item` a `.history-item` (byly definovány dvakrát)
+- `.text-center` z `_layout.css` odstraněno – nahrazeno Tailwind utility třídou `text-center` v HTML
+
+### `!important` deklarace
+- `_hilo.css`: `.dice-num-btn.selected` – odstraněny `!important` (zbytečné díky CSS Layers)
+- `_panels.css`: `.leaderboard-item`, `.history-item` – odstraněny `!important`
+- `_buttons.css`: `.delete-confirm-actions .btn-confirm-*` – odstraněno celé pravidlo nahrazeno Tailwind třídami v HTML
+
+## 10. Tailwind v4 Fallback Utility (2026-06-28)
+
+### Problém
+Tailwind v4 někdy nevygeneruje spacing utility třídy (gap-4, mb-4, p-5) ani responsive varianty (sm:*, md:*) během HMR vývoje kvůli limitu velikosti inline CSS.
+
+### Řešení
+Všechny fallback utility byly přesunuty do **`src/tailwind.css`** (nikoliv do `_layout.css`), protože:
+
+1. `@layer utilities` uvnitř `@import`ovaných souborů Vite HMR nezpracovává správně
+2. Tailwind v4 PostCSS plugin generuje utility až do konce souboru – přímé definice v `tailwind.css` jsou zahrnuty
+
+### Obsah fallback bloku (řádky 5-200 v tailwind.css)
+- Spacing: gap-1 až gap-5, gap-1.5, p-0/p-3/p-5, m-0 až mb-6, mr-1.5, ml-1.5
+- Size: w-full, h-full, max-h-150/250/300px
+- Display: flex, grid, block
+- Text: text-center, text-left, text-right
+- Flex/Grid helpers: flex-1, grid-cols-1 až grid-cols-5
+- **Responsive (media queries):**
+  - `@media (min-width: 640px)`: sm:grid-cols-2, sm:text-xs, sm:text-sm
+  - `@media (min-width: 768px)`: md:text-sm, md:text-base
+
+### Co je třeba udělat
+**Pro vývoj (dev server):**
+1. Spustit `npm run dev`
+2. V DevTools → Network → zaškrtnout "Disable cache"
+3. Pro forcing refresh: Ctrl+F5 nebo Cmd+Shift+R
+
+**Pro produkci:**
+1. `npm run build` – všechny utility jsou vygenerovány v `dist/assets/index-*.css`
+2. Responsive třídy jsou funkční s viewportem > 640px (sm:) a > 768px (md:)
+
+### Architektura napojení
+```
+index.html
+    ↓ (class="..." používá Tailwind utility)
+src/tailwind.css  ← fallback utilities + @tailwind directives
+    ↓ (@import v main.css)
+src/css/main.css  ← entry point, importuje všechny moduly
+    ↓ (import v main.js)
+src/main.js       ← import './css/main.css'
+    ↓ (vite dev/build pipeline)
+dist/assets/*.css ← finální bundle s všemi utility
+```

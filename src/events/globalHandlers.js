@@ -52,15 +52,21 @@ export class GlobalEventHandlers {
       this.ui.showScreen('screen-hub');
     };
 
-    window.smazatUcet = (username) => {
-      const success = this.db.deletePlayer(username);
-      if (success) {
-        this.ui.showAlert('success', 'Účet smazán', `Hráč ${username} byl permanentně smazán.`);
-        window.otevriPrihlaseni();
-      } else {
-        this.ui.showAlert('error', 'Chyba', 'Účet se nepodařilo smazat.');
-      }
-    };
+window.smazatUcet = (username) => {
+        this.ui.deleteConfirm.show(username, () => {
+          const success = this.db.deletePlayer(username);
+          if (success) {
+            this.ui.showAlert('success', 'Účet smazán', `Hráč ${username} byl permanentně smazán.`);
+            window.otevriPrihlaseni();
+          } else {
+            this.ui.showAlert('error', 'Chyba', 'Účet se nepodařilo smazat.');
+          }
+        });
+      };
+
+      window.zavriDeleteConfirm = () => {
+        this.ui.deleteConfirm.hide();
+      };
 
     window.potvrditRegistraci = () => {
       const regInput = document.getElementById('reg-name');

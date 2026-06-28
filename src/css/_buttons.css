@@ -42,9 +42,8 @@
     inset 0 -2px 4px rgba(0,0,0,0.5);
 }
 
-/* Hover – slight lift, stronger glow */
+/* Hover – stronger glow only (no transform to avoid layout shift) */
 .btn:hover {
-  transform: translateY(-2px);
   box-shadow:
     0 14px 20px rgba(0,0,0,0.6),
     inset 0 2px 4px rgba(255,255,255,0.22),
@@ -337,4 +336,38 @@
 .btn i, .btn svg,
 .btn-num i, .btn-num svg {
   display: none;
+}
+
+/* === DELETE ACCOUNT BUTTON === */
+.delete-account-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.delete-account-btn span {
+  font-size: 22px;
+  color: #ff9f1c;
+  filter: drop-shadow(0 0 8px #ff9f1c);
+  pointer-events: none;
+}
+
+.delete-account-btn:hover span {
+  filter: drop-shadow(0 0 12px #ff9f1c);
+}
+
+.delete-confirm-actions .btn-confirm-no,
+.delete-confirm-actions .btn-confirm-yes {
+  min-width: 110px !important;
+  width: auto !important;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
 }

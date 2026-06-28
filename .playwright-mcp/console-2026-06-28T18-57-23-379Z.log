@@ -1,0 +1,17 @@
+[  121200ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:5173/GAMBLE-HUB/@vite/client:963
+[  121202ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:1034
+[  122204ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:1034
+[  123206ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:1034
+[  124210ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:1034
+[  125212ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:1034
+[  126214ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:1034
+[  127216ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:1034
+[  128218ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:1034
+[  129220ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:1034
+[  130223ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:1034
+[  131228ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:1034
+[  132234ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:1034
+[  133245ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:1034
+[  134251ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:1034
+[  135274ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:1034
+[  136292ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:1034

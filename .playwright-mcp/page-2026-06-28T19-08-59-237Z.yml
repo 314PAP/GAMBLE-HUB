@@ -1,0 +1,14 @@
+- generic [ref=e2]:
+  - generic [ref=e42]:
+    - generic [ref=e44]:
+      - generic [ref=e45]: testfix
+      - generic [ref=e46]: 500 Kč
+    - generic [ref=e47]:
+      - button "AUTOMAT" [ref=e48] [cursor=pointer]: AUTOMAT
+      - button "HI-LOW" [ref=e49] [cursor=pointer]: HI-LOW
+      - button "Ruleta 0-36 (36x)" [ref=e50] [cursor=pointer]: Ruleta 0-36 (36x)
+      - button "Hádanka 1-10 (10x)" [ref=e51] [cursor=pointer]: Hádanka 1-10 (10x)
+      - button "Hádanka 1-5 (5x)" [ref=e52] [cursor=pointer]: Hádanka 1-5 (5x)
+      - button "Kostka 1-6 (6x)" [ref=e53] [cursor=pointer]: Kostka 1-6 (6x)
+    - button "Opustit hernu" [ref=e54] [cursor=pointer]
+  - text: ♠ 🎰

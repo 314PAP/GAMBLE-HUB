@@ -24,23 +24,23 @@ export class LeaderboardManager {
       const titleEl = document.querySelector('#screen-login .leaderboard-badge');
       if (titleEl) titleEl.innerHTML = badge;
 
-      let html = '';
-      const medals = ['🥇', '🥈', '🥉'];
-      scores.slice(0, 5).forEach((record, idx) => {
-        const medal = medals[idx] || `#${idx + 1}`;
-        html += `
-          <div class="leaderboard-item flex justify-between items-center py-2 px-1 text-sm">
-            <span class="font-bold text-[var(--neon-gold)] w-6 text-center" style="text-shadow: 0 0 5px var(--neon-gold-glow);">${medal}</span>
-            <span class="flex-grow pl-3 font-semibold" style="color: var(--neon-gold); text-shadow: 0 0 5px var(--neon-gold-glow);">${record.jmeno}</span>
-            <span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow);">${record.castka} Kč</span>
-          </div>
-        `;
-      });
-      container.innerHTML = html;
-    } catch (e) {
-      container.innerHTML = `<span class="text-[var(--neon-pink)] text-[13px]" style="text-shadow: 0 0 5px var(--neon-pink-glow);">Nepodařilo se načíst žebříček.</span>`;
-    }
-  }
+let html = '';
+       const medals = ['🥇', '🥈', '🥉'];
+       scores.slice(0, 5).forEach((record, idx) => {
+         const medal = medals[idx] || `#${idx + 1}`;
+         html += `
+           <div style="padding: 8px 18px; margin: 4px 0; display: flex; justify-content: space-between; align-items: center;">
+             <span class="font-bold text-[var(--neon-gold)] w-6 text-center" style="text-shadow: 0 0 5px var(--neon-gold-glow); padding-left: 4px;">${medal}</span>
+             <span class="text-[var(--neon-gold)] font-semibold" style="padding-left: 8px; flex: 1;">${record.jmeno}</span>
+             <span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow); padding-right: 4px;">${record.castka} Kč</span>
+           </div>
+         `;
+       });
+       container.innerHTML = html;
+     } catch (e) {
+       container.innerHTML = `<span class="text-[var(--neon-pink)] text-[13px]" style="text-shadow: 0 0 5px var(--neon-pink-glow);">Nepodařilo se načíst žebříček.</span>`;
+     }
+   }
 
   renderExplorer(filteredData = null) {
     const list = document.getElementById('explorer-leaderboard-list');
@@ -57,13 +57,13 @@ export class LeaderboardManager {
       const originalIdx = this.ui.leaderboardData.findIndex(r => r.jmeno === record.jmeno);
       const medal = medals[originalIdx] || `#${originalIdx + 1}`;
 
-      html += `
-        <div class="flex justify-between items-center py-2.5 px-3 bg-[rgba(13,0,26,0.7)] border border-[rgba(189,0,255,0.25)] rounded-xl text-sm transition-all hover:bg-[rgba(189,0,255,0.15)]">
-          <span class="font-bold text-[var(--neon-gold)] w-6 text-center" style="text-shadow: 0 0 5px var(--neon-gold-glow);">${medal}</span>
-          <span class="flex-grow pl-3 text-[var(--neon-gold)] font-semibold" style="text-shadow: 0 0 5px var(--neon-gold-glow);">${record.jmeno}</span>
-          <span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow);">${record.castka} Kč</span>
-        </div>
-      `;
+html += `
+            <div style="padding: 8px 18px; margin: 4px 0; display: flex; justify-content: space-between; align-items: center;">
+              <span class="font-bold text-[var(--neon-gold)] w-6 text-center" style="text-shadow: 0 0 5px var(--neon-gold-glow); padding-left: 4px;">${medal}</span>
+              <span class="text-[var(--neon-gold)] font-semibold" style="padding-left: 8px; flex: 1;">${record.jmeno}</span>
+              <span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow); padding-right: 4px;">${record.castka} Kč</span>
+            </div>
+          `;
     });
     list.innerHTML = html;
   }

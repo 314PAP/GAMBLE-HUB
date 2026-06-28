@@ -1,15 +1,13 @@
-import Swal from 'sweetalert2';
-
 export class AccountsManager {
   constructor(ui) {
     this.ui = ui;
   }
 
   render(onSelect, onDelete) {
-    const list = document.getElementById('users-list');
+    const list = document.getElementById("users-list");
     if (!list) return;
 
-    list.innerHTML = '';
+    list.innerHTML = "";
     const players = this.ui.db.getPlayers();
     const usernames = Object.keys(players);
 
@@ -20,29 +18,22 @@ export class AccountsManager {
 
     usernames.forEach(username => {
       const balance = players[username];
-      const row = document.createElement('div');
-      row.className = 'flex items-center justify-between w-full gap-2';
+      const row = document.createElement("div");
+      row.className = "flex items-center justify-between w-full gap-3";
 
-      const selectBtn = document.createElement('button');
-      selectBtn.className = 'btn flex-1 min-w-0 text-left text-xs sm:text-sm';
-      selectBtn.innerHTML = `<span class="truncate block">${username}</span> <span class="account-balance ml-auto block truncate">${balance} Kč</span>`;
+      const selectBtn = document.createElement("button");
+      selectBtn.className = "btn flex-1 min-w-0 text-left text-xs sm:text-sm py-3";
+      selectBtn.style.paddingLeft = "12px";
+      selectBtn.style.paddingRight = "12px";
+      selectBtn.innerHTML = `<span class="truncate">${username}</span><span class="ml-auto truncate" style="color: var(--neon-green); text-shadow: 0 0 5px var(--neon-green-glow);">${balance} Kč</span>`;
       selectBtn.onclick = () => onSelect(username);
 
-      const deleteBtn = document.createElement('button');
-      deleteBtn.className = 'w-8 h-8 flex-shrink-0 flex items-center justify-center';
-      deleteBtn.innerHTML = '<span class="text-base sm:text-lg">🗑️</span>';
+      const deleteBtn = document.createElement("button");
+      deleteBtn.className = "delete-account-btn";
+      deleteBtn.innerHTML = '<span>🗑️</span>';
       deleteBtn.onclick = (e) => {
         e.stopPropagation();
-        Swal.fire({
-          title: 'Smazat účet?',
-          text: `Opravdu chcete permanentně smazat hráče ${username}?`,
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#ff0055',
-          cancelButtonColor: '#333',
-          confirmButtonText: 'Smazat',
-          cancelButtonText: 'Zrušit'
-        });
+        onDelete(username);
       };
 
       row.appendChild(selectBtn);

@@ -7,6 +7,7 @@ import { LeaderboardManager } from './ui/Leaderboard.js';
 import { ExplorerManager } from './ui/Explorer.js';
 import { StatsManager } from './ui/Stats.js';
 import { AccountsManager } from './ui/Accounts.js';
+import { DeleteConfirmDialog } from './ui/DeleteConfirm.js';
 import { sound } from './sound';
 
 export class GameUI {
@@ -24,6 +25,7 @@ export class GameUI {
     this.explorer = new ExplorerManager(this);
     this.stats = new StatsManager(this);
     this.accounts = new AccountsManager(this);
+    this.deleteConfirm = new DeleteConfirmDialog(this);
   }
 
   // Transitions between screens with a fade effect

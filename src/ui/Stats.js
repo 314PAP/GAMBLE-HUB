@@ -46,8 +46,8 @@ export class StatsManager {
           const div = document.createElement('div');
           div.className = `history-item ${isWin ? 'win' : 'loss'}`;
           div.innerHTML = `
-            <span>🎮 ${gamePart}</span>
-            <strong>${statusPart}</strong>
+            <span class="text-[var(--neon-gold)]">🎮 ${gamePart}</span>
+            <strong class="${isWin ? 'text-[var(--neon-green)]' : 'text-[var(--neon-pink)]'}">${statusPart}</strong>
           `;
           historyContainer.appendChild(div);
         });

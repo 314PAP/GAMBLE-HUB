@@ -2,10 +2,11 @@ import { gsap } from 'gsap';
 
 /**
  * Initialize button entrance animations without overriding CSS button design.
+ * Only applies to static buttons present at DOM ready.
  */
 export function initButtonAnimations() {
   const buttons = document.querySelectorAll(
-    '.btn, .btn-num, .btn-bet, .btn-auto, .btn-icon-only, .sound-toggle-btn'
+    '#btn-enter, #btn-create-player, #btn-spin-slots, #btn-auto-slots, .btn-info-toggle, .sound-toggle-btn, #btn-game-info'
   );
 
   buttons.forEach((btn) => {

@@ -82,7 +82,8 @@ export class GameManager {
       case 3:
         titleEl.innerText = "KOSTKA 1-6";
         document.getElementById('classic-inputs').style.display = 'none';
-        document.getElementById('dice-area').style.display = 'block';
+        const diceEl = document.getElementById('dice-area');
+        diceEl.style.display = '';
         this.dice.init();
         document.querySelectorAll('.dice-num-btn').forEach(btn => {
           btn.onclick = () => {

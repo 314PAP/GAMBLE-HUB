@@ -218,9 +218,9 @@
 /* === LEADERBOARD CARD === */
 .leaderboard-card-clickable {
   background: rgba(189, 0, 255, 0.04);
-  border: 2px solid #1a1a2e;
+  border: 1px solid #2a1a3e;
   border-radius: 16px;
-  padding: 16px 20px;
+  padding: 20px 24px 16px 24px;
   cursor: pointer;
   transition: all 0.25s;
 }
@@ -230,24 +230,71 @@
 }
 
 
-/* === HISTORY / LEADERBOARD ITEMS === */
-.history-item, .leaderboard-item {
-  margin: 6px 0;
-  padding: 10px 14px;
+/* === LEADERBOARD ITEMS === */
+.leaderboard-item {
+  padding: 8px 18px !important;
+  border-radius: 8px;
+  background: transparent;
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 4px 0;
+}
+
+.leaderboard-item .player-name {
+  padding-left: 8px;
+  flex: 1;
+}
+
+.leaderboard-item .player-score {
+  padding-right: 8px;
+}
+.history-item {
+  padding: 10px 16px !important;
   border-radius: 10px;
   background: rgba(189, 0, 255, 0.04);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-left: 4px solid #ffd700;
   font-size: 13px;
-  transition: all 0.2s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.history-item.win {
+  border-left: 4px solid #39ff14;
+  background: rgba(57, 255, 20, 0.06);
+}
+
+.history-item.loss {
+  border-left: 4px solid #ff007f;
+  background: rgba(255, 0, 127, 0.06);
+}
+
+.history-item span:first-child {
+  padding-left: 8px;
+}
+
+.history-item span:last-child {
+  padding-right: 8px;
 }
 .history-item.win {
-  border-left-color: #39ff14;
+  border-left: 4px solid #39ff14;
   background: rgba(57, 255, 20, 0.06);
 }
 .history-item.loss {
-  border-left-color: #ff007f;
+  border-left: 4px solid #ff007f;
   background: rgba(255, 0, 127, 0.06);
+}
+.leaderboard-item {
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: rgba(13, 0, 26, 0.7);
+  border: 1px solid rgba(189, 0, 255, 0.25);
+  font-size: 13px;
+}
+
+.leaderboard-item:hover {
+  background: rgba(189, 0, 255, 0.15);
 }
 
 
@@ -352,7 +399,6 @@
   align-items: center;
   gap: 8px;
   background: rgba(0,0,0,0.5);
-  border: 2px solid var(--neon-purple);
   border-radius: 12px;
   padding: 4px;
   margin-bottom: 4px;
@@ -386,6 +432,55 @@
   background: #ff0055;
   color: #ff0055;
   border-color: #ff0055;
+}
+
+.delete-confirm-actions {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 20px;
+  padding-bottom: 8px;
+}
+
+.delete-confirm-dialog {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(10, 10, 20, 0.95);
+  border: 2px solid var(--neon-pink);
+  border-radius: 20px;
+  padding: 32px 36px 36px 36px;
+  min-width: 280px;
+  max-width: 380px;
+  box-shadow:
+    0 0 25px var(--neon-pink-glow),
+    inset 0 2px 15px rgba(0, 0, 0, 0.6);
+  z-index: 150;
+  backdrop-filter: blur(10px);
+}
+
+.delete-confirm-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.delete-confirm-icon {
+  font-size: 28px;
+  filter: drop-shadow(0 0 14px var(--neon-pink-glow));
+}
+
+.delete-confirm-title {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--neon-pink);
+  font-size: 18px;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px var(--neon-pink-glow);
 }
 
 /* === GAME INFO MODAL === */
@@ -434,5 +529,3 @@
     font-size: 12px;
   }
 }
-
-/* Old responsive moved to _layout.css */
