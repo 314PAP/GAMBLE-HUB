@@ -20,9 +20,9 @@ export class ExplorerManager {
     this.ui.prepniExplorerTab('leaderboard');
 
     const listL = document.getElementById('explorer-leaderboard-list');
-    if (listL) listL.innerHTML = `<span class="text-[#ffd700] text-xs italic p-4 text-center block">🔄 Načítám žebříček...</span>`;
-    const listH = document.getElementById('explorer-history-list');
-    if (listH) listH.innerHTML = `<span class="text-[#ffd700] text-xs italic p-4 text-center block">🔄 Načítám historii...</span>`;
+if (listL) listL.innerHTML = `<span class="text-[#ffd700] text-xs italic p-4 text-center block" aria-hidden="true">🔄 Načítám žebříček...</span>`;
+      const listH = document.getElementById('explorer-history-list');
+      if (listH) listH.innerHTML = `<span class="text-[#ffd700] text-xs italic p-4 text-center block" aria-hidden="true">🔄 Načítám historii...</span>`;
 
     try {
       const [leaderboard, history] = await Promise.all([
@@ -67,17 +67,17 @@ export class ExplorerManager {
       else if (item.gameName === 'VíceMéně') gameLabel = 'HI-LOW';
 
 html += `
-         <div style="padding: 10px 16px; margin: 4px 0; display: flex; justify-content: space-between; align-items: center; border-radius: 10px; background: rgba(189, 0, 255, 0.04);">
-           <div class="flex flex-col gap-0.5" style="padding-left: 4px;">
-             <span class="font-semibold text-[var(--neon-gold)]" style="text-shadow: 0 0 5px var(--neon-gold-glow);">${item.username}</span>
-             <span class="text-[10px] text-[var(--text-secondary)]">${gameLabel} – ${timeString}</span>
-           </div>
-           <div class="flex flex-col items-end gap-0.5" style="padding-right: 4px;">
-             <span class="font-bold ${isWin ? 'text-[var(--neon-green)]' : 'text-[var(--neon-pink)]'}" style="text-shadow: 0 0 5px ${isWin ? 'var(--neon-green-glow)' : 'var(--neon-pink-glow)'};">${formattedWin}</span>
-             <span class="text-[10px] text-[var(--neon-gold)] opacity-75">${item.resultText || ''}</span>
-           </div>
-         </div>
-       `;
+         <div role="listitem" style="padding: 10px 16px; margin: 4px 0; display: flex; justify-content: space-between; align-items: center; border-radius: 10px; background: rgba(189, 0, 255, 0.04);">
+            <div class="flex flex-col gap-0.5" style="padding-left: 4px;">
+              <span class="font-semibold text-[var(--neon-gold)]" style="text-shadow: 0 0 5px var(--neon-gold-glow);">${item.username}</span>
+              <span class="text-[10px] text-[var(--text-secondary)]">${gameLabel} – ${timeString}</span>
+            </div>
+            <div class="flex flex-col items-end gap-0.5" style="padding-right: 4px;">
+              <span class="font-bold ${isWin ? 'text-[var(--neon-green)]' : 'text-[var(--neon-pink)]'}" style="text-shadow: 0 0 5px ${isWin ? 'var(--neon-green-glow)' : 'var(--neon-pink-glow)'};">${formattedWin}</span>
+              <span class="text-[10px] text-[var(--neon-gold)] opacity-75">${item.resultText || ''}</span>
+            </div>
+          </div>
+        `;
     });
     list.innerHTML = html;
   }

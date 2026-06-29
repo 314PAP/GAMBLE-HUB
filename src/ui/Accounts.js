@@ -20,6 +20,7 @@ export class AccountsManager {
       const balance = players[username];
       const row = document.createElement("div");
       row.className = "flex items-center justify-between w-full gap-3";
+      row.setAttribute("role", "listitem");
 
       const selectBtn = document.createElement("button");
       selectBtn.className = "btn flex-1 min-w-0 text-left text-xs sm:text-sm py-3";
@@ -30,7 +31,8 @@ export class AccountsManager {
 
       const deleteBtn = document.createElement("button");
       deleteBtn.className = "delete-account-btn";
-      deleteBtn.innerHTML = '<span>🗑️</span>';
+      deleteBtn.setAttribute("aria-label", `Smazat účet ${username}`);
+      deleteBtn.innerHTML = '<span aria-hidden="true">🗑️</span>';
       deleteBtn.onclick = (e) => {
         e.stopPropagation();
         onDelete(username);

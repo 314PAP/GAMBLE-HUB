@@ -4,6 +4,18 @@ Vítejte v **Neon Gamble Club** – modernizované, vysoce estetické a plně re
 
 ---
 
+## ♿ Přístupnost (a11y)
+
+Aplikace je optimalizována pro čtečky obrazovky a ARIA:
+- Sémantické HTML5 tagy (`<main>`, `<nav>`, `<article>`, `<section>`, `<header>`)
+- ARIA role pro modály (`role="dialog" aria-modal="true"`) a seznamy (`role="list"/"listitem"`)
+- `aria-live="polite"` pro dynamické oznámení
+- `aria-label` na všechna interaktivní prvky
+- Emoji ikony mají `aria-hidden="true"`
+- Skryté nadpvy pro obrazovky používají `.sr-only` třídu
+
+---
+
 ## 🎨 Design a vizuální styl (Rich Aesthetics)
 
 Původní jednoduchý neonový design byl povýšen na prémiový zážitek inspirovaný rozhraním moderních luxusních kasin:
@@ -48,29 +60,43 @@ Aplikace byla rozdělena do logických modulů (Separation of Concerns):
 │   ├── games/
 │   │   ├── slots.js               # Logika a GSAP animace slotů (Bary 3x3)
 │   │   ├── hilo.js                # Logika a 3D animace otáčení karet pro Hi-Lo
-│   │   └── guessing.js            # Logika číselných her (Ruleta, Kostka, atd.) s efektem točení
-│   ├── db.js                      # Databázová vrstva (LocalStorage, hráči, statistiky, import/export)
-│   ├── sound.js                   # Zvukový syntezátor (Web Audio API, mute stav)
-│   ├── ui.js                      # UI manažer (obrazovky, modály, grafy, konfety a SweetAlert)
-│   ├── games.js                   # Hlavní orchestrátor sázek, autoplay režimu a her
+│   │   └── guessing.js            # Logika číselných her (Ruleta, Kostka, atd.)
+│   ├── ui/
+│   │   ├── Leaderboard.js         # Žebříček hráčů
+│   │   ├── Explorer.js            # Globální historie a filtry
+│   │   ├── Stats.js               # Statistiky a grafy
+│   │   ├── Accounts.js            # Správa účtů
+│   │   └── DeleteConfirm.js       # Dialog smazání
+│   ├── events/
+│   │   └── globalHandlers.js        # Globální event handlery
+│   ├── db.js                      # Databázová vrstva (LocalStorage)
+│   ├── sound.js                   # Zvukový syntezátor (Web Audio API)
+│   ├── ui.js                      # UI manažer (obrazovky, modály)
+│   ├── games.js                   # Hlavní orchestrátor
 │   ├── css/
-│   │   ├── _variables.css       // CSS custom properties (barevná paleta, glow, shadow)
-│   │   ├── _reset.css           // *, html, body, scrollbar
-│   │   ├── _typography.css      // Google fonty, h1/h2, @keyframes
-│   │   ├── _layout.css          // .container, .screen, helpers, media queries
-│   │   ├── _components.css      // Tlačítka, inputy, modály, sound-toggle, glass
-│   │   ├── _slot.css            // Automat: reels, cells, symboly, glow animace
-│   │   ├── _hilo.css            // Hi-Lo karty, number-grid, bet-buttons, .status-box
-│   │   └── main.css             // Jediný CSS entry point
-│   ├── tailwind.css             // Tailwind v4 base (@tailwind base/components/utilities)
-│   ├── theme.css                // Globální .panel, .neon-text, input theming
-│   ├── backup/                  // Zálohy před-refaktoringem
-│   └── main.js                  // Vstupní bod, importuje ./css/main.css
-├── index.html                     # Hlavní vstupní HTML šablona pro Vite
-├── index3.html                    # Původní verze hry (zachována bokem jako záloha)
+│   │   ├── _variables.css         // CSS proměnné (neon paleta, glow)
+│   │   ├── _reset.css             // Globální reset
+│   │   ├── _typography.css        // Typografie a .sr-only utility
+│   │   ├── _layout.css            // Screen management, media queries
+│   │   ├── _buttons.css           // 3D tlačítka (komponenta)
+│   │   ├── _slot.css              // Slot machine (komponenta)
+│   │   └── _panels.css            // Modály a panely (komponenta)
+│   ├── tailwind.css               // Tailwind v4 utilities
+│   └── main.js                    // Vstupní bod
+├── index.html                     # Hlavní šablona s sémantickými tagy
+├── index3.html                    # Původní verze (záloha)
 ├── package.json                   # Konfigurace závislostí a skriptů
 └── vite.config.js                 # Konfigurace sestavení Vite
 ```
+
+---
+
+## 📱 CSS architektura
+
+- **Tailwind v4 utilities** v `tailwind.css` - utility třídy (flex, grid, spacing)
+- **CSS proměnné** v `_variables.css` - neon paleta, glow efekty
+- **Komponenty** v `_buttons.css`, `_slot.css`, `_panels.css` - složité 3D efekty a animace
+- Layout utility přesunuty z `_layout.css` do Tailwind tříd v HTML
 
 ---
 

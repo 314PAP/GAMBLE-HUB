@@ -16,13 +16,13 @@ export class StatsManager {
     if (statsContainer) {
       statsContainer.innerHTML = `
         <div class="flex-row-center" style="margin-bottom: 6px;">
-          <span>👤 Hráč:</span> <strong>${username}</strong>
+          <span aria-hidden="true">👤</span> <span>Hráč:</span> <strong>${username}</strong>
         </div>
         <div class="flex-row-center" style="margin-bottom: 6px;">
-          <span>🔄 Odehraných her:</span> <strong>${totalMatches}</strong>
+          <span aria-hidden="true">🔄</span> <span>Odehraných her:</span> <strong>${totalMatches}</strong>
         </div>
         <div class="flex-row-center" style="margin-bottom: 6px;">
-          <span>📈 Úspěšnost:</span> <strong style="color:var(--neon-orange)">${winRate}%</strong>
+          <span aria-hidden="true">📈</span> <span>Úspěšnost:</span> <strong style="color:var(--neon-orange)">${winRate}%</strong>
         </div>
       `;
     }
@@ -45,6 +45,7 @@ export class StatsManager {
 
           const div = document.createElement('div');
           div.className = `history-item ${isWin ? 'win' : 'loss'}`;
+          div.setAttribute('role', 'listitem');
           div.innerHTML = `
             <span class="text-[var(--neon-gold)]">🎮 ${gamePart}</span>
             <strong class="${isWin ? 'text-[var(--neon-green)]' : 'text-[var(--neon-pink)]'}">${statusPart}</strong>

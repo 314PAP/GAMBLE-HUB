@@ -7,16 +7,14 @@ Tento dokument popisuje aktuální modulární strukturu CSS a design systém ap
 ```
 src/
 ├── css/
-│   ├── _variables.css    // CSS custom properties (barevná paleta, glow, shadow)
-│   ├── _reset.css        // *, html, body, scrollbar
-│   ├── _typography.css   // Google fonty, h1/h2, @keyframes
-│   ├── _layout.css       // .container, .screen, grid/flex helpers, media queries
-│   ├── _buttons.css      // Tlačítka, inputy, modály, info-panel, sound-toggle
-│   ├── _panels.css       // Header, modal, info-panel, leaderboard, dialogy
-│   ├── _slot.css         // Automat: reels, cells, symboly, slot-controls
-│   ├── _hilo.css         // Hi-Lo karty, number-grid, bet-buttons, .status-box
-│   └── main.css          // Jediný entry point – importuje všechny moduly
-├── tailwind.css          // Tailwind v4 base (@tailwind base/components/utilities)
+│   ├── _variables.css    // CSS proměnné (neon paleta, glow, shadow)
+│   ├── _reset.css        // Globální reset
+│   ├── _typography.css   // Typografie, Google fonty, .sr-only
+│   ├── _layout.css       // Screen management, media queries
+│   ├── _buttons.css      // 3D tlačítka (komponenta)
+│   ├── _slot.css         // Slot machine (komponenta)
+│   └── _panels.css       // Modály a panely (komponenta)
+├── tailwind.css          // Tailwind v4 utilities
 ```
 
 ## 2. Entry point
@@ -31,12 +29,12 @@ HTML (`index.html`) žádný `<link>` na CSS neobsahuje – vše prochází Vite
 
 ## 3. Pořadí importů v main.css
 
-1. `../tailwind.css` – Tailwind v4 utility (kompilováno Vitem)
-2. `./_variables.css` – CSS custom properties (`--neon-*`, `--glass-*`)
-3. `./_reset.css` – `* { box-sizing… }`, `html/body`, scrollbar
-4. `./_typography.css` – font import, `h1`, `h2`, @keyframes
-5. `./_layout.css` – `.container`, `.screen`, `.flex-row-center`, media queries
-6. `@layer components { ... }` – tlačítka, inputy, modály, slot, hilo
+1. `../tailwind.css` – Tailwind v4 utilities
+2. `./_variables.css` – CSS custom properties (`--neon-*`)
+3. `./_reset.css` – Globální reset
+4. `./_typography.css` – Typografie, Google fonty, .sr-only
+5. `./_layout.css` – Screen state management, @media queries
+6. `@layer components { ... }` – tlačítka, slot, panely (vysoká priorita)
 
 ## 4. Design tokeny (CSS proměnné)
 
@@ -88,10 +86,13 @@ V `_layout.css`: `input, select, textarea` – tmavé sklo, orange focus glow.
 - `.slot-reel` – gradient `#010104 → #0a0a16`
 - `.slot-cell.sym-*` – neonové glowy pro každý symbol
 
+### Inputy
+V `_panels.css`: focus state, tmavé sklo, neon border.
+
 ### Hi-Lo (_hilo.css)
-- `.hilo-card` – 3D flip (`rotateY(180deg)`)
-- `.card-front` / `.card-back` – gradienty + border
-- `.btn-bet` – černé s cyan border, selected stav má gold glow
+- `.hilo-card`, `.card-face`, `.card-front`, `.card-back` – 3D flip animace
+- `.hilo-container`, `.hilo-btns` – layout pro Hi-Lo hru
+- Zachovány CSS proměnné pro barvy a glow efekty
 
 ### Status Box (.status-box)
 - Fixed toast – `bottom: 160px`, tmavé sklo, blur
@@ -110,13 +111,17 @@ Konfigurace je v `tailwind.config.js` ( backwards-compatible JS config):
 - Rozšířená barevná paleta: `neon-*` barvy + kompletní `gray` paleta
 - Vlastní `boxShadow.premium`
 
-## 8. Sémantické HTML (2026-06-28 refaktoring)
+## 8. Sémantické HTML & ARIA (2026-06-28 refaktoring)
 
-Provedená změna v `index.html`:
-- `<div class="container">` → `<main class="container">`
-- `<div class="screen ...">` → `<section class="screen ...">`
-- `<div class="game-header-bar">` → `<header class="game-header-bar">`
-- Zachovány všechny `id` atributy pro kompatibilitu s JS
+Provedené změny v `index.html`:
+- `<main class="container">` s `role="main" aria-label="Herní aplikace"`
+- `<section class="screen">` s `aria-labelledby` pro každou obrazovku
+- `<nav aria-label="Výběr hry">` pro herní přepínače
+- `<article aria-labelledby="...">` pro hrací sekce (slots, hilo, dice, classic)
+- Všechny modály: `role="dialog" aria-modal="true" aria-labelledby="..."`
+- `aria-hidden="true"` na emoji a ikony
+- `role="list"` a `role="listitem"` na seznamy hráčů/historie
+- `.sr-only` třída pro skryté nadpvy
 
 ## 9. CSS Cleanup (2026-06-29)
 

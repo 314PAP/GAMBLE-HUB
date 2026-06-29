@@ -13,9 +13,9 @@ export class HiloGame {
   }
 
   updateCardDisplay(num) {
-    const cardFront = document.getElementById('hilo-current-card');
-    if (cardFront) {
-      cardFront.innerText = num;
+    const card = document.getElementById('hilo-current-card');
+    if (card) {
+      card.innerText = num;
     }
   }
 
@@ -24,50 +24,49 @@ export class HiloGame {
     this.isAnimating = true;
     sound.playFlip();
 
-    const card = document.querySelector('.hilo-card');
-    if (!card) {
-      this.isAnimating = false;
-      return;
-    }
-
     let nextNumber;
-do {
-  nextNumber = Math.floor(Math.random() * 10) + 1; // Card value between 1 and 10
-} while (nextNumber === this.currentNumber);
-let isWin = false;
-if (tip === 'H' && nextNumber > this.currentNumber) isWin = true;
-if (tip === 'L' && nextNumber < this.currentNumber) isWin = true;
+    do {
+      nextNumber = Math.floor(Math.random() * 10) + 1; // Card value between 1 and 10
+    } while (nextNumber === this.currentNumber);
+    let isWin = false;
+    if (tip === 'H' && nextNumber > this.currentNumber) isWin = true;
+    if (tip === 'L' && nextNumber < this.currentNumber) isWin = true;
 
     const originalNumber = this.currentNumber;
-    
-    // GSAP 3D Flipping Animation
-    // 1. Flip card to its back (180deg)
-    gsap.to(card, {
-      rotateY: 180,
-      duration: 0.35,
-      ease: 'power2.in',
-      onComplete: () => {
-        // 2. Set the new card number while it is hidden
-        this.updateCardDisplay(nextNumber);
-        this.currentNumber = nextNumber;
-        
-        // 3. Flip back to front (0deg) with a springy back bounce
-        gsap.to(card, {
-          rotateY: 0,
-          duration: 0.45,
-          ease: 'back.out(1.4)',
-          delay: 0.1,
-          onComplete: () => {
-            this.isAnimating = false;
-            
-            onComplete({
-              isWin,
-              winAmount: isWin ? betAmount * 2 : 0,
-              resultText: `Původní: ${originalNumber} | Nové: ${nextNumber}`
-            });
-          }
-        });
-      }
-    });
+    const card = document.getElementById('hilo-current-card');
+
+    // GSAP Flip Animation
+    if (card) {
+      gsap.to(card, {
+        scale: 0,
+        duration: 0.2,
+        ease: 'power2.in',
+        onComplete: () => {
+          this.updateCardDisplay(nextNumber);
+          this.currentNumber = nextNumber;
+          gsap.to(card, {
+            scale: 1,
+            duration: 0.3,
+            ease: 'back.out(1.7)',
+            onComplete: () => {
+              this.isAnimating = false;
+              onComplete({
+                isWin,
+                winAmount: isWin ? betAmount * 2 : 0,
+                resultText: `Původní: ${originalNumber} | Nové: ${nextNumber}`
+              });
+            }
+          });
+        }
+      });
+    } else {
+      this.currentNumber = nextNumber;
+      this.isAnimating = false;
+      onComplete({
+        isWin,
+        winAmount: isWin ? betAmount * 2 : 0,
+        resultText: `Původní: ${originalNumber} | Nové: ${nextNumber}`
+      });
+    }
   }
 }

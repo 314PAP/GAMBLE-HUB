@@ -1,5 +1,6 @@
-/* === Hi-Lo Game Specific Styles === */
+/* === Hi-Lo Game Specific Styles - Component only === */
 
+/* Hi-Lo Card Styling */
 .hilo-container {
   padding: 20px;
   margin-bottom: 24px;
@@ -9,7 +10,6 @@
   gap: 16px;
 }
 
-/* Hi-Lo Card Styling */
 .card-viewport {
   perspective: 1000px;
   width: 90px;
@@ -18,35 +18,9 @@
   position: relative;
 }
 
-.hilo-card {
+.hilo-card-face {
   width: 100%;
   height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.hilo-card.flipped {
-  transform: rotateY(180deg);
-}
-
-.card-face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-weight: 800;
-  box-shadow: 
-    0 10px 30px rgba(0,0,0,0.4),
-    0 0 20px rgba(0, 240, 255, 0.15);
-}
-
-.card-front {
   background: 
     linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%),
     linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
@@ -55,49 +29,16 @@
   font-size: 48px;
   font-family: 'Orbitron', sans-serif;
   text-shadow: 0 0 20px var(--neon-blue-glow);
-  position: relative;
-  overflow: hidden;
-}
-
-.card-front::before {
-  content: '';
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  right: 8px;
-  bottom: 8px;
-  border: 1px solid rgba(0, 240, 255, 0.2);
-  border-radius: 10px;
-  pointer-events: none;
-}
-
-.card-front::after {
-  content: '♠';
-  position: absolute;
-  top: 12px;
-  left: 14px;
-  font-size: 16px;
-  color: var(--neon-blue);
-  opacity: 0.7;
-}
-
-.card-back {
-  background: 
-    linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%),
-    linear-gradient(135deg, #1e1b4b 0%, #311042 100%);
-  border: 2px solid var(--neon-pink);
-  transform: rotateY(180deg);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: 
     0 10px 30px rgba(0,0,0,0.4),
-    0 0 20px rgba(168, 85, 247, 0.2);
+    0 0 20px rgba(0, 240, 255, 0.15);
 }
 
-.card-back::after {
-  content: '🎰';
-  font-size: 36px;
-}
-
-/* Card labels */
 .card-label {
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -112,35 +53,6 @@
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
 }
 
-/* Classic games number grid */
-:is(.number-grid, #game-number-buttons) {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(38px, 1fr));
-  gap: 6px;
-  padding: 16px;
-  background:
-    var(--screen-glass-sheen),
-    var(--screen-bg-gradient);
-  border-radius: 12px;
-  border: 2px solid var(--screen-border-color);
-  box-shadow: var(--screen-inset);
-  max-width: 100%;
-  margin: 24px auto;
-  position: relative;
-}
-
-.number-grid {
-  margin-top: 12px;
-  margin-bottom: 12px;
-}
-
-#game-number-buttons {
-  width: 100%;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-/* Hi-Lo specific button overrides */
 .hilo-btns {
   display: flex;
   gap: 12px;
@@ -239,7 +151,6 @@
     0 0 60px rgba(0, 240, 255, 0.9);
   position: relative;
   z-index: 1;
-  transition: color 0.3s ease;
 }
 
 .dice-frame.win .dice-display {
@@ -298,22 +209,29 @@
   color: var(--neon-gold);
 }
 
-@media (max-width: 480px) {
-  .dice-numbers-grid {
-    gap: 6px;
-  }
-  .dice-num-btn {
-    min-width: 44px;
-    height: 42px;
-    font-size: 14px;
-  }
-  .dice-frame {
-    width: clamp(100px, 28vw, 140px);
-    height: clamp(100px, 28vw, 140px);
-  }
-}
-
 @keyframes ledPulse {
   0%, 100% { box-shadow: 0 0 24px var(--neon-gold-glow); }
   50% { box-shadow: 0 0 38px rgba(255, 215, 0, 0.65); }
+}
+
+/* Number buttons container for classic games */
+#game-number-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(38px, 1fr));
+  gap: 6px;
+  padding: 16px;
+  background:
+    var(--screen-glass-sheen),
+    var(--screen-bg-gradient);
+  border-radius: 12px;
+  border: 2px solid var(--screen-border-color);
+  box-shadow: var(--screen-inset);
+  max-width: 100%;
+  margin: 24px auto;
+  position: relative;
+}
+
+#game-number-buttons.number-grid {
+  margin-top: 12px;
+  margin-bottom: 12px;
 }

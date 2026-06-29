@@ -6,7 +6,7 @@ export class LeaderboardManager {
   async render() {
     const container = document.getElementById('leaderboard-content');
     if (!container) return;
-    container.innerHTML = `<span class="text-[#ffd700] text-xs italic">🔄 Načítám žebříček...</span>`;
+    container.innerHTML = `<span class="text-[#ffd700] text-xs italic" aria-hidden="true">🔄 Načítám žebříček...</span>`;
 
     try {
       const scores = await this.ui.api.getGlobalLeaderboard();
@@ -17,9 +17,9 @@ export class LeaderboardManager {
         return;
       }
 
-      const badge = isOnline
-          ? `<span class="text-[10px] text-[#00ff99] bg-[#00ff99]/10 border border-[#00ff99]/30 px-1.5 py-0.5 rounded-full ml-2">🌐 Online</span>`
-          : `<span class="text-[10px] text-[#ffd700] bg-[#ffd700]/5 border border-[#ffd700]/10 px-1.5 py-0.5 rounded-full ml-2">💾 Lokální</span>`;
+const badge = isOnline
+? `<span class="text-[10px] text-[#00ff99] bg-[#00ff99]/10 border border-[#00ff99]/30 px-1.5 py-0.5 rounded-full ml-2" aria-hidden="true">🌐 Online</span>`
+: `<span class="text-[10px] text-[#ffd700] bg-[#ffd700]/5 border border-[#ffd700]/10 px-1.5 py-0.5 rounded-full ml-2" aria-hidden="true">💾 Lokální</span>`;
 
       const titleEl = document.querySelector('#screen-login .leaderboard-badge');
       if (titleEl) titleEl.innerHTML = badge;
@@ -58,7 +58,7 @@ let html = '';
       const medal = medals[originalIdx] || `#${originalIdx + 1}`;
 
 html += `
-            <div style="padding: 8px 18px; margin: 4px 0; display: flex; justify-content: space-between; align-items: center;">
+            <div role="listitem" style="padding: 8px 18px; margin: 4px 0; display: flex; justify-content: space-between; align-items: center;">
               <span class="font-bold text-[var(--neon-gold)] w-6 text-center" style="text-shadow: 0 0 5px var(--neon-gold-glow); padding-left: 4px;">${medal}</span>
               <span class="text-[var(--neon-gold)] font-semibold" style="padding-left: 8px; flex: 1;">${record.jmeno}</span>
               <span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow); padding-right: 4px;">${record.castka} Kč</span>
