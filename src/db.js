@@ -41,6 +41,7 @@ export class GameDatabase {
 
   createPlayer(username) {
     if (!username) return { success: false, message: 'Jméno nesmí být prázdné!' };
+    if (username.length > 5) return { success: false, message: 'Jméno může mít maximálně 5 znaků!' };
     if (username.includes(';') || username.includes(',')) {
       return { success: false, message: 'Jméno obsahuje nepovolené znaky!' };
     }

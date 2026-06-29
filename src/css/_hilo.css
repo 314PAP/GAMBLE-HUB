@@ -1,6 +1,5 @@
 /* === Hi-Lo Game Specific Styles - Component only === */
 
-/* Hi-Lo Card Styling */
 .hilo-container {
   padding: 20px;
   margin-bottom: 24px;
@@ -11,9 +10,33 @@
   background:
     var(--screen-glass-sheen),
     var(--screen-bg-gradient);
-  border-radius: 16px;
+  border-radius: 12px;
   border: 2px solid var(--neon-blue);
   box-shadow: 0 0 20px var(--neon-blue-glow), var(--screen-inset);
+}
+
+@media (max-width: 768px) {
+  .hilo-container {
+    padding: 16px;
+    margin-bottom: 16px;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hilo-container {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+  .hilo-btns .btn,
+  .hilo-btns .btn-primary,
+  .hilo-btns .btn-danger {
+    min-width: 60px;
+    max-width: 100px;
+    height: 36px;
+    padding: 0 12px;
+    font-size: 12px;
+  }
 }
 
 .hilo-card-face {
@@ -27,7 +50,7 @@
   font-size: 48px;
   font-family: 'Orbitron', sans-serif;
   text-shadow: 0 0 20px var(--neon-blue-glow), 0 0 40px var(--neon-blue-glow);
-  border-radius: 16px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,7 +67,7 @@
   text-align: center;
   padding: 8px 16px;
   background: rgba(0, 0, 0, 0.3);
-  border-radius: 20px;
+  border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.05);
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
 }
@@ -67,7 +90,6 @@
   font-size: 14px;
 }
 
-/* Dice Frame - Glassy container for single die */
 .dice-frame {
   width: clamp(120px, 30vw, 160px);
   height: clamp(120px, 30vw, 160px);
@@ -76,7 +98,7 @@
     linear-gradient(135deg, rgba(0, 240, 255, 0.08) 0%, transparent 50%),
     rgba(20, 10, 30, 0.9);
   border: 3px solid rgba(0, 240, 255, 0.6);
-  border-radius: 24px;
+  border-radius: 14px;
   box-shadow:
     0 0 50px rgba(0, 240, 255, 0.35),
     0 0 100px rgba(0, 240, 255, 0.15),
@@ -92,12 +114,33 @@
   margin-bottom: 16px;
 }
 
+@media (max-width: 768px) {
+  .dice-frame {
+    width: clamp(100px, 25vw, 140px);
+    height: clamp(100px, 25vw, 140px);
+    margin-bottom: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dice-frame {
+    width: clamp(80px, 20vw, 120px);
+    height: clamp(80px, 20vw, 120px);
+    margin-bottom: 10px;
+  }
+  .dice-num-btn {
+    min-width: 42px;
+    height: 38px;
+    font-size: 13px;
+  }
+}
+
 .dice-frame::before {
   content: '';
   position: absolute;
   inset: 10px;
   border: 2px solid rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
+  border-radius: 10px;
   pointer-events: none;
 }
 
@@ -108,7 +151,7 @@
   left: -2px;
   right: -2px;
   bottom: -2px;
-  border-radius: 24px;
+  border-radius: 14px;
   background: linear-gradient(45deg, transparent 40%, rgba(0, 240, 255, 0.2) 50%, transparent 60%);
   animation: sheen 4s ease-in-out infinite;
   pointer-events: none;
@@ -188,6 +231,18 @@
   justify-items: center;
 }
 
+@media (max-width: 768px) {
+  .dice-numbers-grid {
+    gap: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dice-numbers-grid {
+    gap: 4px;
+  }
+}
+
 .dice-num-btn {
   min-width: 52px;
   width: auto;
@@ -225,6 +280,25 @@
   max-width: 100%;
   margin: 24px auto;
   position: relative;
+}
+
+@media (max-width: 768px) {
+  #game-number-buttons {
+    padding: 12px;
+    margin: 16px auto;
+  }
+}
+
+@media (max-width: 480px) {
+  #game-number-buttons {
+    padding: 10px;
+    margin: 12px auto;
+    gap: 4px;
+  }
+  #game-number-buttons button {
+    font-size: 12px;
+    min-height: 28px;
+  }
 }
 
 #game-number-buttons.number-grid {

@@ -3,6 +3,19 @@ export class AccountsManager {
     this.ui = ui;
   }
 
+  formatLargeNumber(num) {
+    if (num >= 1000000) {
+      return (num / 1000000).toFixed(3).replace(/\.?0+$/, '') + ' M';
+    } else if (num >= 1000) {
+      return (num / 1000).toFixed(3).replace(/\.?0+$/, '') + ' K';
+    }
+    return num.toString();
+  }
+
+  wrapEmoji(text) {
+    return text.replace(/[\u{1F300}-\u{1F9FF}]|[\u2600-\u26FF]|\u203C|\u2049|[\u2000-\u206F]/gu, '<span class="emoji-icon">$&\u200d</span>');
+  }
+
   render(onSelect, onDelete) {
     const list = document.getElementById("users-list");
     if (!list) return;
@@ -26,7 +39,7 @@ export class AccountsManager {
       selectBtn.className = "btn flex-1 min-w-0 text-left text-xs sm:text-sm py-3";
       selectBtn.style.paddingLeft = "12px";
       selectBtn.style.paddingRight = "12px";
-      selectBtn.innerHTML = `<span class="truncate">${username}</span><span class="ml-auto truncate" style="color: var(--neon-green); text-shadow: 0 0 5px var(--neon-green-glow);"><span class="score-display">${balance}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span></span>`;
+      selectBtn.innerHTML = `<span class="truncate scoreboard-name">${this.wrapEmoji(username)}</span><span class="ml-auto truncate" style="color: var(--neon-green); text-shadow: 0 0 5px var(--neon-green-glow);"><span class="score-display">${this.formatLargeNumber(balance)}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span></span>`;
       selectBtn.onclick = () => onSelect(username);
 
       const deleteBtn = document.createElement("button");

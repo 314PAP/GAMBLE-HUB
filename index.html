@@ -41,7 +41,7 @@
 
     <section id="screen-register" class="screen" aria-labelledby="register-title">
         <h2 id="register-title">Nový Hráč</h2>
-        <input type="text" id="reg-name" placeholder="Zadej jméno" aria-label="Jméno hráče" onkeydown="checkEnter(event, potvrditRegistraci)">
+        <input type="text" id="reg-name" placeholder="Zadej jméno (max 5 znaků)" maxlength="5" aria-label="Jméno hráče" onkeydown="checkEnter(event, potvrditRegistraci)">
         <div class="flex flex-col gap-2.5" role="group" aria-label="Registrace">
             <button class="btn btn-success" onclick="potvrditRegistraci()">Vytvořit účet</button>
             <button class="btn btn-danger" onclick="zpetDoMenu()">Zpět</button>
