@@ -340,3 +340,14 @@
   text-transform: uppercase;
   text-shadow: 0 0 10px var(--neon-pink-glow);
 }
+
+.coin-icon {
+  display: inline-block;
+  font-size: 16px;
+  animation: coinPulse 2s ease-in-out infinite;
+}
+
+@keyframes coinPulse {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.9; }
+  50% { transform: scale(1.1) rotate(10deg); opacity: 1; }
+}

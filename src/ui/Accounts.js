@@ -26,7 +26,7 @@ export class AccountsManager {
       selectBtn.className = "btn flex-1 min-w-0 text-left text-xs sm:text-sm py-3";
       selectBtn.style.paddingLeft = "12px";
       selectBtn.style.paddingRight = "12px";
-      selectBtn.innerHTML = `<span class="truncate">${username}</span><span class="ml-auto truncate" style="color: var(--neon-green); text-shadow: 0 0 5px var(--neon-green-glow);">${balance} Kč</span>`;
+      selectBtn.innerHTML = `<span class="truncate">${username}</span><span class="ml-auto truncate" style="color: var(--neon-green); text-shadow: 0 0 5px var(--neon-green-glow);">${balance}<span aria-hidden="true" class="coin-icon"> 🪙</span></span>`;
       selectBtn.onclick = () => onSelect(username);
 
       const deleteBtn = document.createElement("button");
