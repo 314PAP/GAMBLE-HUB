@@ -65,7 +65,7 @@ html += `
                  <span class="font-bold text-[var(--neon-gold)] w-6" style="text-shadow: 0 0 5px var(--neon-gold-glow);">${medal}</span>
                  <span class="text-[var(--neon-gold)] font-semibold" style="flex: 1;">${record.jmeno}</span>
                </div>
-<span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow);">${record.castka}&nbsp;<svg class="coin-icon-svg" viewBox="0 0 24 24" style="width:16px;height:16px;vertical-align:middle;"><circle cx="12" cy="12" r="10" fill="#d4af37"/><circle cx="12" cy="10" r="3" fill="#8b6d1a"/></svg></span>
+<span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow);">${record.castka}&nbsp;<span aria-hidden="true" class="coin-icon-svg">🪙</span></span>
              </div>
            `;
     });
