@@ -42,8 +42,8 @@
     <section id="screen-hub" class="screen">
         <header class="game-header-bar bg-gradient-to-br from-[#020205] via-[#020205] to-[#020205] border-2 border-[#1a1a2e] rounded-xl mb-4 p-3">
             <div class="flex items-center justify-between w-full gap-2">
-                <div class="text-xs sm:text-sm md:text-base truncate text-[var(--neon-gold)]" style="text-shadow: 0 0 8px var(--neon-gold-glow);">
-                    <span id="hub-player-name"></span>
+<div class="text-xs sm:text-sm md:text-base truncate text-[var(--neon-gold)]" style="text-shadow: 0 0 8px var(--neon-gold-glow);">
+                    <span id="hub-player-money"></span> <span aria-hidden="true">🪙</span>
                 </div>
                 <div class="text-xs sm:text-sm md:text-base whitespace-nowrap text-[var(--neon-green)]" style="text-shadow: 0 0 8px var(--neon-green-glow);">
                     <span id="hub-player-money"></span> <span>Kč</span>
@@ -75,7 +75,7 @@
                 </div>
             </div>
             <div class="text-center text-[11px] sm:text-xs md:text-sm mt-2 text-[var(--neon-green)]" style="text-shadow: 0 0 8px var(--neon-green-glow);">
-                <span id="game-player-money"></span> Kč
+                <span id="game-player-money"></span> <span aria-hidden="true">🪙</span>
             </div>
         </header>
 
@@ -132,10 +132,10 @@
         </article>
 
         <div id="bet-area" class="bet-area-grid grid grid-cols-5 mt-4 gap-1.5" role="region" aria-label="Volba sázky">
-            <button class="btn btn-bet text-[10px] sm:text-xs py-1 px-0.5" id="bet-10" onclick="nastavSazku(10)">10 Kč</button>
-            <button class="btn btn-bet text-[10px] sm:text-xs py-1 px-0.5" id="bet-20" onclick="nastavSazku(20)">20 Kč</button>
-            <button class="btn btn-bet text-[10px] sm:text-xs py-1 px-0.5" id="bet-50" onclick="nastavSazku(50)">50 Kč</button>
-            <button class="btn btn-bet text-[10px] sm:text-xs py-1 px-0.5" id="bet-100" onclick="nastavSazku(100)">100 Kč</button>
+            <button class="btn btn-bet text-[10px] sm:text-xs py-1 px-0.5" id="bet-10" onclick="nastavSazku(10)"><span aria-hidden="true">🪙</span> 10</button>
+            <button class="btn btn-bet text-[10px] sm:text-xs py-1 px-0.5" id="bet-20" onclick="nastavSazku(20)"><span aria-hidden="true">🪙</span> 20</button>
+            <button class="btn btn-bet text-[10px] sm:text-xs py-1 px-0.5" id="bet-50" onclick="nastavSazku(50)"><span aria-hidden="true">🪙</span> 50</button>
+            <button class="btn btn-bet text-[10px] sm:text-xs py-1 px-0.5" id="bet-100" onclick="nastavSazku(100)"><span aria-hidden="true">🪙</span> 100</button>
             <button class="btn btn-bet text-[10px] sm:text-xs py-1 px-0.5 !min-w-[36px]" id="bet-cust" onclick="ukazVlastniSazku()" aria-label="Vlastní sázka">
                 <span aria-hidden="true">•••</span>
             </button>

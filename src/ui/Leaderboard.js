@@ -34,7 +34,7 @@ let html = '';
                <span class="font-bold text-[var(--neon-gold)] w-6" style="text-shadow: 0 0 5px var(--neon-gold-glow);">${medal}</span>
                <span class="text-[var(--neon-gold)] font-semibold" style="flex: 1;">${record.jmeno}</span>
              </div>
-             <span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow);">${record.castka} Kč</span>
+             <span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow);"><span aria-hidden="true">🪙</span> ${record.castka}</span>
            </div>
          `;
        });
