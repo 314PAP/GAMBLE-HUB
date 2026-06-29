@@ -26,7 +26,7 @@ export class HiloGame {
 
     let nextNumber;
     do {
-      nextNumber = Math.floor(Math.random() * 10) + 1; // Card value between 1 and 10
+      nextNumber = Math.floor(Math.random() * 10) + 1;
     } while (nextNumber === this.currentNumber);
     let isWin = false;
     if (tip === 'H' && nextNumber > this.currentNumber) isWin = true;
@@ -35,7 +35,6 @@ export class HiloGame {
     const originalNumber = this.currentNumber;
     const card = document.getElementById('hilo-current-card');
 
-    // GSAP Flip Animation
     if (card) {
       gsap.to(card, {
         scale: 0,
