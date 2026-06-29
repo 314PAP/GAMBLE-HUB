@@ -126,11 +126,11 @@ export class GameUI {
     if (resBox) {
       gsap.killTweensOf(resBox);
       resBox.style.display = 'block';
-      
-      resBox.style.borderColor = 'var(--neon-green)';
-      resBox.style.boxShadow = '0 10px 25px rgba(0,0,0,0.5), 0 0 20px var(--neon-green-glow), 0 0 40px var(--neon-green-glow)';
+
+      resBox.style.borderColor = 'var(--neon-gold)';
+      resBox.style.boxShadow = '0 10px 25px rgba(0,0,0,0.5), 0 0 20px var(--neon-gold-glow), 0 0 40px var(--neon-gold-glow)';
       resBox.innerHTML = `
-        <span style="color:var(--neon-green); font-size:18px; font-weight:800; text-shadow:0 0 10px var(--neon-green-glow);">🎉 +${winAmount} Kč ${isJackpot ? '🔥' : ''}</span>
+        <span style="color:var(--neon-gold); font-size:18px; font-weight:800; text-shadow:0 0 10px var(--neon-gold-glow);">🎉 +${winAmount} Kč ${isJackpot ? '🔥' : ''}</span>
         <br><small style="color:var(--neon-gold);">${resultText}</small>
       `;
 
@@ -160,30 +160,30 @@ export class GameUI {
   animateLossBalance(newBalance) {
     const hubMoney = document.getElementById('hub-player-money');
     const gameMoney = document.getElementById('game-player-money');
-    
+
     const elements = [hubMoney, gameMoney].filter(el => el);
-    
+
     if (elements.length > 0) {
       gsap.killTweensOf(elements);
-      
+
       gsap.fromTo(elements, {
         scale: 1,
-        color: '#f8fafc',
-        textShadow: '0 0 5px rgba(0, 240, 255, 0.4)'
+        color: 'var(--neon-green)',
+        textShadow: '0 0 5px var(--neon-green-glow)'
       }, {
         scale: 1.15,
         color: 'var(--neon-pink)',
-        textShadow: '0 0 15px rgba(255, 0, 127, 0.8), 0 0 30px rgba(255, 0, 127, 0.5)',
+        textShadow: '0 0 15px var(--neon-pink-glow), 0 0 30px var(--neon-pink-glow)',
         duration: 0.15,
         ease: 'power2.out',
         yoyo: true,
         repeat: 3,
         repeatDelay: 0.1
       });
-      
+
       gsap.to(elements, {
-        color: '#f8fafc',
-        textShadow: '0 0 5px rgba(0, 240, 255, 0.4)',
+        color: 'var(--neon-green)',
+        textShadow: '0 0 5px var(--neon-green-glow)',
         duration: 0.6,
         delay: 0.6
       });

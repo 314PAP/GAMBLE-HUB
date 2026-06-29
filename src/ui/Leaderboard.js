@@ -30,9 +30,11 @@ let html = '';
          const medal = medals[idx] || `#${idx + 1}`;
          html += `
            <div style="padding: 8px 18px; margin: 4px 0; display: flex; justify-content: space-between; align-items: center;">
-             <span class="font-bold text-[var(--neon-gold)] w-6 text-center" style="text-shadow: 0 0 5px var(--neon-gold-glow); padding-left: 4px;">${medal}</span>
-             <span class="text-[var(--neon-gold)] font-semibold" style="padding-left: 8px; flex: 1;">${record.jmeno}</span>
-             <span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow); padding-right: 4px;">${record.castka} Kč</span>
+             <div class="flex items-center gap-2">
+               <span class="font-bold text-[var(--neon-gold)] w-6" style="text-shadow: 0 0 5px var(--neon-gold-glow);">${medal}</span>
+               <span class="text-[var(--neon-gold)] font-semibold" style="flex: 1;">${record.jmeno}</span>
+             </div>
+             <span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow);">${record.castka} Kč</span>
            </div>
          `;
        });
@@ -58,12 +60,14 @@ let html = '';
       const medal = medals[originalIdx] || `#${originalIdx + 1}`;
 
 html += `
-            <div role="listitem" style="padding: 8px 18px; margin: 4px 0; display: flex; justify-content: space-between; align-items: center;">
-              <span class="font-bold text-[var(--neon-gold)] w-6 text-center" style="text-shadow: 0 0 5px var(--neon-gold-glow); padding-left: 4px;">${medal}</span>
-              <span class="text-[var(--neon-gold)] font-semibold" style="padding-left: 8px; flex: 1;">${record.jmeno}</span>
-              <span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow); padding-right: 4px;">${record.castka} Kč</span>
-            </div>
-          `;
+             <div role="listitem" style="padding: 8px 18px; margin: 4px 0; display: flex; justify-content: space-between; align-items: center;">
+               <div class="flex items-center gap-2">
+                 <span class="font-bold text-[var(--neon-gold)] w-6" style="text-shadow: 0 0 5px var(--neon-gold-glow);">${medal}</span>
+                 <span class="text-[var(--neon-gold)] font-semibold" style="flex: 1;">${record.jmeno}</span>
+               </div>
+               <span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow);">${record.castka} Kč</span>
+             </div>
+           `;
     });
     list.innerHTML = html;
   }
