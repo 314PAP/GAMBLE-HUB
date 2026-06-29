@@ -13,6 +13,27 @@
   margin: auto;
   position: relative;
   z-index: 1;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(135deg, rgba(13,0,26,0.6), transparent 70%),
+    var(--screen-bg-gradient);
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  animation: borderGlow 3s linear infinite;
+}
+
+@keyframes borderGlow {
+  0% { border-color: var(--neon-gold); box-shadow: 0 0 15px var(--neon-gold-glow); }
+  33% { border-color: var(--neon-green); box-shadow: 0 0 15px var(--neon-green-glow); }
+  66% { border-color: var(--neon-orange); box-shadow: 0 0 15px var(--neon-orange-glow); }
+  100% { border-color: var(--neon-gold); box-shadow: 0 0 15px var(--neon-gold-glow); }
+}
+
+@keyframes scoreBorderGlow {
+  0% { border-color: var(--neon-gold); box-shadow: 0 0 15px var(--neon-gold-glow); }
+  33% { border-color: var(--neon-green); box-shadow: 0 0 15px var(--neon-green-glow); }
+  66% { border-color: var(--neon-orange); box-shadow: 0 0 15px var(--neon-orange-glow); }
+  100% { border-color: var(--neon-gold); box-shadow: 0 0 15px var(--neon-gold-glow); }
 }
 
 @media (max-width: 1024px) {
