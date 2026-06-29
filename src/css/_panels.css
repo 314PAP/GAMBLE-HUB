@@ -6,13 +6,14 @@
 
 .container {
   width: 100%;
-  max-width: 50vw;
+  max-width: 40vw;
   min-height: 100dvh;
   padding: 20px 16px;
   border-radius: 16px;
   margin: 0;
   position: relative;
   z-index: 1;
+  align-self: center;
 }
 
 @media (max-width: 1024px) {
