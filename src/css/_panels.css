@@ -4,6 +4,23 @@
   margin-bottom: 16px;
 }
 
+.container {
+  width: 100%;
+  max-width: 50vw;
+  min-height: 100dvh;
+  padding: 20px 16px;
+  border-radius: 16px;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    max-width: 90vw;
+  }
+}
+
 /* Glass screen effect for active screens */
 .screen.active {
   background:
