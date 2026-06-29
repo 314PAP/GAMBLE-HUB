@@ -65,7 +65,7 @@ html += `
                  <span class="font-bold text-[var(--neon-gold)] w-6" style="text-shadow: 0 0 5px var(--neon-gold-glow);">${medal}</span>
                  <span class="text-[var(--neon-gold)] font-semibold" style="flex: 1;">${record.jmeno}</span>
                </div>
-<span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow);">${record.castka}&nbsp;<svg class="coin-icon-svg" viewBox="0 0 24 24" style="width:16px;height:16px;vertical-align:middle;"><path fill="#d4af37" d="M12 2a10 10 0 0 0-10 10 10 10 0 0 0 10 10 10 10 0 0 0 20 10 10 10 0 0 0 10-10-10-10-10-10zm0 2a8 8 0 0 1 8 8 8 8 0 0 1-8 8v-16zm0 2v2h4v2h-4v2h3l-2 3 2 3h-3v2h4v-2h-3l2-3-2-3h3V8h-4V6h4z"/></svg></span>
+<span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow);">${record.castka}&nbsp;<svg class="coin-icon-svg" viewBox="0 0 24 24" style="width:16px;height:16px;vertical-align:middle;"><circle cx="12" cy="12" r="10" fill="#d4af37"/><path d="M12 8v4" stroke="#8b6d1a" stroke-width="1.5" stroke-linecap="round"/><path d="M12 12v4" stroke="#8b6d1a" stroke-width="1.5" stroke-linecap="round"/></svg></span>
              </div>
            `;
     });

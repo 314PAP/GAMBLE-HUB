@@ -26,7 +26,7 @@ export class AccountsManager {
       selectBtn.className = "btn flex-1 min-w-0 text-left text-xs sm:text-sm py-3";
       selectBtn.style.paddingLeft = "12px";
       selectBtn.style.paddingRight = "12px";
-      selectBtn.innerHTML = `<span class="truncate">${username}</span><span class="ml-auto truncate" style="color: var(--neon-green); text-shadow: 0 0 5px var(--neon-green-glow);">${balance}&nbsp;<svg class="coin-icon-svg" viewBox="0 0 24 24" style="width:16px;height:16px;vertical-align:middle;"><path fill="#d4af37" d="M12 2a10 10 0 0 0-10 10 10 10 0 0 0 10 10 10 10 0 0 0 20 10 10 10 0 0 0 10-10-10-10-10-10zm0 2a8 8 0 0 1 8 8 8 8 0 0 1-8 8v-16zm0 2v2h4v2h-4v2h3l-2 3 2 3h-3v2h4v-2h-3l2-3-2-3h3V8h-4V6h4z"/></svg></span>`;
+      selectBtn.innerHTML = `<span class="truncate">${username}</span><span class="ml-auto truncate" style="color: var(--neon-green); text-shadow: 0 0 5px var(--neon-green-glow);">${balance}&nbsp;<svg class="coin-icon-svg" viewBox="0 0 24 24" style="width:16px;height:16px;vertical-align:middle;"><circle cx="12" cy="12" r="10" fill="#d4af37"/><path d="M12 8v4" stroke="#8b6d1a" stroke-width="1.5" stroke-linecap="round"/><path d="M12 12v4" stroke="#8b6d1a" stroke-width="1.5" stroke-linecap="round"/></svg></span>`;
       selectBtn.onclick = () => onSelect(username);
 
       const deleteBtn = document.createElement("button");
