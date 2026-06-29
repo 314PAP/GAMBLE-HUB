@@ -350,6 +350,11 @@
   animation: coinFlicker 4s ease-in-out infinite;
 }
 
+.coin-icon-svg circle,
+.coin-icon-svg path {
+  stroke: var(--neon-gold);
+}
+
 @keyframes coinFlicker {
   0%, 100% { opacity: 0.7; transform: scale(0.95); }
   25% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 12px var(--neon-gold-glow)) drop-shadow(0 0 20px var(--neon-gold-glow)); }
