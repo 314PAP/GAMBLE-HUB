@@ -23,10 +23,10 @@
 }
 
 @keyframes borderGlow {
-  0% { border-color: var(--neon-gold); box-shadow: 0 0 15px var(--neon-gold-glow); }
-  33% { border-color: var(--neon-green); box-shadow: 0 0 15px var(--neon-green-glow); }
-  66% { border-color: var(--neon-orange); box-shadow: 0 0 15px var(--neon-orange-glow); }
-  100% { border-color: var(--neon-gold); box-shadow: 0 0 15px var(--neon-gold-glow); }
+  0% { border-color: var(--neon-purple); box-shadow: 0 0 15px var(--neon-purple-glow); }
+  33% { border-color: var(--neon-blue); box-shadow: 0 0 15px var(--neon-blue-glow); }
+  66% { border-color: var(--neon-cyan); box-shadow: 0 0 15px var(--neon-cyan-glow); }
+  100% { border-color: var(--neon-purple); box-shadow: 0 0 15px var(--neon-purple-glow); }
 }
 
 @keyframes scoreBorderGlow {
