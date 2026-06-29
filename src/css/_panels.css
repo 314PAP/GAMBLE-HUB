@@ -348,6 +348,7 @@
   text-shadow: 0 0 8px var(--neon-gold-glow);
   animation: coinFlicker 4s ease-in-out infinite;
   opacity: 0.9;
+  vertical-align: middle;
 }
 
 @keyframes coinFlicker {
