@@ -343,16 +343,14 @@
 
 .coin-icon-svg {
   display: inline-block;
-  font-size: 16px;
+  width: 16px;
+  height: 16px;
   vertical-align: middle;
   opacity: 0.9;
   animation: coinFlicker 4s ease-in-out infinite;
-  color: #ffd700;
 }
 
 @keyframes coinFlicker {
-  0%, 100% { opacity: 0.8; }
-  25% { opacity: 1; filter: drop-shadow(0 0 12px var(--neon-gold-glow)); }
-  50% { opacity: 0.7; }
-  75% { opacity: 1; filter: drop-shadow(0 0 10px var(--neon-gold-glow)); }
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; filter: drop-shadow(0 0 8px #ffd700); }
 }
