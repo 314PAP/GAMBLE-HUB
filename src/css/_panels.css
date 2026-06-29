@@ -356,8 +356,8 @@
 }
 
 @keyframes coinFlicker {
-  0%, 100% { opacity: 0.7; transform: scale(0.95); }
-  25% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 12px var(--neon-gold-glow)) drop-shadow(0 0 20px var(--neon-gold-glow)); }
-  50% { opacity: 0.8; transform: scale(0.97); filter: drop-shadow(0 0 6px var(--neon-gold-glow)); }
-  75% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 10px var(--neon-gold-glow)) drop-shadow(0 0 18px var(--neon-gold-glow)); }
+  0%, 100% { opacity: 0.8; }
+  25% { opacity: 1; filter: drop-shadow(0 0 12px var(--neon-gold-glow)); }
+  50% { opacity: 0.7; }
+  75% { opacity: 1; filter: drop-shadow(0 0 10px var(--neon-gold-glow)); }
 }
