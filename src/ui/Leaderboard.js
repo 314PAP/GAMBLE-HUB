@@ -29,7 +29,7 @@ let html = '';
        scores.slice(0, 5).forEach((record, idx) => {
          const medal = medals[idx] || `#${idx + 1}`;
          html += `
-           <div style="padding: 8px 18px; margin: 4px 0; display: flex; justify-content: space-between; align-items: center;">
+           <div style="padding: 6px 18px; margin: 2px 0; display: flex; justify-content: space-between; align-items: center;">
              <div class="flex items-center gap-2">
                <span class="font-bold text-[var(--neon-gold)] w-6" style="text-shadow: 0 0 5px var(--neon-gold-glow);">${medal}</span>
                <span class="text-[var(--neon-gold)] font-semibold" style="flex: 1;">${record.jmeno}</span>
