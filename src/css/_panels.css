@@ -7,18 +7,20 @@
 .container {
   width: 100%;
   max-width: 40vw;
-  min-height: 100dvh;
+  min-height: auto;
+  height: 90vh;
   padding: 20px 16px;
   border-radius: 16px;
-  margin: 0;
+  margin: auto;
   position: relative;
   z-index: 1;
-  align-self: center;
 }
 
 @media (max-width: 1024px) {
   .container {
     max-width: 90vw;
+    height: auto;
+    min-height: 90vh;
   }
 }
 
