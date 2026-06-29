@@ -1,0 +1,21 @@
+- generic [ref=e2]:
+  - generic [ref=e46]:
+    - heading "Vyber Účet" [level=2] [ref=e47]
+    - generic [ref=e49]:
+      - button "Ajda 500 Kč" [ref=e50] [cursor=pointer]:
+        - generic [ref=e51]: Ajda
+        - generic [ref=e52]: 500 Kč
+      - button "🗑️" [ref=e53]:
+        - generic [ref=e54]: 🗑️
+    - button "Zpět" [ref=e55] [cursor=pointer]
+  - text: ♠ 🎰
+  - generic [ref=e14]:
+    - button "10" [ref=e15] [cursor=pointer]: "10"
+    - button "20" [ref=e16] [cursor=pointer]: "20"
+    - button "50" [ref=e17] [cursor=pointer]: "50"
+    - button "100" [ref=e18] [cursor=pointer]: "100"
+    - button "•••" [ref=e19] [cursor=pointer]:
+      - generic [ref=e20]: •••
+  - generic [ref=e21]:
+    - button "Statistiky" [ref=e22] [cursor=pointer]
+    - button "Menu" [ref=e23] [cursor=pointer]

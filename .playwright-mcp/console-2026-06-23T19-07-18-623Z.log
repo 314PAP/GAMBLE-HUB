@@ -1,0 +1,12 @@
+[     124ms] [ERROR] WebSocket connection to 'ws://localhost:5179/GAMBLE-HUB/?token=8HUAW5GhRq_2' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:801
+[     124ms] [ERROR] [vite] failed to connect to websocket (Error: WebSocket closed without opened.).  @ http://localhost:5173/GAMBLE-HUB/@vite/client:840
+[     137ms] Error: WebSocket closed without opened.
+    at WebSocket.<anonymous> (http://localhost:5173/GAMBLE-HUB/@vite/client:454:22)
+[   68600ms] TypeError: Cannot read properties of null (reading 'style')
+    at GameManager.launchGame (http://localhost:5173/GAMBLE-HUB/src/games.js?t=1782241372557:54:46)
+    at window.spustitHru (http://localhost:5173/GAMBLE-HUB/src/events/globalHandlers.js?t=1782241092323:83:15)
+    at HTMLButtonElement.onclick (http://localhost:5173/GAMBLE-HUB/:59:68)
+[   69807ms] TypeError: Cannot read properties of null (reading 'style')
+    at GameManager.launchGame (http://localhost:5173/GAMBLE-HUB/src/games.js?t=1782241372557:54:46)
+    at window.spustitHru (http://localhost:5173/GAMBLE-HUB/src/events/globalHandlers.js?t=1782241092323:83:15)
+    at HTMLButtonElement.onclick (http://localhost:5173/GAMBLE-HUB/:63:68)

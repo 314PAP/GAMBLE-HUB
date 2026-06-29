@@ -1,0 +1,7 @@
+[      27ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/?token=GUJZkCmwKPRC' failed: Error during WebSocket handshake: Unexpected response code: 400 @ http://localhost:5173/GAMBLE-HUB/@vite/client:801
+[      40ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/?token=GUJZkCmwKPRC' failed: Error during WebSocket handshake: Unexpected response code: 400 @ http://localhost:5173/GAMBLE-HUB/@vite/client:814
+[      41ms] [ERROR] [vite] failed to connect to websocket.
+your current setup:
+  (browser) localhost:5173/GAMBLE-HUB/ <--[HTTP]--> localhost:5173/GAMBLE-HUB/ (server)
+  (browser) localhost:5173/GAMBLE-HUB/ <--[WebSocket (failing)]--> localhost:5173/GAMBLE-HUB/ (server)
+Check out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr . @ http://localhost:5173/GAMBLE-HUB/@vite/client:829

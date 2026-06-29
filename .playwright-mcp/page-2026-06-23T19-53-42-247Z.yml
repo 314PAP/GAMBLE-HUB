@@ -1,0 +1,32 @@
+- generic [ref=e33]:
+  - generic [ref=e34]:
+    - generic [ref=e35]:
+      - generic [ref=e36]: KOSTKA 1-6
+      - generic [ref=e37]:
+        - button "Jak se hraje" [ref=e38] [cursor=pointer]:
+          - img [ref=e39]
+        - generic "Zvuk" [ref=e41] [cursor=pointer]:
+          - img [ref=e42]
+    - generic [ref=e45]: 490 Kč
+  - text: ♠ 🎰
+  - generic [ref=e46]:
+    - paragraph [ref=e47]: "Vyber číslo a stiskni START:"
+    - generic [ref=e50]: "4"
+    - generic [ref=e51]:
+      - button "1" [disabled] [ref=e52]
+      - button "2" [disabled] [ref=e53]
+      - button "3" [disabled] [ref=e54]
+      - button "4" [disabled] [ref=e55]
+      - button "5" [disabled] [ref=e56]
+      - button "6" [disabled] [ref=e57]
+    - button "START" [disabled] [ref=e59]: START
+  - generic [ref=e60]:
+    - button "10" [disabled] [ref=e61]: "10"
+    - button "20" [disabled] [ref=e62]: "20"
+    - button "50" [disabled] [ref=e63]: "50"
+    - button "100" [disabled] [ref=e64]: "100"
+    - button "•••" [disabled] [ref=e65]:
+      - generic [ref=e66]: •••
+  - generic [ref=e67]:
+    - button "Statistiky" [ref=e68] [cursor=pointer]
+    - button "Menu" [ref=e69] [cursor=pointer]

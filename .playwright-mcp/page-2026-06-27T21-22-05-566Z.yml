@@ -1,0 +1,12 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - heading "GAMBLE HUB" [level=1] [ref=e4]
+    - generic [ref=e5] [cursor=pointer]:
+      - generic [ref=e6]:
+        - generic [ref=e7]: Top Hráči
+        - generic [ref=e8]: detaily ➔
+      - generic [ref=e10]: 🔄 Načítám žebříček...
+    - generic [ref=e11]:
+      - button "Vstoupit do herny" [ref=e12] [cursor=pointer]: Vstoupit do herny
+      - button "Nový hráč (100 Kč)" [ref=e13] [cursor=pointer]: Nový hráč (100 Kč)
+  - text: ♠ 🎰

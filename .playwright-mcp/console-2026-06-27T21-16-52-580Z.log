@@ -1,0 +1,8 @@
+[     157ms] [ERROR] WebSocket connection to 'ws://localhost:5179/GAMBLE-HUB/?token=g78grlbUmStZ' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/GAMBLE-HUB/@vite/client:801
+[     157ms] [ERROR] [vite] failed to connect to websocket (Error: WebSocket closed without opened.).  @ http://localhost:5173/GAMBLE-HUB/@vite/client:840
+[     185ms] Error: WebSocket closed without opened.
+    at WebSocket.<anonymous> (http://localhost:5173/GAMBLE-HUB/@vite/client:454:22)
+[  240209ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/' failed: WebSocket opening handshake timed out @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:13
+[  240209ms] [ERROR] WebSocket error Event @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:41
+[  240210ms] [WARNING] WebSocket closed CloseEvent @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:36
+[  240210ms] [LOG] Reconnecting WebSocket in 1000ms @ http://localhost:5173/GAMBLE-HUB/src/clientWebSocket.js:51
