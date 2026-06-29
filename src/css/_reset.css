@@ -11,7 +11,7 @@
 
 html, body {
   width: 100%;
-  min-height: 100dvh;
+  height: 100dvh;
 }
 
 body {
@@ -20,7 +20,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100dvh;
+  height: 100dvh;
   padding: 16px;
   overflow-x: hidden;
 }
