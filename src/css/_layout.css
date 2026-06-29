@@ -85,7 +85,7 @@ input, select, textarea {
     var(--screen-glass-sheen),
     var(--screen-bg-gradient);
   border-radius: 20px;
-  border: 3px solid var(--screen-border-color);
+  border: 3px solid transparent;
   box-shadow:
     var(--screen-inset),
     0 0 2px rgba(0,0,0,0.9),
