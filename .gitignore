@@ -31,3 +31,4 @@ node_modules/
 
 # Kilocode files
 .kilocode/
+backup/
