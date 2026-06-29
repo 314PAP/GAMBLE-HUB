@@ -36,15 +36,16 @@ export class HiloGame {
     const card = document.getElementById('hilo-current-card');
 
     if (card) {
+      gsap.set(card, { transformPerspective: 1000 });
       gsap.to(card, {
-        scale: 0,
-        duration: 0.2,
+        rotationY: 90,
+        duration: 0.3,
         ease: 'power2.in',
         onComplete: () => {
           this.updateCardDisplay(nextNumber);
           this.currentNumber = nextNumber;
           gsap.to(card, {
-            scale: 1,
+            rotationY: 0,
             duration: 0.3,
             ease: 'back.out(1.7)',
             onComplete: () => {

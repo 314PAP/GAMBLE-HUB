@@ -1,11 +1,19 @@
-/* 1. Nejdříve importujeme Tailwind a základní vrstvy */
-@import "../tailwind.css";
+/* 1. Tailwind v4 (importuje base + utilities + naše theme z @theme bloku) */
+@import "./tailwind.css";
+
+/* 2. CSS proměnné – barvy, glow, shadows, gradienty */
 @import "./_variables.css";
+
+/* 3. Základní reset, scrollbar, user-select */
 @import "./_reset.css";
+
+/* 4. Fonty a typografie */
 @import "./_typography.css";
+
+/* 5. Layout základ – screen management, form inputs */
 @import "./_layout.css";
 
-/* 2. Naše vlastní komponenty vložíme do správné vrstvy, aby přebily základní utility */
+/* 6. Komponenty – v @layer components, aby přebily utility */
 @layer components {
   @import "./_buttons.css";
   @import "./_panels.css";

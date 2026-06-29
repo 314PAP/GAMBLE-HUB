@@ -12,6 +12,7 @@
 html, body {
   width: 100%;
   height: 100dvh;
+  overflow: hidden;
 }
 
 body {
@@ -21,12 +22,13 @@ body {
   justify-content: center;
   align-items: center;
   height: 100dvh;
-  padding: 16px;
+  padding: clamp(8px, 2vw, 16px);
   overflow-x: hidden;
 }
 
+/* Responzivní scrollbar – zůstane skrytý na malých displejích */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {

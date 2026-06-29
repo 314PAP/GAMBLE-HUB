@@ -1,12 +1,12 @@
-/* === Hi-Lo Game Specific Styles - Component only === */
+/* === Hi-Lo Game Specific Styles === */
 
 .hilo-container {
-  padding: 20px;
-  margin-bottom: 24px;
+  padding: clamp(12px, 3vw, 20px);
+  margin-bottom: clamp(10px, 3vw, 24px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: clamp(8px, 2vw, 16px);
   background:
     var(--screen-glass-sheen),
     var(--screen-bg-gradient);
@@ -15,54 +15,35 @@
   box-shadow: 0 0 20px var(--neon-blue-glow), var(--screen-inset);
 }
 
-@media (max-width: 768px) {
-  .hilo-container {
-    padding: 16px;
-    margin-bottom: 16px;
-    gap: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .hilo-container {
-    padding: 12px;
-    margin-bottom: 12px;
-  }
-  .hilo-btns .btn,
-  .hilo-btns .btn-primary,
-  .hilo-btns .btn-danger {
-    min-width: 60px;
-    max-width: 100px;
-    height: 36px;
-    padding: 0 12px;
-    font-size: 12px;
-  }
-}
-
+/* === HI-LO CARD (fixní poměr 2:3, responzivní velikost) === */
 .hilo-card-face {
-  width: 90px;
-  height: 126px;
+  width: clamp(70px, 18vw, 100px);
+  aspect-ratio: 2 / 3;
   background:
     linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%),
     linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
   border: 2px solid var(--neon-blue);
   color: var(--neon-gold);
-  font-size: 48px;
   font-family: 'Orbitron', sans-serif;
+  font-size: clamp(28px, 7vw, 48px);
+  font-weight: 800;
   text-shadow: 0 0 20px var(--neon-blue-glow), 0 0 40px var(--neon-blue-glow);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
   transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: 0 0 30px var(--neon-blue-glow), 0 10px 30px rgba(0,0,0,0.4);
 }
 
+/* === CARD / SECTION LABELS === */
 .card-label {
   color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  font-size: 12px;
+  font-size: clamp(10px, 2.5vw, 12px);
   font-weight: 600;
   text-align: center;
   padding: 8px 16px;
@@ -72,27 +53,27 @@
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
 }
 
+/* === HI-LO BUTTONS === */
 .hilo-btns {
   display: flex;
-  gap: 12px;
-  margin-top: 16px;
+  gap: clamp(6px, 2vw, 12px);
+  margin-top: clamp(8px, 2vw, 16px);
+  margin-bottom: clamp(10px, 2.5vw, 20px);
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .hilo-btns .btn,
 .hilo-btns .btn-primary,
 .hilo-btns .btn-danger {
   width: auto;
-  min-width: 80px;
-  max-width: 120px;
-  height: 44px;
-  padding: 0 16px;
-  font-size: 14px;
+  min-width: clamp(60px, 18vw, 100px);
 }
 
+/* === DICE FRAME (resp. pomocí clamp + aspect-square) === */
 .dice-frame {
-  width: clamp(120px, 30vw, 160px);
-  height: clamp(120px, 30vw, 160px);
+  width: clamp(100px, 28vw, 160px);
+  aspect-ratio: 1 / 1;
   background:
     linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%),
     linear-gradient(135deg, rgba(0, 240, 255, 0.08) 0%, transparent 50%),
@@ -111,28 +92,7 @@
   backdrop-filter: blur(12px);
   animation: framePulse 3s ease-in-out infinite;
   overflow: hidden;
-  margin-bottom: 16px;
-}
-
-@media (max-width: 768px) {
-  .dice-frame {
-    width: clamp(100px, 25vw, 140px);
-    height: clamp(100px, 25vw, 140px);
-    margin-bottom: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .dice-frame {
-    width: clamp(80px, 20vw, 120px);
-    height: clamp(80px, 20vw, 120px);
-    margin-bottom: 10px;
-  }
-  .dice-num-btn {
-    min-width: 42px;
-    height: 38px;
-    font-size: 13px;
-  }
+  margin-bottom: clamp(8px, 2vw, 16px);
 }
 
 .dice-frame::before {
@@ -181,7 +141,7 @@
 
 .dice-display {
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(56px, 14vw, 80px);
+  font-size: clamp(40px, 12vw, 80px);
   font-weight: 800;
   color: var(--neon-cyan);
   text-shadow:
@@ -206,12 +166,12 @@
   50% { transform: scale(1.15); }
 }
 
-/* Dice area root layout */
+/* === DICE AREA LAYOUT === */
 #dice-area {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: clamp(12px, 3vw, 24px);
 }
 
 #dice-area > p {
@@ -222,33 +182,20 @@
   display: none;
 }
 
-/* Dice number buttons grid - 2 rows of 3 columns */
+/* Dice number buttons grid – 2 rows × 3 cols */
 .dice-numbers-grid {
   display: grid;
   grid-template-columns: repeat(3, auto);
-  gap: 8px;
+  gap: clamp(4px, 1.5vw, 8px);
   justify-content: center;
   justify-items: center;
 }
 
-@media (max-width: 768px) {
-  .dice-numbers-grid {
-    gap: 6px;
-  }
-}
-
-@media (max-width: 480px) {
-  .dice-numbers-grid {
-    gap: 4px;
-  }
-}
-
 .dice-num-btn {
-  min-width: 52px;
-  width: auto;
-  height: 48px;
+  min-width: clamp(42px, 12vw, 52px);
+  height: clamp(36px, 10vw, 48px);
   justify-self: center;
-  font-size: 15px;
+  font-size: clamp(13px, 3.5vw, 15px);
   font-weight: 800;
   border-radius: 10px;
 }
@@ -265,12 +212,12 @@
   50% { box-shadow: 0 0 38px rgba(255, 215, 0, 0.65); }
 }
 
-/* Number buttons container for classic games */
+/* === NUMBER BUTTONS CONTAINER (classic games) === */
 #game-number-buttons {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(38px, 1fr));
-  gap: 6px;
-  padding: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(28px, 8vw, 38px), 1fr));
+  gap: clamp(3px, 1vw, 6px);
+  padding: clamp(8px, 3vw, 16px);
   background:
     var(--screen-glass-sheen),
     var(--screen-bg-gradient);
@@ -278,30 +225,6 @@
   border: 2px solid var(--screen-border-color);
   box-shadow: var(--screen-inset);
   max-width: 100%;
-  margin: 24px auto;
+  margin: clamp(10px, 3vw, 24px) auto;
   position: relative;
-}
-
-@media (max-width: 768px) {
-  #game-number-buttons {
-    padding: 12px;
-    margin: 16px auto;
-  }
-}
-
-@media (max-width: 480px) {
-  #game-number-buttons {
-    padding: 10px;
-    margin: 12px auto;
-    gap: 4px;
-  }
-  #game-number-buttons button {
-    font-size: 12px;
-    min-height: 28px;
-  }
-}
-
-#game-number-buttons.number-grid {
-  margin-top: 12px;
-  margin-bottom: 12px;
 }

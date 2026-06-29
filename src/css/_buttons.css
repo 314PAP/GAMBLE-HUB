@@ -1,5 +1,7 @@
 /* === RULE 3: Massive 3D Mechanical Switch Buttons === */
-/* Base button – no rounded corners, thick shadow, plastic look */
+/* Základ .btn – pouze 3D efekt (gradient, shadow, active transform) */
+/* Rozměry (padding, min-height, font-size, width) ovládá Tailwind v HTML. */
+
 .btn, .btn-bet, .btn-spin-slots, .btn-auto-slots, .btn-num {
 }
 
@@ -9,15 +11,12 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 14px 22px;
   width: 100%;
-  min-height: 48px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   user-select: none;
   font-family: 'Outfit', sans-serif;
-  font-size: 15px;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -42,7 +41,7 @@
     inset 0 -2px 4px rgba(0,0,0,0.5);
 }
 
-/* Hover – stronger glow only (no transform to avoid layout shift) */
+/* Hover – stronger glow only */
 .btn:hover {
   box-shadow:
     0 14px 20px rgba(0,0,0,0.6),
@@ -170,8 +169,6 @@
     0 12px 22px rgba(0,0,0,0.6),
     inset 0 2px 6px rgba(255,255,255,0.22),
     inset 0 -6px 14px rgba(0,0,0,0.45);
-  min-width: 130px;
-  max-width: 160px;
 }
 
 .btn-spin-slots:active {
@@ -186,9 +183,6 @@
   min-width: 0;
   max-width: none;
   height: auto;
-  min-height: 36px;
-  padding: 6px 4px;
-  font-size: clamp(10px, 2.5vw, 13px);
   border-top: 3px solid #00f0ff;
   border-bottom: 3px solid #008899;
   color: #00f0ff;
@@ -210,11 +204,8 @@
 
 /* AUTO – purple compact */
 .btn-auto-slots {
-  min-width: 70px;
-  max-width: 90px;
   height: 44px;
   padding: 0 12px;
-  font-size: 13px;
   border-top: 3px solid #a855f7;
   border-bottom: 3px solid #6b21a8;
   color: #c084fc;
@@ -254,8 +245,6 @@
 /* === RETRO LED NUMBER TILES (.btn-num) === */
 
 .btn-num {
-  width: clamp(36px, 8vw, 46px);
-  height: clamp(36px, 8vw, 46px);
   padding: 0;
   border: 1px solid #1a1a2e;
   border-radius: 6px;
@@ -264,7 +253,6 @@
     #010104;
   color: #b0b0c0;
   font-family: 'Orbitron', monospace;
-  font-size: clamp(10px, 2.8vw, 13px);
   font-weight: 800;
   text-shadow: 0 0 6px rgba(0, 240, 255, 0.5);
   box-shadow:
@@ -360,14 +348,4 @@
 
 .delete-account-btn:hover span {
   filter: drop-shadow(0 0 12px #ff9f1c);
-}
-
-.delete-confirm-actions .btn-confirm-no,
-.delete-confirm-actions .btn-confirm-yes {
-  min-width: 110px !important;
-  width: auto !important;
-  padding-top: 12px !important;
-  padding-bottom: 12px !important;
-  padding-left: 24px !important;
-  padding-right: 24px !important;
 }

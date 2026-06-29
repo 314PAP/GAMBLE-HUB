@@ -1,21 +1,7 @@
 /* src/css/_layout.css */
-/* Component-based layouts - only essential base styles */
+/* Základní layout – jen to co nejde Tailwitem */
 
-/* Game header bar base */
-.game-header-bar {
-  display: flex;
-}
-
-/* Slot controls base */
-.slot-controls {
-  display: flex;
-}
-
-/* Input base styles */
-input, select, textarea {
-  font-family: inherit;
-}
-
+/* === CONTAINER GRID OVERLAY (glass sheen background) === */
 .container::before {
   content: '';
   position: absolute;
@@ -23,13 +9,13 @@ input, select, textarea {
   background-image:
     linear-gradient(to right, rgba(212, 175, 55, 0.015) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(212, 175, 55, 0.015) 1px, transparent 1px);
-  background-size: 20px 20px;
+  background-size: clamp(10px, 2vw, 20px);
   pointer-events: none;
   z-index: 0;
   border-radius: 16px;
 }
 
-/* === RULE 1: CRT Glass Screen Effect for active game screens === */
+/* === SCREEN MANAGEMENT (CRT glass effect) === */
 .screen {
   display: none;
   position: relative;
@@ -40,26 +26,24 @@ input, select, textarea {
 .screen.active {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  gap: 12px;
+  gap: clamp(6px, 2vw, 12px);
   min-height: 0;
   background: #000;
-  padding: 20px;
+  padding: clamp(10px, 3vw, 20px);
   overflow-y: auto;
   overflow-x: hidden;
   box-sizing: border-box;
   border-radius: 16px;
 }
 
-.screen.active::before {
-  display: none;
-}
-
-/* Game header bar - responsive text sizing */
+/* === GAME HEADER BAR === */
 .game-header-bar {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: nowrap;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
+  gap: clamp(4px, 1.5vw, 8px);
+  padding: clamp(8px, 2vw, 12px) clamp(10px, 3vw, 16px);
 }
 
 .game-header-bar > * {
@@ -67,58 +51,35 @@ input, select, textarea {
   flex-shrink: 1;
 }
 
+/* Responsive font sizes inside header – CSS fallback for JS-independent rendering */
 .game-header-bar .game-title {
-  font-size: clamp(11px, 3vw, 15px);
+  font-size: clamp(10px, 3vw, 15px);
 }
 
 .game-header-bar > div:not(.game-title-row) {
-  font-size: clamp(10px, 2.8vw, 14px);
+  font-size: clamp(9px, 2.8vw, 14px);
 }
 
-/* Utility layout helpers */
-.flex-row-center {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.gap-sm {
-  gap: 8px;
-}
-
-.margin-top-md {
-  margin-top: 16px;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.text-muted {
-  color: var(--text-secondary);
-  font-size: 13px;
-}
-
-/* Game section spacing */
-#slots-area, #hilo-area, #classic-inputs, #dice-area, #bet-area, #custom-sazka-area, #game-result {
-  margin-top: 12px;
-}
-
+/* === SLOT CONTROLS === */
 .slot-controls {
-  margin-top: 20px;
+  display: flex;
+  gap: clamp(8px, 3vw, 16px);
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-/* Form inputs */
+/* === FORM INPUTS === */
 input, select, textarea {
+  font-family: inherit;
   width: 100%;
-  padding: 14px;
+  padding: clamp(10px, 3vw, 14px);
   background: rgba(0, 0, 0, 0.4);
   border: 1.5px solid rgba(0, 240, 255, 0.2);
   color: var(--text-primary);
   border-radius: 12px;
   font-size: 16px;
   text-align: center;
-  margin-bottom: 16px;
+  margin-bottom: clamp(8px, 3vw, 16px);
   transition: all 0.2s ease;
 }
 
@@ -128,63 +89,8 @@ input:focus, select:focus, textarea:focus {
   box-shadow: 0 0 15px var(--neon-orange-glow);
 }
 
-@media (max-width: 768px) {
-  .screen.active {
-    gap: 10px;
-    padding: 16px;
-  }
-}
-
-@media (max-width: 600px) {
-  .screen.active {
-    padding: 14px;
-    gap: 10px;
-  }
-  .container::before {
-    background-size: 12px 12px;
-    border-radius: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .screen.active {
-    padding: 12px;
-    gap: 8px;
-  }
-  .container::before {
-    background-size: 10px 10px;
-    border-radius: 12px;
-  }
-  .game-header-bar {
-    padding: 10px 12px;
-    flex-wrap: nowrap;
-  }
-  .game-header-bar .game-title {
-    font-size: 11px;
-  }
-  .game-header-bar > div:not(.game-title-row) {
-    font-size: 10px;
-  }
-  .bet-area-grid {
-    grid-template-columns: repeat(5, 1fr);
-    gap: 6px;
-  }
-  #slots-area, #hilo-area, #classic-inputs, #dice-area, #bet-area, #custom-sazka-area, #game-result {
-    margin-top: 8px;
-  }
-  .slot-controls {
-    margin-top: 10px;
-    gap: 10px;
-  }
-  .btn-bet {
-    min-height: 32px;
-    padding: 4px 2px;
-    font-size: 10px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
-  }
-  .btn-spin-slots {
-    min-width: 90px;
-    max-width: 120px;
-  }
+/* Game section base spacing */
+#slots-area, #hilo-area, #classic-inputs, #dice-area,
+#bet-area, #custom-sazka-area, #game-result {
+  margin-top: clamp(6px, 2vw, 12px);
 }
