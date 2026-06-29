@@ -12,8 +12,8 @@
     var(--screen-glass-sheen),
     var(--screen-bg-gradient);
   border-radius: 16px;
-  border: 2px solid var(--screen-border-color);
-  box-shadow: var(--screen-inset);
+  border: 2px solid var(--neon-blue);
+  box-shadow: 0 0 20px var(--neon-blue-glow), var(--screen-inset);
 }
 
 .hilo-card-face {
@@ -23,18 +23,16 @@
     linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%),
     linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
   border: 2px solid var(--neon-blue);
-  color: var(--text-primary);
+  color: var(--neon-gold);
   font-size: 48px;
   font-family: 'Orbitron', sans-serif;
-  text-shadow: 0 0 20px var(--neon-blue-glow);
+  text-shadow: 0 0 20px var(--neon-blue-glow), 0 0 40px var(--neon-blue-glow);
   border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.4),
-    0 0 20px rgba(0, 240, 255, 0.15);
+  box-shadow: 0 0 30px var(--neon-blue-glow), 0 10px 30px rgba(0,0,0,0.4);
 }
 
 .card-label {
