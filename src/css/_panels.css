@@ -344,12 +344,15 @@
 .coin-icon {
   display: inline-block;
   font-size: inherit;
-  animation: coinPulse 2s ease-in-out infinite;
   color: var(--neon-gold);
-  text-shadow: 0 0 8px var(--neon-gold-glow), 0 0 16px var(--neon-gold-glow);
+  text-shadow: 0 0 8px var(--neon-gold-glow);
+  animation: coinFlicker 4s ease-in-out infinite;
+  opacity: 0.9;
 }
 
-@keyframes coinPulse {
-  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.9; }
-  50% { transform: scale(1.15) rotate(15deg); opacity: 1; }
+@keyframes coinFlicker {
+  0%, 100% { opacity: 0.7; text-shadow: 0 0 4px var(--neon-gold-glow); }
+  25% { opacity: 1; text-shadow: 0 0 12px var(--neon-gold-glow), 0 0 20px var(--neon-gold-glow); }
+  50% { opacity: 0.8; text-shadow: 0 0 6px var(--neon-gold-glow); }
+  75% { opacity: 1; text-shadow: 0 0 10px var(--neon-gold-glow), 0 0 18px var(--neon-gold-glow); }
 }
