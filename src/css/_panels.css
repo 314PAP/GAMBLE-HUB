@@ -9,17 +9,11 @@
   max-width: 40vw;
   min-height: 0;
   padding: 20px 16px;
-  border-radius: 16px;
   margin: auto;
   position: relative;
   z-index: 1;
-  border: 2px solid transparent;
-  background:
-    linear-gradient(135deg, rgba(13,0,26,0.6), transparent 70%),
-    var(--screen-bg-gradient);
-  background-clip: padding-box, border-box;
-  background-origin: padding-box, border-box;
-  animation: borderGlow 3s linear infinite;
+  background: var(--bg-gradient);
+  border-radius: 16px;
 }
 
 @keyframes borderGlow {
@@ -44,33 +38,8 @@
 
 /* Glass screen effect for active screens */
 .screen.active {
-  background:
-    var(--screen-glass-sheen),
-    var(--screen-bg-gradient);
-  border-radius: 20px;
-  border: 3px solid #1a1a2e;
-  box-shadow:
-    var(--screen-inset),
-    0 0 2px rgba(0,0,0,0.9),
-    0 0 30px rgba(0,0,0,0.6);
+  background: var(--bg-gradient);
   padding: 20px;
-}
-
-/* Idle neon glow pulse */
-.screen.active::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 20px;
-  background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.03) 0%, transparent 70%);
-  pointer-events: none;
-  animation: idleScreenPulse 4s ease-in-out infinite;
-  z-index: -1;
-}
-
-@keyframes idleScreenPulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
 }
 
 .game-title {

@@ -1,15 +1,6 @@
 /* src/css/_layout.css */
 /* Component-based layouts - only essential base styles */
 
-/* Screen state management */
-.screen {
-  display: none;
-}
-
-.screen.active {
-  display: grid;
-}
-
 /* Game header bar base */
 .game-header-bar {
   display: flex;
@@ -50,17 +41,7 @@ input, select, textarea {
   z-index: 0;
 }
 
-@media (max-width: 600px) {
-  .container {
-    padding: 20px 16px;
-    border-radius: 16px;
-    max-height: 100vh;
-  }
-  .container::before {
-    background-size: 16px 16px;
-  }
-}
-
+/* === RULE 1: CRT Glass Screen Effect for active game screens === */
 .screen {
   display: none;
   position: relative;
@@ -73,41 +54,11 @@ input, select, textarea {
   grid-template-rows: auto minmax(0, 1fr);
   gap: 16px;
   min-height: 0;
+  background: var(--bg-gradient);
 }
 
-.screen.active > * {
-  min-width: 0;
-}
-
-/* === RULE 1: CRT Glass Screen Effect for active game screens === */
-.screen.active {
-  background:
-    var(--screen-glass-sheen),
-    var(--screen-bg-gradient);
-  border-radius: 20px;
-  border: 3px solid transparent;
-  box-shadow:
-    var(--screen-inset),
-    0 0 2px rgba(0,0,0,0.9),
-    0 0 30px rgba(0,0,0,0.6);
-  padding: 20px;
-}
-
-/* Idle neon glow pulse on game screen container (Rule 4) */
 .screen.active::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 20px;
-  background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.03) 0%, transparent 70%);
-  pointer-events: none;
-  animation: idleScreenPulse 4s ease-in-out infinite;
-  z-index: -1;
-}
-
-@keyframes idleScreenPulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
+  display: none;
 }
 
 /* Game header bar - responsive text sizing */
@@ -187,17 +138,14 @@ input:focus, select:focus, textarea:focus {
 @media (max-width: 480px) {
   .container {
     padding: 12px 10px;
-    border-radius: 12px;
     margin: 0;
     max-height: 100vh;
-    border-width: 2px;
   }
   .container::before {
     background-size: 12px 12px;
   }
   .screen.active {
     gap: 10px;
-    padding: 14px 10px;
   }
   .game-header-bar {
     padding: 10px 12px;
