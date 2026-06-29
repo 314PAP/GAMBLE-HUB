@@ -307,8 +307,8 @@
   width: 32px;
   height: 32px;
   background: transparent;
-  border: none;
-  border-radius: 0;
+  border: 2px solid var(--neon-gold);
+  border-radius: 50%;
   color: var(--neon-gold);
   font-size: 16px;
   display: flex;
@@ -320,6 +320,7 @@
   padding: 0;
 }
 .btn-info-toggle:hover {
+  border-color: var(--neon-cyan);
   color: var(--neon-cyan);
   text-shadow: 0 0 12px var(--neon-cyan-glow), 0 0 24px var(--neon-cyan-glow);
   transform: scale(1.1);

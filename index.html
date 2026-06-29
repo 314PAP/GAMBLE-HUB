@@ -53,12 +53,12 @@
             </div>
         </header>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" style="gap: 16px;">
-            <button class="btn btn-gold" onclick="spustitHru(5)"><span class="icon-node"></span> AUTOMAT</button>
-            <button class="btn btn-danger" onclick="spustitHru(6)"><span class="icon-node"></span> HI-LOW</button>
-            <button class="btn btn-red" onclick="spustitHru(4)"><span class="icon-node"></span> Ruleta 0-36 (36x)</button>
-            <button class="btn btn-info" onclick="spustitHru(1)"><span class="icon-node"></span> Hádanka 1-10 (10x)</button>
-            <button class="btn btn-primary" onclick="spustitHru(2)"><span class="icon-node"></span> Hádanka 1-5 (5x)</button>
-            <button class="btn btn-purple" onclick="spustitHru(3)"><span class="icon-node"></span> Kostka 1-6 (6x)</button>
+            <button class="btn btn-gold" style="padding-left:12px" onclick="spustitHru(5)"><span class="icon-node"></span> AUTOMAT</button>
+            <button class="btn btn-danger" style="padding-left:12px" onclick="spustitHru(6)"><span class="icon-node"></span> HI-LOW</button>
+            <button class="btn btn-red" style="padding-left:12px" onclick="spustitHru(4)"><span class="icon-node"></span> Ruleta 0-36 (36x)</button>
+            <button class="btn btn-info" style="padding-left:12px" onclick="spustitHru(1)"><span class="icon-node"></span> Hádanka 1-10 (10x)</button>
+            <button class="btn btn-primary" style="padding-left:12px" onclick="spustitHru(2)"><span class="icon-node"></span> Hádanka 1-5 (5x)</button>
+            <button class="btn btn-purple" style="padding-left:12px" onclick="spustitHru(3)"><span class="icon-node"></span> Kostka 1-6 (6x)</button>
         </div>
         <button class="btn btn-danger" onclick="odhlasitSe()">Opustit hernu</button>
     </section>
@@ -69,7 +69,7 @@
                 <div id="game-title" class="game-title">AUTOMAT</div>
                 <div class="flex items-center gap-3">
                     <button class="btn-info-toggle" id="btn-game-info" onclick="toggleInfoPanel()" title="Jak se hraje">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x="12" y="16" x="12" y="12"/><line x="12" y="8" x="12.01" y="8"/></svg>
+                        <span style="font-size: 18px; font-weight: bold; font-family: 'Orbitron', sans-serif;">i</span>
                     </button>
                     <div class="sound-toggle-btn" id="global-sound-toggle" onclick="toggleMuteState()" title="Zvuk">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
@@ -150,9 +150,9 @@
 
         <div id="game-result" class="status-box" style="display:none;"></div>
 
-        <div class="flex w-full">
-            <button class="btn btn-info flex-1 mr-1.5" onclick="otevriStatsModal()">Statistiky</button>
-            <button class="btn btn-danger flex-1 ml-1.5" onclick="navratDoHubu()">Menu</button>
+        <div class="flex w-full gap-3">
+            <button class="btn btn-info flex-1" onclick="otevriStatsModal()">Statistiky</button>
+            <button class="btn btn-danger flex-1" onclick="navratDoHubu()">Menu</button>
         </div>
     </section>
 
@@ -208,7 +208,6 @@
                     </select>
                 </div>
             </div>
-            </div>
             <div class="flex justify-between items-center px-2 py-1 text-[11px] text-[var(--neon-gold)] uppercase font-bold tracking-wider border-b border-[rgba(189,0,255,0.2)] mb-1.5">
                 <button onclick="seradHistorii('timestamp')" class="bg-transparent border-0 p-0 text-[11px] text-[var(--neon-gold)] hover:text-[var(--neon-cyan)]" style="text-shadow: 0 0 4px var(--neon-gold-glow);">Čas ⇅</button>
                 <button onclick="seradHistorii('username')" class="bg-transparent border-0 p-0 text-[11px] text-[var(--neon-gold)] hover:text-[var(--neon-cyan)]" style="text-shadow: 0 0 4px var(--neon-gold-glow);">Hráč ⇅</button>
@@ -216,7 +215,9 @@
             </div>
             <div id="explorer-history-list" class="max-h-[250px] overflow-y-auto flex flex-col gap-2 pr-1"></div>
         </div>
-        <button class="btn btn-danger mt-4" onclick="zavriExplorer()">Zavřít</button>
+        <div class="text-center">
+            <button class="btn btn-danger inline-block" onclick="zavriExplorer()">Zavřít</button>
+        </div>
     </div>
 </div>
 
