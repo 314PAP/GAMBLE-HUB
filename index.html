@@ -10,15 +10,13 @@
 <main class="container" role="main" aria-label="Herní aplikace">
      <section id="screen-login" class="screen active" aria-labelledby="login-title">
         <h1 id="login-title">GAMBLE HUB</h1>
-<button class="leaderboard-card-clickable rounded-2xl p-4 mb-5 cursor-pointer transition-all w-full overflow-hidden relative" onclick="otevriExplorer()" aria-label="Zobrazit globální žebříček a historii" style="background: linear-gradient(135deg, rgba(13,0,26,0.4), rgba(13,0,26,0.6)); border: 1px solid var(--neon-purple); box-shadow: 0 0 15px var(--neon-purple-glow), inset 0 0 10px rgba(0,0,0,0.3);">
-             <div class="flex items-center justify-between font-['Orbitron',sans-serif] text-[11px] sm:text-[12px] text-[var(--neon-gold)] tracking-wider mb-3 uppercase min-w-0 w-full">
+<button class="leaderboard-card-clickable rounded-2xl p-0 mb-5 cursor-pointer transition-all w-full overflow-hidden relative" onclick="otevriExplorer()" aria-label="Zobrazit globální žebříček a historii" style="background: linear-gradient(135deg, rgba(13,0,26,0.4), rgba(13,0,26,0.6)); border: 1px solid var(--neon-purple); box-shadow: 0 0 15px var(--neon-purple-glow), inset 0 0 10px rgba(0,0,0,0.3);">
+             <div class="flex items-center justify-between font-['Orbitron',sans-serif] text-[11px] sm:text-[12px] text-[var(--neon-gold)] tracking-wider mb-2 uppercase px-4 pt-3 pb-2">
                 <span class="flex items-center gap-1.5 min-w-0 flex-1 truncate">Top Hráči <span class="leaderboard-badge"></span></span>
-                <span class="text-[10px] text-[var(--neon-cyan)] lowercase tracking-normal font-sans italic shrink-0 ml-2" style="text-shadow: 0 0 5px var(--neon-cyan-glow);">detaily ➔</span>
             </div>
-            <div id="leaderboard-content" role="list" class="flex flex-col gap-2 px-4 py-2 max-h-[180px] overflow-y-auto">
+            <div id="leaderboard-content" role="list" class="flex flex-col gap-2 px-4 pb-3 max-h-[180px] overflow-y-auto">
                 <span class="text-[var(--neon-gold)] text-xs italic" style="text-shadow: 0 0 5px var(--neon-gold-glow);">Načítám žebříček...</span>
             </div>
-            <div id="visit-counter" class="text-center text-sm mt-2 text-[var(--neon-cyan)]" style="text-shadow: 0 0 5px var(--neon-cyan-glow);"></div>
         </button>
         <div class="flex flex-col gap-3 w-full">
             <button type="button" id="btn-enter" class="btn btn-primary" onclick="otevriPrihlaseni()">Vstoupit do herny</button>
