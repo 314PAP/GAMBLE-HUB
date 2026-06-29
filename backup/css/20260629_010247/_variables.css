@@ -1,0 +1,57 @@
+:root {
+  --bg-gradient: radial-gradient(circle at 50% 30%, #0d001a 0%, #030008 100%);
+  --panel-bg: rgba(13, 0, 26, 0.6);
+  --panel-border: rgba(189, 0, 255, 0.3);
+  --text-primary: #ffd700;
+  --text-secondary: #00ffff;
+  
+  /* Neon & Premium Gold Palette */
+  --neon-orange: #ff9f1c;
+  --neon-orange-glow: rgba(255, 159, 28, 0.6);
+  --neon-green: #39ff14; /* vibrant neon green */
+  --neon-green-glow: rgba(57, 255, 20, 0.6);
+  --neon-pink: #ff007f; /* vibrant neon pink */
+  --neon-pink-glow: rgba(255, 0, 127, 0.6);
+  --neon-blue: #00f0ff;
+  --neon-blue-glow: rgba(0, 240, 255, 0.6);
+  --neon-cyan: #00ffff;
+  --neon-cyan-glow: rgba(0, 255, 255, 0.6);
+  --neon-purple: #bd00ff;
+  --neon-purple-glow: rgba(189, 0, 255, 0.6);
+  --neon-gold: #ffd700;
+  --neon-gold-glow: rgba(255, 215, 0, 0.65);
+  
+  --shadow-premium: 0 0 30px rgba(189, 0, 255, 0.25), inset 0 0 15px rgba(0, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+  --glass-blur: blur(25px);
+
+  /* Mechanical backlit buttons */
+  --button-plastic: rgba(13, 0, 26, 0.58);
+  --button-plastic-top: rgba(255, 255, 255, 0.16);
+  --button-plastic-edge: rgba(255, 255, 255, 0.08);
+  --button-shadow-deep: 0 10px 0 rgba(0, 0, 0, 0.48), 0 18px 24px rgba(0, 0, 0, 0.6);
+  --button-shadow-lift: 0 12px 0 rgba(0, 0, 0, 0.48), 0 22px 30px rgba(0, 0, 0, 0.65);
+  --button-shadow-pressed: 0 4px 0 rgba(0, 0, 0, 0.52), 0 8px 14px rgba(0, 0, 0, 0.55);
+  --button-led: var(--neon-green);
+  --button-led-glow: var(--neon-green-glow);
+
+  /* === RULE 1: CRT / Glass Screen Effects === */
+  --screen-bg: #020205;
+  --screen-bg-gradient: linear-gradient(180deg, #020205 0%, #0a0a14 50%, #020205 100%);
+  --screen-glass-sheen: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 50%);
+  --screen-inset: inset 0 2px 20px rgba(0,0,0,0.8), inset 0 -2px 10px rgba(0,0,0,0.4), 0 0 2px rgba(0,0,0,0.9);
+  --screen-border-color: #1a1a2e;
+  --screen-glow-green: rgba(57, 255, 20, 0.5);
+  --screen-glow-blue: rgba(0, 240, 255, 0.5);
+  --screen-glow-gold: rgba(255, 215, 0, 0.5);
+  --screen-glow-red: rgba(255, 0, 60, 0.5);
+
+  /* === RULE 3: 3D Mechanical Buttons === */
+  --mech-btn-height: 38px;
+  --mech-btn-border: 3px;
+  --mech-btn-border-radius: 12px;
+  --mech-btn-press-y: 6px;
+  --mech-btn-shadow-base: 0 6px 0 #000, 0 8px 12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.15), inset 0 -4px 8px rgba(0,0,0,0.4);
+  --mech-btn-shadow-active: 0 1px 0 #000, 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -2px 4px rgba(0,0,0,0.5);
+  --mech-btn-shadow-hover: 0 8px 0 #000, 0 12px 16px rgba(0,0,0,0.55), inset 0 2px 4px rgba(255,255,255,0.2), inset 0 -6px 12px rgba(0,0,0,0.45);
+}

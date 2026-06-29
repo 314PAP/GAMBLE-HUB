@@ -1,0 +1,14 @@
+/* 1. Nejdříve importujeme Tailwind a základní vrstvy */
+@import "../tailwind.css";
+@import "./_variables.css";
+@import "./_reset.css";
+@import "./_typography.css";
+@import "./_layout.css";
+
+/* 2. Naše vlastní komponenty vložíme do správné vrstvy, aby přebily základní utility */
+@layer components {
+  @import "./_buttons.css";
+  @import "./_panels.css";
+  @import "./_slot.css";
+  @import "./_hilo.css";
+}

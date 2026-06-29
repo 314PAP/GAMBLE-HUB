@@ -1,0 +1,119 @@
+/* src/css/_slot.css */
+/* Slot Machine: machine shell, reels, cells, controls */
+
+.slot-machine {
+  /* === RULE 1: CRT Glass Screen === */
+  background:
+    var(--screen-glass-sheen),
+    var(--screen-bg-gradient);
+  border: 3px solid #1a1a2e;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow:
+    var(--screen-inset),
+    0 0 40px rgba(255, 215, 0, 0.08),
+    0 0 2px rgba(0,0,0,0.9);
+  position: relative;
+  box-sizing: border-box;
+  /* subtle smoked glass overlay */
+  overflow: hidden;
+}
+
+/* Smoked glass layer */
+.slot-machine::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0) 40%, rgba(0,0,0,0.15) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Scratches / dust texture hint */
+.slot-machine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.5;
+}
+
+.slot-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: var(--screen-inset);
+  background: #010104;
+  position: relative;
+  z-index: 1;
+}
+
+.slot-reel {
+  height: 100%;
+  position: relative;
+  background: linear-gradient(180deg, #010104 0%, #0a0a16 50%, #010104 100%);
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.9);
+}
+
+.slot-reel-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.slot-cell {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  transition: text-shadow 0.3s ease, transform 0.2s ease;
+}
+
+/* Symbol neon glows */
+.slot-cell.sym-cherry {
+  text-shadow: 0 0 12px rgba(255, 0, 85, 0.8), 0 0 24px rgba(255, 0, 85, 0.4);
+}
+
+.slot-cell.sym-bell {
+  text-shadow: 0 0 12px rgba(255, 238, 0, 0.8), 0 0 24px rgba(255, 238, 0, 0.4);
+}
+
+.slot-cell.sym-lemon {
+  text-shadow: 0 0 12px rgba(255, 255, 0, 0.8), 0 0 24px rgba(255, 255, 0, 0.4);
+}
+
+.slot-cell.sym-star {
+  text-shadow: 0 0 12px rgba(255, 159, 28, 0.9), 0 0 24px rgba(255, 159, 28, 0.5);
+}
+
+.slot-cell.sym-diamond {
+  text-shadow: 0 0 12px rgba(0, 180, 216, 0.9), 0 0 24px rgba(0, 180, 216, 0.5);
+}
+
+.slot-cell.sym-seven {
+  text-shadow: 0 0 15px rgba(255, 0, 85, 1), 0 0 35px rgba(255, 0, 85, 0.6);
+  font-weight: 900;
+}
+
+/* Slot controls */
+.slot-controls {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+  justify-content: center;
+}

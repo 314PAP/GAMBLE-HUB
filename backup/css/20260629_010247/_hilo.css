@@ -291,13 +291,27 @@
   border-radius: 10px;
 }
 
-.dice-num-btn.selected {
-  border-color: var(--neon-gold);
-  box-shadow: 0 0 24px var(--neon-gold-glow);
-  animation: ledPulse 0.8s ease-in-out infinite;
-  color: var(--neon-gold);
+.dice-num-btn {
+  min-width: 52px;
+  width: auto;
+  height: 48px;
+  justify-self: center;
+  font-size: 15px;
+  font-weight: 800;
+  border-radius: 10px;
 }
 
+.dice-num-btn {
+  min-width: 52px;
+  width: auto;
+  height: 48px;
+  justify-self: center;
+  font-size: 15px;
+  font-weight: 800;
+  border-radius: 10px;
+}
+
+/* Responsive adjustments for dice area */
 @media (max-width: 480px) {
   .dice-numbers-grid {
     gap: 6px;
@@ -311,6 +325,13 @@
     width: clamp(100px, 28vw, 140px);
     height: clamp(100px, 28vw, 140px);
   }
+}
+
+.dice-num-btn.selected {
+  border-color: var(--neon-gold) !important;
+  box-shadow: 0 0 24px var(--neon-gold-glow) !important;
+  animation: ledPulse 0.8s ease-in-out infinite;
+  color: var(--neon-gold) !important;
 }
 
 @keyframes ledPulse {

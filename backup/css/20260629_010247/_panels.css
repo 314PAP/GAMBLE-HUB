@@ -277,6 +277,26 @@
 .history-item span:last-child {
   padding-right: 8px;
 }
+.history-item.win {
+  border-left: 4px solid #39ff14;
+  background: rgba(57, 255, 20, 0.06);
+}
+.history-item.loss {
+  border-left: 4px solid #ff007f;
+  background: rgba(255, 0, 127, 0.06);
+}
+.leaderboard-item {
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: rgba(13, 0, 26, 0.7);
+  border: 1px solid rgba(189, 0, 255, 0.25);
+  font-size: 13px;
+}
+
+.leaderboard-item:hover {
+  background: rgba(189, 0, 255, 0.15);
+}
+
 
 /* === SOCKA SCREEN === */
 .socka-screen { text-align: center; }

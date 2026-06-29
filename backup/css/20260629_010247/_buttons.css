@@ -1,0 +1,373 @@
+/* === RULE 3: Massive 3D Mechanical Switch Buttons === */
+/* Base button – no rounded corners, thick shadow, plastic look */
+.btn, .btn-bet, .btn-spin-slots, .btn-auto-slots, .btn-num {
+}
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 22px;
+  width: 100%;
+  min-height: 48px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--neon-gold);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.05) 40%, transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,0.25) 0%, transparent 50%),
+    #111118;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.1),
+    inset 0 -2px 4px rgba(0,0,0,0.5);
+}
+
+/* Physical press – button goes DOWN into the panel */
+.btn:active {
+  transform: translateY(6px);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.1),
+    inset 0 -2px 4px rgba(0,0,0,0.5);
+}
+
+/* Hover – stronger glow only (no transform to avoid layout shift) */
+.btn:hover {
+  box-shadow:
+    0 14px 20px rgba(0,0,0,0.6),
+    inset 0 2px 4px rgba(255,255,255,0.22),
+    inset 0 -6px 12px rgba(0,0,0,0.45);
+}
+
+/* Disabled – dead button */
+.btn:disabled,
+.btn:disabled:hover {
+  opacity: 0.35;
+  cursor: not-allowed;
+  filter: grayscale(60%);
+  text-shadow: none;
+  transform: none;
+  box-shadow:
+    inset 0 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Inner text inherits button glow */
+.btn * {
+  color: inherit;
+  text-shadow: inherit;
+}
+
+/* Active LED pulse (for AUTO mode) */
+.btn.active {
+  animation: ledPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes ledPulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.25); }
+}
+
+
+/* === COLOR VARIANTS – each has own neon border + text glow === */
+
+/* GOLD – main menu / primary actions */
+.btn-gold,
+.btn-gold:hover,
+.btn-gold:active {
+  border-top: 3px solid #ffd700;
+  border-bottom: 3px solid #b8960a;
+  color: #ffd700;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.7), 0 0 16px rgba(255, 215, 0, 0.4);
+  box-shadow:
+    0 0 18px rgba(255, 215, 0, 0.25),
+    0 8px 14px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.18),
+    inset 0 -3px 6px rgba(0,0,0,0.45);
+}
+
+/* RED – danger / logout */
+.btn-danger,
+.btn-danger:hover,
+.btn-danger:active {
+  border-top: 3px solid #ff4757;
+  border-bottom: 3px solid #a82030;
+  color: #ff6b7a;
+  text-shadow: 0 0 8px rgba(255, 71, 87, 0.7), 0 0 16px rgba(255, 71, 87, 0.4);
+}
+
+/* CYAN – info / default panels */
+.btn-info,
+.btn-info:hover,
+.btn-info:active {
+  border-top: 3px solid #00f0ff;
+  border-bottom: 3px solid #008899;
+  color: #00f0ff;
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.7), 0 0 16px rgba(0, 240, 255, 0.4);
+}
+
+/* BLUE – primary actions */
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active {
+  border-top: 3px solid #3b82f6;
+  border-bottom: 3px solid #1d4ed8;
+  color: #60a5fa;
+  text-shadow: 0 0 8px rgba(59, 130, 246, 0.7), 0 0 16px rgba(59, 130, 246, 0.4);
+}
+
+/* PINK – accent */
+.btn-pink,
+.btn-pink:hover,
+.btn-pink:active {
+  border-top: 3px solid #ec4899;
+  border-bottom: 3px solid #9d174d;
+  color: #f472b6;
+  text-shadow: 0 0 8px rgba(236, 72, 153, 0.7), 0 0 16px rgba(236, 72, 153, 0.4);
+}
+
+/* PURPLE – AUTO / secondary */
+.btn-purple,
+.btn-purple:hover,
+.btn-purple:active {
+  border-top: 3px solid #a855f7;
+  border-bottom: 3px solid #6b21a8;
+  color: #c084fc;
+  text-shadow: 0 0 8px rgba(168, 85, 247, 0.7), 0 0 16px rgba(168, 85, 247, 0.4);
+}
+
+/* GREEN – success / SPIN */
+.btn-success,
+.btn-success:hover,
+.btn-success:active {
+  border-top: 3px solid #39ff14;
+  border-bottom: 3px solid #1f9200;
+  color: #39ff14;
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.8), 0 0 20px rgba(57, 255, 20, 0.5);
+}
+
+
+/* === GAME-SPECIFIC BUTTONS === */
+
+/* SPIN – poisoned neon green, strongest glow */
+.btn-spin-slots {
+  border-top: 4px solid #39ff14;
+  border-bottom: 4px solid #1f9200;
+  color: #39ff14;
+  text-shadow: 0 0 12px rgba(57, 255, 20, 0.9), 0 0 24px rgba(57, 255, 20, 0.6);
+  box-shadow:
+    0 0 28px rgba(57, 255, 20, 0.4),
+    0 12px 22px rgba(0,0,0,0.6),
+    inset 0 2px 6px rgba(255,255,255,0.22),
+    inset 0 -6px 14px rgba(0,0,0,0.45);
+  min-width: 130px;
+  max-width: 160px;
+}
+
+.btn-spin-slots:active {
+  transform: translateY(6px);
+  box-shadow:
+    0 0 12px rgba(57, 255, 20, 0.5),
+    0 2px 6px rgba(0,0,0,0.5);
+}
+
+/* BET buttons – cyan/blue compact */
+.btn-bet {
+  min-width: 0;
+  max-width: none;
+  height: auto;
+  min-height: 36px;
+  padding: 6px 4px;
+  font-size: clamp(10px, 2.5vw, 13px);
+  border-top: 3px solid #00f0ff;
+  border-bottom: 3px solid #008899;
+  color: #00f0ff;
+  text-shadow: 0 0 6px rgba(0, 240, 255, 0.6);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-bet.selected {
+  background:
+    linear-gradient(180deg, rgba(0, 240, 255, 0.18), transparent 40%),
+    #111118;
+  box-shadow:
+    0 0 20px rgba(0, 240, 255, 0.45),
+    inset 0 0 12px rgba(0, 240, 255, 0.12);
+  animation: ledPulse 1s ease-in-out infinite;
+}
+
+/* AUTO – purple compact */
+.btn-auto-slots {
+  min-width: 70px;
+  max-width: 90px;
+  height: 44px;
+  padding: 0 12px;
+  font-size: 13px;
+  border-top: 3px solid #a855f7;
+  border-bottom: 3px solid #6b21a8;
+  color: #c084fc;
+  text-shadow: 0 0 6px rgba(168, 85, 247, 0.6);
+}
+
+.btn-auto-slots.active {
+  background:
+    linear-gradient(180deg, rgba(168, 85, 247, 0.2), transparent 40%),
+    #111118;
+  border-top-color: #39ff14;
+  border-bottom-color: #1f9200;
+  color: #39ff14;
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.7);
+  animation: ledPulse 0.8s ease-in-out infinite;
+}
+
+/* Ghost/transparent variant for secondary buttons */
+.btn-ghost {
+  background: transparent;
+  border: 2px solid var(--neon-purple);
+  color: var(--neon-cyan);
+  text-shadow: 0 0 6px var(--neon-cyan-glow);
+  box-shadow: none;
+}
+.btn-ghost:hover {
+  border-color: var(--neon-cyan);
+  color: var(--neon-gold);
+  text-shadow: 0 0 8px var(--neon-gold-glow);
+}
+.btn-ghost:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+
+/* === RETRO LED NUMBER TILES (.btn-num) === */
+
+.btn-num {
+  width: clamp(36px, 8vw, 46px);
+  height: clamp(36px, 8vw, 46px);
+  padding: 0;
+  border: 1px solid #1a1a2e;
+  border-radius: 6px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.06), transparent 50%),
+    #010104;
+  color: #b0b0c0;
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(10px, 2.8vw, 13px);
+  font-weight: 800;
+  text-shadow: 0 0 6px rgba(0, 240, 255, 0.5);
+  box-shadow:
+    inset 0 0 8px rgba(0,0,0,0.9),
+    0 0 2px rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.06s ease;
+}
+
+.btn-num:hover {
+  transform: scale(1.1);
+  color: #00f0ff;
+  border-color: #00f0ff;
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.8), 0 0 20px rgba(0, 240, 255, 0.5);
+  box-shadow:
+    inset 0 0 12px rgba(0, 240, 255, 0.2),
+    0 0 14px rgba(0, 240, 255, 0.35);
+}
+
+/* Roulette casino colors */
+.btn-num.red-num {
+  background:
+    linear-gradient(180deg, rgba(255,60,60,0.3), transparent 50%),
+    #0a0204;
+  border-color: #4a1515;
+  color: #ff6b6b;
+  text-shadow: 0 0 8px rgba(255,60,60,0.7);
+}
+
+.btn-num.black-num {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.04), transparent 50%),
+    #050508;
+  border-color: #1f1f28;
+  color: #c0c0d0;
+  text-shadow: 0 0 6px rgba(0,240,255,0.4);
+}
+
+.btn-num.green-num {
+  background:
+    linear-gradient(180deg, rgba(57,255,20,0.25), transparent 50%),
+    #020a04;
+  border-color: #0a3a14;
+  color: #5dff7f;
+  text-shadow: 0 0 10px rgba(57,255,20,0.7);
+}
+
+/* States: selected / winning / losing */
+.btn-num.selected {
+  transform: scale(1.1);
+  border-color: #00f0ff;
+  box-shadow: 0 0 12px rgba(0,240,255,0.5), inset 0 0 10px rgba(0,240,255,0.2);
+}
+
+.btn-num.winning {
+  border-color: #39ff14;
+  box-shadow: 0 0 14px rgba(57,255,20,0.7), inset 0 0 12px rgba(57,255,20,0.25);
+}
+
+.btn-num.losing {
+  border-color: #ff007f;
+  box-shadow: 0 0 14px rgba(255,0,127,0.7), inset 0 0 12px rgba(255,0,127,0.25);
+}
+
+/* Hide legacy icon elements inside buttons */
+.btn i, .btn svg,
+.btn-num i, .btn-num svg {
+  display: none;
+}
+
+/* === DELETE ACCOUNT BUTTON === */
+.delete-account-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.delete-account-btn span {
+  font-size: 22px;
+  color: #ff9f1c;
+  filter: drop-shadow(0 0 8px #ff9f1c);
+  pointer-events: none;
+}
+
+.delete-account-btn:hover span {
+  filter: drop-shadow(0 0 12px #ff9f1c);
+}
+
+.delete-confirm-actions .btn-confirm-no,
+.delete-confirm-actions .btn-confirm-yes {
+  min-width: 110px !important;
+  width: auto !important;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}

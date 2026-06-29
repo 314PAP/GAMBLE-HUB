@@ -1,0 +1,38 @@
+/* src/css/_typography.css */
+/* Google font imports, headings, text utilities */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  text-align: center;
+  font-size: 28px;
+  letter-spacing: 5px;
+  background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-purple) 30%, var(--neon-blue) 70%, var(--neon-cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  position: relative;
+  filter: drop-shadow(0 0 10px var(--neon-gold-glow));
+}
+
+h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-align: center;
+  margin-bottom: 16px;
+  color: var(--neon-gold);
+  text-shadow: 0 0 8px var(--neon-gold-glow);
+  text-transform: uppercase;
+}
+
+/* Neon text glow utility */
+.neon-text {
+  color: var(--neon-gold);
+  text-shadow: 0 0 6px var(--neon-gold-glow), 0 0 12px var(--neon-gold-glow);
+}

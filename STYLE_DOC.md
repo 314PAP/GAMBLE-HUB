@@ -118,57 +118,12 @@ Provedená změna v `index.html`:
 - `<div class="game-header-bar">` → `<header class="game-header-bar">`
 - Zachovány všechny `id` atributy pro kompatibilitu s JS
 
-## 9. CSS Konflikty a jejich řešení
+## 9. CSS Cleanup (2026-06-29)
 
-### Duplicitní pravidla
-- `_panels.css`: Odstraněny duplicitní definice `.leaderboard-item` a `.history-item` (byly definovány dvakrát)
-- `.text-center` z `_layout.css` odstraněno – nahrazeno Tailwind utility třídou `text-center` v HTML
+### Odstraněno
+- **Duplicitní definice `.dice-num-btn`** v `_hilo.css` (existovaly 3x stejná definice, nyní 1x)
+- **Duplicitní definice `.history-item.win/loss`** a `.leaderboard-item` v `_panels.css` (2x → 1x)
+- **Zbytečné utility třídy** v `_layout.css`: `flex-row-center`, `gap-sm`, `margin-top-md`, `text-center`, `text-muted` (už jsou v Tailwind)
 
-### `!important` deklarace
-- `_hilo.css`: `.dice-num-btn.selected` – odstraněny `!important` (zbytečné díky CSS Layers)
-- `_panels.css`: `.leaderboard-item`, `.history-item` – odstraněny `!important`
-- `_buttons.css`: `.delete-confirm-actions .btn-confirm-*` – odstraněno celé pravidlo nahrazeno Tailwind třídami v HTML
-
-## 10. Tailwind v4 Fallback Utility (2026-06-28)
-
-### Problém
-Tailwind v4 někdy nevygeneruje spacing utility třídy (gap-4, mb-4, p-5) ani responsive varianty (sm:*, md:*) během HMR vývoje kvůli limitu velikosti inline CSS.
-
-### Řešení
-Všechny fallback utility byly přesunuty do **`src/tailwind.css`** (nikoliv do `_layout.css`), protože:
-
-1. `@layer utilities` uvnitř `@import`ovaných souborů Vite HMR nezpracovává správně
-2. Tailwind v4 PostCSS plugin generuje utility až do konce souboru – přímé definice v `tailwind.css` jsou zahrnuty
-
-### Obsah fallback bloku (řádky 5-200 v tailwind.css)
-- Spacing: gap-1 až gap-5, gap-1.5, p-0/p-3/p-5, m-0 až mb-6, mr-1.5, ml-1.5
-- Size: w-full, h-full, max-h-150/250/300px
-- Display: flex, grid, block
-- Text: text-center, text-left, text-right
-- Flex/Grid helpers: flex-1, grid-cols-1 až grid-cols-5
-- **Responsive (media queries):**
-  - `@media (min-width: 640px)`: sm:grid-cols-2, sm:text-xs, sm:text-sm
-  - `@media (min-width: 768px)`: md:text-sm, md:text-base
-
-### Co je třeba udělat
-**Pro vývoj (dev server):**
-1. Spustit `npm run dev`
-2. V DevTools → Network → zaškrtnout "Disable cache"
-3. Pro forcing refresh: Ctrl+F5 nebo Cmd+Shift+R
-
-**Pro produkci:**
-1. `npm run build` – všechny utility jsou vygenerovány v `dist/assets/index-*.css`
-2. Responsive třídy jsou funkční s viewportem > 640px (sm:) a > 768px (md:)
-
-### Architektura napojení
-```
-index.html
-    ↓ (class="..." používá Tailwind utility)
-src/tailwind.css  ← fallback utilities + @tailwind directives
-    ↓ (@import v main.css)
-src/css/main.css  ← entry point, importuje všechny moduly
-    ↓ (import v main.js)
-src/main.js       ← import './css/main.css'
-    ↓ (vite dev/build pipeline)
-dist/assets/*.css ← finální bundle s všemi utility
-```
+### Zálohy
+Originální soubory zálohovány do `backup/css/20260629_010247/`.
