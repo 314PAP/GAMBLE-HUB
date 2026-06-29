@@ -341,15 +341,28 @@
   text-shadow: 0 0 10px var(--neon-pink-glow);
 }
 
-.coin-icon-svg {
-  display: inline-block;
+.score-display {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
   font-size: 16px;
-  vertical-align: middle;
-  opacity: 0.85;
-  animation: coinFlicker 3s ease-in-out infinite;
+}
+
+.score-display .coin-icon-svg {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  animation: coinFlicker 2s ease-in-out infinite;
+}
+
+@media (max-width: 600px) {
+  .score-display {
+    font-size: 14px;
+  }
 }
 
 @keyframes coinFlicker {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
+  0%, 85% { opacity: 0.85; }
+  90% { opacity: 1; filter: brightness(1.5); }
+  95%, 100% { opacity: 0.85; }
 }

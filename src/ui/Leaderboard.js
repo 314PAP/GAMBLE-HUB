@@ -34,7 +34,7 @@ let html = '';
                <span class="font-bold text-[var(--neon-gold)] w-6" style="text-shadow: 0 0 5px var(--neon-gold-glow);">${medal}</span>
                <span class="text-[var(--neon-gold)] font-semibold" style="flex: 1;">${record.jmeno}</span>
              </div>
-             <span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow);">${record.castka} Kč</span>
+             <span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow);"><span class="score-display">${record.castka}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span></span>
            </div>
          `;
        });
@@ -65,7 +65,7 @@ html += `
                  <span class="font-bold text-[var(--neon-gold)] w-6" style="text-shadow: 0 0 5px var(--neon-gold-glow);">${medal}</span>
                  <span class="text-[var(--neon-gold)] font-semibold" style="flex: 1;">${record.jmeno}</span>
                </div>
-<span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow);">${record.castka}&nbsp;<svg class="coin-icon-svg" viewBox="0 0 24 24" style="width:16px;height:16px;vertical-align:middle;"><circle cx="12" cy="12" r="10" fill="#ffd700"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span>
+<span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow);"><span class="score-display">${record.castka}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span></span>
              </div>
            `;
     });
