@@ -258,27 +258,31 @@
   gap: 12px;
 }
 
+.sound-toggle-btn,
 .btn-info-toggle {
   width: 32px;
   height: 32px;
   background: transparent;
-  border: 2px solid var(--neon-gold);
-  border-radius: 50%;
+  border: none;
+  border-radius: 0;
   color: var(--neon-gold);
-  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  font-size: 16px;
   text-shadow: 0 0 6px var(--neon-gold-glow);
   transition: all 0.2s;
   padding: 0;
 }
+.sound-toggle-btn:hover,
 .btn-info-toggle:hover {
-  border-color: var(--neon-cyan);
   color: var(--neon-cyan);
   text-shadow: 0 0 12px var(--neon-cyan-glow), 0 0 24px var(--neon-cyan-glow);
-  transform: scale(1.1);
+}
+.sound-toggle-btn.muted {
+  color: var(--neon-pink);
+  text-shadow: 0 0 6px var(--neon-pink-glow);
 }
 
 /* Explorer modal overrides */
