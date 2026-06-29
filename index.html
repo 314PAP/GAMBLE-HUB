@@ -10,11 +10,11 @@
 <main class="container" role="main" aria-label="Herní aplikace">
      <section id="screen-login" class="screen active" aria-labelledby="login-title">
         <h1 id="login-title">GAMBLE HUB</h1>
-<button class="leaderboard-card-clickable rounded-2xl mb-5 cursor-pointer transition-all w-full overflow-hidden relative" onclick="otevriExplorer()" aria-label="Zobrazit globální žebříček a historii" style="background: linear-gradient(135deg, rgba(13,0,26,0.4), rgba(13,0,26,0.6)); border: 1px solid var(--neon-purple); box-shadow: 0 0 15px var(--neon-purple-glow), inset 0 0 10px rgba(0,0,0,0.3);">
-             <div class="font-['Orbitron',sans-serif] text-[11px] sm:text-[12px] text-[var(--neon-gold)] tracking-wider mb-2 uppercase px-4 pt-4 pb-2">
-                <span class="flex items-center gap-1.5">Top Hráči <span class="leaderboard-badge"></span></span>
+<button id="leaderboard-card" class="rounded-2xl mb-5 cursor-pointer transition-all w-full overflow-hidden relative" onclick="otevriExplorer()" aria-label="Zobrazit globální žebříček a historii" style="background: linear-gradient(135deg, rgba(13,0,26,0.4), rgba(13,0,26,0.6)); border: 1px solid var(--neon-purple); box-shadow: 0 0 15px var(--neon-purple-glow), inset 0 0 10px rgba(0,0,0,0.3);">
+             <div style="font-family: 'Orbitron', sans-serif; font-size: 11px; color: var(--neon-gold); letter-spacing: 0.06em; text-transform: uppercase; padding: 16px 16px 8px 16px;">
+                <span class="flex items-center gap-1.5" style="gap: 10px;">Top Hráči <span class="leaderboard-badge"></span></span>
             </div>
-            <div id="leaderboard-content" role="list" class="flex flex-col gap-2 px-4 pb-4 max-h-[180px] overflow-y-auto">
+            <div id="leaderboard-content" role="list" class="flex flex-col gap-2" style="padding: 0 16px 16px 16px; max-height: 180px; overflow-y: auto;">
                 <span class="text-[var(--neon-gold)] text-xs italic" style="text-shadow: 0 0 5px var(--neon-gold-glow);">Načítám žebříček...</span>
             </div>
         </button>
