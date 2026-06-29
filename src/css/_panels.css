@@ -9,11 +9,17 @@
   max-width: 40vw;
   min-height: 0;
   padding: 20px 16px;
+  border-radius: 16px;
   margin: auto;
   position: relative;
   z-index: 1;
-  background: var(--bg-gradient);
-  border-radius: 16px;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(135deg, rgba(13,0,26,0.6), transparent 70%),
+    var(--screen-bg-gradient);
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  animation: borderGlow 3s linear infinite;
 }
 
 @keyframes borderGlow {

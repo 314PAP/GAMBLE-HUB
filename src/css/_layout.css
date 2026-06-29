@@ -54,7 +54,8 @@ input, select, textarea {
   grid-template-rows: auto minmax(0, 1fr);
   gap: 16px;
   min-height: 0;
-  background: var(--bg-gradient);
+  background: #000;
+  padding: 20px;
 }
 
 .screen.active::before {
