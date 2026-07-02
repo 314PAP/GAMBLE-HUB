@@ -14,7 +14,7 @@ export class DeleteConfirmDialog {
     };
     
     this.yesBtn.onclick = handleDelete;
-    this.dialog.style.display = 'block';
+    this.dialog.style.display = 'flex';
   }
 
   hide() {

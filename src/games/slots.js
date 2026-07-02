@@ -70,8 +70,7 @@ export class SlotMachineGame {
 
     for (let r = 0; r < 3; r++) {
       const container = document.getElementById(`reel-container-${r}`);
-      const reelElement = document.getElementById(`reel-${r}`);
-      if (!container || !reelElement) continue;
+      if (!container) continue;
 
       // Extract current symbols for this reel
       const currentReelSymbols = [this.currentMatrix[r], this.currentMatrix[r + 3], this.currentMatrix[r + 6]];
@@ -106,8 +105,9 @@ export class SlotMachineGame {
 
       // Apply initial styling: container at y = 0
       gsap.set(container, { y: 0 });
-      // Apply blur to reel container to simulate movement speed
-      gsap.set(reelElement, { filter: 'blur(3px)' });
+      // Apply blur to reel parent to simulate movement speed
+      const reelParent = container.parentElement;
+      gsap.set(reelParent, { filter: 'blur(3px)' });
 
       // Run GSAP spin animation
       gsap.to(container, {
@@ -119,11 +119,11 @@ export class SlotMachineGame {
           const progress = this.progress();
           if (progress > 0.7) {
             const currentBlur = (1 - progress) * 10;
-            gsap.set(reelElement, { filter: `blur(${Math.max(0, currentBlur)}px)` });
+            gsap.set(reelParent, { filter: `blur(${Math.max(0, currentBlur)}px)` });
           }
         },
         onComplete: () => {
-          gsap.set(reelElement, { filter: 'blur(0px)' });
+          gsap.set(reelParent, { filter: 'blur(0px)' });
           
           completedReels++;
           if (completedReels === 3) {

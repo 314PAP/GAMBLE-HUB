@@ -15,14 +15,14 @@ export class StatsManager {
     const statsContainer = document.getElementById('modal-stats-data');
     if (statsContainer) {
       statsContainer.innerHTML = `
-        <div class="flex-row-center" style="margin-bottom: 6px;">
+        <div class="flex-row-center mb-1.5">
           <span aria-hidden="true">👤</span> <span>Hráč:</span> <strong>${username}</strong>
         </div>
-        <div class="flex-row-center" style="margin-bottom: 6px;">
+        <div class="flex-row-center mb-1.5">
           <span aria-hidden="true">🔄</span> <span>Odehraných her:</span> <strong>${totalMatches}</strong>
         </div>
-        <div class="flex-row-center" style="margin-bottom: 6px;">
-          <span aria-hidden="true">📈</span> <span>Úspěšnost:</span> <strong style="color:var(--neon-orange)">${winRate}%</strong>
+        <div class="flex-row-center mb-1.5">
+          <span aria-hidden="true">📈</span> <span>Úspěšnost:</span> <strong class="text-[var(--neon-orange)]">${winRate}%</strong>
         </div>
       `;
     }
@@ -31,7 +31,7 @@ export class StatsManager {
     if (historyContainer) {
       historyContainer.innerHTML = '';
       if (stats.historie.length === 0) {
-        historyContainer.innerHTML = `<div class="text-center text-muted" style="padding:10px;">Žádná odehraná kola.</div>`;
+        historyContainer.innerHTML = `<div class="text-center text-muted p-2.5">Žádná odehraná kola.</div>`;
       } else {
         stats.historie.forEach(item => {
           const isWin = item.includes('VÝHRA');
@@ -44,11 +44,11 @@ export class StatsManager {
             .replace(/\((\d+)\s*kč\)/gi, '($1 Kč)');
 
           const div = document.createElement('div');
-          div.className = `history-item ${isWin ? 'win' : 'loss'}`;
+          div.className = `history-item p-2 sm:p-2.5 md:p-3 rounded-xl flex justify-between items-center ${isWin ? 'win border-l-4 border-l-[#39ff14]' : 'loss border-l-4 border-l-[#ff007f]'}`;
           div.setAttribute('role', 'listitem');
           div.innerHTML = `
             <span class="text-[var(--neon-gold)]">🎮 ${gamePart}</span>
-            <strong class="${isWin ? 'text-[var(--neon-green)]' : 'text-[var(--neon-pink)]'}">${statusPart}</strong>
+            <strong class="${isWin ? 'text-[var(--neon-green)] text-glow-green' : 'text-[var(--neon-pink)] text-glow-pink'}">${statusPart}</strong>
           `;
           historyContainer.appendChild(div);
         });

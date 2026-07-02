@@ -25,7 +25,7 @@ export class AccountsManager {
     const usernames = Object.keys(players);
 
     if (usernames.length === 0) {
-      list.innerHTML = `<div class="text-center text-muted" style="padding:20px;">Žádní vytvoření hráči.</div>`;
+      list.innerHTML = `<div class="text-center text-muted p-5">Žádní vytvoření hráči.</div>`;
       return;
     }
 
@@ -36,14 +36,12 @@ export class AccountsManager {
       row.setAttribute("role", "listitem");
 
       const selectBtn = document.createElement("button");
-      selectBtn.className = "btn flex-1 min-w-0 text-left text-xs sm:text-sm py-3";
-      selectBtn.style.paddingLeft = "12px";
-      selectBtn.style.paddingRight = "12px";
-      selectBtn.innerHTML = `<span class="truncate scoreboard-name">${this.wrapEmoji(username)}</span><span class="ml-auto truncate" style="color: var(--neon-green); text-shadow: 0 0 5px var(--neon-green-glow);"><span class="score-display">${this.formatLargeNumber(balance)}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span></span>`;
+      selectBtn.className = "btn flex-1 min-w-0 text-left text-xs sm:text-sm py-3 pl-3 pr-3";
+      selectBtn.innerHTML = `<span class="truncate scoreboard-name">${this.wrapEmoji(username)}</span><span class="ml-auto truncate text-[var(--neon-green)] text-glow-green"><span class="score-display">${this.formatLargeNumber(balance)}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span></span>`;
       selectBtn.onclick = () => onSelect(username);
 
       const deleteBtn = document.createElement("button");
-      deleteBtn.className = "delete-account-btn";
+      deleteBtn.className = "delete-account-btn w-14 h-14 flex items-center justify-center shrink-0";
       deleteBtn.setAttribute("aria-label", `Smazat účet ${username}`);
       deleteBtn.innerHTML = '<span aria-hidden="true">🗑️</span>';
       deleteBtn.onclick = (e) => {

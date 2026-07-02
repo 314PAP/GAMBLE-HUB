@@ -50,18 +50,18 @@ if (listL) listL.innerHTML = `<span class="text-[#ffd700] text-xs italic p-4 tex
     if (modal) modal.style.display = 'none';
   }
 
-  renderHistory(filteredData = null) {
+renderHistory(filteredData = null) {
     const list = document.getElementById('explorer-history-list');
     if (!list) return;
     const data = filteredData || this.ui.historyData;
     if (data.length === 0) {
-      list.innerHTML = `<span class="text-[var(--neon-gold)] text-xs italic p-4 text-center block" style="text-shadow: 0 0 5px var(--neon-gold-glow);">Žádná historie her nenalezena</span>`;
+      list.innerHTML = `<span class="text-[var(--neon-gold)] text-xs italic p-4 text-center block text-glow-gold">Žádná historie her nenalezena</span>`;
       return;
     }
 
     let html = '';
     data.forEach(item => {
-const isWin = item.isWin;
+      const isWin = item.isWin;
       const winVal = item.winAmount;
       const formattedWin = winVal > 0 ? `+${winVal} Kč` : `${winVal} Kč`;
       const timeString = item.timestamp ? new Date(item.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'}) : '';
@@ -71,13 +71,13 @@ const isWin = item.isWin;
       else if (item.gameName === 'VíceMéně') gameLabel = 'HI-LOW';
 
       html += `
-        <div role="listitem" style="padding: 10px 16px; margin: 4px 0; display: flex; justify-content: space-between; align-items: center; border-radius: 10px; background: rgba(189, 0, 255, 0.04);">
-          <div class="flex flex-col gap-0.5" style="padding-left: 4px;">
-            <span class="font-semibold text-[var(--neon-gold)] scoreboard-name" style="text-shadow: 0 0 5px var(--neon-gold-glow);">${this.wrapEmoji(item.username)}</span>
+        <div role="listitem" class="py-1 my-1 flex justify-between items-center rounded-xl bg-[rgba(189,0,255,0.04)]">
+          <div class="flex flex-col gap-0.5 pl-1">
+            <span class="font-semibold text-[var(--neon-gold)] scoreboard-name text-glow-gold">${this.wrapEmoji(item.username)}</span>
             <span class="text-[10px] text-[var(--text-secondary)]">${gameLabel} – ${timeString}</span>
           </div>
-          <div class="flex flex-col items-end gap-0.5" style="padding-right: 4px;">
-            <span class="font-bold ${isWin ? 'text-[var(--neon-green)]' : 'text-[var(--neon-pink)]'}" style="text-shadow: 0 0 5px ${isWin ? 'var(--neon-green-glow)' : 'var(--neon-pink-glow)'};">${formattedWin}</span>
+          <div class="flex flex-col items-end gap-0.5 pr-1">
+            <span class="font-bold ${isWin ? 'text-[var(--neon-green)] text-glow-green' : 'text-[var(--neon-pink)] text-glow-pink'}">${formattedWin}</span>
             <span class="text-[10px] text-[var(--neon-gold)] opacity-75">${item.resultText || ''}</span>
           </div>
         </div>

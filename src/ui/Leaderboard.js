@@ -25,8 +25,8 @@ export class LeaderboardManager {
       const scores = await this.ui.api.getGlobalLeaderboard();
       const isOnline = this.ui.api.isOnline;
 
-      if (scores.length === 0) {
-        container.innerHTML = `<span class="text-[#ffd700] text-[13px]">Zatím žádné rekordy...</span>`;
+if (scores.length === 0) {
+        container.innerHTML = `<span class="text-[var(--neon-gold)] text-[13px] text-glow-gold">Zatím žádné rekordy...</span>`;
         return;
       }
 
@@ -44,18 +44,18 @@ export class LeaderboardManager {
       scores.slice(0, 5).forEach((record, idx) => {
         const medal = medals[idx] || `#${idx + 1}`;
         html += `
-            <div class="px-3 py-2 my-0.5 flex justify-between items-center">
+            <div class="py-2 my-0.5 flex justify-between items-center">
               <div class="flex items-center gap-2">
-                <span class="font-bold text-[var(--neon-gold)] text-lg w-6" style="text-shadow: 0 0 5px var(--neon-gold-glow);">${medal}</span>
-                <span class="scoreboard-name text-[var(--neon-gold)] font-semibold text-lg" style="flex: 1;">${this.wrapEmoji(record.jmeno)}</span>
+                <span class="font-bold text-[var(--neon-gold)] text-lg w-6 text-glow-gold">${medal}</span>
+                <span class="scoreboard-name text-[var(--neon-gold)] font-semibold text-lg flex-1 min-w-0">${this.wrapEmoji(record.jmeno)}</span>
               </div>
-              <span class="font-bold text-[var(--neon-green)] text-lg" style="text-shadow: 0 0 5px var(--neon-green-glow);"><span class="score-display">${this.formatLargeNumber(record.castka)}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span></span>
+              <span class="score-display inline-flex items-center gap-1 font-bold text-[var(--neon-green)] text-lg text-glow-green">${this.formatLargeNumber(record.castka)}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span>
             </div>
           `;
       });
       container.innerHTML = html;
     } catch (e) {
-      container.innerHTML = `<span class="text-[var(--neon-pink)] text-[13px]" style="text-shadow: 0 0 5px var(--neon-pink-glow);">Nepodařilo se načíst žebříček.</span>`;
+      container.innerHTML = `<span class="text-[var(--neon-pink)] text-[13px] text-glow-pink">Nepodařilo se načíst žebříček.</span>`;
     }
   }
 
@@ -64,7 +64,7 @@ export class LeaderboardManager {
     if (!list) return;
     const data = filteredData || this.ui.leaderboardData;
     if (data.length === 0) {
-      list.innerHTML = `<span class="text-[var(--neon-pink)] text-xs italic p-4 text-center block" style="text-shadow: 0 0 5px var(--neon-pink-glow);">Žádní hráči nenalezeni</span>`;
+      list.innerHTML = `<span class="text-[var(--neon-pink)] text-xs italic p-4 text-center block text-glow-pink">Žádní hráči nenalezeni</span>`;
       return;
     }
 
@@ -77,12 +77,12 @@ export class LeaderboardManager {
       const medal = medals[originalIdx] || `#${originalIdx + 1}`;
 
       html += `
-        <div role="listitem" style="padding: 8px 18px; margin: 4px 0; display: flex; justify-content: space-between; align-items: center;">
+        <div role="listitem" class="py-2 my-1 flex justify-between items-center">
           <div class="flex items-center gap-2">
-            <span class="font-bold text-[var(--neon-gold)] w-6" style="text-shadow: 0 0 5px var(--neon-gold-glow);">${medal}</span>
-            <span class="scoreboard-name text-[var(--neon-gold)] font-semibold" style="flex: 1;">${this.wrapEmoji(record.jmeno)}</span>
+            <span class="font-bold text-[var(--neon-gold)] w-6 text-glow-gold">${medal}</span>
+            <span class="scoreboard-name text-[var(--neon-gold)] font-semibold flex-1 min-w-0">${this.wrapEmoji(record.jmeno)}</span>
           </div>
-          <span class="font-bold text-[var(--neon-green)]" style="text-shadow: 0 0 5px var(--neon-green-glow);"><span class="score-display">${record.castka}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span></span>
+          <span class="score-display inline-flex items-center gap-1 font-bold text-[var(--neon-green)] text-glow-green">${record.castka}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span>
         </div>
       `;
     });

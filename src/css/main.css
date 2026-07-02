@@ -20,3 +20,8 @@
   @import "./_slot.css";
   @import "./_hilo.css";
 }
+
+/* Custom utilities */
+@layer utilities {
+  /* Hidden utility is provided by Tailwind v4 - no need for custom definition */
+}

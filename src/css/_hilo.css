@@ -1,12 +1,6 @@
 /* === Hi-Lo Game Specific Styles === */
 
 .hilo-container {
-  padding: clamp(12px, 3vw, 20px);
-  margin-bottom: clamp(10px, 3vw, 24px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(8px, 2vw, 16px);
   background:
     var(--screen-glass-sheen),
     var(--screen-bg-gradient);
@@ -17,8 +11,6 @@
 
 /* === HI-LO CARD (fixní poměr 2:3, responzivní velikost) === */
 .hilo-card-face {
-  width: clamp(70px, 18vw, 100px);
-  aspect-ratio: 2 / 3;
   background:
     linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%),
     linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
@@ -28,10 +20,6 @@
   font-size: clamp(28px, 7vw, 48px);
   font-weight: 800;
   text-shadow: 0 0 20px var(--neon-blue-glow), 0 0 40px var(--neon-blue-glow);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transform-style: preserve-3d;
   backface-visibility: hidden;
   transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -46,23 +34,10 @@
   font-size: clamp(10px, 2.5vw, 12px);
   font-weight: 600;
   text-align: center;
-  padding: 8px 16px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
 }
 
 /* === HI-LO BUTTONS === */
-.hilo-btns {
-  display: flex;
-  gap: clamp(6px, 2vw, 12px);
-  margin-top: clamp(8px, 2vw, 16px);
-  margin-bottom: clamp(10px, 2.5vw, 20px);
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
 .hilo-btns .btn,
 .hilo-btns .btn-primary,
 .hilo-btns .btn-danger {
@@ -72,7 +47,6 @@
 
 /* === DICE FRAME (resp. pomocí clamp + aspect-square) === */
 .dice-frame {
-  width: clamp(100px, 28vw, 160px);
   aspect-ratio: 1 / 1;
   background:
     linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%),
@@ -85,14 +59,7 @@
     0 0 100px rgba(0, 240, 255, 0.15),
     inset 0 0 40px rgba(0, 240, 255, 0.1),
     0 15px 35px rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  backdrop-filter: blur(12px);
   animation: framePulse 3s ease-in-out infinite;
-  overflow: hidden;
-  margin-bottom: clamp(8px, 2vw, 16px);
 }
 
 .dice-frame::before {
@@ -166,38 +133,13 @@
   50% { transform: scale(1.15); }
 }
 
-/* === DICE AREA LAYOUT === */
-#dice-area {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(12px, 3vw, 24px);
-}
-
-#dice-area > p {
-  margin-bottom: 4px;
-}
-
 .dice-hidden {
   display: none;
 }
 
-/* Dice number buttons grid – 2 rows × 3 cols */
-.dice-numbers-grid {
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  gap: clamp(4px, 1.5vw, 8px);
-  justify-content: center;
-  justify-items: center;
-}
-
 .dice-num-btn {
-  min-width: clamp(42px, 12vw, 52px);
-  height: clamp(36px, 10vw, 48px);
-  justify-self: center;
   font-size: clamp(13px, 3.5vw, 15px);
   font-weight: 800;
-  border-radius: 10px;
 }
 
 .dice-num-btn.selected {
@@ -215,16 +157,9 @@
 /* === NUMBER BUTTONS CONTAINER (classic games) === */
 #game-number-buttons {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(clamp(28px, 8vw, 38px), 1fr));
   gap: clamp(3px, 1vw, 6px);
-  padding: clamp(8px, 3vw, 16px);
   background:
     var(--screen-glass-sheen),
     var(--screen-bg-gradient);
-  border-radius: 12px;
-  border: 2px solid var(--screen-border-color);
   box-shadow: var(--screen-inset);
-  max-width: 100%;
-  margin: clamp(10px, 3vw, 24px) auto;
-  position: relative;
 }
