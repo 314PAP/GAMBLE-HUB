@@ -21,6 +21,13 @@ export class GlobalEventHandlers {
     window.otevriRegistraci = () => {
       const regInput = document.getElementById('reg-name');
       if (regInput) regInput.value = '';
+      if (window.grecaptcha) {
+        try {
+          window.grecaptcha.reset();
+        } catch (e) {
+          console.error(e);
+        }
+      }
       this.ui.showScreen('screen-register');
       setTimeout(() => {
         if (regInput) regInput.focus();
@@ -71,12 +78,27 @@ window.smazatUcet = (username) => {
     window.potvrditRegistraci = () => {
       const regInput = document.getElementById('reg-name');
       if (!regInput) return;
+      
+      // Verify reCAPTCHA
+      if (window.grecaptcha) {
+        const response = window.grecaptcha.getResponse();
+        if (!response) {
+          this.ui.showAlert('warning', 'Ochrana reCAPTCHA', 'Pro vytvoření účtu potvrďte, že nejste robot.');
+          return;
+        }
+      }
+
       const username = regInput.value.trim();
       const res = this.db.createPlayer(username);
       if (res.success) {
         window.prihlasitHrace(username);
       } else {
         this.ui.showAlert('warning', 'Registrace se nezdařila', res.message);
+        if (window.grecaptcha) {
+          try {
+            window.grecaptcha.reset();
+          } catch (e) {}
+        }
       }
     };
 

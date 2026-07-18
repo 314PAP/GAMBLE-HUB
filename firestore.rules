@@ -1,0 +1,36 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Rules for the leaderboard collection
+    match /leaderboard/{username} {
+      // Anyone can read the leaderboard
+      allow read: if true;
+      // Allow writing only if the fields have the correct types
+      allow write: if request.resource.data.castka is number
+                   && request.resource.data.castka >= 0
+                   && request.resource.data.updatedAt is string;
+    }
+
+    // Rules for the visits collection (IP tracking and global counter)
+    match /visits/{visitId} {
+      allow read, write: if true;
+    }
+
+    // Rules for the matches collection (game history)
+    match /matches/{matchId} {
+      // Anyone can view match history
+      allow read: if true;
+      // Anyone can create a match entry, but validate the fields
+      allow create: if request.resource.data.username is string
+                    && request.resource.data.gameName is string
+                    && request.resource.data.bet is number
+                    && request.resource.data.isWin is bool
+                    && request.resource.data.winAmount is number
+                    && request.resource.data.timestamp is string;
+      // Prevent editing or deleting matches once they are written
+      allow update, delete: if false;
+    }
+  }
+}
