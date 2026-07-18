@@ -78,28 +78,30 @@
      </section>
 
      <section id="screen-game" class="screen p-2.5 sm:p-3 md:p-5" aria-labelledby="game-title">
-         <header class="game-header-bar flex flex-wrap items-center justify-between bg-gradient-to-br from-[#020205] via-[#020205] to-[#020205] rounded-xl mb-2 px-2.5 sm:px-3 md:px-4 py-2 sm:py-2.5 md:py-3" role="region" aria-label="Herní lišta">
-             <div class="flex items-center justify-between w-full gap-2">
-                 <div id="game-title" class="game-title" aria-hidden="true">AUTOMAT</div>
-                 <div class="flex items-center gap-3">
-                     <div class="text-xs sm:text-sm md:text-base truncate text-[var(--neon-gold)] text-glow-gold">
-                         <span id="game-player-name"></span>
-                     </div>
-                     <button class="btn-info-toggle w-8 h-8 flex items-center justify-center rounded-full" id="btn-game-info" onclick="toggleInfoPanel()" aria-label="Jak se hraje">
-                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                     </button>
-                     <button class="sound-toggle-btn w-8 h-8 flex items-center justify-center rounded-full" id="global-sound-toggle" onclick="toggleMuteState()" title="Zvuk" aria-label="Přepnout zvuk">
-                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-                     </button>
-                 </div>
-              </div>
-          </header>
+          <div class="flex flex-col w-full gap-0.5">
+              <header class="game-header-bar flex flex-wrap items-center justify-between bg-gradient-to-br from-[#020205] via-[#020205] to-[#020205] rounded-xl px-2.5 sm:px-3 md:px-4 py-2 sm:py-2.5 md:py-3" role="region" aria-label="Herní lišta">
+                  <div class="flex items-center justify-between w-full gap-2">
+                      <div id="game-title" class="game-title" aria-hidden="true">AUTOMAT</div>
+                      <div class="flex items-center gap-3">
+                          <div class="text-xs sm:text-sm md:text-base truncate text-[var(--neon-gold)] text-glow-gold">
+                              <span id="game-player-name"></span>
+                          </div>
+                          <button class="btn-info-toggle w-8 h-8 flex items-center justify-center rounded-full" id="btn-game-info" onclick="toggleInfoPanel()" aria-label="Jak se hraje">
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                          </button>
+                          <button class="sound-toggle-btn w-8 h-8 flex items-center justify-center rounded-full" id="global-sound-toggle" onclick="toggleMuteState()" title="Zvuk" aria-label="Přepnout zvuk">
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                          </button>
+                      </div>
+                  </div>
+              </header>
 
-          <div class="w-full flex justify-center text-center text-[clamp(16px,4vw,22px)] my-1 text-[var(--neon-green)] text-glow-green font-bold">
-              <span class="score-display flex items-center justify-center gap-2">
-                  <span id="game-player-money"></span>
-                  <svg class="coin-icon-svg w-[1.25em] h-[1.25em]" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg>
-              </span>
+              <div class="w-full flex justify-center text-center text-[clamp(14px,3.5vw,18px)] my-0.5 text-[var(--neon-green)] text-glow-green font-bold">
+                  <span class="score-display flex items-center justify-center gap-1.5">
+                      <span id="game-player-money"></span>
+                      <svg class="coin-icon-svg w-[1.1em] h-[1.1em]" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg>
+                  </span>
+              </div>
           </div>
 
          <article id="slots-area" class="mt-1.5 sm:mt-2 md:mt-3" style="display:none;" aria-labelledby="slots-title">
