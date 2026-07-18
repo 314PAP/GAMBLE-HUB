@@ -30,6 +30,23 @@
     overflow-x: hidden;
   }
 
+  @media (max-width: 640px) {
+    html {
+      height: auto;
+      overflow-y: auto;
+    }
+    body {
+      height: auto;
+      min-height: calc(100dvh + 60px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      overflow-y: auto;
+      padding-bottom: 80px;
+    }
+  }
+
   /* Responzivní scrollbar – zůstane skrytý na malých displejích */
   ::-webkit-scrollbar {
     width: 4px;

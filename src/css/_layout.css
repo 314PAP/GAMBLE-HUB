@@ -34,6 +34,16 @@
   border-radius: 16px;
 }
 
+@media (max-width: 640px) {
+  .screen.active {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100%;
+    overflow-y: visible;
+  }
+}
+
 /* Responsive font sizes inside header – CSS fallback for JS-independent rendering */
 .game-title {
   font-size: clamp(10px, 3vw, 15px);
