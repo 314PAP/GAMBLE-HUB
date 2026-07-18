@@ -105,7 +105,7 @@ export class GameManager {
         break;
       case 6:
         titleEl.innerText = "HI-LOW";
-        document.getElementById('hilo-area').style.display = 'block';
+        document.getElementById('hilo-area').style.display = 'flex';
         this.hilo.init();
         break;
     }

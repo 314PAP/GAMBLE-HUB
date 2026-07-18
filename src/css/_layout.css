@@ -27,6 +27,7 @@
   grid-template-rows: auto minmax(0, 1fr);
   gap: clamp(6px, 2vw, 12px);
   min-height: 0;
+  height: 100%;
   background: #000;
   overflow-y: auto;
   overflow-x: hidden;
