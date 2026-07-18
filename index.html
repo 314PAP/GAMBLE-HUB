@@ -77,9 +77,9 @@
          <button id="btn-logout" class="btn btn-danger w-full px-4 py-2" onclick="odhlasitSe()">Opustit hernu</button>
      </section>
 
-     <section id="screen-game" class="screen p-2.5 sm:p-3 md:p-5" aria-labelledby="game-title">
-          <div class="flex flex-col w-full gap-0.5">
-              <header class="game-header-bar flex flex-wrap items-center justify-between bg-gradient-to-br from-[#020205] via-[#020205] to-[#020205] rounded-xl px-2.5 sm:px-3 md:px-4 py-2 sm:py-2.5 md:py-3" role="region" aria-label="Herní lišta">
+     <section id="screen-game" class="screen p-1.5 sm:p-3 md:p-5" aria-labelledby="game-title">
+          <div class="flex flex-col w-full gap-0 shrink-0">
+              <header class="game-header-bar flex flex-wrap items-center justify-between bg-gradient-to-br from-[#020205] via-[#020205] to-[#020205] rounded-xl px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2.5 md:py-3" role="region" aria-label="Herní lišta">
                   <div class="flex items-center justify-between w-full gap-2">
                       <div id="game-title" class="game-title" aria-hidden="true">AUTOMAT</div>
                       <div class="flex items-center gap-3">
@@ -96,7 +96,7 @@
                   </div>
               </header>
 
-              <div class="w-full flex justify-center text-center text-[clamp(14px,3.5vw,18px)] my-0.5 text-[var(--neon-green)] text-glow-green font-bold">
+              <div class="w-full flex justify-center text-center text-[clamp(14px,3.5vw,18px)] mt-1 mb-0 text-[var(--neon-green)] text-glow-green font-bold py-0">
                   <span class="score-display flex items-center justify-center gap-1.5">
                       <span id="game-player-money"></span>
                       <svg class="coin-icon-svg w-[1.1em] h-[1.1em]" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg>
@@ -104,10 +104,10 @@
               </div>
           </div>
 
-         <article id="slots-area" class="mt-1.5 sm:mt-2 md:mt-3" style="display:none;" aria-labelledby="slots-title">
+         <article id="slots-area" class="mt-1 sm:mt-2 shrink-0" style="display:none;" aria-labelledby="slots-title">
              <h3 id="slots-title" class="sr-only">Automat</h3>
-<div class="slot-machine p-3 sm:p-4 md:p-5 mb-2.5 sm:mb-4 md:mb-6" role="region" aria-label="Automat">
-                  <div class="slot-grid grid grid-cols-3 gap-2 h-[180px] overflow-hidden rounded-xl border border-[#1a1a2e] relative z-[1] bg-[#010104]">
+<div class="slot-machine p-2 sm:p-4 md:p-5 mb-2 sm:mb-4 md:mb-6 shrink-0" role="region" aria-label="Automat">
+                  <div class="slot-grid grid grid-cols-3 gap-2 h-[180px] shrink-0 overflow-hidden rounded-xl border border-[#1a1a2e] relative z-[1] bg-[#010104]">
                       <div class="slot-reel h-full relative border border-[rgba(0,240,255,0.15)] rounded-lg overflow-hidden"><div class="slot-reel-container absolute top-0 left-0 w-full flex flex-col" id="reel-container-0"></div></div>
                       <div class="slot-reel h-full relative border border-[rgba(0,240,255,0.15)] rounded-lg overflow-hidden"><div class="slot-reel-container absolute top-0 left-0 w-full flex flex-col" id="reel-container-1"></div></div>
                       <div class="slot-reel h-full relative border border-[rgba(0,240,255,0.15)] rounded-lg overflow-hidden"><div class="slot-reel-container absolute top-0 left-0 w-full flex flex-col" id="reel-container-2"></div></div>
