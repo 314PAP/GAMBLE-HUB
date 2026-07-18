@@ -208,23 +208,23 @@
  </div>
 
  <div id="explorer-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="explorer-modal-title" onclick="zavriExplorer()">
-      <div class="modal-content p-4 sm:p-5 w-[94vw] !max-w-[550px] max-h-[92vh] rounded-2xl flex flex-col gap-3 !overflow-hidden" role="document" onclick="event.stopPropagation()">
-          <h3 id="explorer-modal-title" class="modal-header shrink-0 mt-1 mb-2 sm:mb-3">Globální Historie & Žebříček</h3>
-          <div class="flex gap-2 mb-2 border-b border-[rgba(189,0,255,0.2)] pb-2 shrink-0">
-              <button id="explorer-tab-leaderboard" onclick="prepniExplorerTab('leaderboard')" class="flex-1 py-1.5 text-sm font-bold border-b-2 border-[var(--neon-orange)] text-[var(--neon-orange)] bg-transparent">
-                  <span class="leaderboard-tab-icon" aria-hidden="true">🏆</span> Celý Žebříček
+      <div class="modal-content p-3 sm:p-4 w-[94vw] !max-w-[550px] max-h-[92vh] rounded-2xl flex flex-col gap-2 !overflow-hidden" role="document" onclick="event.stopPropagation()">
+          <h3 id="explorer-modal-title" class="modal-header shrink-0 mt-0.5 mb-1.5 !text-[clamp(12px,3vw,15px)]">Globální Historie & Žebříček</h3>
+          <div class="flex gap-1.5 mb-1.5 border-b border-[rgba(189,0,255,0.2)] pb-1.5 shrink-0">
+              <button id="explorer-tab-leaderboard" onclick="prepniExplorerTab('leaderboard')" class="flex-1 py-1 text-xs font-bold border-b-2 border-[var(--neon-orange)] text-[var(--neon-orange)] bg-transparent">
+                  <span class="leaderboard-tab-icon" aria-hidden="true">🏆</span> Žebříček
               </button>
-              <button id="explorer-tab-history" onclick="prepniExplorerTab('history')" class="flex-1 py-1.5 text-sm font-bold border-b-2 border-transparent text-[var(--neon-gold)] bg-transparent">
-                  <span aria-hidden="true">📜</span> <span>Globální Historie</span>
+              <button id="explorer-tab-history" onclick="prepniExplorerTab('history')" class="flex-1 py-1 text-xs font-bold border-b-2 border-transparent text-[var(--neon-gold)] bg-transparent">
+                  <span aria-hidden="true">📜</span> <span>Historie</span>
               </button>
           </div>
           <div id="explorer-sec-leaderboard" class="flex-1 flex flex-col min-h-0">
-              <div id="explorer-leaderboard-list" role="list" class="flex-1 overflow-y-auto flex flex-col gap-1.5 px-1 pb-1"></div>
+               <div id="explorer-leaderboard-list" role="list" class="flex-1 overflow-y-auto flex flex-col gap-1.5 px-1 pb-1"></div>
           </div>
           <div id="explorer-sec-history" class="flex-1 flex flex-col min-h-0" style="display: none;">
-               <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-2 shrink-0">
-                   <input type="text" id="history-search" aria-label="Hledat v historii" class="col-span-2 sm:col-span-1 text-sm bg-[rgba(13,0,26,0.6)] border border-[var(--neon-purple)] rounded-xl px-3 py-2 text-[var(--neon-gold)]" placeholder="Hledat hráče..." oninput="filtrujHistorii()">
-                   <select id="history-filter-game" aria-label="Filtr podle hry" class="col-span-1 text-sm bg-[rgba(13,0,26,0.6)] border border-[var(--neon-purple)] rounded-xl px-2 py-2 text-[var(--neon-gold)]" onchange="filtrujHistorii()">
+               <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5 mb-1.5 shrink-0">
+                   <input type="text" id="history-search" aria-label="Hledat v historii" class="col-span-2 sm:col-span-1 text-xs bg-[rgba(13,0,26,0.6)] border border-[var(--neon-purple)] rounded-xl px-2 py-1.5 text-[var(--neon-gold)]" placeholder="Hledat..." oninput="filtrujHistorii()">
+                   <select id="history-filter-game" aria-label="Filtr podle hry" class="col-span-1 text-xs bg-[rgba(13,0,26,0.6)] border border-[var(--neon-purple)] rounded-xl px-1.5 py-1.5 text-[var(--neon-gold)]" onchange="filtrujHistorii()">
                       <option value="">Hry</option>
                       <option value="Bary3x3">Automat</option>
                       <option value="VíceMéně">HI-LOW</option>
@@ -233,21 +233,21 @@
                       <option value="Hádanka 1-5">Hádanka 1-5</option>
                       <option value="Kostka">Kostka</option>
                   </select>
-                  <select id="history-filter-result" aria-label="Filtr podle výsledku" class="col-span-1 text-sm bg-[rgba(13,0,26,0.6)] border border-[var(--neon-purple)] rounded-xl px-2 py-2 text-[var(--neon-gold)]" onchange="filtrujHistorii()">
+                  <select id="history-filter-result" aria-label="Filtr podle výsledku" class="col-span-1 text-xs bg-[rgba(13,0,26,0.6)] border border-[var(--neon-purple)] rounded-xl px-1.5 py-1.5 text-[var(--neon-gold)]" onchange="filtrujHistorii()">
                       <option value="">Výsledek</option>
-                      <option value="win">Pouze výhry</option>
-                      <option value="loss">Pouze prohry</option>
+                      <option value="win">Výhry</option>
+                      <option value="loss">Prohry</option>
                   </select>
               </div>
-              <div class="flex justify-between items-center px-2 py-1 text-[clamp(10px,2.5vw,11px)] text-[var(--neon-gold)] uppercase font-bold tracking-wider border-b border-[rgba(189,0,255,0.2)] mb-1.5 shrink-0" role="row">
-                  <button onclick="seradHistorii('timestamp')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(10px,2.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-cyan)] text-glow-gold">Čas ⇅</button>
-                  <button onclick="seradHistorii('username')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(10px,2.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-cyan)] text-glow-gold">Hráč ⇅</button>
-                  <button onclick="seradHistorii('winAmount')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(10px,2.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-cyan)] text-glow-gold">Výhra ⇅</button>
+              <div class="flex justify-between items-center px-2 py-0.5 text-[clamp(9px,2.2vw,10.5px)] text-[var(--neon-gold)] uppercase font-bold tracking-wider border-b border-[rgba(189,0,255,0.2)] mb-1 shrink-0" role="row">
+                  <button onclick="seradHistorii('timestamp')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,2.2vw,10.5px)] text-[var(--neon-gold)] hover:text-[var(--neon-cyan)] text-glow-gold">Čas ⇅</button>
+                  <button onclick="seradHistorii('username')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,2.2vw,10.5px)] text-[var(--neon-gold)] hover:text-[var(--neon-cyan)] text-glow-gold">Hráč ⇅</button>
+                  <button onclick="seradHistorii('winAmount')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,2.2vw,10.5px)] text-[var(--neon-gold)] hover:text-[var(--neon-cyan)] text-glow-gold">Výhra ⇅</button>
               </div>
-              <div id="explorer-history-list" role="list" class="flex-1 overflow-y-auto flex flex-col gap-1.5 px-1 pb-1"></div>
+              <div id="explorer-history-list" role="list" class="flex-1 overflow-y-auto flex flex-col gap-1 px-1 pb-0.5"></div>
           </div>
-          <div class="text-center pt-2 shrink-0">
-              <button class="btn btn-danger w-full px-4 py-2 inline-block" onclick="zavriExplorer()" aria-label="Zavřít explorer">Zavřít</button>
+          <div class="text-center pt-1 shrink-0">
+              <button class="btn btn-danger w-full px-4 py-1.5 inline-block text-xs sm:text-sm" onclick="zavriExplorer()" aria-label="Zavřít explorer">Zavřít</button>
           </div>
       </div>
   </div>
