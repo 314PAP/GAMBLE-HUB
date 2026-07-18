@@ -38,7 +38,7 @@ export class SlotMachineGame {
       
       items.forEach(sym => {
         const cell = document.createElement('div');
-        cell.className = `slot-cell ${symbolClasses[sym] || 'sym-default'}`;
+        cell.className = `slot-cell flex items-center justify-center ${symbolClasses[sym] || 'sym-default'}`;
         cell.innerText = sym;
         container.appendChild(cell);
       });
@@ -90,7 +90,7 @@ export class SlotMachineGame {
       container.innerHTML = '';
       spinSymbols.forEach(sym => {
         const cell = document.createElement('div');
-        cell.className = `slot-cell ${symbolClasses[sym] || 'sym-default'}`;
+        cell.className = `slot-cell flex items-center justify-center ${symbolClasses[sym] || 'sym-default'}`;
         cell.innerText = sym;
         container.appendChild(cell);
       });
