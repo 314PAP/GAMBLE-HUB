@@ -97,6 +97,16 @@ window.smazatUcet = (username) => {
       if (panel) panel.style.display = 'none';
     };
 
+    window.otevriInstalaciInfo = () => {
+      const panel = document.getElementById('install-panel');
+      if (panel) panel.style.display = 'flex';
+    };
+
+    window.zavriInstalaciInfo = () => {
+      const panel = document.getElementById('install-panel');
+      if (panel) panel.style.display = 'none';
+    };
+
     window.spustitHru = (gameId) => {
       this.gm.launchGame(gameId);
     };

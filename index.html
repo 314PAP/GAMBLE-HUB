@@ -272,6 +272,7 @@
               <p class="text-white text-base">🎰 <strong class="text-[var(--neon-gold)]">Hrajte v klidu!</strong> 🎰</p>
               <p class="text-[var(--text-secondary)]">Tato hra byla vytvořena čistě pro relax a zábavu. Nelze v ní prohrát ani vyhrát žádné skutečné peníze (ani ty pomyslné vám nikdo nevezme!).</p>
               <p class="text-[var(--text-secondary)]">Přejeme vám příjemnou a ničím nerušenou zábavu při točení válců!</p>
+              <button class="btn btn-primary w-full px-4 py-2 mt-2" onclick="otevriInstalaciInfo()">Nainstalovat aplikaci</button>
               <div class="border-t border-[rgba(255,255,255,0.06)] pt-4 mt-2">
                   <p class="text-xs text-[var(--text-muted)] mb-1">Máte dotaz nebo nápad?</p>
                   <a href="mailto:gamble@pipap.cz" class="text-[var(--neon-cyan)] text-glow-cyan font-semibold hover:underline">gamble@pipap.cz</a>
@@ -279,6 +280,25 @@
           </div>
       </div>
   </div>
+
+ <div id="install-panel" class="info-panel p-2.5 sm:p-3 md:p-4" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="install-panel-title" onclick="zavriInstalaciInfo()">
+      <div class="info-panel-content p-3 sm:p-4 md:p-5 w-full max-w-[420px] rounded-2xl border-2 border-[var(--neon-cyan)] overflow-hidden" role="document" onclick="event.stopPropagation()">
+         <div class="info-panel-header flex justify-between items-center px-3 sm:px-4 md:px-5 py-2.5 sm:py-3 md:py-4 border-b border-[rgba(255,255,255,0.06)]">
+             <span id="install-panel-title" class="text-[var(--neon-cyan)] text-glow-cyan font-['Orbitron'] uppercase tracking-wider font-bold">Jak nainstalovat</span>
+             <button class="info-panel-close w-8 h-8 flex items-center justify-center rounded-full text-[var(--neon-cyan)] hover:text-white border border-[var(--neon-cyan)] bg-transparent cursor-pointer" onclick="zavriInstalaciInfo()" aria-label="Zavřít informace">✕</button>
+         </div>
+         <div class="info-panel-body p-4 sm:p-5 text-sm leading-relaxed max-h-[60vh] overflow-y-auto flex flex-col gap-4">
+             <div>
+                 <h4 class="text-[var(--neon-orange)] font-bold text-base mb-1">🤖 Pro Android / Chrome:</h4>
+                 <p class="text-[var(--text-secondary)]">Klikněte na ikonu tří teček v prohlížeči a zvolte <strong class="text-white">Nainstalovat aplikaci</strong> nebo <strong class="text-white">Přidat na plochu</strong>.</p>
+             </div>
+             <div class="border-t border-[rgba(255,255,255,0.06)] pt-3">
+                 <h4 class="text-[var(--neon-pink)] font-bold text-base mb-1">🍏 Pro iPhone / Safari:</h4>
+                 <p class="text-[var(--text-secondary)]">Klepněte na tlačítko sdílení <span aria-hidden="true">📤</span> (čtvereček se šipkou nahoru) a zvolte možnost <strong class="text-white">Přidat na plochu</strong>.</p>
+             </div>
+         </div>
+     </div>
+ </div>
 
 <div id="delete-confirm-dialog" class="delete-confirm-dialog hidden fixed inset-0 flex items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="delete-confirm-title" onclick="zavriDeleteConfirm()">
 <div class="delete-confirm-content rounded-2xl" role="document" onclick="event.stopPropagation()">
