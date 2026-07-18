@@ -99,4 +99,14 @@ document.addEventListener('DOMContentLoaded', () => {
   if (spinBtn) {
     initIdlePulse(spinBtn);
   }
+
+  // Auto-hide address bar on mobile devices
+  const hideAddressBar = () => {
+    if (window.innerWidth <= 640 && window.scrollY === 0) {
+      window.scrollTo(0, 1);
+    }
+  };
+  setTimeout(hideAddressBar, 800);
+  document.addEventListener('touchstart', hideAddressBar, { once: true });
+  document.addEventListener('click', hideAddressBar, { once: true });
 });
