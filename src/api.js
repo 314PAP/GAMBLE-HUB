@@ -28,7 +28,7 @@ export class API {
   async getGlobalLeaderboard() {
     if (this.isOnline) {
       try {
-        const q = query(collection(this.firestore, "leaderboard"), orderBy("castka", "desc"), limit(10));
+        const q = query(collection(this.firestore, "leaderboard"), orderBy("castka", "desc"), limit(33));
         const querySnapshot = await getDocs(q);
         const results = [];
         querySnapshot.forEach((doc) => {
