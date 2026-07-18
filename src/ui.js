@@ -135,8 +135,12 @@ export class GameUI {
       resBox.style.borderColor = 'var(--neon-gold)';
       resBox.style.boxShadow = '0 10px 25px rgba(0,0,0,0.5), 0 0 20px var(--neon-gold-glow), 0 0 40px var(--neon-gold-glow)';
       resBox.innerHTML = `
-        <span class="text-[var(--neon-gold)] text-lg font-bold text-glow-gold">🎉 +${this.formatLargeNumber(winAmount)} Kč ${isJackpot ? '🔥' : ''}</span>
-        <br><small class="text-[var(--neon-gold)]">${resultText}</small>
+        <span class="text-[var(--neon-gold)] text-lg font-bold text-glow-gold flex items-center justify-center gap-1.5">
+          <span>🎉 +${this.formatLargeNumber(winAmount)}</span>
+          <svg class="coin-icon-svg w-[1.1em] h-[1.1em]" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg>
+          ${isJackpot ? '🔥' : ''}
+        </span>
+        <small class="text-[var(--neon-gold)] block mt-1">${resultText}</small>
       `;
 
       gsap.set(resBox, { opacity: 0, scale: 0.8, y: 20 });
