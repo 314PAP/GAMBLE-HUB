@@ -87,6 +87,16 @@ window.smazatUcet = (username) => {
       window.zpetDoMenu();
     };
 
+    window.otevriDisclaimer = () => {
+      const panel = document.getElementById('disclaimer-panel');
+      if (panel) panel.style.display = 'flex';
+    };
+
+    window.zavriDisclaimer = () => {
+      const panel = document.getElementById('disclaimer-panel');
+      if (panel) panel.style.display = 'none';
+    };
+
     window.spustitHru = (gameId) => {
       this.gm.launchGame(gameId);
     };

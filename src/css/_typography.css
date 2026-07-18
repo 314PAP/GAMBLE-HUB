@@ -95,3 +95,15 @@ h3 {
   white-space: nowrap;
   border: 0;
 }
+
+/* === WARNING PULSE ANIMATION === */
+@keyframes warningPulse {
+  0%, 100% {
+    opacity: 0.4;
+    text-shadow: 0 0 4px rgba(255, 0, 127, 0.5);
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 15px rgba(255, 0, 127, 1), 0 0 25px rgba(255, 0, 127, 0.8);
+  }
+}

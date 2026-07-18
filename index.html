@@ -34,6 +34,11 @@
              <button type="button" id="btn-enter" class="btn btn-primary text-sm sm:text-base md:text-lg w-full px-4 py-2" onclick="otevriPrihlaseni()">VSTOUPIT</button>
              <button type="button" id="btn-create-player" class="btn btn-success w-full px-4 py-2" onclick="otevriRegistraci()">NOVÝ HRÁČ</button>
          </div>
+         <div class="text-center mt-5">
+              <button onclick="otevriDisclaimer()" class="text-[clamp(10px,2.5vw,11px)] tracking-widest text-[#ff007f] font-['Orbitron'] font-bold hover:text-white uppercase transition-all duration-300 animate-[warningPulse_1.5s_infinite] bg-transparent border-0 cursor-pointer text-glow-pink">
+                  ⚠️ WARNING / DISKLEJMR ⚠️
+              </button>
+          </div>
      </section>
 
      <section id="screen-select-user" class="screen p-2.5 sm:p-3 md:p-5" aria-labelledby="select-user-title">
@@ -251,6 +256,24 @@
          <div id="info-panel-body" class="info-panel-body p-3 sm:p-4 md:p-5 text-sm leading-relaxed max-h-[60vh] overflow-y-auto"></div>
      </div>
  </div>
+
+<div id="disclaimer-panel" class="info-panel p-2.5 sm:p-3 md:p-4" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="disclaimer-panel-title" onclick="zavriDisclaimer()">
+       <div class="info-panel-content p-3 sm:p-4 md:p-5 w-full max-w-[420px] rounded-2xl border-2 border-[#ff007f] overflow-hidden" role="document" onclick="event.stopPropagation()">
+          <div class="info-panel-header flex justify-between items-center px-3 sm:px-4 md:px-5 py-2.5 sm:py-3 md:py-4 border-b border-[rgba(255,255,255,0.06)]">
+              <span id="disclaimer-panel-title" class="text-[var(--neon-pink)] text-glow-pink font-['Orbitron'] uppercase tracking-wider font-bold">Upozornění</span>
+              <button class="info-panel-close w-8 h-8 flex items-center justify-center rounded-full text-[var(--neon-pink)] hover:text-white border border-[var(--neon-pink)] bg-transparent cursor-pointer" onclick="zavriDisclaimer()" aria-label="Zavřít upozornění">✕</button>
+          </div>
+          <div id="disclaimer-panel-body" class="info-panel-body p-4 sm:p-5 text-sm leading-relaxed max-h-[60vh] overflow-y-auto text-center flex flex-col gap-4">
+              <p class="text-white text-base">🎰 <strong class="text-[var(--neon-gold)]">Hrajte v klidu!</strong> 🎰</p>
+              <p class="text-[var(--text-secondary)]">Tato hra byla vytvořena čistě pro relax a zábavu. Nelze v ní prohrát ani vyhrát žádné skutečné peníze (ani ty pomyslné vám nikdo nevezme!).</p>
+              <p class="text-[var(--text-secondary)]">Přejeme vám příjemnou a ničím nerušenou zábavu při točení válců!</p>
+              <div class="border-t border-[rgba(255,255,255,0.06)] pt-4 mt-2">
+                  <p class="text-xs text-[var(--text-muted)] mb-1">Máte dotaz nebo nápad?</p>
+                  <a href="mailto:gamble@pipap.cz" class="text-[var(--neon-cyan)] text-glow-cyan font-semibold hover:underline">gamble@pipap.cz</a>
+              </div>
+          </div>
+      </div>
+  </div>
 
 <div id="delete-confirm-dialog" class="delete-confirm-dialog hidden fixed inset-0 flex items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="delete-confirm-title" onclick="zavriDeleteConfirm()">
 <div class="delete-confirm-content rounded-2xl" role="document" onclick="event.stopPropagation()">
