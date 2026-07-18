@@ -21,7 +21,14 @@ export class GlobalEventHandlers {
     window.otevriRegistraci = () => {
       const regInput = document.getElementById('reg-name');
       if (regInput) regInput.value = '';
-      if (window.grecaptcha) {
+      
+      const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      const recaptchaWrapper = document.querySelector('.g-recaptcha')?.parentElement;
+      if (recaptchaWrapper) {
+        recaptchaWrapper.style.display = isLocal ? 'none' : 'flex';
+      }
+
+      if (window.grecaptcha && !isLocal) {
         try {
           window.grecaptcha.reset();
         } catch (e) {
@@ -79,8 +86,9 @@ window.smazatUcet = (username) => {
       const regInput = document.getElementById('reg-name');
       if (!regInput) return;
       
-      // Verify reCAPTCHA
-      if (window.grecaptcha) {
+      // Verify reCAPTCHA (bypassed on localhost)
+      const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      if (window.grecaptcha && !isLocal) {
         const response = window.grecaptcha.getResponse();
         if (!response) {
           this.ui.showAlert('warning', 'Ochrana reCAPTCHA', 'Pro vytvoření účtu potvrďte, že nejste robot.');
