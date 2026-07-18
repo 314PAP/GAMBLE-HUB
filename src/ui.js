@@ -204,7 +204,7 @@ export class GameUI {
   }
 
   // Highlights selected bet button and manages custom bets layout
-  updateBetButtonsSelection(activeBet, presetBets = [10, 20, 50, 100]) {
+  updateBetButtonsSelection(activeBet, presetBets = [10, 20, 50, 100, 1000, 10000, 100000, 1000000, 10000000]) {
     presetBets.forEach(val => {
       const btn = document.getElementById(`bet-${val}`);
       if (btn) {

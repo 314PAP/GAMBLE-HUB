@@ -123,12 +123,42 @@ window.smazatUcet = (username) => {
     window.potvrditVlastniSazku = () => {
       const input = document.getElementById('game-sazka');
       if (!input) return;
-      const val = parseInt(input.value);
-      if (isNaN(val) || val <= 0) {
-        this.ui.showAlert('warning', 'Chybná částka', 'Zadejte platnou kladnou částku!');
+      
+      let rawText = input.value.trim().toLowerCase().replace(/\s+/g, '').replace(',', '.');
+      if (!rawText) {
+        this.ui.showAlert('warning', 'Chybná sázka', 'Zadejte platnou částku!');
         return;
       }
-      this.gm.setBet(val);
+
+      let multiplier = 1;
+      const suffixes = [
+        { key: 'qd', val: 1e27 },
+        { key: 'q',  val: 1e24 },
+        { key: 'td', val: 1e21 },
+        { key: 't',  val: 1e18 },
+        { key: 'bld',val: 1e15 },
+        { key: 'b',  val: 1e12 },
+        { key: 'mld',val: 1e9 },
+        { key: 'm',  val: 1e6 },
+        { key: 'k',  val: 1e3 }
+      ];
+
+      for (let i = 0; i < suffixes.length; i++) {
+        if (rawText.endsWith(suffixes[i].key)) {
+          multiplier = suffixes[i].val;
+          rawText = rawText.slice(0, -suffixes[i].key.length);
+          break;
+        }
+      }
+
+      const numVal = parseFloat(rawText);
+      if (isNaN(numVal) || numVal <= 0) {
+        this.ui.showAlert('warning', 'Chybná sázka', 'Zadejte platnou kladnou částku (např. 100, 1.5k, 10m)!');
+        return;
+      }
+
+      const finalBet = Math.round(numVal * multiplier);
+      this.gm.setBet(finalBet);
       const area = document.getElementById('custom-sazka-area');
       if (area) area.style.display = 'none';
     };

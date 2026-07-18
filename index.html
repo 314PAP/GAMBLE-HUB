@@ -164,10 +164,15 @@
              <button class="btn btn-bet text-[clamp(10px,2.5vw,10px)] sm:text-xs py-1 px-0.5 min-w-[36px]" id="bet-cust" onclick="ukazVlastniSazku()" aria-label="Vlastní sázka">
                  <span aria-hidden="true">•••</span>
              </button>
+             <button class="btn btn-bet text-[clamp(10px,2.5vw,10px)] sm:text-xs py-1 px-0.5" id="bet-1000" onclick="nastavSazku(1000)">1K</button>
+             <button class="btn btn-bet text-[clamp(10px,2.5vw,10px)] sm:text-xs py-1 px-0.5" id="bet-10000" onclick="nastavSazku(10000)">10K</button>
+             <button class="btn btn-bet text-[clamp(10px,2.5vw,10px)] sm:text-xs py-1 px-0.5" id="bet-100000" onclick="nastavSazku(100000)">100K</button>
+             <button class="btn btn-bet text-[clamp(10px,2.5vw,10px)] sm:text-xs py-1 px-0.5" id="bet-1000000" onclick="nastavSazku(1000000)">1M</button>
+             <button class="btn btn-bet text-[clamp(10px,2.5vw,10px)] sm:text-xs py-1 px-0.5" id="bet-10000000" onclick="nastavSazku(10000000)">10M</button>
          </div>
 
          <div id="custom-sazka-area" class="mt-1.5 sm:mt-2 md:mt-3" style="display:none;" role="region" aria-label="Vlastní sázka">
-             <input type="number" id="game-sazka" placeholder="Vlastní sázka + Enter" aria-label="Zadej vlastní částku" onkeydown="checkEnter(event, potvrditVlastniSazku)" class="px-2.5 sm:px-3 md:px-3.5 py-2.5 sm:py-3 md:py-3.5 mb-2 sm:mb-3 md:mb-4">
+             <input type="text" id="game-sazka" placeholder="Např. 1.5k, 10m + Enter" aria-label="Zadej vlastní částku" onkeydown="checkEnter(event, potvrditVlastniSazku)" class="px-2.5 sm:px-3 md:px-3.5 py-2.5 sm:py-3 md:py-3.5 mb-2 sm:mb-3 md:mb-4">
          </div>
 
          <div id="game-result" class="status-box absolute bottom-[clamp(100px,22vh,160px)] left-4 right-4 p-3 rounded-xl border-2 border-[#1a1a2e] text-center text-xs sm:text-sm z-[90]" role="status" aria-live="polite" style="display:none;"></div>
