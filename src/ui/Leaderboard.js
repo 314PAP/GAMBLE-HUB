@@ -41,7 +41,7 @@ if (scores.length === 0) {
       scores.slice(0, 5).forEach((record, idx) => {
         const medal = medals[idx] || `#${idx + 1}`;
         html += `
-            <div class="py-2 my-0.5 flex justify-between items-center">
+            <div class="py-1 my-0 flex justify-between items-center">
               <div class="flex items-center gap-2">
                 <span class="font-bold text-[var(--neon-gold)] text-lg w-6 text-glow-gold">${medal}</span>
                 <span class="scoreboard-name text-[var(--neon-gold)] font-semibold text-lg flex-1 min-w-0">${this.wrapEmoji(record.jmeno)}</span>
