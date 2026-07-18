@@ -74,12 +74,12 @@ if (scores.length === 0) {
       const medal = medals[originalIdx] || `#${originalIdx + 1}`;
 
       html += `
-        <div role="listitem" class="py-2 my-1 flex justify-between items-center">
-          <div class="flex items-center gap-2">
-            <span class="font-bold text-[var(--neon-gold)] w-6 text-glow-gold">${medal}</span>
-            <span class="scoreboard-name text-[var(--neon-gold)] font-semibold flex-1 min-w-0">${this.wrapEmoji(record.jmeno)}</span>
+        <div role="listitem" class="py-1 my-0 flex justify-between items-center gap-2 border-b border-[rgba(255,255,255,0.03)] last:border-b-0">
+          <div class="flex items-center gap-1.5 min-w-0 flex-1">
+            <span class="font-bold text-[var(--neon-gold)] text-[clamp(11px,3.8vw,16px)] w-[clamp(14px,4.5vw,22px)] shrink-0 text-glow-gold text-center">${medal}</span>
+            <span class="scoreboard-name text-[var(--neon-gold)] font-semibold !text-[clamp(11px,3.8vw,16px)] flex-1 min-w-0 truncate">${this.wrapEmoji(record.jmeno)}</span>
           </div>
-          <span class="score-display inline-flex items-center gap-1 font-bold text-[var(--neon-green)] text-glow-green">${this.formatLargeNumber(record.castka)}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span>
+          <span class="score-display inline-flex items-center gap-1 font-bold text-[var(--neon-green)] text-[clamp(11px,3.8vw,16px)] text-glow-green shrink-0">${this.formatLargeNumber(record.castka)}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span>
         </div>
       `;
     });

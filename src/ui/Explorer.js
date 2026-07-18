@@ -73,13 +73,13 @@ renderHistory(filteredData = null) {
       else if (item.gameName === 'VíceMéně') gameLabel = 'HI-LOW';
 
       html += `
-        <div role="listitem" class="py-1 my-1 flex justify-between items-center rounded-xl bg-[rgba(189,0,255,0.04)]">
-          <div class="flex flex-col gap-0.5 pl-1">
-            <span class="font-semibold text-[var(--neon-gold)] scoreboard-name text-glow-gold">${this.wrapEmoji(item.username)}</span>
-            <span class="text-[10px] text-[var(--text-secondary)]">${gameLabel} – ${timeString}</span>
+        <div role="listitem" class="py-1 my-0.5 flex justify-between items-center rounded-xl bg-[rgba(189,0,255,0.04)] gap-2">
+          <div class="flex flex-col gap-0.5 pl-2 min-w-0 flex-1">
+            <span class="font-semibold text-[var(--neon-gold)] scoreboard-name !text-[clamp(11px,3.8vw,15px)] text-glow-gold truncate">${this.wrapEmoji(item.username)}</span>
+            <span class="text-[10px] text-[var(--text-secondary)] truncate">${gameLabel} – ${timeString}</span>
           </div>
-          <div class="flex flex-col items-end gap-0.5 pr-1">
-            <span class="font-bold ${isWin ? 'text-[var(--neon-green)] text-glow-green' : 'text-[var(--neon-pink)] text-glow-pink'}">${formattedWin}</span>
+          <div class="flex flex-col items-end gap-0.5 pr-2 shrink-0">
+            <span class="font-bold ${isWin ? 'text-[var(--neon-green)] text-glow-green' : 'text-[var(--neon-pink)] text-glow-pink'} text-[clamp(11px,3.8vw,15px)]">${formattedWin}</span>
             <span class="text-[10px] text-[var(--neon-gold)] opacity-75">${item.resultText || ''}</span>
           </div>
         </div>

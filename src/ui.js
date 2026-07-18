@@ -286,7 +286,7 @@ export class GameUI {
         tabHistory.classList.remove('border-[#ff9f1c]', 'text-[#ff9f1c]');
         tabHistory.classList.add('border-transparent', 'text-[#ffd700]');
       }
-      if (secLeaderboard) secLeaderboard.style.display = 'block';
+      if (secLeaderboard) secLeaderboard.style.display = 'flex';
       if (secHistory) secHistory.style.display = 'none';
     } else {
       if (tabHistory) {
@@ -298,7 +298,7 @@ export class GameUI {
         tabLeaderboard.classList.add('border-transparent', 'text-[#ffd700]');
       }
       if (secLeaderboard) secLeaderboard.style.display = 'none';
-      if (secHistory) secHistory.style.display = 'block';
+      if (secHistory) secHistory.style.display = 'flex';
     }
   }
 
