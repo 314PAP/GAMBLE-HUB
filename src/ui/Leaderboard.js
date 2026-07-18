@@ -42,8 +42,8 @@ if (scores.length === 0) {
         const medal = medals[idx] || `#${idx + 1}`;
         html += `
             <div class="py-1 my-0 flex justify-between items-center">
-              <div class="flex items-center gap-2">
-                <span class="font-bold text-[var(--neon-gold)] text-lg w-6 text-glow-gold">${medal}</span>
+              <div class="flex items-center gap-1">
+                <span class="font-bold text-[var(--neon-gold)] text-lg w-4 text-glow-gold">${medal}</span>
                 <span class="scoreboard-name text-[var(--neon-gold)] font-semibold text-lg flex-1 min-w-0">${this.wrapEmoji(record.jmeno)}</span>
               </div>
               <span class="score-display inline-flex items-center gap-1 font-bold text-[var(--neon-green)] text-lg text-glow-green">${this.formatLargeNumber(record.castka)}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span>

@@ -34,16 +34,8 @@
   border-radius: 16px;
 }
 
-/* === GAME HEADER BAR === */
-.game-header-bar {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  justify-content: space-between;
-}
-
 /* Responsive font sizes inside header – CSS fallback for JS-independent rendering */
-.game-header-bar .game-title {
+.game-title {
   font-size: clamp(10px, 3vw, 15px);
 }
 
