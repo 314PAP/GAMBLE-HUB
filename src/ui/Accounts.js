@@ -1,15 +1,12 @@
+import { formatLargeNumber } from '../utils.js';
+
 export class AccountsManager {
   constructor(ui) {
     this.ui = ui;
   }
 
   formatLargeNumber(num) {
-    if (num >= 1000000) {
-      return (num / 1000000).toFixed(3).replace(/\.?0+$/, '') + ' M';
-    } else if (num >= 1000) {
-      return (num / 1000).toFixed(3).replace(/\.?0+$/, '') + ' K';
-    }
-    return num.toString();
+    return formatLargeNumber(num);
   }
 
   wrapEmoji(text) {

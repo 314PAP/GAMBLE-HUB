@@ -1,5 +1,6 @@
 import gsap from 'gsap';
 import { sound } from '../sound';
+import { formatLargeNumber } from '../utils.js';
 
 const symbolClasses = {
   "🍒": "sym-cherry",
@@ -195,7 +196,7 @@ export class SlotMachineGame {
       isWin,
       winAmount,
       isJackpot,
-      resultText: isJackpot ? '🔥 JACKPOT 777! 🔥' : `VÝHRA: ${winAmount} Kč`
+      resultText: isJackpot ? '🔥 JACKPOT 777! 🔥' : `VÝHRA: ${formatLargeNumber(winAmount)} Kč`
     });
   }
 }

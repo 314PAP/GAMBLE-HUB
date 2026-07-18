@@ -1,3 +1,5 @@
+import { formatLargeNumber } from '../utils.js';
+
 export class ExplorerManager {
   constructor(ui) {
     this.ui = ui;
@@ -63,7 +65,7 @@ renderHistory(filteredData = null) {
     data.forEach(item => {
       const isWin = item.isWin;
       const winVal = item.winAmount;
-      const formattedWin = winVal > 0 ? `+${winVal} Kč` : `${winVal} Kč`;
+      const formattedWin = winVal > 0 ? `+${formatLargeNumber(winVal)} Kč` : `${formatLargeNumber(winVal)} Kč`;
       const timeString = item.timestamp ? new Date(item.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'}) : '';
 
       let gameLabel = item.gameName;

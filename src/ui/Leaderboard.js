@@ -1,15 +1,12 @@
+import { formatLargeNumber } from '../utils.js';
+
 export class LeaderboardManager {
   constructor(ui) {
     this.ui = ui;
   }
 
   formatLargeNumber(num) {
-    if (num >= 1000000) {
-      return (num / 1000000).toFixed(3).replace(/\.?0+$/, '') + ' M';
-    } else if (num >= 1000) {
-      return (num / 1000).toFixed(3).replace(/\.?0+$/, '') + ' K';
-    }
-    return num.toString();
+    return formatLargeNumber(num);
   }
 
   wrapEmoji(text) {
@@ -82,7 +79,7 @@ if (scores.length === 0) {
             <span class="font-bold text-[var(--neon-gold)] w-6 text-glow-gold">${medal}</span>
             <span class="scoreboard-name text-[var(--neon-gold)] font-semibold flex-1 min-w-0">${this.wrapEmoji(record.jmeno)}</span>
           </div>
-          <span class="score-display inline-flex items-center gap-1 font-bold text-[var(--neon-green)] text-glow-green">${record.castka}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span>
+          <span class="score-display inline-flex items-center gap-1 font-bold text-[var(--neon-green)] text-glow-green">${this.formatLargeNumber(record.castka)}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span>
         </div>
       `;
     });

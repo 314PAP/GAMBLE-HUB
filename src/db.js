@@ -1,4 +1,5 @@
 // Database manager using LocalStorage to keep track of players, stats and leaderboard
+import { formatLargeNumber } from './utils.js';
 
 export class GameDatabase {
   constructor() {
@@ -88,7 +89,7 @@ export class GameDatabase {
       this.statistiky[username].prohry++;
     }
 
-    const matchString = `${gameName} (${bet} Kč) – ${isWin ? 'VÝHRA' : 'PROHRA'}`;
+    const matchString = `${gameName} (${formatLargeNumber(bet)} Kč) – ${isWin ? 'VÝHRA' : 'PROHRA'}`;
     this.statistiky[username].historie.unshift(matchString);
     this.statistiky[username].historie = this.statistiky[username].historie.slice(0, 10); // Keep last 10 records for better stats
     this.saveAll();

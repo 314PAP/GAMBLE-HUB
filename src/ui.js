@@ -9,6 +9,7 @@ import { StatsManager } from './ui/Stats.js';
 import { AccountsManager } from './ui/Accounts.js';
 import { DeleteConfirmDialog } from './ui/DeleteConfirm.js';
 import { sound } from './sound';
+import { formatLargeNumber } from './utils.js';
 
 export class GameUI {
   constructor(db, api) {
@@ -82,6 +83,10 @@ export class GameUI {
     return this.accounts.render(onSelect, onDelete);
   }
 
+  formatLargeNumber(num) {
+    return formatLargeNumber(num);
+  }
+
   // Updates player profile info in the navigation bars
   updateMiniProfile(username, balance) {
     const hubName = document.getElementById('hub-player-name');
@@ -89,8 +94,8 @@ export class GameUI {
     const gameMoney = document.getElementById('game-player-money');
 
     if (hubName) hubName.innerText = username;
-    if (hubMoney) hubMoney.innerText = balance;
-    if (gameMoney) gameMoney.innerText = balance;
+    if (hubMoney) hubMoney.innerText = this.formatLargeNumber(balance);
+    if (gameMoney) gameMoney.innerText = this.formatLargeNumber(balance);
   }
 
   // Confetti effects when winning money
@@ -130,7 +135,7 @@ export class GameUI {
       resBox.style.borderColor = 'var(--neon-gold)';
       resBox.style.boxShadow = '0 10px 25px rgba(0,0,0,0.5), 0 0 20px var(--neon-gold-glow), 0 0 40px var(--neon-gold-glow)';
       resBox.innerHTML = `
-        <span class="text-[var(--neon-gold)] text-lg font-bold text-glow-gold">🎉 +${winAmount} Kč ${isJackpot ? '🔥' : ''}</span>
+        <span class="text-[var(--neon-gold)] text-lg font-bold text-glow-gold">🎉 +${this.formatLargeNumber(winAmount)} Kč ${isJackpot ? '🔥' : ''}</span>
         <br><small class="text-[var(--neon-gold)]">${resultText}</small>
       `;
 
