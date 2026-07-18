@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
       window.scrollTo(0, 1);
     }
   };
-  setTimeout(hideAddressBar, 800);
+  setTimeout(hideAddressBar, 2000);
   document.addEventListener('touchstart', hideAddressBar, { once: true });
   document.addEventListener('click', hideAddressBar, { once: true });
 });
