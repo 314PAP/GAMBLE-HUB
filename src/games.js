@@ -6,7 +6,7 @@ import { HiloGame } from './games/hilo';
 import { GuessingGame } from './games/guessing';
 import { DiceGame } from './games/dice';
 import { sound } from './sound';
-import { animateAutoSpinGlow, stopAutoSpinGlow } from './animations/ui';
+import { animateBetButtonsGlow, stopBetButtonsGlow } from './animations/ui';
 
 export class GameManager {
   constructor(db, ui, api) {
@@ -207,50 +207,56 @@ export class GameManager {
     this.ui.showScreen('screen-socka');
   }
 
-  // Play Dice game
-  playDiceGame() {
-    if (!this._startRound()) return;
-    if (this.dice.selectedNumber === null) {
-      this.ui.showAlert('warning', 'Vyber číslo', 'Nejprve klikni na kostku, na kterou vsadíš!');
-      return;
-    }
+// Play Dice game
+   playDiceGame() {
+     if (!this._startRound()) return;
+     if (this.dice.selectedNumber === null) {
+       this.ui.showAlert('warning', 'Vyber číslo', 'Nejprve klikni na kostku, na kterou vsadíš!');
+       return;
+     }
 
-    this.lockGameControls(true);
+     this.lockGameControls(true);
+     animateBetButtonsGlow();
 
-    this.dice.roll((res) => {
-      this.lockGameControls(false);
-      const multiplier = 6;
-      this.processGameResult(res.isWin, res.isWin ? this.activeBet * multiplier : 0, "Kostka", res.resultText);
-      this.dice.clearSelection();
-    });
-  }
+     this.dice.roll((res) => {
+       this.lockGameControls(false);
+       stopBetButtonsGlow();
+       const multiplier = 6;
+       this.processGameResult(res.isWin, res.isWin ? this.activeBet * multiplier : 0, "Kostka", res.resultText);
+       this.dice.clearSelection();
+     });
+   }
 
-  // Play numeric guessing games
-  playGuessingGame(selectedNum, min, max, multiplier, gameName) {
-    if (!this._startRound()) return;
+   // Play numeric guessing games
+   playGuessingGame(selectedNum, min, max, multiplier, gameName) {
+     if (!this._startRound()) return;
 
-    this.ui.resetNumberButtons();
-    this.lockGameControls(true);
+     this.ui.resetNumberButtons();
+     this.lockGameControls(true);
+     animateBetButtonsGlow();
 
-    this.guessing.play(selectedNum, min, max, this.activeBet, multiplier, (res) => {
-      this.lockGameControls(false);
-      this.processGameResult(res.isWin, res.winAmount, gameName, res.resultText);
-      this.ui.resetNumberButtons();
-    });
-  }
+     this.guessing.play(selectedNum, min, max, this.activeBet, multiplier, (res) => {
+       this.lockGameControls(false);
+       stopBetButtonsGlow();
+       this.processGameResult(res.isWin, res.winAmount, gameName, res.resultText);
+       this.ui.resetNumberButtons();
+     });
+   }
 
-  // Play Hi-Lo card game
-  playHilo(tip) {
-    if (this.hilo.isAnimating) return;
-    if (!this._startRound()) return;
+   // Play Hi-Lo card game
+   playHilo(tip) {
+     if (this.hilo.isAnimating) return;
+     if (!this._startRound()) return;
 
-    this.lockGameControls(true);
+     this.lockGameControls(true);
+     animateBetButtonsGlow();
 
-    this.hilo.play(tip, this.activeBet, (res) => {
-      this.lockGameControls(false);
-      this.processGameResult(res.isWin, res.winAmount, "VíceMéně", res.resultText);
-    });
-  }
+     this.hilo.play(tip, this.activeBet, (res) => {
+       this.lockGameControls(false);
+       stopBetButtonsGlow();
+       this.processGameResult(res.isWin, res.winAmount, "VíceMéně", res.resultText);
+     });
+   }
 
 // Spin slots
    playSlots() {
@@ -258,24 +264,33 @@ export class GameManager {
      if (!this._startRound()) return;
 
      const balance = this.db.getPlayerBalance(this.currentPlayer);
-     const autoBtn = document.getElementById('btn-auto-slots');
      
-     if (!this.autoPlayInterval) {
-       this.lockGameControls(true);
-       // Add yellow glow animation during auto-spin
-       animateAutoSpinGlow(autoBtn);
-     }
+     // Animate bet buttons yellow glow during spin (both auto and manual)
+     this.lockGameControls(true);
+     animateBetButtonsGlow();
 
      console.log('[PLAYSLOTS] activeBet:', this.activeBet, 'balance:', balance);
      
      this.slots.spin(this.activeBet, balance, (res) => {
        console.log('[PLAYSLOTS-CB] result:', res);
-       if (!this.autoPlayInterval) {
-         this.lockGameControls(false);
-         // Stop yellow glow animation
-         stopAutoSpinGlow(autoBtn);
-       }
+       this.lockGameControls(false);
+       // Stop bet buttons glow animation
+       stopBetButtonsGlow();
        this.processGameResult(res.isWin, res.winAmount, "Bary3x3", res.resultText, res.isJackpot);
+     });
+   }
+
+   // Lock controls but keep bet buttons visible for animation
+   lockGameControls(lock) {
+     document.querySelectorAll('.btn-bet').forEach(b => {
+       b.disabled = lock;
+       if (lock) {
+         b.style.opacity = '0.7';
+         b.style.filter = 'grayscale(30%)';
+       } else {
+         b.style.opacity = '';
+         b.style.filter = '';
+       }
      });
    }
 
@@ -312,9 +327,9 @@ export class GameManager {
      if (autoBtn) {
        autoBtn.classList.remove('active');
        autoBtn.innerHTML = '<span class="icon-node"></span> AUTO';
-       // Stop GSAP animation
-       stopAutoSpinGlow(autoBtn);
      }
+     // Stop bet buttons glow animation
+     stopBetButtonsGlow();
      this.lockGameControls(false);
    }
 

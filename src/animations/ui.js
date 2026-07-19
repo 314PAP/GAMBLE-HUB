@@ -115,7 +115,6 @@ export function animateSlotWin(cell) {
   });
 }
 
-// Animate AUTO button during auto-spin with yellow glow
 export function animateAutoSpinGlow(autoBtn) {
   if (!autoBtn) return;
   gsap.killTweensOf(autoBtn);
@@ -132,4 +131,31 @@ export function stopAutoSpinGlow(autoBtn) {
   if (!autoBtn) return;
   gsap.killTweensOf(autoBtn);
   autoBtn.style.boxShadow = '';
+}
+
+// Animate bet buttons with yellow glow during auto-spin
+export function animateBetButtonsGlow() {
+  const betBtns = document.querySelectorAll('.btn-bet');
+  betBtns.forEach((btn, i) => {
+    gsap.killTweensOf(btn);
+    // Stagger start times so buttons blink sequentially like slot machine lights
+    gsap.to(btn, {
+      backgroundColor: 'rgba(255, 215, 0, 0.2)',
+      borderColor: '#ffd700',
+      duration: 0.3,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut',
+      delay: i * 0.12,
+    });
+  });
+}
+
+export function stopBetButtonsGlow() {
+  const betBtns = document.querySelectorAll('.btn-bet');
+  betBtns.forEach(btn => {
+    gsap.killTweensOf(btn);
+    btn.style.backgroundColor = '';
+    btn.style.borderColor = '';
+  });
 }
