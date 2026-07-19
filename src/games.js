@@ -6,6 +6,7 @@ import { HiloGame } from './games/hilo';
 import { GuessingGame } from './games/guessing';
 import { DiceGame } from './games/dice';
 import { sound } from './sound';
+import { animateAutoSpinGlow, stopAutoSpinGlow } from './animations/ui';
 
 export class GameManager {
   constructor(db, ui, api) {
@@ -134,14 +135,19 @@ export class GameManager {
     this.ui.updateMiniProfile(this.currentPlayer, balance - this.activeBet);
 
     const resBox = document.getElementById('game-result');
-    if (resBox) resBox.style.display = 'none';
+    if (resBox) {
+      resBox.style.display = 'none';
+      resBox.innerHTML = ''; // Clear any previous result
+    }
 
     return true;
   }
 
-  // Unified win/loss result processor
-  processGameResult(isWin, winAmount, gameName, resultText, isJackpot = false) {
-    const oldBalance = this.db.getPlayerBalance(this.currentPlayer);
+// Unified win/loss result processor
+   processGameResult(isWin, winAmount, gameName, resultText, isJackpot = false) {
+     const oldBalance = this.db.getPlayerBalance(this.currentPlayer);
+     
+     console.log('[PROCESS-RESULT] oldBalance:', oldBalance, 'activeBet:', this.activeBet, 'winAmount:', winAmount, 'isWin:', isWin);
     // Deduct bet (note: bet was already deducted in original, but to make it clean,
     // we can either deduct at start and add wins, or deduct now.
     // In original code, player money was deducted immediately:
@@ -153,6 +159,12 @@ export class GameManager {
     let newBalance = oldBalance;
     if (isWin) {
       newBalance = oldBalance + winAmount;
+      
+      // Debug: log large balance changes
+      if (winAmount >= 10000000) { // 10M+
+        console.log('[PROCESS-RESULT] Large win detected:', { oldBalance, newBalance, winAmount, diff: newBalance - oldBalance });
+      }
+      
       this.db.updatePlayerBalance(this.currentPlayer, newBalance);
       this.ui.triggerWinConfetti(isJackpot);
     }
@@ -240,23 +252,32 @@ export class GameManager {
     });
   }
 
-  // Spin slots
-  playSlots() {
-    if (this.slots.isSpinning) return;
-    if (!this._startRound()) return;
+// Spin slots
+   playSlots() {
+     if (this.slots.isSpinning) return;
+     if (!this._startRound()) return;
 
-    const balance = this.db.getPlayerBalance(this.currentPlayer);
-    if (!this.autoPlayInterval) {
-      this.lockGameControls(true);
-    }
+     const balance = this.db.getPlayerBalance(this.currentPlayer);
+     const autoBtn = document.getElementById('btn-auto-slots');
+     
+     if (!this.autoPlayInterval) {
+       this.lockGameControls(true);
+       // Add yellow glow animation during auto-spin
+       animateAutoSpinGlow(autoBtn);
+     }
 
-    this.slots.spin(this.activeBet, balance, (res) => {
-      if (!this.autoPlayInterval) {
-        this.lockGameControls(false);
-      }
-      this.processGameResult(res.isWin, res.winAmount, "Bary3x3", res.resultText, res.isJackpot);
-    });
-  }
+     console.log('[PLAYSLOTS] activeBet:', this.activeBet, 'balance:', balance);
+     
+     this.slots.spin(this.activeBet, balance, (res) => {
+       console.log('[PLAYSLOTS-CB] result:', res);
+       if (!this.autoPlayInterval) {
+         this.lockGameControls(false);
+         // Stop yellow glow animation
+         stopAutoSpinGlow(autoBtn);
+       }
+       this.processGameResult(res.isWin, res.winAmount, "Bary3x3", res.resultText, res.isJackpot);
+     });
+   }
 
   // Handles Slot Machine Autoplay toggling
   toggleAutoPlay() {
@@ -283,17 +304,19 @@ export class GameManager {
   }
 
   stopAutoPlay() {
-    if (this.autoPlayInterval) {
-      clearInterval(this.autoPlayInterval);
-      this.autoPlayInterval = null;
-    }
-    const autoBtn = document.getElementById('btn-auto-slots');
-    if (autoBtn) {
-      autoBtn.classList.remove('active');
-      autoBtn.innerHTML = '<span class="icon-node"></span> AUTO';
-    }
-    this.lockGameControls(false);
-  }
+     if (this.autoPlayInterval) {
+       clearInterval(this.autoPlayInterval);
+       this.autoPlayInterval = null;
+     }
+     const autoBtn = document.getElementById('btn-auto-slots');
+     if (autoBtn) {
+       autoBtn.classList.remove('active');
+       autoBtn.innerHTML = '<span class="icon-node"></span> AUTO';
+       // Stop GSAP animation
+       stopAutoSpinGlow(autoBtn);
+     }
+     this.lockGameControls(false);
+   }
 
   // Utility to prevent user clicks on other options during animations
   lockGameControls(lock) {

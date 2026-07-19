@@ -73,7 +73,13 @@ export class GameDatabase {
 
   updatePlayerBalance(username, amount) {
     if (this.uzivatele[username] !== undefined) {
+      const oldVal = this.uzivatele[username];
       this.uzivatele[username] = Math.max(0, amount);
+      // Debug: log large balance changes
+      const diff = this.uzivatele[username] - oldVal;
+      if (Math.abs(diff) >= 1000000 && diff !== 0) {
+        console.log('[DB] updatePlayerBalance:', username, 'old:', oldVal, 'new:', this.uzivatele[username], 'diff:', diff);
+      }
       this.saveAll();
     }
   }

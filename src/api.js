@@ -101,6 +101,7 @@ export class API {
         console.error('Failed to submit match to Firebase', e);
       }
     }
+    return Promise.resolve(true); // Always resolve to prevent hanging
   }
 
   // Získá globální historii her z Firebase

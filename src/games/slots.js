@@ -145,6 +145,10 @@ export class SlotMachineGame {
     let winAmount = 0;
     const winningCells = new Set();
     let isJackpot = false;
+    const lineDetails = []; // For debugging
+
+    // Log the current matrix for debugging
+    console.log('[SLOTS] checkWinnings - currentMatrix:', this.currentMatrix, 'betAmount:', betAmount);
 
     this.winningLines.forEach(line => {
       const idx0 = line[0];
@@ -163,10 +167,24 @@ export class SlotMachineGame {
           '💎': 30,
           '7️⃣': 100
         };
-        const multiplier = multipliers[this.currentMatrix[idx0]] || 5;
-        if (this.currentMatrix[idx0] === '7️⃣') isJackpot = true;
+        const symbol = this.currentMatrix[idx0];
+        const multiplier = multipliers[symbol] || 5;
         
-        winAmount += betAmount * multiplier;
+        console.log('[SLOTS] Winning line found:', line, 'symbol:', symbol, 'multiplier:', multiplier);
+        
+        if (symbol === '7️⃣') isJackpot = true;
+        
+        const lineWin = betAmount * multiplier;
+        winAmount += lineWin;
+        
+        // Log for debugging multiple wins
+        lineDetails.push({
+          line,
+          symbol,
+          multiplier,
+          lineWin,
+          betAmount
+        });
         
         // Add indices of winning cells
         line.forEach(cellIdx => winningCells.add(cellIdx));
@@ -174,6 +192,32 @@ export class SlotMachineGame {
     });
 
     const isWin = winAmount > 0;
+    
+    // Debug logging for high stakes
+    if (betAmount >= 100000 && isWin) {
+      console.log('SLOTS DEBUG - Multiple wins:', lineDetails, 'Total:', winAmount);
+    }
+    
+    // Build result text with line count info
+    const winningLineCount = lineDetails.length;
+    const symbolMap = {
+      '🍒': 'Třešně',
+      '🛎': 'Zvonky',
+      '🍋': 'Citrony',
+      '⭐': 'Hvězdy',
+      '💎': 'Diamanty',
+      '7️⃣': '777'
+    };
+    
+    let resultText;
+    if (isJackpot) {
+      resultText = '🔥 JACKPOT 777! 🔥';
+    } else {
+      const symbols = [...new Set(lineDetails.map(d => d.symbol))];
+      const symbolNames = symbols.map(s => symbolMap[s] || s).join(', ');
+      const multiplierText = winningLineCount > 1 ? `×${winningLineCount}` : '';
+      resultText = `${winningLineCount}× ${symbolNames}${multiplierText}: +${formatLargeNumber(winAmount)} $`;
+    }
     
     // Highlight winning cells
     if (isWin) {
@@ -192,11 +236,19 @@ export class SlotMachineGame {
     }
 
     // Call callback with results
+    // Log for debugging to verify win calculation
+    if (betAmount >= 100000 && isWin) {
+      console.log('[SLOTS] betAmount:', betAmount, 'winAmount:', winAmount, 'isJackpot:', isJackpot);
+      console.log('[SLOTS] lineDetails:', lineDetails);
+    }
+    
+    // Include betAmount in callback for verification
     onComplete({
       isWin,
       winAmount,
       isJackpot,
-      resultText: isJackpot ? '🔥 JACKPOT 777! 🔥' : `VÝHRA: ${formatLargeNumber(winAmount)} Kč`
+      betAmount,
+      resultText: resultText
     });
   }
 }

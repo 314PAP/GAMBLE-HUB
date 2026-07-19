@@ -114,3 +114,22 @@ export function animateSlotWin(cell) {
     ease: 'sine.inOut',
   });
 }
+
+// Animate AUTO button during auto-spin with yellow glow
+export function animateAutoSpinGlow(autoBtn) {
+  if (!autoBtn) return;
+  gsap.killTweensOf(autoBtn);
+  gsap.to(autoBtn, {
+    boxShadow: '0 0 25px rgba(255, 215, 0, 0.7), inset 0 0 15px rgba(255, 215, 0, 0.2)',
+    duration: 0.5,
+    repeat: -1,
+    yoyo: true,
+    ease: 'sine.inOut',
+  });
+}
+
+export function stopAutoSpinGlow(autoBtn) {
+  if (!autoBtn) return;
+  gsap.killTweensOf(autoBtn);
+  autoBtn.style.boxShadow = '';
+}
