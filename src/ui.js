@@ -127,10 +127,11 @@ export class GameUI {
     }
   }
 
-  animateWinResult(resBox, winAmount, resultText, isJackpot) {
+  animateWinResult(resBox, winAmount, resultText, isJackpot, resultContainerClass = 'game-result') {
     if (resBox) {
       gsap.killTweensOf(resBox);
       resBox.style.display = 'block';
+      resBox.style.visibility = 'visible';
 
       resBox.style.borderColor = 'var(--neon-gold)';
       resBox.style.boxShadow = '0 10px 25px rgba(0,0,0,0.5), 0 0 20px var(--neon-gold-glow), 0 0 40px var(--neon-gold-glow)';

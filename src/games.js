@@ -55,7 +55,16 @@ export class GameManager {
     const classicInputs = document.getElementById('classic-inputs');
     const diceArea = document.getElementById('dice-area');
     const gameResult = document.getElementById('game-result');
+    const gameResultClassic = document.getElementById('game-result-classic');
+    const gameResultDice = document.getElementById('game-result-dice');
+    const gameResultSlots = document.getElementById('game-result-slots');
+    const gameResultHilo = document.getElementById('game-result-hilo');
     const betArea = document.getElementById('bet-area');
+
+    if (gameResultClassic) gameResultClassic.style.display = 'none';
+    if (gameResultDice) gameResultDice.style.display = 'none';
+    if (gameResultSlots) gameResultSlots.style.display = 'none';
+    if (gameResultHilo) gameResultHilo.style.display = 'none';
 
     if (slotsArea) slotsArea.style.display = 'none';
     if (hiloArea) hiloArea.style.display = 'none';
@@ -135,9 +144,30 @@ export class GameManager {
     this.ui.updateMiniProfile(this.currentPlayer, balance - this.activeBet);
 
     const resBox = document.getElementById('game-result');
+    const resBoxClassic = document.getElementById('game-result-classic');
+    const resBoxDice = document.getElementById('game-result-dice');
+    const resBoxSlots = document.getElementById('game-result-slots');
+    const resBoxHilo = document.getElementById('game-result-hilo');
+
     if (resBox) {
       resBox.style.display = 'none';
-      resBox.innerHTML = ''; // Clear any previous result
+      resBox.innerHTML = '';
+    }
+    if (resBoxClassic) {
+      resBoxClassic.style.display = 'none';
+      resBoxClassic.innerHTML = '';
+    }
+    if (resBoxDice) {
+      resBoxDice.style.display = 'none';
+      resBoxDice.innerHTML = '';
+    }
+    if (resBoxSlots) {
+      resBoxSlots.style.display = 'none';
+      resBoxSlots.innerHTML = '';
+    }
+    if (resBoxHilo) {
+      resBoxHilo.style.display = 'none';
+      resBoxHilo.innerHTML = '';
     }
 
     return true;
@@ -183,9 +213,19 @@ export class GameManager {
     this.ui.updateMiniProfile(this.currentPlayer, newBalance);
     
     const resBox = document.getElementById('game-result');
-    
+    const resBoxClassic = document.getElementById('game-result-classic');
+    const resBoxDice = document.getElementById('game-result-dice');
+    const resBoxSlots = document.getElementById('game-result-slots');
+    const resBoxHilo = document.getElementById('game-result-hilo');
+
+    let targetResBox = resBox;
+    if (this.activeGameId === 3) targetResBox = resBoxDice;
+    else if (this.activeGameId === 5) targetResBox = resBoxSlots;
+    else if (this.activeGameId === 6) targetResBox = resBoxHilo;
+    else targetResBox = resBoxClassic;
+
     if (isWin) {
-      this.ui.animateWinResult(resBox, winAmount, resultText, isJackpot);
+      this.ui.animateWinResult(targetResBox, winAmount, resultText, isJackpot, 'game-result');
     } else {
       this.ui.animateLossBalance(newBalance);
     }
