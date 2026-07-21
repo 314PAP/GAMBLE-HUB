@@ -135,7 +135,7 @@ export function stopAutoSpinGlow(autoBtn) {
 
 // Animate bet buttons with yellow glow during auto-spin
 export function animateBetButtonsGlow() {
-  const betBtns = document.querySelectorAll('.btn-bet');
+  const betBtns = document.querySelectorAll('.btn-bet, .bet-btn');
   betBtns.forEach((btn, i) => {
     gsap.killTweensOf(btn);
     // Stagger start times so buttons blink sequentially like slot machine lights
@@ -152,7 +152,7 @@ export function animateBetButtonsGlow() {
 }
 
 export function stopBetButtonsGlow() {
-  const betBtns = document.querySelectorAll('.btn-bet');
+  const betBtns = document.querySelectorAll('.btn-bet, .bet-btn');
   betBtns.forEach(btn => {
     gsap.killTweensOf(btn);
     btn.style.backgroundColor = '';

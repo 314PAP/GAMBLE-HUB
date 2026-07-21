@@ -137,16 +137,29 @@
   display: none;
 }
 
+/* Dice number buttons – gold styling for selection, cyan for unselected */
 .dice-num-btn {
   font-size: clamp(13px, 3.5vw, 15px);
   font-weight: 800;
+  border-top: 3px solid #00f0ff;
+  border-bottom: 3px solid #008899;
+  color: #00f0ff;
+  text-shadow: 0 0 6px rgba(0, 240, 255, 0.6);
 }
 
 .dice-num-btn.selected {
+  background:
+    linear-gradient(180deg, rgba(255, 215, 0, 0.22), transparent 40%),
+    #111118;
   border-color: var(--neon-gold);
-  box-shadow: 0 0 24px var(--neon-gold-glow);
+  border-top-color: #ffd700;
+  border-bottom-color: #b8960a;
+  box-shadow:
+    0 0 24px var(--neon-gold-glow),
+    inset 0 0 12px rgba(255, 215, 0, 0.15);
   animation: ledPulse 0.8s ease-in-out infinite;
   color: var(--neon-gold);
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.4);
 }
 
 @keyframes ledPulse {

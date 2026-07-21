@@ -174,7 +174,25 @@
     0 2px 6px rgba(0,0,0,0.5);
 }
 
-/* BET buttons – cyan/blue compact */
+/* BET buttons – cyan/blue compact, styled via Tailwind utilities */
+.bet-btn {
+  border-top: 3px solid #00f0ff;
+  border-bottom: 3px solid #008899;
+  color: #00f0ff;
+  text-shadow: 0 0 6px rgba(0, 240, 255, 0.6);
+}
+
+.bet-btn.selected {
+  background:
+    linear-gradient(180deg, rgba(0, 240, 255, 0.18), transparent 40%),
+    #111118;
+  box-shadow:
+    0 0 20px rgba(0, 240, 255, 0.45),
+    inset 0 0 12px rgba(0, 240, 255, 0.12);
+  animation: ledPulse 1s ease-in-out infinite;
+}
+
+/* Legacy btn-bet class - kept for backward compatibility */
 .btn-bet {
   border-top: 3px solid #00f0ff;
   border-bottom: 3px solid #008899;

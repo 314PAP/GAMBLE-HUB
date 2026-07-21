@@ -277,67 +277,21 @@ export class GameManager {
        // Stop bet buttons glow animation
        stopBetButtonsGlow();
        this.processGameResult(res.isWin, res.winAmount, "Bary3x3", res.resultText, res.isJackpot);
-     });
-   }
-
-   // Lock controls but keep bet buttons visible for animation
-   lockGameControls(lock) {
-     document.querySelectorAll('.btn-bet').forEach(b => {
-       b.disabled = lock;
-       if (lock) {
-         b.style.opacity = '0.7';
-         b.style.filter = 'grayscale(30%)';
-       } else {
-         b.style.opacity = '';
-         b.style.filter = '';
-       }
-     });
-   }
-
-  // Handles Slot Machine Autoplay toggling
-  toggleAutoPlay() {
-    const autoBtn = document.getElementById('btn-auto-slots');
-    if (this.autoPlayInterval) {
-      this.stopAutoPlay();
-    } else {
-      if (!this.preGameChecks()) return;
-      
-      autoBtn.classList.add('active');
-      autoBtn.innerHTML = '<span class="icon-node"></span> STOP';
-      
-      this.playSlots(); // Play first turn immediately
-      
-      this.autoPlayInterval = setInterval(() => {
-        const balance = this.db.getPlayerBalance(this.currentPlayer);
-        if (balance >= this.activeBet && !this.slots.isSpinning) {
-          this.playSlots();
-        } else if (balance < this.activeBet) {
-          this.stopAutoPlay();
-        }
-      }, 700); // Fast autoplay loop
+});
     }
-  }
-
-  stopAutoPlay() {
-     if (this.autoPlayInterval) {
-       clearInterval(this.autoPlayInterval);
-       this.autoPlayInterval = null;
-     }
-     const autoBtn = document.getElementById('btn-auto-slots');
-     if (autoBtn) {
-       autoBtn.classList.remove('active');
-       autoBtn.innerHTML = '<span class="icon-node"></span> AUTO';
-     }
-     // Stop bet buttons glow animation
-     stopBetButtonsGlow();
-     this.lockGameControls(false);
-   }
 
   // Utility to prevent user clicks on other options during animations
   lockGameControls(lock) {
-    // Disable bet presets
-    document.querySelectorAll('.btn-bet').forEach(b => {
+    // Disable bet presets (both btn-bet and bet-btn classes)
+    document.querySelectorAll('.btn-bet, .bet-btn').forEach(b => {
       b.disabled = lock;
+      if (lock) {
+        b.style.opacity = '0.7';
+        b.style.filter = 'grayscale(30%)';
+      } else {
+        b.style.opacity = '';
+        b.style.filter = '';
+      }
     });
 
     // Disable grid buttons in classic games
@@ -363,5 +317,44 @@ export class GameManager {
     const hiloLow = document.getElementById('btn-hilo-low');
     if (hiloHigh) hiloHigh.disabled = lock;
     if (hiloLow) hiloLow.disabled = lock;
+  }
+
+  // Handles Slot Machine Autoplay toggling
+  toggleAutoPlay() {
+    const autoBtn = document.getElementById('btn-auto-slots');
+    if (this.autoPlayInterval) {
+      this.stopAutoPlay();
+    } else {
+      if (!this.preGameChecks()) return;
+
+      autoBtn.classList.add('active');
+      autoBtn.innerHTML = '<span class="icon-node"></span> STOP';
+
+      this.playSlots(); // Play first turn immediately
+
+      this.autoPlayInterval = setInterval(() => {
+        const balance = this.db.getPlayerBalance(this.currentPlayer);
+        if (balance >= this.activeBet && !this.slots.isSpinning) {
+          this.playSlots();
+        } else if (balance < this.activeBet) {
+          this.stopAutoPlay();
+        }
+      }, 700); // Fast autoplay loop
+    }
+  }
+
+  stopAutoPlay() {
+    if (this.autoPlayInterval) {
+      clearInterval(this.autoPlayInterval);
+      this.autoPlayInterval = null;
+    }
+    const autoBtn = document.getElementById('btn-auto-slots');
+    if (autoBtn) {
+      autoBtn.classList.remove('active');
+      autoBtn.innerHTML = '<span class="icon-node"></span> AUTO';
+    }
+    // Stop bet buttons glow animation
+    stopBetButtonsGlow();
+    this.lockGameControls(false);
   }
 }

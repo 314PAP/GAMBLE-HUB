@@ -35,6 +35,18 @@
   border-radius: 16px;
 }
 
+/* Ensure game areas stack properly within screen */
+#slots-area,
+#hilo-area,
+#classic-inputs,
+#dice-area,
+#bet-area,
+#custom-sazka-area,
+.game-buttons {
+  width: 100%;
+  max-width: 100%;
+}
+
 
 
 /* Responsive font sizes inside header – CSS fallback for JS-independent rendering */
@@ -62,3 +74,10 @@ input:focus, select:focus, textarea:focus {
 }
 
 /* Game section base spacing */
+
+/* === DICE GAME BET AREA === */
+#bet-area {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  justify-content: center;
+}

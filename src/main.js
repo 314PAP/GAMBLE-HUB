@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
       target.closest('button') ||
       target.closest('.btn-num') ||
       target.closest('.btn-bet') ||
+      target.closest('.bet-btn') ||
       target.closest('.btn-spin-slots') ||
       target.closest('.btn-auto-slots') ||
       target.closest('.sound-toggle-btn')

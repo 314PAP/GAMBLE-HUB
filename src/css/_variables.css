@@ -34,4 +34,8 @@
 
   /* === Shadow proměnné (použito v _panels.css, _slot.css) === */
   --shadow-premium: 0 0 30px rgba(189, 0, 255, 0.25), inset 0 0 15px rgba(0, 255, 255, 0.1);
+
+  /* === Dice button dimensions === */
+  --dice-btn-min: clamp(44px, 10vw, 52px);
+  --dice-btn-h: clamp(40px, 9vw, 48px);
 }
