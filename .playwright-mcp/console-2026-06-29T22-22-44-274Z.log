@@ -1,0 +1,4 @@
+[  163855ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:5173/src/css/main.css:0
+[  163855ms] [LOG] iframe bg-neon-purple: rgba(0, 0, 0, 0) @ :22
+[  163855ms] [LOG] iframe text-neon-gold: rgb(0, 0, 0) @ :23
+[  163855ms] [LOG] iframe var:  @ :24

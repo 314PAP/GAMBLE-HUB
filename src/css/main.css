@@ -19,6 +19,7 @@
   @import "./_panels.css";
   @import "./_slot.css";
   @import "./_hilo.css";
+  @import "./_dice.css";
 }
 
 /* Custom utilities */

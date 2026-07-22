@@ -1,0 +1,53 @@
+- generic [active] [ref=f1e1]:
+  - img
+  - main "Herní aplikace" [ref=f1e2]:
+    - region "GAMBLE HUB" [ref=f1e3]:
+      - heading "GAMBLE HUB" [level=1] [ref=f1e4]
+      - button "Zobrazit globální žebříček a historii" [ref=f1e5] [cursor=pointer]:
+        - generic [ref=f1e7]:
+          - text: Top Hráči
+          - generic [ref=f1e13]: 🌐 Online
+        - list [ref=f1e8]:
+          - generic [ref=f1e59]:
+            - generic [ref=f1e60]:
+              - generic [ref=f1e61]: 🥇
+              - generic [ref=f1e62]: 🧡‍💙‍💚‍
+            - generic [ref=f1e63]:
+              - text: 4.59 M
+              - img [ref=f1e64]:
+                - generic [ref=f1e66]: $
+          - generic [ref=f1e67]:
+            - generic [ref=f1e68]:
+              - generic [ref=f1e69]: 🥈
+              - generic [ref=f1e70]: Rrr
+            - generic [ref=f1e71]:
+              - text: 2 K
+              - img [ref=f1e72]:
+                - generic [ref=f1e74]: $
+          - generic [ref=f1e75]:
+            - generic [ref=f1e76]:
+              - generic [ref=f1e77]: 🥉
+              - generic [ref=f1e78]: Uuu
+            - generic [ref=f1e79]:
+              - text: 1.9 K
+              - img [ref=f1e80]:
+                - generic [ref=f1e82]: $
+          - generic [ref=f1e83]:
+            - generic [ref=f1e84]:
+              - generic [ref=f1e85]: "#4"
+              - generic [ref=f1e86]: Ja
+            - generic [ref=f1e87]:
+              - text: 1.72 K
+              - img [ref=f1e88]:
+                - generic [ref=f1e90]: $
+          - generic [ref=f1e91]:
+            - generic [ref=f1e92]:
+              - generic [ref=f1e93]: "#5"
+              - generic [ref=f1e94]: Julek
+            - generic [ref=f1e95]:
+              - text: 1.14 K
+              - img [ref=f1e96]:
+                - generic [ref=f1e98]: $
+      - generic [ref=f1e10]:
+        - button "VSTOUPIT" [ref=f1e11] [cursor=pointer]
+        - button "NOVÝ HRÁČ" [ref=f1e12] [cursor=pointer]

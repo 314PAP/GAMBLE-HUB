@@ -1,0 +1,49 @@
+- generic [active] [ref=e1]:
+  - img
+  - main "Herní aplikace" [ref=e2]:
+    - region "Vyber Účet" [ref=e59]:
+      - heading "Vyber Účet" [level=2] [ref=e60]
+      - list "Seznam dostupných účtů" [ref=e61]:
+        - listitem [ref=e62]:
+          - button "Ajda 480" [ref=e63] [cursor=pointer]:
+            - generic [ref=e64]: Ajda
+            - generic [ref=e66]: "480"
+          - button "Smazat účet Ajda" [ref=e67] [cursor=pointer]:
+            - generic: 🗑️
+        - listitem [ref=e68]:
+          - button "TestDice 490" [ref=e69] [cursor=pointer]:
+            - generic [ref=e70]: TestDice
+            - generic [ref=e72]: "490"
+          - button "Smazat účet TestDice" [ref=e73] [cursor=pointer]:
+            - generic: 🗑️
+        - listitem [ref=e74]:
+          - button "test 500" [ref=e75] [cursor=pointer]:
+            - generic [ref=e76]: test
+            - generic [ref=e78]: "500"
+          - button "Smazat účet test" [ref=e79] [cursor=pointer]:
+            - generic: 🗑️
+        - listitem [ref=e80]:
+          - button "test2 500" [ref=e81] [cursor=pointer]:
+            - generic [ref=e82]: test2
+            - generic [ref=e84]: "500"
+          - button "Smazat účet test2" [ref=e85] [cursor=pointer]:
+            - generic: 🗑️
+        - listitem [ref=e86]:
+          - button "test3 500" [ref=e87] [cursor=pointer]:
+            - generic [ref=e88]: test3
+            - generic [ref=e90]: "500"
+          - button "Smazat účet test3" [ref=e91] [cursor=pointer]:
+            - generic: 🗑️
+        - listitem [ref=e92]:
+          - button "testfix 500" [ref=e93] [cursor=pointer]:
+            - generic [ref=e94]: testfix
+            - generic [ref=e96]: "500"
+          - button "Smazat účet testfix" [ref=e97] [cursor=pointer]:
+            - generic: 🗑️
+        - listitem [ref=e98]:
+          - button "TestUser 500" [ref=e99] [cursor=pointer]:
+            - generic [ref=e100]: TestUser
+            - generic [ref=e102]: "500"
+          - button "Smazat účet TestUser" [ref=e103] [cursor=pointer]:
+            - generic: 🗑️
+      - button "Zpět" [ref=e104] [cursor=pointer]

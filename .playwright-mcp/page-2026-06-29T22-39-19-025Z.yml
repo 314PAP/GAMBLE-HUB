@@ -1,0 +1,48 @@
+- generic [active] [ref=e1]:
+  - img
+  - main "Herní aplikace" [ref=e2]:
+    - region "AUTOMAT" [ref=e173]:
+      - region "Herní lišta" [ref=e174]:
+        - generic [ref=e175]:
+          - generic [ref=e176]: AUTOMAT
+          - generic [ref=e177]:
+            - button "Jak se hraje" [ref=e178] [cursor=pointer]:
+              - img [ref=e179]
+            - button "Přepnout zvuk" [ref=e181] [cursor=pointer]:
+              - img [ref=e182]
+        - generic [ref=e186]:
+          - text: "500"
+          - img [ref=e187]:
+            - generic [ref=e189]: $
+      - article "Automat" [ref=e190]:
+        - heading "Automat" [level=3] [ref=e191]
+        - region "Automat" [ref=e192]:
+          - generic [ref=e193]:
+            - generic "Ruleta 1" [ref=e194]:
+              - generic [ref=e195]:
+                - generic [ref=e196]: 🍒
+                - generic [ref=e197]: ⭐
+                - generic [ref=e198]: 🛎
+            - generic "Ruleta 2" [ref=e199]:
+              - generic [ref=e200]:
+                - generic [ref=e201]: 🍋
+                - generic [ref=e202]: 💎
+                - generic [ref=e203]: 🍒
+            - generic "Ruleta 3" [ref=e204]:
+              - generic [ref=e205]:
+                - generic [ref=e206]: 🛎
+                - generic [ref=e207]: 7️⃣
+                - generic [ref=e208]: 🍋
+        - region "Ovládání automatu" [ref=e209]:
+          - button "SPIN" [ref=e210] [cursor=pointer]
+          - button "AUTO" [ref=e211] [cursor=pointer]: AUTO
+      - region "Volba sázky" [ref=e212]:
+        - button "10" [ref=e213] [cursor=pointer]
+        - button "20" [ref=e214] [cursor=pointer]
+        - button "50" [ref=e215] [cursor=pointer]
+        - button "100" [ref=e216] [cursor=pointer]
+        - button "Vlastní sázka" [ref=e217] [cursor=pointer]:
+          - generic [ref=e218]: •••
+      - group "Akce během hry" [ref=e219]:
+        - button "Statistiky" [ref=e220] [cursor=pointer]
+        - button "Menu" [ref=e221] [cursor=pointer]

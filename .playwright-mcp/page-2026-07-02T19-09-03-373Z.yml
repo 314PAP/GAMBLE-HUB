@@ -1,0 +1,45 @@
+- generic [active] [ref=f2e1]:
+  - img
+  - main "Herní aplikace" [ref=f2e2]:
+    - region "AUTOMAT" [ref=f2e122]:
+      - region "Herní lišta" [ref=f2e123]:
+        - generic [ref=f2e124]:
+          - generic [ref=f2e125]: AUTOMAT
+          - generic [ref=f2e126]:
+            - button "Jak se hraje" [ref=f2e127] [cursor=pointer]:
+              - img [ref=f2e128]
+            - button "Přepnout zvuk" [ref=f2e130] [cursor=pointer]:
+              - img [ref=f2e131]
+        - generic [ref=f2e135]:
+          - text: "500"
+          - img [ref=f2e136]:
+            - generic [ref=f2e138]: $
+      - article "Automat" [ref=f2e139]:
+        - heading "Automat" [level=3] [ref=f2e140]
+        - region "Automat" [ref=f2e141]:
+          - generic [ref=f2e142]:
+            - generic [ref=f2e144]:
+              - generic [ref=f2e145]: 🍒
+              - generic [ref=f2e146]: ⭐
+              - generic [ref=f2e147]: 🛎
+            - generic [ref=f2e149]:
+              - generic [ref=f2e150]: 🍋
+              - generic [ref=f2e151]: 💎
+              - generic [ref=f2e152]: 🍒
+            - generic [ref=f2e154]:
+              - generic [ref=f2e155]: 🛎
+              - generic [ref=f2e156]: 7️⃣
+              - generic [ref=f2e157]: 🍋
+        - region "Ovládání automatu" [ref=f2e158]:
+          - button "SPIN" [ref=f2e159] [cursor=pointer]
+          - button "AUTO" [ref=f2e160] [cursor=pointer]: AUTO
+      - region "Volba sázky" [ref=f2e161]:
+        - button "10" [ref=f2e162] [cursor=pointer]
+        - button "20" [ref=f2e163] [cursor=pointer]
+        - button "50" [ref=f2e164] [cursor=pointer]
+        - button "100" [ref=f2e165] [cursor=pointer]
+        - button "Vlastní sázka" [ref=f2e166] [cursor=pointer]:
+          - generic [ref=f2e167]: •••
+      - group "Akce během hry" [ref=f2e168]:
+        - button "Statistiky" [ref=f2e169] [cursor=pointer]
+        - button "Menu" [ref=f2e170] [cursor=pointer]

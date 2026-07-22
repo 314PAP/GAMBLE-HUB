@@ -1,0 +1,8 @@
+- generic [active] [ref=f1e1]:
+  - img
+  - main "Herní aplikace" [ref=f1e2]:
+    - region "Vyber Účet" [ref=f1e54]:
+      - heading "Vyber Účet" [level=2] [ref=f1e55]
+      - list "Seznam dostupných účtů" [ref=f1e56]:
+        - generic [ref=f1e57]: Žádní vytvoření hráči.
+      - button "Zpět" [ref=f1e58] [cursor=pointer]

@@ -41,12 +41,13 @@ h3 {
 
 /* === TEXT GLOW VARIANTS (nahrazují inline text-shadow v HTML) === */
 .text-glow-gold { text-shadow: 0 0 8px var(--neon-gold-glow); }
-.text-glow-green { text-shadow: 0 0 8px var(--neon-green-glow); }
-.text-glow-cyan { text-shadow: 0 0 8px var(--neon-cyan-glow); }
-.text-glow-purple { text-shadow: 0 0 8px var(--neon-purple-glow); }
-.text-glow-blue { text-shadow: 0 0 8px var(--neon-blue-glow); }
-.text-glow-orange { text-shadow: 0 0 8px var(--neon-orange-glow); }
-.text-glow-pink { text-shadow: 0 0 8px var(--neon-pink-glow); }
+  .text-glow-green { text-shadow: 0 0 8px var(--neon-green-glow); }
+  .text-glow-red { text-shadow: 0 0 8px var(--neon-red-glow); }
+  .text-glow-cyan { text-shadow: 0 0 8px var(--neon-cyan-glow); }
+  .text-glow-purple { text-shadow: 0 0 8px var(--neon-purple-glow); }
+  .text-glow-blue { text-shadow: 0 0 8px var(--neon-blue-glow); }
+  .text-glow-orange { text-shadow: 0 0 8px var(--neon-orange-glow); }
+  .text-glow-pink { text-shadow: 0 0 8px var(--neon-pink-glow); }
 
 /* === TAILWIND-COMPATIBLE COLOR UTILITIES === */
 /* Používáno v HTML místo inline stylů. Translace: bg-neon-gold → background-color: #ffd700 */

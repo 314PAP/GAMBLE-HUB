@@ -1,0 +1,7 @@
+[     334ms] [ERROR] WebSocket connection to 'ws://localhost:5175/GAMBLE-HUB/?token=4-2MplKU8NNc' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5175/GAMBLE-HUB/@vite/client:801
+[     342ms] [ERROR] WebSocket connection to 'ws://localhost:5173/GAMBLE-HUB/?token=4-2MplKU8NNc' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5175/GAMBLE-HUB/@vite/client:814
+[     344ms] [ERROR] [vite] failed to connect to websocket.
+your current setup:
+  (browser) localhost:5175/GAMBLE-HUB/ <--[HTTP]--> localhost:5173/GAMBLE-HUB/ (server)
+  (browser) localhost:5175/GAMBLE-HUB/ <--[WebSocket (failing)]--> localhost:5173/GAMBLE-HUB/ (server)
+Check out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr . @ http://localhost:5175/GAMBLE-HUB/@vite/client:829

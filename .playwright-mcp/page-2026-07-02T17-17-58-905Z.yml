@@ -1,0 +1,35 @@
+- generic [active] [ref=f1e1]:
+  - img
+  - main "Herní aplikace" [ref=f1e2]:
+    - region "HI-LOW" [ref=f1e171]:
+      - region "Herní lišta" [ref=f1e123]:
+        - generic [ref=f1e124]:
+          - generic [ref=f1e125]: HI-LOW
+          - generic [ref=f1e126]:
+            - button "Jak se hraje" [ref=f1e127] [cursor=pointer]:
+              - img [ref=f1e128]
+            - button "Přepnout zvuk" [ref=f1e130] [cursor=pointer]:
+              - img [ref=f1e131]
+        - generic [ref=f1e135]:
+          - text: "500"
+          - img [ref=f1e136]:
+            - generic [ref=f1e138]: $
+      - article "HI-LOW" [ref=f1e172]:
+        - heading "HI-LOW" [level=3] [ref=f1e173]
+        - region "HI-LOW hra" [ref=f1e174]:
+          - generic [ref=f1e175]: AKTUÁLNÍ KARTA
+          - generic [ref=f1e177]: "6"
+          - generic [ref=f1e178]: DALŠÍ KARTA
+          - region "Ovládání HI-LOW" [ref=f1e179]:
+            - button "VYŠŠÍ" [ref=f1e180] [cursor=pointer]
+            - button "NIŽŠÍ" [ref=f1e181] [cursor=pointer]
+      - region "Volba sázky" [ref=f1e161]:
+        - button "10" [ref=f1e162] [cursor=pointer]
+        - button "20" [ref=f1e163] [cursor=pointer]
+        - button "50" [ref=f1e164] [cursor=pointer]
+        - button "100" [ref=f1e165] [cursor=pointer]
+        - button "Vlastní sázka" [ref=f1e166] [cursor=pointer]:
+          - generic [ref=f1e167]: •••
+      - group "Akce během hry" [ref=f1e168]:
+        - button "Statistiky" [ref=f1e169] [cursor=pointer]
+        - button "Menu" [ref=f1e170] [cursor=pointer]

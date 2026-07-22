@@ -1,0 +1,12 @@
+- generic [active] [ref=f5e1]:
+  - img
+  - main "Herní aplikace" [ref=f5e2]:
+    - region "GAMBLE HUB" [ref=f5e3]:
+      - heading "GAMBLE HUB" [level=1] [ref=f5e4]
+      - button "Zobrazit globální žebříček a historii" [ref=f5e5] [cursor=pointer]:
+        - generic [ref=f5e7]: Top Hráči
+        - list [ref=f5e8]:
+          - generic [ref=f5e9]: 🔄 Načítám žebříček...
+      - generic [ref=f5e10]:
+        - button "VSTOUPIT" [ref=f5e11] [cursor=pointer]
+        - button "NOVÝ HRÁČ" [ref=f5e12] [cursor=pointer]

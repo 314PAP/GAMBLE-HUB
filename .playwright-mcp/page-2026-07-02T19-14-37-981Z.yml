@@ -1,0 +1,16 @@
+- generic [ref=f3e1]:
+  - img
+  - main "Herní aplikace" [ref=f3e2]:
+    - region "Nový Hráč" [ref=f3e54]:
+      - heading "Nový Hráč" [level=2] [ref=f3e55]
+      - textbox "Jméno hráče" [ref=f3e56]:
+        - /placeholder: Zadej jméno (max 5 znaků)
+        - text: Test
+      - group "Registrace" [ref=f3e57]:
+        - button "Vytvořit účet" [active] [ref=f3e58] [cursor=pointer]
+        - button "Zpět" [ref=f3e59] [cursor=pointer]
+  - alert "Registrace se nezdařila" [ref=f3e74]:
+    - generic [ref=f3e76]: "!"
+    - heading "Registrace se nezdařila" [level=2] [ref=f3e77]
+    - generic [ref=f3e78]: Tento hráč už existuje!
+    - text: "!"

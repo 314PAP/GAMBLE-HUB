@@ -1,0 +1,48 @@
+- generic [active] [ref=f1e1]:
+  - img
+  - main "Herní aplikace" [ref=f1e2]:
+    - region "AUTOMAT" [ref=f1e122]:
+      - region "Herní lišta" [ref=f1e123]:
+        - generic [ref=f1e124]:
+          - generic [ref=f1e125]: AUTOMAT
+          - generic [ref=f1e126]:
+            - button "Jak se hraje" [ref=f1e127] [cursor=pointer]:
+              - img [ref=f1e128]
+            - button "Přepnout zvuk" [ref=f1e130] [cursor=pointer]:
+              - img [ref=f1e131]
+        - generic [ref=f1e135]:
+          - text: "500"
+          - img [ref=f1e136]:
+            - generic [ref=f1e138]: $
+      - article "Automat" [ref=f1e139]:
+        - heading "Automat" [level=3] [ref=f1e140]
+        - region "Automat" [ref=f1e141]:
+          - generic [ref=f1e142]:
+            - generic "Ruleta 1" [ref=f1e143]:
+              - generic [ref=f1e144]:
+                - generic [ref=f1e145]: 🍒
+                - generic [ref=f1e146]: ⭐
+                - generic [ref=f1e147]: 🛎
+            - generic "Ruleta 2" [ref=f1e148]:
+              - generic [ref=f1e149]:
+                - generic [ref=f1e150]: 🍋
+                - generic [ref=f1e151]: 💎
+                - generic [ref=f1e152]: 🍒
+            - generic "Ruleta 3" [ref=f1e153]:
+              - generic [ref=f1e154]:
+                - generic [ref=f1e155]: 🛎
+                - generic [ref=f1e156]: 7️⃣
+                - generic [ref=f1e157]: 🍋
+        - region "Ovládání automatu" [ref=f1e158]:
+          - button "SPIN" [ref=f1e159] [cursor=pointer]
+          - button "AUTO" [ref=f1e160] [cursor=pointer]: AUTO
+      - region "Volba sázky" [ref=f1e161]:
+        - button "10" [ref=f1e162] [cursor=pointer]
+        - button "20" [ref=f1e163] [cursor=pointer]
+        - button "50" [ref=f1e164] [cursor=pointer]
+        - button "100" [ref=f1e165] [cursor=pointer]
+        - button "Vlastní sázka" [ref=f1e166] [cursor=pointer]:
+          - generic [ref=f1e167]: •••
+      - group "Akce během hry" [ref=f1e168]:
+        - button "Statistiky" [ref=f1e169] [cursor=pointer]
+        - button "Menu" [ref=f1e170] [cursor=pointer]

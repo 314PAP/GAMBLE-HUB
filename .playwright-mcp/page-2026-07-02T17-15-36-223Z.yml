@@ -1,0 +1,10 @@
+- generic [ref=f1e1]:
+  - img
+  - main "Herní aplikace" [ref=f1e2]:
+    - region "Nový Hráč" [ref=f1e99]:
+      - heading "Nový Hráč" [level=2] [ref=f1e100]
+      - textbox "Jméno hráče" [active] [ref=f1e101]:
+        - /placeholder: Zadej jméno (max 5 znaků)
+      - group "Registrace" [ref=f1e102]:
+        - button "Vytvořit účet" [ref=f1e103] [cursor=pointer]
+        - button "Zpět" [ref=f1e104] [cursor=pointer]

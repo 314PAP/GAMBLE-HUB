@@ -8,7 +8,7 @@ export class HiloGame {
   }
 
   init() {
-    this.currentNumber = Math.floor(Math.random() * 8) + 2; // Start with card between 2 and 9
+    this.currentNumber = Math.floor(Math.random() * 8) + 2;
     this.updateCardDisplay(this.currentNumber);
   }
 
@@ -40,22 +40,19 @@ export class HiloGame {
       gsap.to(card, {
         rotationY: 90,
         duration: 0.3,
-        ease: 'power2.in',
-        onComplete: () => {
+        ease: 'power2.inOut',
+        yoyo: true,
+        repeat: 1,
+        onRepeat: () => {
           this.updateCardDisplay(nextNumber);
           this.currentNumber = nextNumber;
-          gsap.to(card, {
-            rotationY: 0,
-            duration: 0.3,
-            ease: 'back.out(1.7)',
-            onComplete: () => {
-              this.isAnimating = false;
-              onComplete({
-                isWin,
-                winAmount: isWin ? betAmount * 2 : 0,
-                resultText: `Původní: ${originalNumber} | Nové: ${nextNumber}`
-              });
-            }
+        },
+        onComplete: () => {
+          this.isAnimating = false;
+          onComplete({
+            isWin,
+            winAmount: isWin ? betAmount * 2 : 0,
+            resultText: `Původní: ${originalNumber} | Nové: ${nextNumber}`
           });
         }
       });

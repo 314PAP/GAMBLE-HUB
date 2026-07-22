@@ -124,20 +124,19 @@
            </article>
 
 <article id="hilo-area" class="mt-0.5 flex flex-col justify-between min-h-0 h-full relative" style="display:none;" aria-labelledby="hilo-title">
-               <h3 id="hilo-title" class="sr-only">HI-LOW</h3>
-               <div class="hilo-container flex-1 flex flex-col justify-center items-center gap-2 sm:gap-3 p-3 min-h-0 mb-3" role="region" aria-label="HI-LOW hra">
-                   <div class="card-label px-3 py-1 rounded-xl border border-[rgba(255,255,255,0.05)]">AKTUÁLNÍ KARTA</div>
-                   <div class="card-viewport flex items-center justify-center flex-1 min-h-0 my-2">
-                       <div id="hilo-current-card" class="hilo-card-face flex items-center justify-center rounded-xl border-2 border-[var(--neon-blue)] h-[clamp(90px,22vh,150px)] aspect-[2/3]">5</div>
-                   </div>
-                   <div class="card-label px-3 py-1 rounded-xl border border-[rgba(255,255,255,0.05)]">DALŠÍ KARTA</div>
-               </div>
-               <div id="game-result-hilo" class="game-result-hilo" role="status" aria-live="polite"></div>
-               <div class="hilo-btns flex flex-wrap justify-center gap-1.5 sm:gap-2 md:gap-3 mt-auto mb-2" role="region" aria-label="Ovládání HI-LOW">
-                   <button class="btn btn-spin-slots w-auto px-4 py-2" id="btn-hilo-high" onclick="hrajHiLo('H')"><span class="icon-node" aria-hidden="true"></span> VYŠŠÍ</button>
-                   <button class="btn btn-danger w-auto px-4 py-2" id="btn-hilo-low" onclick="hrajHiLo('L')"><span class="icon-node" aria-hidden="true"></span> NIŽŠÍ</button>
-               </div>
-           </article>
+                <h3 id="hilo-title" class="sr-only">HI-LOW</h3>
+                    <div class="hilo-container flex-1 flex flex-col justify-center items-center gap-2 sm:gap-3 p-3 min-h-0 mb-3" role="region" aria-label="HI-LOW hra">
+                        <div class="card-label px-3 py-1 rounded-xl border border-[rgba(255,255,255,0.05)]">AKTUÁLNÍ KARTA</div>
+                         <div class="card-viewport flex items-center justify-center flex-1 min-h-0 my-2">
+                             <div id="hilo-current-card" class="hilo-card-face flex items-center justify-center rounded-xl border-2 border-[var(--neon-blue)] h-[clamp(90px,22vh,150px)] aspect-[2/3]">5</div>
+                         </div>
+                    </div>
+                <div id="game-result-hilo" class="game-result-hilo" role="status" aria-live="polite"></div>
+                <div class="hilo-btns flex flex-wrap justify-center gap-1.5 sm:gap-2 md:gap-3 mt-auto mb-2" role="region" aria-label="Ovládání HI-LOW">
+                    <button class="btn btn-spin-slots w-auto px-4 py-2" id="btn-hilo-high" onclick="hrajHiLo('H')"><span class="icon-node" aria-hidden="true"></span> VYŠŠÍ</button>
+                    <button class="btn btn-danger w-auto px-4 py-2" id="btn-hilo-low" onclick="hrajHiLo('L')"><span class="icon-node" aria-hidden="true"></span> NIŽŠÍ</button>
+                </div>
+            </article>
 
            <article id="classic-inputs" class="mt-0.5 relative" style="display:none;" aria-labelledby="classic-title">
                <h3 id="classic-title" class="sr-only">Výběr čísla</h3>

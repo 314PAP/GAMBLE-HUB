@@ -1,0 +1,18 @@
+- generic [active] [ref=f3e1]:
+  - img
+  - main "Herní aplikace" [ref=f3e2]:
+    - generic [ref=f3e95]:
+      - generic [ref=f3e97]:
+        - generic [ref=f3e98]: Test2
+        - generic [ref=f3e100]:
+          - text: "500"
+          - img [ref=f3e101]:
+            - generic [ref=f3e103]: $
+      - navigation "Výběr hry" [ref=f3e104]:
+        - button "AUTOMAT" [ref=f3e105] [cursor=pointer]
+        - button "HI-LOW" [ref=f3e106] [cursor=pointer]
+        - button "Ruleta 0-36 (36x)" [ref=f3e107] [cursor=pointer]
+        - button "Hádanka 1-10 (10x)" [ref=f3e108] [cursor=pointer]
+        - button "Hádanka 1-5 (5x)" [ref=f3e109] [cursor=pointer]
+        - button "Kostka 1-6 (6x)" [ref=f3e110] [cursor=pointer]
+      - button "Opustit hernu" [ref=f3e111] [cursor=pointer]

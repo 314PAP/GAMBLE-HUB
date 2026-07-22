@@ -1,0 +1,13 @@
+- generic [active] [ref=f10e1]:
+  - img
+  - main "Herní aplikace" [ref=f10e2]:
+    - region "Vyber Účet" [ref=f10e53]:
+      - heading "Vyber Účet" [level=2] [ref=f10e54]
+      - list "Seznam dostupných účtů" [ref=f10e55]:
+        - listitem [ref=f10e56]:
+          - button "Test 500" [ref=f10e57] [cursor=pointer]:
+            - generic [ref=f10e58]: Test
+            - generic [ref=f10e60]: "500"
+          - button "Smazat účet Test" [ref=f10e61] [cursor=pointer]:
+            - generic: 🗑️
+      - button "Zpět" [ref=f10e62] [cursor=pointer]
