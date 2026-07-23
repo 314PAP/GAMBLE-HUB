@@ -12,7 +12,8 @@ export class ExplorerManager {
   async load() {
     const modal = document.getElementById('explorer-modal');
     if (!modal) return;
-    modal.style.display = 'flex';
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
 
     const searchL = document.getElementById('leaderboard-search');
     if (searchL) searchL.value = '';
@@ -49,7 +50,8 @@ if (listL) listL.innerHTML = `<span class="text-[#ffd700] text-xs italic p-4 tex
 
   close() {
     const modal = document.getElementById('explorer-modal');
-    if (modal) modal.style.display = 'none';
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
   }
 
 renderHistory(filteredData = null) {

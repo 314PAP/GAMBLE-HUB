@@ -1,5 +1,3 @@
-/* === Hi-Lo Game Specific Styles === */
-
 .hilo-container {
   background:
     var(--screen-glass-sheen),
@@ -9,9 +7,7 @@
   box-shadow: 0 0 20px var(--neon-blue-glow), var(--screen-inset);
 }
 
-/* === HI-LO CARD (fixní poměr 2:3, responzivní velikost) === */
-.hilo-card-face,
-.next-card-face {
+.hilo-card-face {
   background:
     linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%),
     linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
@@ -26,29 +22,11 @@
   box-shadow: 0 0 30px var(--neon-blue-glow), 0 10px 30px rgba(0,0,0,0.4);
 }
 
-/* === NEXT CARD FACE (hidden by default) === */
-.next-card-face {
-  display: none;
-}
-
-/* === COMPARISON INDICATOR (small text, not a card) === */
 .comparison-indicator {
   border: none;
   text-shadow: 0 0 10px currentColor;
 }
 
-/* === CARD / SECTION LABELS === */
-.card-label {
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: clamp(10px, 2.5vw, 12px);
-  font-weight: 600;
-  text-align: center;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
-}
-
-/* === HI-LO BUTTONS === */
 .hilo-btns .btn,
 .hilo-btns .btn-primary,
 .hilo-btns .btn-danger {

@@ -55,13 +55,17 @@ export class StatsManager {
       }
     }
 
-    statsModal.style.display = 'flex';
+    statsModal.classList.remove('hidden');
+    statsModal.classList.add('flex');
     setTimeout(() => this.renderChart(stats.vyhry, stats.prohry), 100);
   }
 
   close() {
     const statsModal = document.getElementById('stats-modal');
-    if (statsModal) statsModal.style.display = 'none';
+    if (statsModal) {
+      statsModal.classList.add('hidden');
+      statsModal.classList.remove('flex');
+    }
   }
 
   renderChart(wins, losses) {

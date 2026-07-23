@@ -130,7 +130,7 @@ export function animateAutoSpinGlow(autoBtn) {
 export function stopAutoSpinGlow(autoBtn) {
   if (!autoBtn) return;
   gsap.killTweensOf(autoBtn);
-  autoBtn.style.boxShadow = '';
+  gsap.set(autoBtn, { boxShadow: 'none' });
 }
 
 // Animate bet buttons with yellow glow during auto-spin
@@ -155,7 +155,6 @@ export function stopBetButtonsGlow() {
   const betBtns = document.querySelectorAll('.btn-bet, .bet-btn');
   betBtns.forEach(btn => {
     gsap.killTweensOf(btn);
-    btn.style.backgroundColor = '';
-    btn.style.borderColor = '';
+    gsap.set(btn, { backgroundColor: 'transparent', borderColor: 'transparent' });
   });
 }

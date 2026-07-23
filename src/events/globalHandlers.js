@@ -89,22 +89,34 @@ window.smazatUcet = (username) => {
 
     window.otevriDisclaimer = () => {
       const panel = document.getElementById('disclaimer-panel');
-      if (panel) panel.style.display = 'flex';
+      if (panel) {
+        panel.classList.remove('hidden');
+        panel.classList.add('flex');
+      }
     };
 
     window.zavriDisclaimer = () => {
       const panel = document.getElementById('disclaimer-panel');
-      if (panel) panel.style.display = 'none';
+      if (panel) {
+        panel.classList.add('hidden');
+        panel.classList.remove('flex');
+      }
     };
 
     window.otevriInstalaciInfo = () => {
       const panel = document.getElementById('install-panel');
-      if (panel) panel.style.display = 'flex';
+      if (panel) {
+        panel.classList.remove('hidden');
+        panel.classList.add('flex');
+      }
     };
 
     window.zavriInstalaciInfo = () => {
       const panel = document.getElementById('install-panel');
-      if (panel) panel.style.display = 'none';
+      if (panel) {
+        panel.classList.add('hidden');
+        panel.classList.remove('flex');
+      }
     };
 
     window.spustitHru = (gameId) => {
@@ -118,15 +130,15 @@ window.smazatUcet = (username) => {
     window.ukazVlastniSazku = () => {
       const area = document.getElementById('custom-sazka-area');
       if (!area) return;
-      if (area.style.display === 'none') {
-        area.style.display = 'block';
+      if (area.classList.contains('hidden')) {
+        area.classList.remove('hidden');
         const input = document.getElementById('game-sazka');
         if (input) {
           input.value = '';
           input.focus();
         }
       } else {
-        area.style.display = 'none';
+        area.classList.add('hidden');
       }
     };
 
@@ -170,7 +182,7 @@ window.smazatUcet = (username) => {
       const finalBet = Math.round(numVal * multiplier);
       this.gm.setBet(finalBet);
       const area = document.getElementById('custom-sazka-area');
-      if (area) area.style.display = 'none';
+      if (area) area.classList.add('hidden');
     };
 
     window.hodKostkami = () => {

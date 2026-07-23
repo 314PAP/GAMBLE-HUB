@@ -61,17 +61,17 @@ export class GameManager {
     const gameResultHilo = document.getElementById('game-result-hilo');
     const betArea = document.getElementById('bet-area');
 
-    if (gameResultClassic) gameResultClassic.style.display = 'none';
-    if (gameResultDice) gameResultDice.style.display = 'none';
-    if (gameResultSlots) gameResultSlots.style.display = 'none';
-    if (gameResultHilo) gameResultHilo.style.display = 'none';
+    if (gameResultClassic) gameResultClassic.classList.add('hidden');
+    if (gameResultDice) gameResultDice.classList.add('hidden');
+    if (gameResultSlots) gameResultSlots.classList.add('hidden');
+    if (gameResultHilo) gameResultHilo.classList.add('hidden');
 
-    if (slotsArea) slotsArea.style.display = 'none';
-    if (hiloArea) hiloArea.style.display = 'none';
-    if (classicInputs) classicInputs.style.display = 'none';
-    if (diceArea) diceArea.style.display = 'none';
-    if (gameResult) gameResult.style.display = 'none';
-    if (betArea) betArea.style.display = 'grid';
+    if (slotsArea) slotsArea.classList.add('hidden');
+    if (hiloArea) hiloArea.classList.add('hidden');
+    if (classicInputs) classicInputs.classList.add('hidden');
+    if (diceArea) diceArea.classList.add('hidden');
+    if (gameResult) gameResult.classList.add('hidden');
+    if (betArea) betArea.classList.add('grid');
 
     // Reset slot cell classes
     document.querySelectorAll('.slot-cell').forEach(c => c.classList.remove('win-active'));
@@ -81,19 +81,19 @@ export class GameManager {
     switch (gameId) {
       case 1:
         titleEl.innerText = "HÁDANKA 1-10";
-        document.getElementById('classic-inputs').style.display = 'block';
+        document.getElementById('classic-inputs').classList.remove('hidden');
         this.guessing.generateGrid(1, 10, (num) => this.playGuessingGame(num, 1, 10, 10, "Hádanka 1-10"));
         break;
       case 2:
         titleEl.innerText = "HÁDANKA 1-5";
-        document.getElementById('classic-inputs').style.display = 'block';
+        document.getElementById('classic-inputs').classList.remove('hidden');
         this.guessing.generateGrid(1, 5, (num) => this.playGuessingGame(num, 1, 5, 5, "Hádanka 1-5"));
         break;
       case 3:
         titleEl.innerText = "KOSTKA 1-6";
-        document.getElementById('classic-inputs').style.display = 'none';
+        document.getElementById('classic-inputs').classList.add('hidden');
         const diceEl = document.getElementById('dice-area');
-        diceEl.style.display = '';
+        diceEl.classList.remove('hidden');
         this.dice.init();
         document.querySelectorAll('.dice-num-btn').forEach(btn => {
           btn.onclick = () => {
@@ -105,17 +105,18 @@ export class GameManager {
         break;
       case 4:
         titleEl.innerText = "RULETA 0-35";
-        document.getElementById('classic-inputs').style.display = 'block';
+        document.getElementById('classic-inputs').classList.remove('hidden');
         this.guessing.generateGrid(0, 35, (num) => this.playGuessingGame(num, 0, 35, 35, "Ruleta"));
         break;
       case 5:
         titleEl.innerText = "AUTOMAT";
-        document.getElementById('slots-area').style.display = 'block';
+        document.getElementById('slots-area').classList.remove('hidden');
         this.slots.initReels();
         break;
       case 6:
         titleEl.innerText = "HI-LOW";
-        document.getElementById('hilo-area').style.display = 'flex';
+        document.getElementById('hilo-area').classList.remove('hidden');
+        document.getElementById('hilo-area').classList.add('flex');
         this.hilo.init();
         break;
     }
@@ -150,23 +151,23 @@ export class GameManager {
     const resBoxHilo = document.getElementById('game-result-hilo');
 
     if (resBox) {
-      resBox.style.display = 'none';
+      resBox.classList.add('hidden');
       resBox.innerHTML = '';
     }
     if (resBoxClassic) {
-      resBoxClassic.style.display = 'none';
+      resBoxClassic.classList.add('hidden');
       resBoxClassic.innerHTML = '';
     }
     if (resBoxDice) {
-      resBoxDice.style.display = 'none';
+      resBoxDice.classList.add('hidden');
       resBoxDice.innerHTML = '';
     }
     if (resBoxSlots) {
-      resBoxSlots.style.display = 'none';
+      resBoxSlots.classList.add('hidden');
       resBoxSlots.innerHTML = '';
     }
     if (resBoxHilo) {
-      resBoxHilo.style.display = 'none';
+      resBoxHilo.classList.add('hidden');
       resBoxHilo.innerHTML = '';
     }
 
@@ -326,11 +327,9 @@ export class GameManager {
     document.querySelectorAll('.btn-bet, .bet-btn').forEach(b => {
       b.disabled = lock;
       if (lock) {
-        b.style.opacity = '0.7';
-        b.style.filter = 'grayscale(30%)';
+        b.classList.add('is-locked');
       } else {
-        b.style.opacity = '';
-        b.style.filter = '';
+        b.classList.remove('is-locked');
       }
     });
 
@@ -343,10 +342,6 @@ export class GameManager {
     document.querySelectorAll('.dice-num-btn').forEach(b => {
       b.disabled = lock;
     });
-
-    // Disable dice roll button
-    const rollBtn = document.getElementById('btn-roll-dice');
-    if (rollBtn) rollBtn.disabled = lock;
 
     // Disable slot spin button
     const spinBtn = document.getElementById('btn-spin-slots');

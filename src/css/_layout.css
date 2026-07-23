@@ -1,5 +1,20 @@
+/* === ANIMATION POLICY ===
+   - Infinite / idle animations (LED pulse, glow, warning pulse, coin flicker):
+     implemented in CSS @keyframes — most efficient for `repeat: infinite`.
+   - One-off transitions and game sequences (screen changes, slot spin,
+     dice roll, card flip, result reveals):
+     implemented via GSAP in src/animations/ and game modules.
+   - Conditional win states: CSS classes (e.g. `.dice-frame.win`,
+     `.btn.active`) trigger @keyframes from the CSS pool above.
+   - No overlapping CSS/GSAP animation targets found on shared elements.
+*/
+
 /* src/css/_layout.css */
 /* Základní layout – jen to co nejde Tailwitem */
+
+/* Screen visibility is purely state-driven (.screen → .screen.active).
+   The visible-to-hidden transition is handled by GSAP (animateScreenIn),
+   not CSS transitions, to avoid layout thrashing on display:none→grid. */
 
 /* === CONTAINER GRID OVERLAY (glass sheen background) === */
 .container::before {
@@ -41,8 +56,7 @@
 #classic-inputs,
 #dice-area,
 #bet-area,
-#custom-sazka-area,
-.game-buttons {
+#custom-sazka-area {
   width: 100%;
   max-width: 100%;
 }
@@ -53,8 +67,6 @@
 .game-title {
   font-size: clamp(10px, 3vw, 15px);
 }
-
-/* === SLOT CONTROLS === */
 
 /* === FORM INPUTS === */
 input, select, textarea {
@@ -73,11 +85,31 @@ input:focus, select:focus, textarea:focus {
   box-shadow: 0 0 15px var(--neon-orange-glow);
 }
 
-/* Game section base spacing */
-
 /* === DICE GAME BET AREA === */
 #bet-area {
   margin-top: 1.5rem;
   margin-bottom: 1rem;
   justify-content: center;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+}
+
+.is-locked {
+  opacity: 0.7;
+  filter: grayscale(30%);
+}
+
+.grid-cols-5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.grid-cols-6 {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+/* === SVG DEFS HIDING === */
+.svg-defs {
+  position: absolute;
 }

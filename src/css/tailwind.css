@@ -1,7 +1,39 @@
 @import "tailwindcss";
 
 @theme {
-  /* === Custom breakpoints === */
   --breakpoint-xs: 380px;
   --breakpoint-3xl: 1600px;
+
+  --color-neon-gold: #ffd700;
+  --color-neon-orange: #ff9f1c;
+  --color-neon-green: #39ff14;
+  --color-neon-pink: #ff007f;
+  --color-neon-blue: #00f0ff;
+  --color-neon-cyan: #00ffff;
+  --color-neon-purple: #bd00ff;
+  --color-neon-red: #ff4757;
+
+  --color-screen-bg: #020205;
+  --color-screen-alt: #0a0a14;
+  --color-screen-border: #1a1a2e;
+  --color-screen-primary: #ffd700;
+  --color-screen-secondary: #00ffff;
+
+  --shadow-neon-gold: 0 0 8px rgba(255, 215, 0, 0.65);
+  --shadow-neon-green: 0 0 8px rgba(57, 255, 20, 0.6);
+  --shadow-neon-pink: 0 0 8px rgba(255, 0, 127, 0.6);
+  --shadow-neon-blue: 0 0 8px rgba(0, 240, 255, 0.6);
+  --shadow-neon-cyan: 0 0 8px rgba(0, 255, 255, 0.6);
+  --shadow-neon-purple: 0 0 8px rgba(189, 0, 255, 0.6);
+  --shadow-neon-red: 0 0 8px rgba(255, 71, 87, 0.6);
+  --shadow-neon-orange: 0 0 8px rgba(255, 159, 28, 0.6);
+  --shadow-premium: 0 0 30px rgba(189, 0, 255, 0.25), inset 0 0 15px rgba(0, 255, 255, 0.1);
+
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --animate-duration-fast: 150ms;
+  --animate-duration-normal: 300ms;
+  --animate-duration-slow: 500ms;
+
+  --animate-repeat: infinite;
 }

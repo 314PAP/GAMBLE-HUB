@@ -1,0 +1,2 @@
+[ 4761156ms] [ERROR] [2026-07-22T22:01:54.470Z]  @firebase/firestore: Firestore (12.15.0): Could not reach Cloud Firestore backend. Backend didn't respond within 10 seconds.
+This typically indicates that your device does not have a healthy Internet connection at the moment. The client will operate in offline mode until it is able to successfully connect to the backend. @ http://localhost:5173/GAMBLE-HUB/node_modules/.vite/deps/chunk-C7MGMH3W.js?v=a97037a2:866

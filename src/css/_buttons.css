@@ -1,7 +1,3 @@
-/* === RULE 3: Massive 3D Mechanical Switch Buttons === */
-/* Základ .btn – pouze 3D efekt (gradient, shadow, active transform) */
-/* Rozměry (padding, min-height, font-size, width) ovládá Tailwind v HTML. */
-
 .btn {
   position: relative;
   display: inline-flex;
@@ -28,7 +24,6 @@
     inset 0 -2px 4px rgba(0,0,0,0.5);
 }
 
-/* Physical press – button goes DOWN into the panel */
 .btn:active {
   transform: translateY(6px);
   box-shadow:
@@ -37,7 +32,6 @@
     inset 0 -2px 4px rgba(0,0,0,0.5);
 }
 
-/* Hover – stronger glow only */
 .btn:hover {
   box-shadow:
     0 14px 20px rgba(0,0,0,0.6),
@@ -45,7 +39,6 @@
     inset 0 -6px 12px rgba(0,0,0,0.45);
 }
 
-/* Disabled – dead button */
 .btn:disabled,
 .btn:disabled:hover {
   opacity: 0.35;
@@ -57,13 +50,11 @@
     inset 0 1px 2px rgba(0,0,0,0.5);
 }
 
-/* Inner text inherits button glow */
 .btn * {
   color: inherit;
   text-shadow: inherit;
 }
 
-/* Active LED pulse (for AUTO mode) */
 .btn.active {
   animation: ledPulse 1.2s ease-in-out infinite;
 }
@@ -74,9 +65,6 @@
 }
 
 
-/* === COLOR VARIANTS – each has own neon border + text glow === */
-
-/* GOLD – main menu / primary actions */
 .btn-gold,
 .btn-gold:hover,
 .btn-gold:active {
@@ -91,7 +79,6 @@
     inset 0 -3px 6px rgba(0,0,0,0.45);
 }
 
-/* RED – danger / logout */
 .btn-danger,
 .btn-danger:hover,
 .btn-danger:active {
@@ -101,7 +88,6 @@
   text-shadow: 0 0 8px rgba(255, 71, 87, 0.7), 0 0 16px rgba(255, 71, 87, 0.4);
 }
 
-/* CYAN – info / default panels */
 .btn-info,
 .btn-info:hover,
 .btn-info:active {
@@ -111,7 +97,6 @@
   text-shadow: 0 0 8px rgba(0, 240, 255, 0.7), 0 0 16px rgba(0, 240, 255, 0.4);
 }
 
-/* BLUE – primary actions */
 .btn-primary,
 .btn-primary:hover,
 .btn-primary:active {
@@ -121,7 +106,6 @@
   text-shadow: 0 0 8px rgba(59, 130, 246, 0.7), 0 0 16px rgba(59, 130, 246, 0.4);
 }
 
-/* PINK – accent */
 .btn-pink,
 .btn-pink:hover,
 .btn-pink:active {
@@ -131,7 +115,6 @@
   text-shadow: 0 0 8px rgba(236, 72, 153, 0.7), 0 0 16px rgba(236, 72, 153, 0.4);
 }
 
-/* PURPLE – AUTO / secondary */
 .btn-purple,
 .btn-purple:hover,
 .btn-purple:active {
@@ -141,7 +124,6 @@
   text-shadow: 0 0 8px rgba(168, 85, 247, 0.7), 0 0 16px rgba(168, 85, 247, 0.4);
 }
 
-/* GREEN – success / SPIN */
 .btn-success,
 .btn-success:hover,
 .btn-success:active {
@@ -152,9 +134,6 @@
 }
 
 
-/* === GAME-SPECIFIC BUTTONS === */
-
-/* SPIN – poisoned neon green, strongest glow */
 .btn-spin-slots {
   border-top: 4px solid #39ff14;
   border-bottom: 4px solid #1f9200;
@@ -174,7 +153,6 @@
     0 2px 6px rgba(0,0,0,0.5);
 }
 
-/* BET buttons – cyan/blue compact, styled via Tailwind utilities */
 .bet-btn {
   border-top: 3px solid #00f0ff;
   border-bottom: 3px solid #008899;
@@ -192,7 +170,6 @@
   animation: ledPulse 1s ease-in-out infinite;
 }
 
-/* Legacy btn-bet class - kept for backward compatibility */
 .btn-bet {
   border-top: 3px solid #00f0ff;
   border-bottom: 3px solid #008899;
@@ -213,7 +190,6 @@
   animation: ledPulse 1s ease-in-out infinite;
 }
 
-/* AUTO – purple compact */
 .btn-auto-slots {
   border-top: 3px solid #a855f7;
   border-bottom: 3px solid #6b21a8;
@@ -221,7 +197,6 @@
   text-shadow: 0 0 6px rgba(168, 85, 247, 0.6);
 }
 
-/* Ghost/transparent variant for secondary buttons */
 .btn-ghost {
   background: transparent;
   border: 2px solid var(--neon-purple);
@@ -239,8 +214,6 @@
   box-shadow: none;
 }
 
-
-/* === RETRO LED NUMBER TILES (.btn-num) === */
 
 .btn-num {
   border: 1px solid #1a1a2e;
@@ -267,7 +240,6 @@
     0 0 14px rgba(0, 240, 255, 0.35);
 }
 
-/* Roulette casino colors */
 .btn-num.red-num {
   background:
     linear-gradient(180deg, rgba(255,60,60,0.3), transparent 50%),

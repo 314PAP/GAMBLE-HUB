@@ -14,12 +14,14 @@ export class DeleteConfirmDialog {
     };
     
     this.yesBtn.onclick = handleDelete;
-    this.dialog.style.display = 'flex';
+    this.dialog.classList.remove('hidden');
+    this.dialog.classList.add('flex');
   }
 
   hide() {
     if (this.dialog) {
-      this.dialog.style.display = 'none';
+      this.dialog.classList.add('hidden');
+      this.dialog.classList.remove('flex');
     }
     if (this.yesBtn) {
       this.yesBtn.onclick = null;

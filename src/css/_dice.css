@@ -1,4 +1,3 @@
-/* === DICE FRAME (resp. pomocí clamp + aspect-square) === */
 .dice-frame {
   aspect-ratio: 1 / 1;
   background:
@@ -90,7 +89,6 @@
   display: none;
 }
 
-/* Dice number buttons – gold styling for selection, cyan for unselected */
 .dice-num-btn {
   font-size: clamp(13px, 3.5vw, 15px);
   font-weight: 800;

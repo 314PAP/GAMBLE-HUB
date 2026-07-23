@@ -16,9 +16,11 @@ export class GuessingGame {
     
     // For Roulette (0-36), adjust columns if needed
     if (max - min > 10) {
-      gridContainer.style.gridTemplateColumns = 'repeat(6, 1fr)';
+      gridContainer.classList.remove('grid-cols-5');
+      gridContainer.classList.add('grid-cols-6');
     } else {
-      gridContainer.style.gridTemplateColumns = 'repeat(5, 1fr)';
+      gridContainer.classList.remove('grid-cols-6');
+      gridContainer.classList.add('grid-cols-5');
     }
 
     // Classic roulette number colors

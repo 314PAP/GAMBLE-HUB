@@ -1,6 +1,3 @@
-/* src/css/_typography.css */
-/* Google font imports, headings, text utilities */
-
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Outfit:wght@300;400;500;600;700&display=swap');
 
 /* === H1 – hlavní nadpis (použito na login obrazovce) === */
@@ -28,12 +25,9 @@ h2 {
   text-transform: uppercase;
 }
 
-/* === H3 – skryté pro screen reader (sr-only) === */
-h3 {
-  /* sr-only zachováno v .sr-only utility níže */
-}
 
 /* === NEON TEXT GLOW UTILITY === */
+
 .neon-text {
   color: var(--neon-gold);
   text-shadow: 0 0 6px var(--neon-gold-glow), 0 0 12px var(--neon-gold-glow);
@@ -48,41 +42,6 @@ h3 {
   .text-glow-blue { text-shadow: 0 0 8px var(--neon-blue-glow); }
   .text-glow-orange { text-shadow: 0 0 8px var(--neon-orange-glow); }
   .text-glow-pink { text-shadow: 0 0 8px var(--neon-pink-glow); }
-
-/* === TAILWIND-COMPATIBLE COLOR UTILITIES === */
-/* Používáno v HTML místo inline stylů. Translace: bg-neon-gold → background-color: #ffd700 */
-.text-neon-gold { color: #ffd700; }
-.text-neon-orange { color: #ff9f1c; }
-.text-neon-green { color: #39ff14; }
-.text-neon-pink { color: #ff007f; }
-.text-neon-blue { color: #00f0ff; }
-.text-neon-cyan { color: #00ffff; }
-.text-neon-purple { color: #bd00ff; }
-.text-neon-red { color: #ff4757; }
-
-.bg-neon-gold { background-color: #ffd700; }
-.bg-neon-orange { background-color: #ff9f1c; }
-.bg-neon-green { background-color: #39ff14; }
-.bg-neon-pink { background-color: #ff007f; }
-.bg-neon-blue { background-color: #00f0ff; }
-.bg-neon-cyan { background-color: #00ffff; }
-.bg-neon-purple { background-color: #bd00ff; }
-.bg-neon-red { background-color: #ff4757; }
-
-.border-neon-gold { border-color: #ffd700; }
-.border-neon-orange { border-color: #ff9f1c; }
-.border-neon-green { border-color: #39ff14; }
-.border-neon-pink { border-color: #ff007f; }
-.border-neon-blue { border-color: #00f0ff; }
-.border-neon-cyan { border-color: #00ffff; }
-.border-neon-purple { border-color: #bd00ff; }
-
-/* Screen / dark theme aliases */
-.bg-screen-bg { background-color: #020205; }
-.bg-screen-alt { background-color: #0a0a14; }
-.border-screen-border { border-color: #1a1a2e; }
-.text-screen-primary { color: #ffd700; }
-.text-screen-secondary { color: #00ffff; }
 
 /* === SCREEN READER ONLY === */
 .sr-only {

@@ -48,11 +48,6 @@ export class GameUI {
     btns.forEach(btn => {
       btn.classList.remove('selected', 'winning', 'losing');
       btn.disabled = false;
-      // Clear any inline losing styles
-      btn.style.background = '';
-      btn.style.color = '';
-      btn.style.borderColor = '';
-      btn.style.boxShadow = '';
     });
   }
 
@@ -130,11 +125,9 @@ export class GameUI {
   animateWinResult(resBox, winAmount, resultText, isJackpot, resultContainerClass = 'game-result') {
     if (resBox) {
       gsap.killTweensOf(resBox);
-      resBox.style.display = 'block';
-      resBox.style.visibility = 'visible';
-
-      resBox.style.borderColor = 'var(--neon-gold)';
-      resBox.style.boxShadow = '0 10px 25px rgba(0,0,0,0.5), 0 0 20px var(--neon-gold-glow), 0 0 40px var(--neon-gold-glow)';
+      resBox.classList.remove('hidden');
+      resBox.classList.add('block');
+      resBox.classList.remove('visibility-hidden');
       resBox.innerHTML = `
         <span class="text-[var(--neon-gold)] text-lg font-bold text-glow-gold flex items-center justify-center gap-1.5">
           <span>🎉 +${this.formatLargeNumber(winAmount)}</span>
@@ -144,6 +137,10 @@ export class GameUI {
         <small class="text-[var(--neon-cyan)] block mt-1 text-xs">${resultText}</small>
       `;
 
+      gsap.set(resBox, {
+        borderColor: 'var(--neon-gold)',
+        boxShadow: '0 10px 25px rgba(0,0,0,0.5), 0 0 20px var(--neon-gold-glow), 0 0 40px var(--neon-gold-glow)'
+      });
       gsap.set(resBox, { opacity: 0, scale: 0.8, y: 20 });
       const tl = gsap.timeline();
       tl.to(resBox, { 
@@ -161,7 +158,7 @@ export class GameUI {
         ease: 'power2.in', 
         delay: 2.5,
         onComplete: () => {
-          resBox.style.display = 'none';
+          resBox.classList.add('hidden');
         }
       });
     }
@@ -226,12 +223,12 @@ export class GameUI {
     
     if (!presetBets.includes(activeBet)) {
       if (custBtn) custBtn.classList.add('selected');
-      if (customArea) customArea.style.display = 'block';
+      if (customArea) customArea.classList.remove('hidden');
       const input = document.getElementById('game-sazka');
       if (input) input.value = activeBet;
     } else {
       if (custBtn) custBtn.classList.remove('selected');
-      if (customArea) customArea.style.display = 'none';
+      if (customArea) customArea.classList.add('hidden');
     }
   }
 
@@ -239,7 +236,7 @@ export class GameUI {
     const panel = document.getElementById('info-panel');
     if (!panel) return;
     
-    if (panel.style.display === 'flex') {
+    if (panel.classList.contains('flex')) {
       this.zavriInfoPanel();
       return;
     }
@@ -253,13 +250,15 @@ export class GameUI {
     if (titleEl) titleEl.innerText = info.title;
     if (bodyEl) bodyEl.innerHTML = info.html;
     
-    panel.style.display = 'flex';
+    panel.classList.add('flex');
+    panel.classList.remove('hidden');
   }
 
   zavriInfoPanel() {
     const panel = document.getElementById('info-panel');
     if (panel) {
-      panel.style.display = 'none';
+      panel.classList.add('hidden');
+      panel.classList.remove('flex');
     }
   }
 
@@ -287,8 +286,8 @@ export class GameUI {
         tabHistory.classList.remove('border-[#ff9f1c]', 'text-[#ff9f1c]');
         tabHistory.classList.add('border-transparent', 'text-[#ffd700]');
       }
-      if (secLeaderboard) secLeaderboard.style.display = 'flex';
-      if (secHistory) secHistory.style.display = 'none';
+      if (secLeaderboard) secLeaderboard.classList.remove('hidden');
+      if (secHistory) secHistory.classList.add('hidden');
     } else {
       if (tabHistory) {
         tabHistory.classList.add('border-[#ff9f1c]', 'text-[#ff9f1c]');
@@ -298,8 +297,8 @@ export class GameUI {
         tabLeaderboard.classList.remove('border-[#ff9f1c]', 'text-[#ff9f1c]');
         tabLeaderboard.classList.add('border-transparent', 'text-[#ffd700]');
       }
-      if (secLeaderboard) secLeaderboard.style.display = 'none';
-      if (secHistory) secHistory.style.display = 'flex';
+      if (secLeaderboard) secLeaderboard.classList.add('hidden');
+      if (secHistory) secHistory.classList.remove('hidden');
     }
   }
 
