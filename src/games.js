@@ -122,11 +122,16 @@ export class GameManager {
 
     // Reset number buttons for classic games (e.g., roulette) to clear previous selections
     this.ui.resetNumberButtons();
-    this.ui.showScreen('screen-game');
 
-    if (gameId === 5) {
-      setTimeout(() => this.slots.initReels(), 800);
-    }
+    // Show 3-second animated GAMBLE HUB splash loader screen before revealing game
+    this.ui.showScreen('screen-splash');
+
+    setTimeout(() => {
+      this.ui.showScreen('screen-game');
+      if (gameId === 5) {
+        this.slots.initReels();
+      }
+    }, 3000);
   }
 
   // Logic wrapper before playing any turn (balance checks, UI locking)

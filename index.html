@@ -61,30 +61,30 @@
          </div>
      </section>
 
-     <section id="screen-hub" class="screen p-4">
-<header class="game-header-bar bg-gradient-to-br from-[#020205] via-[#020205] to-[#020205] rounded-xl mb-3 px-4 py-2.5 shrink-0" role="region" aria-label="Herní lišta">
+     <section id="screen-hub" class="screen flex flex-col h-full min-h-0 overflow-hidden bg-black p-2">
+         <header class="game-header-bar bg-black rounded-xl mb-1.5 px-3 py-1.5 shrink-0" role="region" aria-label="Herní lišta">
               <div class="flex items-center justify-between w-full gap-2 min-w-0 shrink">
                  <div class="text-sm truncate text-[var(--neon-gold)]">
                      <span id="hub-player-name" class="sr-only">Jméno hráče</span>
                  </div>
-                 <div class="text-lg font-bold whitespace-nowrap text-[var(--neon-green)] text-glow-green">
+                 <div class="text-base sm:text-lg font-bold whitespace-nowrap text-[var(--neon-green)] text-glow-green">
                    <span class="score-display flex items-center gap-1.5"><span id="hub-player-money"></span><svg class="coin-icon-svg w-[1.1em] h-[1.1em]" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span>
                  </div>
               </div>
           </header>
-<nav aria-label="Výběr hry" class="flex flex-col gap-2.5 p-2 overflow-y-auto flex-1 justify-center">
-              <button class="btn btn-gold w-full py-2.5 text-xs sm:text-sm whitespace-nowrap" onclick="spustitHru(5)">AUTOMAT</button>
-              <button class="btn btn-danger w-full py-2.5 text-xs sm:text-sm whitespace-nowrap" onclick="spustitHru(6)">HI-LOW</button>
-              <button class="btn btn-red w-full py-2.5 text-xs sm:text-sm whitespace-nowrap" onclick="spustitHru(4)">Ruleta 0-36 (36x)</button>
-              <button class="btn btn-info w-full py-2.5 text-xs sm:text-sm whitespace-nowrap" onclick="spustitHru(1)">Hádanka 1-10 (10x)</button>
-              <button class="btn btn-primary w-full py-2.5 text-xs sm:text-sm whitespace-nowrap" onclick="spustitHru(2)">Hádanka 1-5 (5x)</button>
-              <button class="btn btn-purple w-full py-2.5 text-xs sm:text-sm whitespace-nowrap" onclick="spustitHru(3)">Kostka 1-6 (6x)</button>
+          <nav aria-label="Výběr hry" class="flex flex-col gap-1.5 py-1 px-1 overflow-y-auto flex-1 min-h-0 justify-center">
+              <button class="btn btn-gold w-full py-2 text-xs sm:text-sm whitespace-nowrap shrink-0" onclick="spustitHru(5)">AUTOMAT</button>
+              <button class="btn btn-danger w-full py-2 text-xs sm:text-sm whitespace-nowrap shrink-0" onclick="spustitHru(6)">HI-LOW</button>
+              <button class="btn btn-red w-full py-2 text-xs sm:text-sm whitespace-nowrap shrink-0" onclick="spustitHru(4)">Ruleta 0-36 (36x)</button>
+              <button class="btn btn-info w-full py-2 text-xs sm:text-sm whitespace-nowrap shrink-0" onclick="spustitHru(1)">Hádanka 1-10 (10x)</button>
+              <button class="btn btn-primary w-full py-2 text-xs sm:text-sm whitespace-nowrap shrink-0" onclick="spustitHru(2)">Hádanka 1-5 (5x)</button>
+              <button class="btn btn-purple w-full py-2 text-xs sm:text-sm whitespace-nowrap shrink-0" onclick="spustitHru(3)">Kostka 1-6 (6x)</button>
           </nav>
-         <button id="btn-logout" class="btn btn-danger w-full py-2.5 text-xs sm:text-sm mt-2 shrink-0" onclick="odhlasitSe()">Opustit hernu</button>
+         <button id="btn-logout" class="btn btn-danger w-full py-2 text-xs sm:text-sm mt-1.5 shrink-0" onclick="odhlasitSe()">Opustit hernu</button>
      </section>
-     <section id="screen-splash" class="screen flex flex-col items-center justify-center h-full bg-black z-50 p-4" aria-label="Načítání hry">
-         <div class="splash-logo-container flex flex-col items-center justify-center gap-3">
-             <h1 class="game-title text-[clamp(24px,7vw,42px)] font-extrabold tracking-widest text-center animate-[pulse_1.5s_ease-in-out_infinite]">GAMBLE HUB</h1>
+     <section id="screen-splash" class="screen flex flex-col items-center justify-center h-full bg-black z-50 p-4 select-none" aria-label="Načítání hry">
+         <div class="splash-logo-container flex flex-col items-center justify-center gap-4">
+             <h1 class="splash-logo-title text-center">GAMBLE HUB</h1>
              <div class="flex items-center gap-2 mt-2">
                  <div class="w-2.5 h-2.5 rounded-full bg-[var(--neon-pink)] animate-ping"></div>
                  <span class="text-xs text-[var(--neon-gold)] font-['Press_Start_2P',monospace] tracking-wider uppercase">Načítání...</span>
