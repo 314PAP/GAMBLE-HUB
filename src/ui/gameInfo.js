@@ -54,7 +54,7 @@ export const GAME_INFOS = {
           <th>Výhra</th>
         </tr>
         <tr class="win-row"><td>🍒 Třešeň</td><td>2x sázka</td></tr>
-        <tr class="win-row"><td>🛎 Zvonek</td><td>5x sázka</td></tr>
+        <tr class="win-row"><td>🔔 Zvonek</td><td>5x sázka</td></tr>
         <tr class="win-row"><td>🍋 Citron</td><td>8x sázka</td></tr>
         <tr class="win-row"><td>⭐ Hvězda</td><td>15x sázka</td></tr>
         <tr class="win-row"><td>💎 Diamant</td><td>30x sázka</td></tr>

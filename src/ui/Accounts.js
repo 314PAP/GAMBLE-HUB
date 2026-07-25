@@ -33,7 +33,7 @@ export class AccountsManager {
       row.setAttribute("role", "listitem");
 
       const selectBtn = document.createElement("button");
-      selectBtn.className = "btn flex-1 min-w-0 text-left text-xs sm:text-sm py-3 pl-3 pr-3";
+      selectBtn.className = "btn flex-1 min-w-0 text-left text-sm py-3 pl-3 pr-3";
       selectBtn.innerHTML = `<span class="truncate scoreboard-name">${this.wrapEmoji(username)}</span><span class="ml-auto truncate text-[var(--neon-green)] text-glow-green"><span class="score-display">${this.formatLargeNumber(balance)}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span></span>`;
       selectBtn.onclick = () => onSelect(username);
 

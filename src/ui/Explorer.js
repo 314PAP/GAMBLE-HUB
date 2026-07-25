@@ -66,8 +66,9 @@ renderHistory(filteredData = null) {
     let html = '';
     data.forEach(item => {
       const isWin = item.isWin;
-      const winVal = item.winAmount;
-      const formattedWin = winVal > 0 ? `+${formatLargeNumber(winVal)} Kč` : `${formatLargeNumber(winVal)} Kč`;
+      const winVal = item.winAmount || 0;
+      const coinSvg = `<svg class="coin-icon-svg inline-block w-[0.9em] h-[0.9em] ml-0.5" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg>`;
+      const formattedWin = winVal > 0 ? `+${formatLargeNumber(winVal)} ${coinSvg}` : `${formatLargeNumber(winVal)} ${coinSvg}`;
       const timeString = item.timestamp ? new Date(item.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'}) : '';
 
       let gameLabel = item.gameName;

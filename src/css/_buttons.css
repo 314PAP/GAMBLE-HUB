@@ -3,40 +3,47 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  border: none;
-  border-radius: 6px;
+  gap: clamp(0.25rem, 1vw, 0.5rem);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
   cursor: pointer;
   user-select: none;
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.75rem, 2vw, 1rem);
+  font-size: clamp(0.75rem, 1.4vw, 0.95rem);
   color: var(--neon-gold);
-  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.05) 40%, transparent 60%),
-    linear-gradient(180deg, rgba(0,0,0,0.25) 0%, transparent 50%),
-    #111118;
+    linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.02) 100%),
+    rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
   box-shadow:
-    0 2px 4px rgba(0,0,0,0.5),
-    inset 0 1px 0 rgba(255,255,255,0.1),
-    inset 0 -2px 4px rgba(0,0,0,0.5);
-}
-
-.btn:active {
-  transform: translateY(6px);
-  box-shadow:
-    0 2px 4px rgba(0,0,0,0.5),
-    inset 0 1px 0 rgba(255,255,255,0.1),
-    inset 0 -2px 4px rgba(0,0,0,0.5);
+    0 4px 10px rgba(0, 0, 0, 0.5),
+    inset 2px 2px 0px rgba(255, 255, 255, 0.25),
+    inset -2px -2px 0px rgba(0, 0, 0, 0.5);
+  transition: all 0.15s ease;
 }
 
 .btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.2);
   box-shadow:
-    0 14px 20px rgba(0,0,0,0.6),
-    inset 0 2px 4px rgba(255,255,255,0.22),
-    inset 0 -6px 12px rgba(0,0,0,0.45);
+    0 6px 14px rgba(0, 0, 0, 0.6),
+    inset 2px 2px 0px rgba(255, 255, 255, 0.4),
+    inset -2px -2px 0px rgba(0, 0, 0, 0.5);
+}
+
+.btn:active {
+  transform: translateY(2px);
+  filter: brightness(0.95);
+  box-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.6),
+    inset -2px -2px 0px rgba(255, 255, 255, 0.2),
+    inset 2px 2px 0px rgba(0, 0, 0, 0.6);
 }
 
 .btn:disabled,
@@ -68,134 +75,228 @@
 .btn-gold,
 .btn-gold:hover,
 .btn-gold:active {
-  border-top: 3px solid #ffd700;
-  border-bottom: 3px solid #b8960a;
+  border: 2px solid rgba(255, 215, 0, 0.8);
   color: #ffd700;
-  text-shadow: 0 0 8px rgba(255, 215, 0, 0.7), 0 0 16px rgba(255, 215, 0, 0.4);
+  background:
+    linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 215, 0, 0.05) 100%),
+    rgba(20, 16, 5, 0.8);
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.9), 0 0 20px rgba(255, 215, 0, 0.5);
   box-shadow:
-    0 0 18px rgba(255, 215, 0, 0.25),
-    0 8px 14px rgba(0,0,0,0.55),
-    inset 0 1px 0 rgba(255,255,255,0.18),
-    inset 0 -3px 6px rgba(0,0,0,0.45);
+    0 0 22px rgba(255, 215, 0, 0.4),
+    0 4px 15px rgba(0, 0, 0, 0.5),
+    inset 2px 2px 0px rgba(255, 255, 255, 0.3),
+    inset -2px -2px 0px rgba(0, 0, 0, 0.5);
 }
 
+/* Orange Glass for Danger / Low / Cancel */
 .btn-danger,
 .btn-danger:hover,
 .btn-danger:active {
-  border-top: 3px solid #ff4757;
-  border-bottom: 3px solid #a82030;
-  color: #ff6b7a;
-  text-shadow: 0 0 8px rgba(255, 71, 87, 0.7), 0 0 16px rgba(255, 71, 87, 0.4);
+  border: 2px solid rgba(255, 120, 0, 0.8);
+  color: #ff9d42;
+  background:
+    linear-gradient(135deg, rgba(255, 120, 0, 0.3) 0%, rgba(255, 80, 0, 0.05) 100%),
+    rgba(30, 15, 5, 0.8);
+  text-shadow: 0 0 10px rgba(255, 120, 0, 0.9), 0 0 20px rgba(255, 120, 0, 0.5);
+  box-shadow:
+    0 0 22px rgba(255, 120, 0, 0.4),
+    0 4px 15px rgba(0, 0, 0, 0.5),
+    inset 2px 2px 0px rgba(255, 255, 255, 0.3),
+    inset -2px -2px 0px rgba(0, 0, 0, 0.5);
 }
 
 .btn-info,
 .btn-info:hover,
 .btn-info:active {
-  border-top: 3px solid #00f0ff;
-  border-bottom: 3px solid #008899;
+  border: 2px solid rgba(0, 240, 255, 0.8);
   color: #00f0ff;
-  text-shadow: 0 0 8px rgba(0, 240, 255, 0.7), 0 0 16px rgba(0, 240, 255, 0.4);
+  background:
+    linear-gradient(135deg, rgba(0, 240, 255, 0.3) 0%, rgba(0, 240, 255, 0.05) 100%),
+    rgba(5, 20, 30, 0.8);
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.9), 0 0 20px rgba(0, 240, 255, 0.5);
+  box-shadow:
+    0 0 22px rgba(0, 240, 255, 0.4),
+    0 4px 15px rgba(0, 0, 0, 0.5),
+    inset 2px 2px 0px rgba(255, 255, 255, 0.3),
+    inset -2px -2px 0px rgba(0, 0, 0, 0.5);
 }
 
+/* Dark Blue Glowing Glass for Primary / High */
 .btn-primary,
 .btn-primary:hover,
 .btn-primary:active {
-  border-top: 3px solid #3b82f6;
-  border-bottom: 3px solid #1d4ed8;
+  border: 2px solid rgba(59, 130, 246, 0.85);
   color: #60a5fa;
-  text-shadow: 0 0 8px rgba(59, 130, 246, 0.7), 0 0 16px rgba(59, 130, 246, 0.4);
+  background:
+    linear-gradient(135deg, rgba(59, 130, 246, 0.35) 0%, rgba(30, 58, 138, 0.15) 100%),
+    rgba(10, 20, 45, 0.85);
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.95), 0 0 20px rgba(59, 130, 246, 0.5);
+  box-shadow:
+    0 0 24px rgba(59, 130, 246, 0.45),
+    0 4px 15px rgba(0, 0, 0, 0.5),
+    inset 2px 2px 0px rgba(255, 255, 255, 0.35),
+    inset -2px -2px 0px rgba(0, 0, 0, 0.5);
 }
 
 .btn-pink,
 .btn-pink:hover,
 .btn-pink:active {
-  border-top: 3px solid #ec4899;
-  border-bottom: 3px solid #9d174d;
+  border: 2px solid rgba(236, 72, 153, 0.8);
   color: #f472b6;
-  text-shadow: 0 0 8px rgba(236, 72, 153, 0.7), 0 0 16px rgba(236, 72, 153, 0.4);
+  background:
+    linear-gradient(135deg, rgba(236, 72, 153, 0.3) 0%, rgba(236, 72, 153, 0.05) 100%),
+    rgba(30, 10, 20, 0.8);
+  text-shadow: 0 0 10px rgba(236, 72, 153, 0.9), 0 0 20px rgba(236, 72, 153, 0.5);
+  box-shadow:
+    0 0 22px rgba(236, 72, 153, 0.4),
+    0 4px 15px rgba(0, 0, 0, 0.5),
+    inset 2px 2px 0px rgba(255, 255, 255, 0.3),
+    inset -2px -2px 0px rgba(0, 0, 0, 0.5);
 }
 
 .btn-purple,
 .btn-purple:hover,
 .btn-purple:active {
-  border-top: 3px solid #a855f7;
-  border-bottom: 3px solid #6b21a8;
+  border: 2px solid rgba(168, 85, 247, 0.8);
   color: #c084fc;
-  text-shadow: 0 0 8px rgba(168, 85, 247, 0.7), 0 0 16px rgba(168, 85, 247, 0.4);
+  background:
+    linear-gradient(135deg, rgba(168, 85, 247, 0.3) 0%, rgba(168, 85, 247, 0.05) 100%),
+    rgba(20, 10, 30, 0.8);
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.9), 0 0 20px rgba(168, 85, 247, 0.5);
+  box-shadow:
+    0 0 22px rgba(168, 85, 247, 0.4),
+    0 4px 15px rgba(0, 0, 0, 0.5),
+    inset 2px 2px 0px rgba(255, 255, 255, 0.3),
+    inset -2px -2px 0px rgba(0, 0, 0, 0.5);
 }
 
+/* GambleHub Title Purple Glass for Stats button */
+.btn-stats,
+.btn-stats:hover,
+.btn-stats:active {
+  border: 2px solid rgba(236, 72, 153, 0.85);
+  color: #f472b6;
+  background:
+    linear-gradient(135deg, rgba(236, 72, 153, 0.35) 0%, rgba(168, 85, 247, 0.25) 50%, rgba(59, 130, 246, 0.2) 100%),
+    rgba(25, 10, 35, 0.85);
+  text-shadow: 0 0 10px rgba(236, 72, 153, 0.95), 0 0 20px rgba(168, 85, 247, 0.6);
+  box-shadow:
+    0 0 24px rgba(236, 72, 153, 0.45),
+    0 4px 15px rgba(0, 0, 0, 0.5),
+    inset 2px 2px 0px rgba(255, 255, 255, 0.35),
+    inset -2px -2px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* Glowing Green Glass for Success */
 .btn-success,
 .btn-success:hover,
 .btn-success:active {
-  border-top: 3px solid #39ff14;
-  border-bottom: 3px solid #1f9200;
+  border: 2px solid rgba(57, 255, 20, 0.85);
   color: #39ff14;
-  text-shadow: 0 0 10px rgba(57, 255, 20, 0.8), 0 0 20px rgba(57, 255, 20, 0.5);
-}
-
-
-.btn-spin-slots {
-  border-top: 4px solid #39ff14;
-  border-bottom: 4px solid #1f9200;
-  color: #39ff14;
-  text-shadow: 0 0 12px rgba(57, 255, 20, 0.9), 0 0 24px rgba(57, 255, 20, 0.6);
-  box-shadow:
-    0 0 28px rgba(57, 255, 20, 0.4),
-    0 12px 22px rgba(0,0,0,0.6),
-    inset 0 2px 6px rgba(255,255,255,0.22),
-    inset 0 -6px 14px rgba(0,0,0,0.45);
-}
-
-.btn-spin-slots:active {
-  transform: translateY(6px);
-  box-shadow:
-    0 0 12px rgba(57, 255, 20, 0.5),
-    0 2px 6px rgba(0,0,0,0.5);
-}
-
-.bet-btn {
-  border-top: 3px solid #00f0ff;
-  border-bottom: 3px solid #008899;
-  color: #00f0ff;
-  text-shadow: 0 0 6px rgba(0, 240, 255, 0.6);
-}
-
-.bet-btn.selected {
   background:
-    linear-gradient(180deg, rgba(0, 240, 255, 0.18), transparent 40%),
-    #111118;
+    linear-gradient(135deg, rgba(57, 255, 20, 0.3) 0%, rgba(20, 80, 10, 0.1) 100%),
+    rgba(5, 25, 10, 0.8);
+  text-shadow: 0 0 12px rgba(57, 255, 20, 0.95), 0 0 20px rgba(57, 255, 20, 0.5);
   box-shadow:
-    0 0 20px rgba(0, 240, 255, 0.45),
-    inset 0 0 12px rgba(0, 240, 255, 0.12);
-  animation: ledPulse 1s ease-in-out infinite;
+    0 0 26px rgba(57, 255, 20, 0.45),
+    0 4px 15px rgba(0, 0, 0, 0.5),
+    inset 2px 2px 0px rgba(255, 255, 255, 0.35),
+    inset -2px -2px 0px rgba(0, 0, 0, 0.5);
 }
 
+/* 8-bit Glass Slot Control Buttons */
+.btn-spin-slots {
+  border: 2px solid rgba(57, 255, 20, 0.85);
+  color: #39ff14;
+  background:
+    linear-gradient(135deg, rgba(57, 255, 20, 0.3) 0%, rgba(20, 80, 10, 0.1) 100%),
+    rgba(5, 25, 10, 0.85);
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.95), 0 0 20px rgba(57, 255, 20, 0.5);
+  box-shadow:
+    0 0 24px rgba(57, 255, 20, 0.45),
+    0 4px 15px rgba(0, 0, 0, 0.5),
+    inset 2px 2px 0px rgba(255, 255, 255, 0.35),
+    inset -2px -2px 0px rgba(0, 0, 0, 0.5);
+}
+
+.btn-auto-slots {
+  border: 2px solid rgba(168, 85, 247, 0.85);
+  color: #c084fc;
+  background:
+    linear-gradient(135deg, rgba(168, 85, 247, 0.3) 0%, rgba(168, 85, 247, 0.05) 100%),
+    rgba(20, 10, 30, 0.85);
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.95), 0 0 20px rgba(168, 85, 247, 0.5);
+  box-shadow:
+    0 0 24px rgba(168, 85, 247, 0.4),
+    0 4px 15px rgba(0, 0, 0, 0.5),
+    inset 2px 2px 0px rgba(255, 255, 255, 0.35),
+    inset -2px -2px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* Bet Buttons 8-bit Glass Style */
+.bet-btn,
 .btn-bet {
-  border-top: 3px solid #00f0ff;
-  border-bottom: 3px solid #008899;
-  color: #00f0ff;
-  text-shadow: 0 0 6px rgba(0, 240, 255, 0.6);
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(0.6rem, 1.2vw, 0.8rem);
+  letter-spacing: 0;
+  border: 2px solid rgba(255, 120, 0, 0.8);
+  color: #ff8c00;
+  text-shadow: 0 0 6px rgba(255, 140, 0, 0.8);
+  background:
+    linear-gradient(135deg, rgba(255, 120, 0, 0.25) 0%, rgba(255, 120, 0, 0.03) 100%),
+    rgba(10, 10, 15, 0.85);
+  box-shadow:
+    inset 2px 2px 0px rgba(255, 159, 28, 0.3),
+    inset -2px -2px 0px rgba(0, 0, 0, 0.6);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.btn-bet.selected {
-  background:
-    linear-gradient(180deg, rgba(0, 240, 255, 0.18), transparent 40%),
-    #111118;
+.bet-btn:hover,
+.btn-bet:hover {
+  border-color: #ffd700;
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.9);
   box-shadow:
-    0 0 20px rgba(0, 240, 255, 0.45),
-    inset 0 0 12px rgba(0, 240, 255, 0.12);
-  animation: ledPulse 1s ease-in-out infinite;
+    inset 2px 2px 0px rgba(255, 215, 0, 0.35),
+    inset -2px -2px 0px rgba(0, 0, 0, 0.6);
 }
 
-.btn-auto-slots {
-  border-top: 3px solid #a855f7;
-  border-bottom: 3px solid #6b21a8;
-  color: #c084fc;
-  text-shadow: 0 0 6px rgba(168, 85, 247, 0.6);
+.bet-btn.selected,
+.btn-bet.selected {
+  border: 2px solid rgba(255, 140, 0, 0.95);
+  animation: betSelectedFlash 0.8s ease-in-out infinite alternate;
 }
+
+@keyframes betSelectedFlash {
+  0% {
+    color: #ffd700;
+    background:
+      linear-gradient(135deg, rgba(255, 140, 0, 0.45) 0%, rgba(255, 100, 0, 0.15) 100%),
+      rgba(25, 12, 5, 0.9);
+    text-shadow: 0 0 12px rgba(255, 215, 0, 1), 0 0 24px rgba(255, 140, 0, 0.8);
+    box-shadow:
+      inset 0 0 15px rgba(255, 140, 0, 0.5),
+      inset 2px 2px 0px rgba(255, 215, 0, 0.4),
+      inset -2px -2px 0px rgba(0, 0, 0, 0.6);
+    filter: brightness(1.35);
+  }
+  100% {
+    color: #ff8c00;
+    background:
+      linear-gradient(135deg, rgba(255, 100, 0, 0.15) 0%, rgba(255, 80, 0, 0.02) 100%),
+      rgba(10, 5, 2, 0.85);
+    text-shadow: 0 0 4px rgba(255, 140, 0, 0.5);
+    box-shadow:
+      inset 0 0 4px rgba(255, 100, 0, 0.1),
+      inset 2px 2px 0px rgba(255, 140, 0, 0.2),
+      inset -2px -2px 0px rgba(0, 0, 0, 0.6);
+    filter: brightness(0.85);
+  }
+}
+
+
 
 .btn-ghost {
   background: transparent;
@@ -216,72 +317,117 @@
 
 
 .btn-num {
-  border: 1px solid #1a1a2e;
-  border-radius: 6px;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-h: 0;
+  border-radius: 4px;
+  border: 1.5px solid rgba(255, 159, 28, 0.4);
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.06), transparent 50%),
-    #010104;
-  color: #b0b0c0;
-  font-family: 'Orbitron', monospace;
+    linear-gradient(135deg, rgba(255, 159, 28, 0.15) 0%, rgba(255, 159, 28, 0.02) 100%),
+    rgba(12, 10, 20, 0.85);
+  color: #ff9f1c;
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(0.45rem, 1.8vh, 0.75rem);
   font-weight: 800;
-  text-shadow: 0 0 6px rgba(0, 240, 255, 0.5);
+  text-shadow: 0 0 6px rgba(255, 159, 28, 0.6);
   box-shadow:
-    inset 0 0 8px rgba(0,0,0,0.9),
-    0 0 2px rgba(0,0,0,0.8);
+    inset 1px 1px 0px rgba(255, 159, 28, 0.25),
+    inset -1px -1px 0px rgba(0, 0, 0, 0.7);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-num:hover {
   transform: scale(1.1);
-  color: #00f0ff;
-  border-color: #00f0ff;
-  text-shadow: 0 0 12px rgba(0, 240, 255, 0.8), 0 0 20px rgba(0, 240, 255, 0.5);
+  border-color: #ff9f1c;
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.9);
   box-shadow:
-    inset 0 0 12px rgba(0, 240, 255, 0.2),
-    0 0 14px rgba(0, 240, 255, 0.35);
+    inset 1px 1px 0px rgba(255, 215, 0, 0.4),
+    inset -1px -1px 0px rgba(0, 0, 0, 0.7);
 }
 
+/* Red Numbers: Glowing Red Glass */
 .btn-num.red-num {
   background:
-    linear-gradient(180deg, rgba(255,60,60,0.3), transparent 50%),
-    #0a0204;
-  border-color: #4a1515;
-  color: #ff6b6b;
-  text-shadow: 0 0 8px rgba(255,60,60,0.7);
+    linear-gradient(135deg, rgba(255, 71, 87, 0.35) 0%, rgba(255, 71, 87, 0.05) 100%),
+    rgba(35, 8, 15, 0.85);
+  border-color: rgba(255, 71, 87, 0.8);
+  color: #ff6b7a;
+  text-shadow: 0 0 8px rgba(255, 71, 87, 0.85);
+  box-shadow:
+    inset 1px 1px 0px rgba(255, 120, 130, 0.3),
+    inset -1px -1px 0px rgba(0, 0, 0, 0.7);
 }
 
+/* Dark Numbers (Black in classic): Glowing Dark Purple/Blue Neon Glass */
 .btn-num.black-num {
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.04), transparent 50%),
-    #050508;
-  border-color: #1f1f28;
-  color: #c0c0d0;
-  text-shadow: 0 0 6px rgba(0,240,255,0.4);
+    linear-gradient(135deg, rgba(168, 85, 247, 0.25) 0%, rgba(59, 130, 246, 0.05) 100%),
+    rgba(15, 10, 25, 0.9);
+  border-color: rgba(168, 85, 247, 0.6);
+  color: #c084fc;
+  text-shadow: 0 0 6px rgba(168, 85, 247, 0.8);
+  box-shadow:
+    inset 1px 1px 0px rgba(168, 85, 247, 0.3),
+    inset -1px -1px 0px rgba(0, 0, 0, 0.7);
 }
 
+/* Zero Number: Glowing Green Glass */
 .btn-num.green-num {
   background:
-    linear-gradient(180deg, rgba(57,255,20,0.25), transparent 50%),
-    #020a04;
-  border-color: #0a3a14;
-  color: #5dff7f;
-  text-shadow: 0 0 10px rgba(57,255,20,0.7);
+    linear-gradient(135deg, rgba(57, 255, 20, 0.35) 0%, rgba(57, 255, 20, 0.05) 100%),
+    rgba(5, 30, 12, 0.85);
+  border-color: rgba(57, 255, 20, 0.85);
+  color: #39ff14;
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.9);
+  box-shadow:
+    inset 1px 1px 0px rgba(57, 255, 20, 0.35),
+    inset -1px -1px 0px rgba(0, 0, 0, 0.7);
 }
 
 /* States: selected / winning / losing */
 .btn-num.selected {
-  transform: scale(1.1);
-  border-color: #00f0ff;
-  box-shadow: 0 0 12px rgba(0,240,255,0.5), inset 0 0 10px rgba(0,240,255,0.2);
+  border: 2px solid #ffd700;
+  color: #ffd700;
+  text-shadow: 0 0 12px rgba(255, 215, 0, 1);
+  box-shadow:
+    inset 0 0 12px rgba(255, 215, 0, 0.4),
+    inset 1px 1px 0px rgba(255, 215, 0, 0.5);
+  animation: numSelectPulse 1s ease-in-out infinite alternate;
 }
 
 .btn-num.winning {
-  border-color: #39ff14;
-  box-shadow: 0 0 14px rgba(57,255,20,0.7), inset 0 0 12px rgba(57,255,20,0.25);
+  border: 2px solid #39ff14;
+  color: #39ff14;
+  text-shadow: 0 0 14px rgba(57, 255, 20, 1);
+  box-shadow:
+    inset 0 0 15px rgba(57, 255, 20, 0.45),
+    inset 1px 1px 0px rgba(57, 255, 20, 0.5);
+  animation: numWinPulse 0.6s ease-in-out infinite alternate;
 }
 
 .btn-num.losing {
-  border-color: #ff007f;
-  box-shadow: 0 0 14px rgba(255,0,127,0.7), inset 0 0 12px rgba(255,0,127,0.25);
+  border: 2px solid #ff007f;
+  color: #ff007f;
+  text-shadow: 0 0 10px rgba(255, 0, 127, 0.9);
+  box-shadow:
+    inset 0 0 12px rgba(255, 0, 127, 0.35),
+    inset 1px 1px 0px rgba(255, 0, 127, 0.4);
+}
+
+@keyframes numWinPulse {
+  0% { filter: brightness(1); }
+  100% { filter: brightness(1.4); }
+}
+
+@keyframes numSelectPulse {
+  0% { filter: brightness(0.95); }
+  100% { filter: brightness(1.25); }
 }
 
 /* Hide legacy icon elements inside buttons */

@@ -9,7 +9,7 @@
 
   /* === Text === */
   --text-primary: #ffd700;
-  --text-secondary: #00ffff;
+  --text-secondary: #ff9f1c;
 
   /* === Neon & Premium Gold Palette ===
      Tyto proměnné jsou duplicitní s Tailwind theme (src/css/tailwind.css).
@@ -21,10 +21,10 @@
   --neon-green-glow: rgba(57, 255, 20, 0.6);
   --neon-pink: #ff007f;
   --neon-pink-glow: rgba(255, 0, 127, 0.6);
-  --neon-blue: #00f0ff;
-  --neon-blue-glow: rgba(0, 240, 255, 0.6);
-  --neon-cyan: #00ffff;
-  --neon-cyan-glow: rgba(0, 255, 255, 0.6);
+  --neon-blue: #3b82f6;
+  --neon-blue-glow: rgba(59, 130, 246, 0.6);
+  --neon-cyan: #3b82f6;
+  --neon-cyan-glow: rgba(59, 130, 246, 0.6);
   --neon-purple: #bd00ff;
   --neon-purple-glow: rgba(189, 0, 255, 0.6);
   --neon-gold: #ffd700;

@@ -49,6 +49,10 @@ export class HiloGame {
         },
         onComplete: () => {
           this.isAnimating = false;
+          card.classList.remove('hilo-card-pop');
+          // Force reflow for animation restart
+          void card.offsetWidth;
+          card.classList.add('hilo-card-pop');
           onComplete({
             isWin,
             winAmount: isWin ? betAmount * 2 : 0,

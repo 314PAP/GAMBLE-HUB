@@ -73,8 +73,7 @@ export class GuessingGame {
     });
 
     // Start rolling animation using GSAP for rich, smooth visuals
-    let currentIdx = 0;
-    const totalSteps = 16;
+    const totalSteps = 22;
     const tl = gsap.timeline({
       onComplete: () => {
         // Final landing
@@ -84,7 +83,6 @@ export class GuessingGame {
         const winBtn = buttons.find(b => parseInt(b.dataset.num) === winningNum);
         if (winBtn) {
           winBtn.classList.add('winning');
-          gsap.fromTo(winBtn, { scale: 0.8 }, { scale: 1.1, duration: 0.4, yoyo: true, repeat: 1, ease: 'back.out(2)' });
         }
 
         // Keep selected button highlighted
@@ -95,23 +93,28 @@ export class GuessingGame {
             selBtn.classList.add('winning');
           } else {
             selBtn.classList.add('losing');
-            gsap.fromTo(selBtn, { scale: 0.8 }, { scale: 1.0, duration: 0.3, ease: 'power2.out' });
           }
         }
 
-        this.isPlaying = false;
-        onComplete({
-          isWin,
-          winAmount,
-          resultText: `Tvá volba: ${selectedNum} | Padlo: ${winningNum}`
+        // Pause for 1.5 seconds so player can clearly see the outcome
+        gsap.delayedCall(1.5, () => {
+          this.isPlaying = false;
+          onComplete({
+            isWin,
+            winAmount,
+            resultText: `Tvá volba: ${selectedNum} | Padlo: ${winningNum}`
+          });
         });
       }
     });
 
-    // Create a sequential glowing wave across the buttons
+    // Create a sequential glowing wave across the buttons that progressively slows down
     for (let step = 0; step < totalSteps; step++) {
-      const targetBtn = buttons[Math.floor(Math.random() * buttons.length)];
-      const stepDuration = 0.05 + (step / totalSteps) * 0.15; // Slow down effect
+      const targetBtn = (step === totalSteps - 1)
+        ? buttons.find(b => parseInt(b.dataset.num) === winningNum)
+        : buttons[Math.floor(Math.random() * buttons.length)];
+        
+      const stepDuration = 0.06 + Math.pow(step / totalSteps, 2) * 0.35; // Dramatic slow down at the end
 
       tl.to(targetBtn, {
         duration: stepDuration,

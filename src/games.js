@@ -15,7 +15,7 @@ export class GameManager {
     this.api = api;
     
     // Configs
-    this.symbols = ["🍒", "🛎", "🍋", "⭐", "💎", "7️⃣"];
+    this.symbols = ["🍒", "🔔", "🍋", "⭐", "💎", "7️⃣"];
     this.winningLines = [[0,1,2],[3,4,5],[6,7,8],[0,4,8],[2,4,6]];
 
     // Game Instances
@@ -111,7 +111,6 @@ export class GameManager {
       case 5:
         titleEl.innerText = "AUTOMAT";
         document.getElementById('slots-area').classList.remove('hidden');
-        this.slots.initReels();
         break;
       case 6:
         titleEl.innerText = "HI-LOW";
@@ -124,6 +123,10 @@ export class GameManager {
     // Reset number buttons for classic games (e.g., roulette) to clear previous selections
     this.ui.resetNumberButtons();
     this.ui.showScreen('screen-game');
+
+    if (gameId === 5) {
+      setTimeout(() => this.slots.initReels(), 800);
+    }
   }
 
   // Logic wrapper before playing any turn (balance checks, UI locking)

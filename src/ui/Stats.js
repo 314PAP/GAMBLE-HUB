@@ -39,15 +39,17 @@ export class StatsManager {
           const parts = item.split(sep);
           let gamePart = (parts[0] || '').trim();
           const statusPart = (parts[1] || '').trim();
+          const coinSvg = `<svg class="coin-icon-svg inline-block w-[0.9em] h-[0.9em] ml-0.5" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg>`;
           gamePart = gamePart
-            .replace(/\(S:\s*(\d+)\s*(kč|Kč)?\)/gi, '($1 Kč)')
-            .replace(/\((\d+)\s*kč\)/gi, '($1 Kč)');
+            .replace(/\(S:\s*(\d+)\s*(kč|Kč)?\)/gi, `($1 ${coinSvg})`)
+            .replace(/\((\d+)\s*kč\)/gi, `($1 ${coinSvg})`)
+            .replace(/Kč/g, coinSvg);
 
           const div = document.createElement('div');
-          div.className = `history-item p-2 sm:p-2.5 md:p-3 rounded-xl flex justify-between items-center ${isWin ? 'win border-l-4 border-l-[#39ff14]' : 'loss border-l-4 border-l-[#ff007f]'}`;
+          div.className = `history-item p-2 rounded-xl flex justify-between items-center ${isWin ? 'win border-l-4 border-l-[#39ff14]' : 'loss border-l-4 border-l-[#ff007f]'}`;
           div.setAttribute('role', 'listitem');
           div.innerHTML = `
-            <span class="text-[var(--neon-gold)]">🎮 ${gamePart}</span>
+            <span class="text-[var(--neon-gold)] flex items-center gap-1">🎮 ${gamePart}</span>
             <strong class="${isWin ? 'text-[var(--neon-green)] text-glow-green' : 'text-[var(--neon-pink)] text-glow-pink'}">${statusPart}</strong>
           `;
           historyContainer.appendChild(div);

@@ -1,12 +1,12 @@
 /* === ANIMATION POLICY ===
-   - Infinite / idle animations (LED pulse, glow, warning pulse, coin flicker):
-     implemented in CSS @keyframes — most efficient for `repeat: infinite`.
-   - One-off transitions and game sequences (screen changes, slot spin,
-     dice roll, card flip, result reveals):
-     implemented via GSAP in src/animations/ and game modules.
-   - Conditional win states: CSS classes (e.g. `.dice-frame.win`,
-     `.btn.active`) trigger @keyframes from the CSS pool above.
-   - No overlapping CSS/GSAP animation targets found on shared elements.
+    - Infinite / idle animations (LED pulse, glow, warning pulse, coin flicker):
+      implemented in CSS @keyframes — most efficient for `repeat: infinite`.
+    - One-off transitions and game sequences (screen changes, slot spin,
+      dice roll, card flip, result reveals):
+      implemented via GSAP in src/animations/ and game modules.
+    - Conditional win states: CSS classes (e.g. `.dice-frame.win`,
+      `.btn.active`) trigger @keyframes from the CSS pool above.
+    - No overlapping CSS/GSAP animation targets found on shared elements.
 */
 
 /* src/css/_layout.css */
@@ -15,6 +15,10 @@
 /* Screen visibility is purely state-driven (.screen → .screen.active).
    The visible-to-hidden transition is handled by GSAP (animateScreenIn),
    not CSS transitions, to avoid layout thrashing on display:none→grid. */
+
+.hidden {
+  display: none !important;
+}
 
 /* === CONTAINER GRID OVERLAY (glass sheen background) === */
 .container::before {
@@ -28,6 +32,7 @@
   pointer-events: none;
   z-index: 0;
   border-radius: 16px;
+  overflow: hidden;
 }
 
 /* === SCREEN MANAGEMENT (CRT glass effect) === */
@@ -38,16 +43,41 @@
 }
 
 .screen.active {
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  gap: clamp(6px, 2vw, 12px);
+  display: flex !important;
+  flex-direction: column;
+}
+
+/* Removed fixed height on #screen-game.active */
+#screen-game.active {
+  display: flex;
+  flex-direction: column;
   min-height: 0;
-  height: 100%;
   background: #000;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden !important;
   box-sizing: border-box;
   border-radius: 16px;
+  background-clip: padding-box;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.game-container.hidden {
+  display: none;
+}
+
+.game-main {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.game-actions {
+  margin-top: auto;
 }
 
 /* Ensure game areas stack properly within screen */
@@ -61,11 +91,19 @@
   max-width: 100%;
 }
 
-
-
-/* Responsive font sizes inside header – CSS fallback for JS-independent rendering */
 .game-title {
-  font-size: clamp(10px, 3vw, 15px);
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: clamp(16px, 4.5vw, 22px);
+  line-height: 1.2;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-purple) 30%, var(--neon-blue) 70%, var(--neon-cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
 }
 
 /* === FORM INPUTS === */
@@ -87,8 +125,6 @@ input:focus, select:focus, textarea:focus {
 
 /* === DICE GAME BET AREA === */
 #bet-area {
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
   justify-content: center;
 }
 
@@ -113,3 +149,27 @@ input:focus, select:focus, textarea:focus {
 .svg-defs {
   position: absolute;
 }
+
+/* === ROULETTE FRAME STYLING === */
+.roulette-frame {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%),
+    rgba(5, 5, 12, 0.85);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  border: 3px solid rgba(255, 120, 0, 0.85);
+  border-radius: 8px;
+  box-shadow:
+    0 0 25px rgba(255, 120, 0, 0.35),
+    0 8px 25px rgba(0, 0, 0, 0.7),
+    inset 2px 2px 0px rgba(255, 255, 255, 0.25),
+    inset -2px -2px 0px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
+}
+
+/* Ensure game containers are properly visible when activated */
+.game-container {
+  pointer-events: auto;
+}
+
+/* Removed manual z-index management - let Tailwind handle stacking */

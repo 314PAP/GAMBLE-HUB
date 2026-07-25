@@ -6,40 +6,44 @@
     font-family: 'Outfit', sans-serif;
     user-select: none;
   }
-  
+
   html, body {
     width: 100%;
-    min-height: 100vh;
+    min-height: 100dvh;
   }
-  
+
+  html {
+    overflow: hidden;
+  }
+
   body {
     background: var(--bg-gradient);
     color: var(--text-primary);
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100dvh;
     padding: clamp(8px, 2vw, 16px);
     overflow-x: hidden;
   }
-  
+
   ::-webkit-scrollbar {
     width: 4px;
   }
-  
+
   ::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.2);
   }
-  
+
   ::-webkit-scrollbar-thumb {
     background: rgba(212, 175, 55, 0.15);
     border-radius: 3px;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
     background: rgba(212, 175, 55, 0.35);
   }
-  
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
