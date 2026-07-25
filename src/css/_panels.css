@@ -1,9 +1,5 @@
 .container {
-  background:
-    linear-gradient(135deg, rgba(13,0,26,0.6), transparent 70%),
-    var(--screen-bg-gradient);
-  background-clip: padding-box, border-box;
-  background-origin: padding-box, border-box;
+  background: #000000;
   animation: borderGlow 4s ease-in-out infinite;
 }
 
