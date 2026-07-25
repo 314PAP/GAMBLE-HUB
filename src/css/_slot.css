@@ -72,7 +72,7 @@
 
 /* Slot cell uses fluid font size, height driven by grid (3 rows = 33.333% each) */
 .slot-cell {
-  font-size: clamp(1.5rem, 3.8vh, 2.8rem);
+  font-size: clamp(1.8rem, 5.5vh, 3.2rem);
   will-change: transform;
   transition: text-shadow 0.3s ease, transform 0.2s ease;
   line-height: 1;
