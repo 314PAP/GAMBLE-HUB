@@ -25,6 +25,11 @@ const gm = new GameManager(db, ui, api);
 new GlobalEventHandlers(db, api, ui, gm);
 
 document.addEventListener('DOMContentLoaded', () => {
+  ui.showScreen('screen-splash');
+  setTimeout(() => {
+    ui.showScreen('screen-login');
+  }, 2000);
+
   ui.renderLeaderboard();
   (async () => {
     try {
