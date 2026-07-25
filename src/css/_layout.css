@@ -94,8 +94,9 @@
 .game-title {
   font-family: 'Orbitron', sans-serif;
   font-weight: 900;
-  font-size: clamp(16px, 4.5vw, 22px);
-  line-height: 1.2;
+  font-size: clamp(14px, 4.5vw, 20px);
+  height: clamp(24px, 5.5vw, 32px);
+  line-height: 1;
   letter-spacing: 1px;
   background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-purple) 30%, var(--neon-blue) 70%, var(--neon-cyan) 100%);
   -webkit-background-clip: text;
