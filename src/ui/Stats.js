@@ -96,7 +96,7 @@ export class StatsManager {
         }]
       },
       options: {
-        responsive: true,
+        responsive: false,
         maintainAspectRatio: false,
         plugins: {
           legend: {

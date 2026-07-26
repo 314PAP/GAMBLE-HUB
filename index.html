@@ -214,15 +214,17 @@
  </main>
 
 <div id="stats-modal" class="modal p-4" role="dialog" aria-modal="true" aria-labelledby="stats-modal-title" onclick="zavriStatsModal()">
-          <div class="modal-content p-4 w-full max-w-[420px] max-h-[90vh] rounded-2xl border-2 border-[#1a1a2e] flex flex-col" role="document" onclick="event.stopPropagation()">
-             <h3 id="stats-modal-title" class="modal-header mb-3 shrink-0">Přehled Hráče</h3>
-          <div id="modal-stats-data" class="text-sm mb-2 leading-relaxed shrink-0"></div>
-          <div class="relative w-full h-32 my-2 shrink-0"><canvas id="stats-chart"></canvas></div>
-         <h4 class="mt-2 mb-1.5 text-sm text-[var(--neon-orange)] uppercase tracking-wider text-glow-orange shrink-0">Posledních 10 her:</h4>
-         <div id="modal-history-data" role="list" class="flex-1 min-h-0 overflow-y-auto pr-0.5 flex flex-col gap-1.5"></div>
-         <button class="btn btn-danger w-full mt-3 shrink-0" onclick="zavriStatsModal()" aria-label="Zavřít statistiky">Zavřít</button>
-     </div>
- </div>
+  <div class="modal-content p-4 w-full max-w-[400px] rounded-2xl border-2 border-[#1a1a2e] flex flex-col gap-2 overflow-hidden" style="max-height: min(90vh, 580px);" role="document" onclick="event.stopPropagation()">
+    <h3 id="stats-modal-title" class="modal-header shrink-0">Přehled Hráče</h3>
+    <div id="modal-stats-data" class="text-sm leading-relaxed shrink-0"></div>
+    <div class="relative shrink-0 overflow-hidden rounded-lg" style="height: 130px;">
+      <canvas id="stats-chart" style="position:absolute;inset:0;width:100%!important;height:100%!important;"></canvas>
+    </div>
+    <h4 class="text-sm text-[var(--neon-orange)] uppercase tracking-wider text-glow-orange shrink-0">Posledních 10 her:</h4>
+    <div id="modal-history-data" role="list" class="flex-1 min-h-0 overflow-y-auto flex flex-col gap-1.5 pr-0.5"></div>
+    <button class="btn btn-danger w-full shrink-0" onclick="zavriStatsModal()" aria-label="Zavřít statistiky">Zavřít</button>
+  </div>
+</div>
 
  <div id="explorer-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="explorer-modal-title" onclick="zavriExplorer()">
 <div class="modal-content p-4 w-[94vw] !max-w-[550px] max-h-[92vh] rounded-2xl flex flex-col gap-2 !overflow-hidden border-2 border-transparent animate-[borderGlow_3s_linear_infinite]" role="document" onclick="event.stopPropagation()">
