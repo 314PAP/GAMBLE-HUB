@@ -26,10 +26,16 @@ export class GameManager {
 
     // Active States
     this.activeGameId = 0; // 1: Guess 1-10, 2: Guess 1-5, 3: Dice, 4: Roulette, 5: Slots, 6: Hi-Lo
-    this.activeBet = 10;
+    this.activeBet = GameManager.DEFAULT_BET;
     this.autoPlayInterval = null;
     this.currentPlayer = null;
   }
+
+  // Konstanty
+  static STARTING_BALANCE = 500;
+  static DEFAULT_BET = 10;
+  static AUTOPLAY_INTERVAL_MS = 700;
+  static SPLASH_DURATION_MS = 2000;
 
   setCurrentPlayer(username) {
     this.currentPlayer = username;
@@ -47,7 +53,7 @@ export class GameManager {
 
     const balance = this.db.getPlayerBalance(this.currentPlayer);
     this.ui.updateMiniProfile(this.currentPlayer, balance);
-    this.setBet(10); // Reset to default bet
+    this.setBet(GameManager.DEFAULT_BET); // Reset to default bet
     
     // Hide game-specific areas in the DOM
     const slotsArea = document.getElementById('slots-area');
@@ -131,7 +137,7 @@ export class GameManager {
       if (gameId === 5) {
         this.slots.initReels();
       }
-    }, 2000);
+    }, GameManager.SPLASH_DURATION_MS);
   }
 
   // Logic wrapper before playing any turn (balance checks, UI locking)
@@ -182,31 +188,30 @@ export class GameManager {
     return true;
   }
 
-// Unified win/loss result processor
-   processGameResult(isWin, winAmount, gameName, resultText, isJackpot = false) {
-     const oldBalance = this.db.getPlayerBalance(this.currentPlayer);
-     
-     console.log('[PROCESS-RESULT] oldBalance:', oldBalance, 'activeBet:', this.activeBet, 'winAmount:', winAmount, 'isWin:', isWin);
-    // Deduct bet (note: bet was already deducted in original, but to make it clean,
-    // we can either deduct at start and add wins, or deduct now.
-    // In original code, player money was deducted immediately:
-    // uzivatele[aktualniHrac] -= aktualniSazka;
-    // And in ukonciKolo:
-    // if(jeVyhra) uzivatele[aktualniHrac] += vyhraMnozstvi;
-    // So we follow this exactly: we deduct at start of spin, and here we just add the winnings.)
-    
-    let newBalance = oldBalance;
-    if (isWin) {
-      newBalance = oldBalance + winAmount;
+   // Unified win/loss result processor
+    processGameResult(isWin, winAmount, gameName, resultText, isJackpot = false) {
+      const oldBalance = this.db.getPlayerBalance(this.currentPlayer);
       
-      // Debug: log large balance changes
-      if (winAmount >= 10000000) { // 10M+
-        console.log('[PROCESS-RESULT] Large win detected:', { oldBalance, newBalance, winAmount, diff: newBalance - oldBalance });
+      // Deduct bet (note: bet was already deducted in original, but to make it clean,
+      // we can either deduct at start and add wins, or deduct now.
+      // In original code, player money was deducted immediately:
+      // uzivatele[aktualniHrac] -= aktualniSazka;
+      // And in ukonciKolo:
+      // if(jeVyhra) uzivatele[aktualniHrac] += vyhraMnozstvi;
+      // So we follow this exactly: we deduct at start of spin, and here we just add the winnings.)
+      
+      let newBalance = oldBalance;
+      if (isWin) {
+        newBalance = oldBalance + winAmount;
+        
+        // Debug: log large balance changes
+        if (winAmount >= 10000000) { // 10M+
+          // Large win detected (silent in production)
+        }
+        
+        this.db.updatePlayerBalance(this.currentPlayer, newBalance);
+        this.ui.triggerWinConfetti(isJackpot);
       }
-      
-      this.db.updatePlayerBalance(this.currentPlayer, newBalance);
-      this.ui.triggerWinConfetti(isJackpot);
-    }
     
     // Log in DB
     this.db.recordMatch(this.currentPlayer, gameName, this.activeBet, resultText, isWin);
@@ -315,22 +320,17 @@ export class GameManager {
    playSlots() {
      if (this.slots.isSpinning) return;
      if (!this._startRound()) return;
-
-     const balance = this.db.getPlayerBalance(this.currentPlayer);
-     
-     // Animate bet buttons yellow glow during spin (both auto and manual)
-     this.lockGameControls(true);
-     animateBetButtonsGlow();
-
-     console.log('[PLAYSLOTS] activeBet:', this.activeBet, 'balance:', balance);
-     
-     this.slots.spin(this.activeBet, balance, (res) => {
-       console.log('[PLAYSLOTS-CB] result:', res);
-       this.lockGameControls(false);
-       // Stop bet buttons glow animation
-       stopBetButtonsGlow();
-       this.processGameResult(res.isWin, res.winAmount, "Bary3x3", res.resultText, res.isJackpot);
-});
+      
+      // Animate bet buttons yellow glow during spin (both auto and manual)
+      this.lockGameControls(true);
+      animateBetButtonsGlow();
+      
+      this.slots.spin(this.activeBet, balance, (res) => {
+        this.lockGameControls(false);
+        // Stop bet buttons glow animation
+        stopBetButtonsGlow();
+        this.processGameResult(res.isWin, res.winAmount, "Bary3x3", res.resultText, res.isJackpot);
+      });
     }
 
   // Utility to prevent user clicks on other options during animations
@@ -393,7 +393,7 @@ export class GameManager {
         } else if (balance < this.activeBet) {
           this.stopAutoPlay();
         }
-      }, 700); // Fast autoplay loop
+      }, GameManager.AUTOPLAY_INTERVAL_MS); // Fast autoplay loop
     }
   }
 

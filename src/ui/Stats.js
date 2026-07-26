@@ -1,3 +1,5 @@
+import { COIN_SVG, wrapEmoji } from '../utils.js';
+
 export class StatsManager {
   constructor(ui) {
     this.ui = ui;
@@ -51,7 +53,7 @@ export class StatsManager {
           const parts = item.split(sep);
           let gamePart = (parts[0] || '').trim();
           const statusPart = (parts[1] || '').trim();
-          const coinSvg = `<svg class="coin-icon-svg inline-block w-[0.9em] h-[0.9em] ml-0.5" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg>`;
+          const coinSvg = COIN_SVG;
           gamePart = gamePart
             .replace(/\(S:\s*(\d+)\s*(kč|Kč)?\)/gi, `($1 ${coinSvg})`)
             .replace(/\((\d+)\s*kč\)/gi, `($1 ${coinSvg})`)
@@ -61,7 +63,7 @@ export class StatsManager {
           div.className = `history-item p-2 rounded-xl flex justify-between items-center ${isWin ? 'win border-l-4 border-l-[#39ff14]' : 'loss border-l-4 border-l-[#ff007f]'}`;
           div.setAttribute('role', 'listitem');
           div.innerHTML = `
-            <span class="text-[var(--neon-gold)] flex items-center gap-1">🎮 ${gamePart}</span>
+            <span class="text-[var(--neon-gold)] flex items-center gap-1">🎮 ${wrapEmoji(gamePart)}</span>
             <strong class="${isWin ? 'text-[var(--neon-green)] text-glow-green' : 'text-[var(--neon-pink)] text-glow-pink'}">${statusPart}</strong>
           `;
           historyContainer.appendChild(div);

@@ -1,16 +1,8 @@
-import { formatLargeNumber } from '../utils.js';
+import { formatLargeNumber, COIN_SVG, wrapEmoji } from '../utils.js';
 
 export class AccountsManager {
   constructor(ui) {
     this.ui = ui;
-  }
-
-  formatLargeNumber(num) {
-    return formatLargeNumber(num);
-  }
-
-  wrapEmoji(text) {
-    return text.replace(/[\u{1F300}-\u{1F9FF}]|[\u2600-\u26FF]|\u203C|\u2049|[\u2000-\u206F]/gu, '<span class="emoji-icon">$&\u200d</span>');
   }
 
   render(onSelect, onDelete) {
@@ -34,7 +26,7 @@ export class AccountsManager {
 
       const selectBtn = document.createElement("button");
       selectBtn.className = "btn flex-1 min-w-0 text-left text-sm py-1.5 px-3 flex flex-row items-center gap-1";
-      selectBtn.innerHTML = `<span class="truncate flex-1 min-w-0 text-[clamp(0.7rem,1.8vw,0.95rem)]">${this.wrapEmoji(username)}</span><span class="shrink-0 whitespace-nowrap text-[var(--neon-green)] text-glow-green text-[clamp(0.55rem,1.2vw,0.7rem)]"><span class="score-display">${this.formatLargeNumber(balance)}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span></span>`;
+      selectBtn.innerHTML = `<span class="truncate flex-1 min-w-0 text-[clamp(0.7rem,1.8vw,0.95rem)]">${this.wrapEmoji(username)}</span><span class="shrink-0 whitespace-nowrap text-[var(--neon-green)] text-glow-green text-[clamp(0.55rem,1.2vw,0.7rem)]"><span class="score-display">${this.formatLargeNumber(balance)}${COIN_SVG}</span></span>`;
       selectBtn.onclick = () => onSelect(username);
 
       const deleteBtn = document.createElement("button");

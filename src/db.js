@@ -8,6 +8,9 @@ export class GameDatabase {
     this.scoreTable = JSON.parse(localStorage.getItem('c_scor')) || [];
   }
 
+  static STARTING_BALANCE = 500;
+  static MAX_HISTORY = 10;
+
   saveAll() {
     localStorage.setItem('c_uziv', JSON.stringify(this.uzivatele));
     localStorage.setItem('c_stat', JSON.stringify(this.statistiky));
@@ -50,7 +53,7 @@ export class GameDatabase {
       return { success: false, message: 'Tento hráč už existuje!' };
     }
 
-    this.uzivatele[username] = 500;
+    this.uzivatele[username] = GameDatabase.STARTING_BALANCE;
     this.statistiky[username] = { vyhry: 0, prohry: 0, historie: [] };
     this.saveAll();
     return { success: true };
@@ -78,7 +81,7 @@ export class GameDatabase {
       // Debug: log large balance changes
       const diff = this.uzivatele[username] - oldVal;
       if (Math.abs(diff) >= 1000000 && diff !== 0) {
-        console.log('[DB] updatePlayerBalance:', username, 'old:', oldVal, 'new:', this.uzivatele[username], 'diff:', diff);
+        // Large balance change detected (silent in production)
       }
       this.saveAll();
     }
@@ -97,13 +100,13 @@ export class GameDatabase {
 
     const matchString = `${gameName} (${formatLargeNumber(bet)}) – ${isWin ? 'VÝHRA' : 'PROHRA'}`;
     this.statistiky[username].historie.unshift(matchString);
-    this.statistiky[username].historie = this.statistiky[username].historie.slice(0, 10); // Keep last 10 records for better stats
+    this.statistiky[username].historie = this.statistiky[username].historie.slice(0, GameDatabase.MAX_HISTORY); // Keep last 10 records for better stats
     this.saveAll();
   }
 
   checkMilestones(username, oldBalance, newBalance) {
-    // Už nepotřebujeme specifické milníky, prostě si pamatujeme nejvyšší skóre nad 500 Kč (což je starting balance)
-    if (newBalance > 500) {
+    // Už nepotřebujeme specifické milníky, prostě si pamatujeme nejvyšší skóre nad starting balance
+    if (newBalance > GameDatabase.STARTING_BALANCE) {
       // Zjistíme, jestli hráč už v tabulce má záznam
       const existingRecordIndex = this.scoreTable.findIndex(r => r.jmeno === username);
       

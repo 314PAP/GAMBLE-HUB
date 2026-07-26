@@ -81,3 +81,13 @@ export function getAbbrevTableData() {
 export function parseSuffixes() {
   return SFX.map(s => ({ key: s.sym.toLowerCase(), val: s.v }));
 }
+
+// ─── Sdílené UI helpery ──────────────────────────────────────────────────────
+
+export const COIN_SVG = `<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">\$</text></svg>`;
+
+const EMOJI_RE = /[\u{1F300}-\u{1F9FF}]|[\u2600-\u26FF]|\u203C|\u2049|[\u2000}-\u206F]/gu;
+
+export function wrapEmoji(text) {
+  return text.replace(EMOJI_RE, '<span class="emoji-icon">$&</span>');
+}

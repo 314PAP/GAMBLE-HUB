@@ -130,8 +130,6 @@ export class SlotMachineGame {
     let isJackpot = false;
     const lineDetails = [];
 
-    console.log('[SLOTS] checkWinnings - currentMatrix:', this.currentMatrix, 'betAmount:', betAmount);
-
     this.winningLines.forEach(line => {
       const idx0 = line[0];
       const idx1 = line[1];
@@ -152,8 +150,6 @@ export class SlotMachineGame {
         const symbol = this.currentMatrix[idx0];
         const multiplier = multipliers[symbol] || 5;
 
-        console.log('[SLOTS] Winning line found:', line, 'symbol:', symbol, 'multiplier:', multiplier);
-
         if (symbol === '7️⃣') isJackpot = true;
 
         const lineWin = betAmount * multiplier;
@@ -172,10 +168,6 @@ export class SlotMachineGame {
     });
 
     const isWin = winAmount > 0;
-
-    if (betAmount >= 100000 && isWin) {
-      console.log('SLOTS DEBUG - Multiple wins:', lineDetails, 'Total:', winAmount);
-    }
 
     const winningLineCount = lineDetails.length;
     const symbolMap = {
@@ -209,11 +201,6 @@ export class SlotMachineGame {
           }
         }
       });
-    }
-
-    if (betAmount >= 100000 && isWin) {
-      console.log('[SLOTS] betAmount:', betAmount, 'winAmount:', winAmount, 'isJackpot:', isJackpot);
-      console.log('[SLOTS] lineDetails:', lineDetails);
     }
 
     onComplete({

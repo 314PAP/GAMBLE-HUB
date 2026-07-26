@@ -1,12 +1,8 @@
-import { formatLargeNumber } from '../utils.js';
+import { formatLargeNumber, COIN_SVG, wrapEmoji } from '../utils.js';
 
 export class ExplorerManager {
   constructor(ui) {
     this.ui = ui;
-  }
-
-  wrapEmoji(text) {
-    return text.replace(/[\u{1F300}-\u{1F9FF}]|[\u2600-\u26FF]|\u203C|\u2049|[\u2000-\u206F]/gu, '<span class="emoji-icon">$&\u200d</span>');
   }
 
   async load() {
@@ -67,7 +63,7 @@ renderHistory(filteredData = null) {
     data.forEach(item => {
       const isWin = item.isWin;
       const winVal = item.winAmount || 0;
-      const coinSvg = `<svg class="coin-icon-svg inline-block w-[0.9em] h-[0.9em] ml-0.5" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg>`;
+      const coinSvg = `${COIN_SVG}`;
       const formattedWin = winVal > 0 ? `+${formatLargeNumber(winVal)} ${coinSvg}` : `${formatLargeNumber(winVal)} ${coinSvg}`;
       const timeString = item.timestamp ? new Date(item.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'}) : '';
 

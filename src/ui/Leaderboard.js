@@ -1,16 +1,8 @@
-import { formatLargeNumber } from '../utils.js';
+import { formatLargeNumber, COIN_SVG, wrapEmoji } from '../utils.js';
 
 export class LeaderboardManager {
   constructor(ui) {
     this.ui = ui;
-  }
-
-  formatLargeNumber(num) {
-    return formatLargeNumber(num);
-  }
-
-  wrapEmoji(text) {
-    return text.replace(/[\u{1F300}-\u{1F9FF}]|[\u2600-\u26FF]|\u203C|\u2049|[\u2000-\u206F]/gu, '<span class="emoji-icon">$&\u200d</span>');
   }
 
   async render() {
@@ -46,7 +38,7 @@ if (scores.length === 0) {
                 <span class="font-bold text-[var(--neon-gold)] text-[clamp(11px,3.8vw,18px)] w-[clamp(18px,5vw,25px)] shrink-0 text-glow-gold text-center">${medal}</span>
                 <span class="scoreboard-name text-[var(--neon-gold)] font-semibold !text-[clamp(11px,3.8vw,18px)] flex-1 min-w-0 truncate">${this.wrapEmoji(record.jmeno)}</span>
               </div>
-              <span class="score-display inline-flex items-center gap-1 font-bold text-[var(--neon-green)] text-[clamp(11px,3.8vw,18px)] text-glow-green shrink-0">${this.formatLargeNumber(record.castka)}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span>
+              <span class="score-display inline-flex items-center gap-1 font-bold text-[var(--neon-green)] text-[clamp(11px,3.8vw,18px)] text-glow-green shrink-0">${this.formatLargeNumber(record.castka)}${COIN_SVG}</span>
             </div>
           `;
       });
@@ -79,7 +71,7 @@ if (scores.length === 0) {
             <span class="font-bold text-[var(--neon-gold)] text-[clamp(11px,3.8vw,16px)] w-[clamp(18px,5vw,25px)] shrink-0 text-glow-gold text-center">${medal}</span>
             <span class="scoreboard-name text-[var(--neon-gold)] font-semibold !text-[clamp(11px,3.8vw,16px)] flex-1 min-w-0 truncate">${this.wrapEmoji(record.jmeno)}</span>
           </div>
-          <span class="score-display inline-flex items-center gap-1 font-bold text-[var(--neon-green)] text-[clamp(11px,3.8vw,16px)] text-glow-green shrink-0">${this.formatLargeNumber(record.castka)}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span>
+          <span class="score-display inline-flex items-center gap-1 font-bold text-[var(--neon-green)] text-[clamp(11px,3.8vw,16px)] text-glow-green shrink-0">${this.formatLargeNumber(record.castka)}${COIN_SVG}</span>
         </div>
       `;
     });
