@@ -214,15 +214,15 @@
  </main>
 
 <div id="stats-modal" class="modal p-4" role="dialog" aria-modal="true" aria-labelledby="stats-modal-title" onclick="zavriStatsModal()">
-  <div class="modal-content p-4 w-full max-w-[400px] rounded-2xl border-2 border-[#1a1a2e] flex flex-col gap-2 overflow-hidden" style="max-height: min(90vh, 580px);" role="document" onclick="event.stopPropagation()">
-    <h3 id="stats-modal-title" class="modal-header shrink-0">Přehled Hráče</h3>
-    <div id="modal-stats-data" class="text-sm leading-relaxed shrink-0"></div>
-    <div class="relative shrink-0 overflow-hidden rounded-lg" style="height: 130px;">
-      <canvas id="stats-chart" style="position:absolute;inset:0;width:100%!important;height:100%!important;"></canvas>
+  <div class="modal-content p-4 w-full max-w-[400px] rounded-2xl border-2 border-[#1a1a2e] overflow-y-auto" style="max-height: min(90vh, 560px);" role="document" onclick="event.stopPropagation()">
+    <h3 id="stats-modal-title" class="modal-header mb-2">Přehled Hráče</h3>
+    <div id="modal-stats-data" class="text-sm leading-relaxed mb-2"></div>
+    <div class="w-full overflow-hidden rounded-lg mb-2" style="height:120px">
+      <canvas id="stats-chart" width="360" height="120"></canvas>
     </div>
-    <h4 class="text-sm text-[var(--neon-orange)] uppercase tracking-wider text-glow-orange shrink-0">Posledních 10 her:</h4>
-    <div id="modal-history-data" role="list" class="flex-1 min-h-0 overflow-y-auto flex flex-col gap-1.5 pr-0.5"></div>
-    <button class="btn btn-danger w-full shrink-0" onclick="zavriStatsModal()" aria-label="Zavřít statistiky">Zavřít</button>
+    <h4 class="text-sm text-[var(--neon-orange)] uppercase tracking-wider text-glow-orange mb-1.5">Posledních 10 her:</h4>
+    <div id="modal-history-data" role="list" class="flex flex-col gap-1.5 pr-0.5 mb-2"></div>
+    <button class="btn btn-danger w-full" onclick="zavriStatsModal()" aria-label="Zavřít statistiky">Zavřít</button>
   </div>
 </div>
 
