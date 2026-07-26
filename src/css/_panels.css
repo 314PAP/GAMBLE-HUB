@@ -211,9 +211,7 @@
 .delete-confirm-dialog.hidden { display: none; }
 
 .delete-confirm-content {
-  padding: clamp(30px, 8vw, 48px);
   border: 4px solid var(--neon-pink);
-  border-radius: 24px;
   background: rgba(8, 6, 16, 0.98);
   box-shadow:
     0 0 10px 2px var(--neon-pink),
