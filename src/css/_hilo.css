@@ -54,18 +54,4 @@
   width: auto;
 }
 
-/* Multiplier badge inside Higher/Lower buttons */
-.hilo-mult {
-  display: inline-block;
-  font-family: 'Outfit', sans-serif;
-  font-size: 0.7em;
-  font-weight: 700;
-  padding: 1px 5px;
-  margin-left: 4px;
-  border-radius: 3px;
-  background: rgba(0, 0, 0, 0.35);
-  color: var(--neon-gold);
-  vertical-align: middle;
-  letter-spacing: 0.02em;
-}
 
