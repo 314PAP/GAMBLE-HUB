@@ -21,7 +21,7 @@
     </linearGradient>
   </defs>
 </svg>
-<main class="container w-[clamp(320px,90vw,600px)] h-[80vh] flex flex-col overflow-hidden relative z-10 border-8 rounded-2xl p-2 bg-black" role="main" aria-label="Herní aplikace">
+<main class="container w-[clamp(320px,90vw,600px)] h-[80svh] min-h-[500px] max-h-[900px] flex flex-col overflow-hidden relative z-10 border-8 rounded-2xl p-2 bg-black" role="main" aria-label="Herní aplikace">
      <section id="screen-login" class="screen active flex flex-col h-full overflow-y-auto bg-black" aria-labelledby="login-title">
           <h1 id="login-title" class="mb-4">GAMBLE HUB</h1>
 
@@ -88,7 +88,7 @@
          </div>
      </section>
 
-     <section id="screen-game" class="screen flex flex-col h-full bg-black" aria-labelledby="game-title">
+     <section id="screen-game" class="screen flex flex-col h-full min-h-0 bg-black" aria-labelledby="game-title">
            <header class="flex flex-col bg-black rounded-xl px-3 py-1 gap-1 shrink-0" role="region" aria-label="Herní lišta">
               <div class="flex items-center justify-between w-full gap-2">
                   <div id="game-title" class="game-title" aria-hidden="true">AUTOMAT</div>
@@ -112,10 +112,10 @@
               </div>
           </header>
 
-<article id="slots-area" class="game-container hidden p-3 flex flex-col justify-between" aria-labelledby="slots-title">
+<article id="slots-area" class="game-container hidden p-2 flex flex-col justify-between" aria-labelledby="slots-title">
               <h3 id="slots-title" class="sr-only">Automat</h3>
               <div class="game-main flex flex-col flex-1 min-h-0 items-center justify-center py-1">
-                 <div class="slot-machine w-full h-full max-h-[340px] max-w-[420px] aspect-[4/3] p-1.5 rounded-2xl relative" role="region" aria-label="Automat">
+                 <div class="slot-machine w-full h-full max-w-[420px] aspect-[4/3] p-1.5 rounded-2xl relative" role="region" aria-label="Automat">
                     <div class="slot-grid flex gap-1.5 h-full w-full rounded-xl relative z-[1] overflow-hidden p-1">
                       <div class="slot-reel flex-1 h-full rounded-lg overflow-hidden relative"><div class="slot-reel-container flex flex-col w-full" id="reel-container-0"></div></div>
                       <div class="slot-reel flex-1 h-full rounded-lg overflow-hidden relative"><div class="slot-reel-container flex flex-col w-full" id="reel-container-1"></div></div>
@@ -125,9 +125,9 @@
                  <div id="game-result-slots" class="game-result-slot" role="status" aria-live="polite"></div>
               </div>
               <div class="game-actions py-1 shrink-0">
-                <div class="slot-controls flex justify-center gap-2 max-w-[280px] mx-auto" role="region" aria-label="Ovládání automatu">
-                    <button class="btn btn-spin-slots py-1.5 px-4 text-xs font-bold flex-1" id="btn-spin-slots" onclick="kliknutoCislo(0)"><span class="icon-node" aria-hidden="true"></span> SPIN</button>
-                    <button class="btn btn-auto-slots py-1.5 px-4 text-xs font-bold flex-1" id="btn-auto-slots" onclick="toggleAutoPlay()"><span class="icon-node" aria-hidden="true"></span> AUTO</button>
+                <div class="slot-controls flex justify-center gap-2 w-full max-w-[360px] mx-auto" role="region" aria-label="Ovládání automatu">
+                    <button class="btn btn-spin-slots py-2.5 px-4 text-sm font-bold flex-1" id="btn-spin-slots" onclick="kliknutoCislo(0)"><span class="icon-node" aria-hidden="true"></span> SPIN</button>
+                    <button class="btn btn-auto-slots py-2.5 px-4 text-sm font-bold flex-1" id="btn-auto-slots" onclick="toggleAutoPlay()"><span class="icon-node" aria-hidden="true"></span> AUTO</button>
                 </div>
               </div>
           </article>
@@ -135,15 +135,15 @@
 <article id="hilo-area" class="game-container hidden" aria-labelledby="hilo-title">
               <h3 id="hilo-title" class="sr-only">HI-LOW</h3>
               <div class="game-main flex flex-col flex-1 min-h-0 overflow-hidden items-center justify-center">
-                <div class="flex-1 flex flex-col justify-center items-center w-full min-h-0 py-3 pb-6" role="region" aria-label="HI-LOW hra">
-                   <div id="hilo-current-card" class="hilo-card-face flex items-center justify-center h-full max-h-[260px] aspect-[2/3] text-[clamp(40px,10vh,80px)] select-none">5</div>
+                <div class="flex-1 flex flex-col justify-center items-center w-full min-h-0 py-2" role="region" aria-label="HI-LOW hra">
+                   <div id="hilo-current-card" class="hilo-card-face flex items-center justify-center h-full max-h-[55%] aspect-[2/3] text-[clamp(36px,9vh,72px)] select-none">5</div>
                 </div>
                 <div id="game-result-hilo" class="game-result-hilo mb-1" role="status" aria-live="polite"></div>
               </div>
-              <div class="game-actions pt-2">
+              <div class="game-actions pt-1 shrink-0">
                 <div class="hilo-btns flex flex-wrap justify-center gap-3 mb-2" role="region" aria-label="Ovládání HI-LOW">
-                    <button class="btn btn-primary px-4 py-2 text-base font-bold flex-1 max-w-[160px]" id="btn-hilo-high" onclick="hrajHiLo('H')"><span class="icon-node" aria-hidden="true"></span> VYŠŠÍ</button>
-                    <button class="btn btn-danger px-4 py-2 text-base font-bold flex-1 max-w-[160px]" id="btn-hilo-low" onclick="hrajHiLo('L')"><span class="icon-node" aria-hidden="true"></span> NIŽŠÍ</button>
+                    <button class="btn btn-primary px-4 py-3 text-base font-bold flex-1" id="btn-hilo-high" onclick="hrajHiLo('H')"><span class="icon-node" aria-hidden="true"></span> VYŠŠÍ</button>
+                    <button class="btn btn-danger px-4 py-3 text-base font-bold flex-1" id="btn-hilo-low" onclick="hrajHiLo('L')"><span class="icon-node" aria-hidden="true"></span> NIŽŠÍ</button>
                 </div>
               </div>
           </article>
@@ -166,32 +166,32 @@
               <div class="game-main flex flex-col flex-1 min-h-0 overflow-hidden items-center justify-center">
                 <p class="text-center text-[#ff9f1c] font-['Press_Start_2P',monospace] text-xs mb-2 text-glow-orange uppercase tracking-wider">Vyber číslo:</p>
                 <div class="flex-1 flex justify-center items-center w-full min-h-0 py-2">
-                    <div id="dice-frame" class="dice-frame flex items-center justify-center relative backdrop-blur-md overflow-hidden h-full max-h-[160px] aspect-square select-none" role="region" aria-label="Zobrazení kostky">
+                    <div id="dice-frame" class="dice-frame flex items-center justify-center relative backdrop-blur-md overflow-hidden h-full max-h-[45%] aspect-square select-none" role="region" aria-label="Zobrazení kostky">
                         <span id="dice-display" class="dice-display text-[clamp(2.5rem,7vh,4.5rem)]" aria-live="polite" aria-atomic="true">?</span>
                     </div>
                 </div>
                 <div id="game-result-dice" class="game-result-dice mb-1" role="status" aria-live="polite"></div>
               </div>
-              <div class="game-actions pb-1">
-                <div class="dice-numbers-grid grid grid-cols-3 gap-2 justify-center max-w-[200px] mx-auto" role="region" aria-label="Ovládání Kostky">
-                    <button class="btn dice-num-btn py-1 px-2 text-sm font-bold w-full" data-num="1" aria-label="Sázet na 1">1</button>
-                    <button class="btn dice-num-btn py-1 px-2 text-sm font-bold w-full" data-num="2" aria-label="Sázet na 2">2</button>
-                    <button class="btn dice-num-btn py-1 px-2 text-sm font-bold w-full" data-num="3" aria-label="Sázet na 3">3</button>
-                    <button class="btn dice-num-btn py-1 px-2 text-sm font-bold w-full" data-num="4" aria-label="Sázet na 4">4</button>
-                    <button class="btn dice-num-btn py-1 px-2 text-sm font-bold w-full" data-num="5" aria-label="Sázet na 5">5</button>
-                    <button class="btn dice-num-btn py-1 px-2 text-sm font-bold w-full" data-num="6" aria-label="Sázet na 6">6</button>
+              <div class="game-actions pb-1 shrink-0">
+                <div class="dice-numbers-grid grid grid-cols-3 gap-2 justify-center max-w-[240px] mx-auto" role="region" aria-label="Ovládání Kostky">
+                    <button class="btn dice-num-btn py-2.5 px-2 text-sm font-bold w-full" data-num="1" aria-label="Sázet na 1">1</button>
+                    <button class="btn dice-num-btn py-2.5 px-2 text-sm font-bold w-full" data-num="2" aria-label="Sázet na 2">2</button>
+                    <button class="btn dice-num-btn py-2.5 px-2 text-sm font-bold w-full" data-num="3" aria-label="Sázet na 3">3</button>
+                    <button class="btn dice-num-btn py-2.5 px-2 text-sm font-bold w-full" data-num="4" aria-label="Sázet na 4">4</button>
+                    <button class="btn dice-num-btn py-2.5 px-2 text-sm font-bold w-full" data-num="5" aria-label="Sázet na 5">5</button>
+                    <button class="btn dice-num-btn py-2.5 px-2 text-sm font-bold w-full" data-num="6" aria-label="Sázet na 6">6</button>
                 </div>
               </div>
            </article>
 
-<nav id="bet-area" class="flex flex-col gap-1 mt-2 mb-2" role="region" aria-label="Volba sázky">
+<nav id="bet-area" class="flex flex-col gap-1.5 mt-1.5 mb-1.5 shrink-0" role="region" aria-label="Volba sázky">
   <!-- Řada 1: preset tlačítka + All-In -->
-  <div class="grid grid-cols-5 gap-1 justify-center justify-items-stretch">
-    <button class="btn bet-btn h-5" id="bet-10" onclick="nastavSazku(10)">10</button>
-    <button class="btn bet-btn h-5" id="bet-20" onclick="nastavSazku(20)">20</button>
-    <button class="btn bet-btn h-5" id="bet-50" onclick="nastavSazku(50)">50</button>
-    <button class="btn bet-btn h-5" id="bet-100" onclick="nastavSazku(100)">100</button>
-    <button class="btn bet-btn h-5" id="bet-all-in" onclick="vsaditVse()" aria-label="Vsadit vše (all-in)">ALL</button>
+  <div class="grid grid-cols-5 gap-1.5 justify-center justify-items-stretch">
+    <button class="btn bet-btn h-9" id="bet-10" onclick="nastavSazku(10)">10</button>
+    <button class="btn bet-btn h-9" id="bet-20" onclick="nastavSazku(20)">20</button>
+    <button class="btn bet-btn h-9" id="bet-50" onclick="nastavSazku(50)">50</button>
+    <button class="btn bet-btn h-9" id="bet-100" onclick="nastavSazku(100)">100</button>
+    <button class="btn bet-btn h-9" id="bet-all-in" onclick="vsaditVse()" aria-label="Vsadit vše (all-in)">ALL</button>
   </div>
   <!-- Řada 2: Bet Slider -->
   <div id="bet-slider-container" role="none"></div>
@@ -199,9 +199,9 @@
 
            <div id="game-result" class="status-box game-result-classic hidden" role="status" aria-live="polite"></div>
 
-          <div class="flex justify-center w-full gap-3" role="group" aria-label="Akce během hry">
-<button class="btn btn-stats px-2 py-1.5" onclick="otevriStatsModal()">Statistiky</button>
-                 <button class="btn btn-danger px-2 py-1.5" onclick="navratDoHubu()">Menu</button>
+          <div class="flex justify-center w-full gap-3 shrink-0 pb-1" role="group" aria-label="Akce během hry">
+<button class="btn btn-stats flex-1 py-2.5" onclick="otevriStatsModal()">Statistiky</button>
+                 <button class="btn btn-danger flex-1 py-2.5" onclick="navratDoHubu()">Menu</button>
           </div>
       </section>
 

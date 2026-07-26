@@ -78,6 +78,7 @@
 
 .game-actions {
   margin-top: auto;
+  flex-shrink: 0;
 }
 
 /* Ensure game areas stack properly within screen */

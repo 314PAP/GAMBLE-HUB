@@ -71,6 +71,12 @@ export class BetSlider {
     this.fill = document.createElement('div');
     this.fill.className = 'bet-slider-fill';
 
+    // Value display — centered inside the track
+    this.valueDisplay = document.createElement('div');
+    this.valueDisplay.className = 'bet-slider-value';
+    this.valueDisplay.setAttribute('aria-live', 'polite');
+    this.valueDisplay.setAttribute('aria-atomic', 'true');
+
     // Thumb
     this.thumb = document.createElement('div');
     this.thumb.className = 'bet-slider-thumb';
@@ -81,14 +87,9 @@ export class BetSlider {
     this.thumb.setAttribute('aria-valuenow', String(this.value));
 
     this.track.appendChild(this.fill);
+    this.track.appendChild(this.valueDisplay);
     this.track.appendChild(this.thumb);
     this.trackWrap.appendChild(this.track);
-
-    // Value display
-    this.valueDisplay = document.createElement('div');
-    this.valueDisplay.className = 'bet-slider-value';
-    this.valueDisplay.setAttribute('aria-live', 'polite');
-    this.valueDisplay.setAttribute('aria-atomic', 'true');
 
     // Right arrow button
     this.btnRight = document.createElement('button');
@@ -100,7 +101,6 @@ export class BetSlider {
     this.container.appendChild(this.btnLeft);
     this.container.appendChild(this.trackWrap);
     this.container.appendChild(this.btnRight);
-    this.container.appendChild(this.valueDisplay);
 
     this._bindEvents();
   }
