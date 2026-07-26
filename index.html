@@ -316,17 +316,18 @@
      </div>
  </div>
 
-<div id="delete-confirm-dialog" class="delete-confirm-dialog hidden fixed inset-0 flex items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="delete-confirm-title" onclick="zavriDeleteConfirm()">
-<div class="delete-confirm-content rounded-2xl" role="document" onclick="event.stopPropagation()">
-<div class="delete-confirm-header flex items-center justify-center gap-3 mb-3">
-               <span class="delete-confirm-icon" aria-hidden="true">⚠️</span>
-               <span id="delete-confirm-title" class="text-xl">Smazat účet?</span>
-          </div>
-<div class="delete-confirm-actions flex justify-center gap-6 pb-2">
-<button class="btn btn-success" onclick="zavriDeleteConfirm()" aria-label="Zrušit smazání">Ne</button>
-               <button class="btn btn-danger" id="delete-confirm-yes" onclick="zavriDeleteConfirm()" aria-label="Potvrdit smazání účtu">Smazat</button>
-          </div>
-      </div>
+<div id="delete-confirm-dialog" class="delete-confirm-dialog hidden" role="dialog" aria-modal="true" aria-labelledby="delete-confirm-title" onclick="zavriDeleteConfirm()">
+  <div class="delete-confirm-content" role="document" onclick="event.stopPropagation()">
+    <div class="flex items-center justify-center gap-3 mb-4">
+      <span class="delete-confirm-icon" aria-hidden="true">⚠️</span>
+      <span id="delete-confirm-title" class="text-xl">Smazat účet?</span>
+    </div>
+    <div class="flex justify-center gap-6">
+      <button class="btn btn-success" onclick="zavriDeleteConfirm()" aria-label="Zrušit smazání">Ne</button>
+      <button class="btn btn-danger" id="delete-confirm-yes" aria-label="Potvrdit smazání účtu">Smazat</button>
+    </div>
+  </div>
+</div>
   </div>
 
 <div id="abbrev-modal" class="fixed inset-0 z-[500] flex items-center justify-center bg-[rgba(0,0,0,0.85)] hidden" role="dialog" aria-modal="true" aria-labelledby="abbrev-modal-title" onclick="zavriAbbrevModal()">
