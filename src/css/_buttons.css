@@ -491,6 +491,10 @@
   outline: none;
   transform: none;
   filter: none;
+  border-color: rgba(255, 120, 0, 0.5) !important;
+  box-shadow:
+    inset 1px 1px 0px rgba(255, 159, 28, 0.2),
+    inset -1px -1px 0px rgba(0, 0, 0, 0.5) !important;
 }
 
 .bet-slider-arrow:hover:not(:disabled) {

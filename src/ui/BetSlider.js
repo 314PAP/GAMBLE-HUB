@@ -109,8 +109,6 @@ export class BetSlider {
 
   _bindEvents() {
     // Arrow buttons — click + hold
-    // No preventDefault: letting the browser handle native button focus/click
-    // so that pointerup fires reliably on all mobile browsers (incl. iOS Safari)
     this.btnLeft.addEventListener('pointerdown', (e) => {
       this._startHold(-1);
     });
@@ -118,14 +116,20 @@ export class BetSlider {
       this._startHold(1);
     });
 
-    // Stop hold: both on the buttons themselves AND on document (belt + suspenders)
-    const stopHold = () => this._stopHold();
-    this.btnLeft.addEventListener('pointerup', stopHold);
-    this.btnLeft.addEventListener('pointercancel', stopHold);
-    this.btnRight.addEventListener('pointerup', stopHold);
-    this.btnRight.addEventListener('pointercancel', stopHold);
-    document.addEventListener('pointerup', stopHold);
-    document.addEventListener('pointercancel', stopHold);
+    // Stop hold + remove sticky focus: on the buttons AND on document
+    const stopHoldAndBlur = (e) => {
+      this._stopHold();
+      // Remove sticky :focus border — blur the arrow if it was the target
+      if (e && e.target && (e.target === this.btnLeft || e.target === this.btnRight)) {
+        e.target.blur();
+      }
+    };
+    this.btnLeft.addEventListener('pointerup', stopHoldAndBlur);
+    this.btnLeft.addEventListener('pointercancel', stopHoldAndBlur);
+    this.btnRight.addEventListener('pointerup', stopHoldAndBlur);
+    this.btnRight.addEventListener('pointercancel', stopHoldAndBlur);
+    document.addEventListener('pointerup', () => this._stopHold());
+    document.addEventListener('pointercancel', () => this._stopHold());
 
     // Track click to jump
     this.track.addEventListener('pointerdown', (e) => {
@@ -146,8 +150,14 @@ export class BetSlider {
       e.preventDefault();
       this._moveToPointer(e);
     });
-    this.thumb.addEventListener('pointerup', () => { this._dragging = false; });
-    this.thumb.addEventListener('pointercancel', () => { this._dragging = false; });
+    this.thumb.addEventListener('pointerup', (e) => {
+      this._dragging = false;
+      this.thumb.releasePointerCapture(e.pointerId);
+    });
+    this.thumb.addEventListener('pointercancel', (e) => {
+      this._dragging = false;
+      this.thumb.releasePointerCapture(e.pointerId);
+    });
 
     // Keyboard on thumb
     this.thumb.addEventListener('keydown', (e) => {
