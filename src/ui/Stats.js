@@ -1,13 +1,14 @@
 export class StatsManager {
   constructor(ui) {
     this.ui = ui;
-    this.chartInstance = null;
   }
 
   open(username) {
     const stats = this.ui.db.getStats(username);
     const totalMatches = stats.vyhry + stats.prohry;
     const winRate = totalMatches > 0 ? ((stats.vyhry / totalMatches) * 100).toFixed(1) : 0;
+    const lossRate = totalMatches > 0 ? (100 - winRate).toFixed(1) : 0;
+    const winPct = totalMatches > 0 ? (stats.vyhry / totalMatches) * 100 : 0;
 
     const statsModal = document.getElementById('stats-modal');
     if (!statsModal) return;
@@ -21,9 +22,20 @@ export class StatsManager {
         <div class="flex-row-center mb-1.5">
           <span aria-hidden="true">🔄</span> <span>Odehraných her:</span> <strong>${totalMatches}</strong>
         </div>
-        <div class="flex-row-center mb-1.5">
+        <div class="flex-row-center mb-2">
           <span aria-hidden="true">📈</span> <span>Úspěšnost:</span> <strong class="text-[var(--neon-orange)]">${winRate}%</strong>
         </div>
+        ${totalMatches > 0 ? `
+        <div class="mb-2">
+          <div style="display:flex;height:20px;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,0.1)">
+            ${winPct > 0 ? `<div style="width:${winPct}%;background:linear-gradient(90deg,#1db96a,#39ff14);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold;color:#000">${winPct >= 15 ? `✓ ${winRate}%` : ''}</div>` : ''}
+            ${winPct < 100 ? `<div style="width:${100 - winPct}%;background:linear-gradient(90deg,#ff0055,#c0004a);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold;color:#fff">${(100 - winPct) >= 15 ? `✗ ${lossRate}%` : ''}</div>` : ''}
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:10px;margin-top:4px">
+            <span style="color:#39ff14">✓ ${stats.vyhry} výher</span>
+            <span style="color:#ff0055">✗ ${stats.prohry} proher</span>
+          </div>
+        </div>` : ''}
       `;
     }
 
@@ -59,7 +71,6 @@ export class StatsManager {
 
     statsModal.classList.remove('hidden');
     statsModal.classList.add('flex');
-    setTimeout(() => this.renderChart(stats.vyhry, stats.prohry), 100);
   }
 
   close() {
@@ -68,49 +79,5 @@ export class StatsManager {
       statsModal.classList.add('hidden');
       statsModal.classList.remove('flex');
     }
-  }
-
-  renderChart(wins, losses) {
-    const canvas = document.getElementById('stats-chart');
-    if (!canvas) return;
-
-    if (this.chartInstance) {
-      this.chartInstance.destroy();
-    }
-
-    const hasData = (wins + losses) > 0;
-    const chartData = hasData ? [wins, losses] : [1, 1];
-    const chartColors = hasData
-      ? ['#2ec4b6', '#ff0055']
-      : ['rgba(255,255,255,0.05)', 'rgba(255,255,255,0.05)'];
-
-    this.chartInstance = new Chart(canvas, {
-      type: 'doughnut',
-      data: {
-        labels: hasData ? ['Výhry', 'Prohry'] : ['Žádná data', ''],
-        datasets: [{
-          data: chartData,
-          backgroundColor: chartColors,
-          borderColor: '#12121c',
-          borderWidth: 2
-        }]
-      },
-      options: {
-        responsive: false,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: hasData,
-            position: 'bottom',
-            labels: {
-              color: '#94a3b8',
-              font: { family: 'Outfit', size: 11 }
-            }
-          },
-          tooltip: { enabled: hasData }
-        },
-        cutout: '70%'
-      }
-    });
   }
 }
