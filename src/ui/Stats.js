@@ -1,4 +1,4 @@
-import { COIN_SVG, wrapEmoji } from "../utils.js";
+import { COIN_SVG, escapeHtml, wrapEmoji } from "../utils.js";
 
 export class StatsManager {
   constructor(ui) {
@@ -55,8 +55,8 @@ export class StatsManager {
           const isWin = item.includes("VÝHRA");
           const sep = item.includes(" – ") ? " – " : "-";
           const parts = item.split(sep);
-          let gamePart = (parts[0] || "").trim();
-          const statusPart = (parts[1] || "").trim();
+          let gamePart = escapeHtml(parts[0] || "").trim();
+          const statusPart = escapeHtml(parts[1] || "").trim();
           const coinSvg = COIN_SVG;
           gamePart = gamePart
             .replace(/\(S:\s*(\d+)\s*(kč|Kč)?\)/gi, `($1 ${coinSvg})`)

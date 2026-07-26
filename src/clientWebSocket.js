@@ -22,7 +22,6 @@ export class ClientWebSocket {
   }
 
   onOpen() {
-    console.log('WebSocket connected to', this.url);
     this.retryCount = 0; // reset retries
   }
 
@@ -49,7 +48,6 @@ export class ClientWebSocket {
       return;
     }
     const delay = this.backoff * Math.pow(2, this.retryCount);
-    console.log(`Reconnecting WebSocket in ${delay}ms`);
     setTimeout(() => {
       this.retryCount++;
       this.connect();

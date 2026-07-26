@@ -79,10 +79,6 @@ export class GameUI {
     return this.accounts.render(onSelect, onDelete);
   }
 
-  formatLargeNumber(num) {
-    return formatLargeNumber(num);
-  }
-
   // Updates player profile info in the navigation bars
   updateMiniProfile(username, balance) {
     const hubName = document.getElementById('hub-player-name');
@@ -90,8 +86,8 @@ export class GameUI {
     const gameMoney = document.getElementById('game-player-money');
 
     if (hubName) hubName.innerText = username;
-    if (hubMoney) hubMoney.innerText = this.formatLargeNumber(balance);
-    if (gameMoney) gameMoney.innerText = this.formatLargeNumber(balance);
+    if (hubMoney) hubMoney.innerText = formatLargeNumber(balance);
+    if (gameMoney) gameMoney.innerText = formatLargeNumber(balance);
   }
 
   // Confetti effects when winning money
@@ -131,7 +127,7 @@ export class GameUI {
       resBox.classList.remove('visibility-hidden');
       resBox.innerHTML = `
         <span class="text-[var(--neon-gold)] text-lg font-bold text-glow-gold flex items-center justify-center gap-1.5">
-          <span>🎉 +${this.formatLargeNumber(winAmount)}</span>
+          <span>🎉 +${formatLargeNumber(winAmount)}</span>
           <svg class="coin-icon-svg w-[1.1em] h-[1.1em]" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg>
           ${isJackpot ? '🔥' : ''}
         </span>
