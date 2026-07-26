@@ -117,19 +117,21 @@ export class BetSlider {
     });
 
     // Stop hold + remove sticky focus: on the buttons AND on document
-    const stopHoldAndBlur = (e) => {
+    this._stopHoldAndBlur = (e) => {
       this._stopHold();
       // Remove sticky :focus border — blur the arrow if it was the target
       if (e && e.target && (e.target === this.btnLeft || e.target === this.btnRight)) {
         e.target.blur();
       }
     };
-    this.btnLeft.addEventListener('pointerup', stopHoldAndBlur);
-    this.btnLeft.addEventListener('pointercancel', stopHoldAndBlur);
-    this.btnRight.addEventListener('pointerup', stopHoldAndBlur);
-    this.btnRight.addEventListener('pointercancel', stopHoldAndBlur);
-    document.addEventListener('pointerup', () => this._stopHold());
-    document.addEventListener('pointercancel', () => this._stopHold());
+    this._docPointerUp = () => this._stopHold();
+    this._docPointerCancel = () => this._stopHold();
+    this.btnLeft.addEventListener('pointerup', this._stopHoldAndBlur);
+    this.btnLeft.addEventListener('pointercancel', this._stopHoldAndBlur);
+    this.btnRight.addEventListener('pointerup', this._stopHoldAndBlur);
+    this.btnRight.addEventListener('pointercancel', this._stopHoldAndBlur);
+    document.addEventListener('pointerup', this._docPointerUp);
+    document.addEventListener('pointercancel', this._docPointerCancel);
 
     // Track click to jump
     this.track.addEventListener('pointerdown', (e) => {
@@ -293,6 +295,12 @@ export class BetSlider {
   /** Destroy the slider (remove DOM and listeners) */
   destroy() {
     this._stopHold();
+    if (this._docPointerUp) {
+      document.removeEventListener('pointerup', this._docPointerUp);
+    }
+    if (this._docPointerCancel) {
+      document.removeEventListener('pointercancel', this._docPointerCancel);
+    }
     this.container.innerHTML = '';
   }
 }

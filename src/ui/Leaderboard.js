@@ -1,4 +1,4 @@
-import { formatLargeNumber, COIN_SVG, wrapEmoji } from '../utils.js';
+import { formatLargeNumber, COIN_SVG, escapeHtml, wrapEmoji } from '../utils.js';
 
 export class LeaderboardManager {
   constructor(ui) {
@@ -36,7 +36,7 @@ if (scores.length === 0) {
             <div class="py-1 my-0 flex justify-between items-center gap-2">
               <div class="flex items-center gap-2 min-w-0 flex-1">
                 <span class="font-bold text-[var(--neon-gold)] text-[clamp(11px,3.8vw,18px)] w-[clamp(18px,5vw,25px)] shrink-0 text-glow-gold text-center">${medal}</span>
-                <span class="scoreboard-name text-[var(--neon-gold)] font-semibold !text-[clamp(11px,3.8vw,18px)] flex-1 min-w-0 truncate">${this.wrapEmoji(record.jmeno)}</span>
+                <span class="scoreboard-name text-[var(--neon-gold)] font-semibold !text-[clamp(11px,3.8vw,18px)] flex-1 min-w-0 truncate">${wrapEmoji(escapeHtml(record.jmeno))}</span>
               </div>
               <span class="score-display inline-flex items-center gap-1 font-bold text-[var(--neon-green)] text-[clamp(11px,3.8vw,18px)] text-glow-green shrink-0">${this.formatLargeNumber(record.castka)}${COIN_SVG}</span>
             </div>
@@ -69,7 +69,7 @@ if (scores.length === 0) {
         <div role="listitem" class="py-1 my-0 flex justify-between items-center gap-2 border-b border-[rgba(255,255,255,0.03)] last:border-b-0">
           <div class="flex items-center gap-2 min-w-0 flex-1">
             <span class="font-bold text-[var(--neon-gold)] text-[clamp(11px,3.8vw,16px)] w-[clamp(18px,5vw,25px)] shrink-0 text-glow-gold text-center">${medal}</span>
-            <span class="scoreboard-name text-[var(--neon-gold)] font-semibold !text-[clamp(11px,3.8vw,16px)] flex-1 min-w-0 truncate">${this.wrapEmoji(record.jmeno)}</span>
+             <span class="scoreboard-name text-[var(--neon-gold)] font-semibold !text-[clamp(11px,3.8vw,16px)] flex-1 min-w-0 truncate">${wrapEmoji(escapeHtml(record.jmeno))}</span>
           </div>
           <span class="score-display inline-flex items-center gap-1 font-bold text-[var(--neon-green)] text-[clamp(11px,3.8vw,16px)] text-glow-green shrink-0">${this.formatLargeNumber(record.castka)}${COIN_SVG}</span>
         </div>

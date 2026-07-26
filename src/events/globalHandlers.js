@@ -145,10 +145,6 @@ window.smazatUcet = (username) => {
       if (this._betSlider) this._betSlider.setValue(balance);
     };
 
-    window.hodKostkami = () => {
-      this.gm.playDiceGame();
-    };
-
     window.kliknutoCislo = (num) => {
       if (this.gm.activeGameId === 5) {
         this.gm.playSlots();

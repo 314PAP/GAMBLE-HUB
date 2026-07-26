@@ -2,12 +2,12 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, collection, doc, setDoc, getDocs, getDoc, query, orderBy, limit, increment } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBvSU7f_QWDK1AkWtXcVaOkLrrzrukHOYE",
-  authDomain: "gamblehub-db.firebaseapp.com",
-  projectId: "gamblehub-db",
-  storageBucket: "gamblehub-db.firebasestorage.app",
-  messagingSenderId: "44269751263",
-  appId: "1:44269751263:web:c415d1004a73276fb5526a"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 export class API {

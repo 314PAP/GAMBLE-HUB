@@ -91,3 +91,14 @@ const EMOJI_RE = /[\u{1F300}-\u{1F9FF}]|[\u2600-\u26FF]|\u203C|\u2049|[\u2000}-\
 export function wrapEmoji(text) {
   return text.replace(EMOJI_RE, '<span class="emoji-icon">$&</span>');
 }
+
+/** Escape HTML special characters to prevent XSS when inserting user-generated content. */
+export function escapeHtml(str) {
+  if (typeof str !== 'string') return String(str);
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}

@@ -1,4 +1,4 @@
-import { formatLargeNumber, COIN_SVG, wrapEmoji } from '../utils.js';
+import { formatLargeNumber, COIN_SVG, escapeHtml, wrapEmoji } from '../utils.js';
 
 export class ExplorerManager {
   constructor(ui) {
@@ -74,7 +74,7 @@ renderHistory(filteredData = null) {
       html += `
         <div role="listitem" class="py-1 my-0.5 flex justify-between items-center rounded-xl bg-[rgba(189,0,255,0.04)] gap-2">
           <div class="flex flex-col gap-0.5 pl-2 min-w-0 flex-1">
-            <span class="font-semibold text-[var(--neon-gold)] scoreboard-name !text-[clamp(11px,3.8vw,15px)] text-glow-gold truncate">${this.wrapEmoji(item.username)}</span>
+            <span class="font-semibold text-[var(--neon-gold)] scoreboard-name !text-[clamp(11px,3.8vw,15px)] text-glow-gold truncate">${wrapEmoji(escapeHtml(item.username))}</span>
             <span class="text-[10px] text-[var(--text-secondary)] truncate">${gameLabel} – ${timeString}</span>
           </div>
           <div class="flex flex-col items-end gap-0.5 pr-2 shrink-0">
