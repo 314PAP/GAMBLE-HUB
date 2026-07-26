@@ -237,7 +237,8 @@ export class GameManager {
     else targetResBox = resBoxClassic;
 
     if (isWin) {
-      this.ui.animateWinResult(targetResBox, winAmount, resultText, isJackpot, 'game-result');
+      const hiloColor = this.activeGameId === 6 ? '#ff4060' : 'var(--neon-orange)';
+      this.ui.animateWinResult(targetResBox, winAmount, resultText, isJackpot, 'game-result', hiloColor);
     } else {
       this.ui.animateLossBalance(newBalance);
     }

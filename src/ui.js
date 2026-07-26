@@ -122,7 +122,7 @@ export class GameUI {
     }
   }
 
-  animateWinResult(resBox, winAmount, resultText, isJackpot, resultContainerClass = 'game-result') {
+  animateWinResult(resBox, winAmount, resultText, isJackpot, resultContainerClass = 'game-result', resultColor = 'var(--neon-orange)') {
     if (resBox) {
       gsap.killTweensOf(resBox);
       resBox.classList.remove('hidden');
@@ -134,7 +134,7 @@ export class GameUI {
           <svg class="coin-icon-svg w-[1.1em] h-[1.1em]" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg>
           ${isJackpot ? '🔥' : ''}
         </span>
-        <small class="text-[var(--neon-orange)] font-['Press_Start_2P',monospace] block mt-1.5 text-[10px] tracking-wider text-glow-orange">${resultText}</small>
+        <small class="font-['Press_Start_2P',monospace] block mt-1.5 text-[10px] tracking-wider text-glow-orange" style="color:${resultColor}">${resultText}</small>
       `;
 
       gsap.set(resBox, {

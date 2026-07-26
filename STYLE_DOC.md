@@ -13,7 +13,9 @@ src/
 │   ├── _layout.css       // Screen management, media queries
 │   ├── _buttons.css      // 3D tlačítka (komponenta)
 │   ├── _slot.css         // Slot machine (komponenta)
-│   └── _panels.css       // Modály a panely (komponenta)
+│   ├── _hilo.css         // Hi-Lo karta (komponenta)
+│   ├── _dice.css         // Dice frame (komponenta)
+│   ├── _panels.css       // Modály a panely (komponenta)
 ├── tailwind.css          // Tailwind v4 utilities
 ```
 
@@ -34,7 +36,7 @@ HTML (`index.html`) žádný `<link>` na CSS neobsahuje – vše prochází Vite
 3. `./_reset.css` – Globální reset
 4. `./_typography.css` – Typografie, Google fonty, .sr-only
 5. `./_layout.css` – Screen state management, @media queries
-6. `@layer components { ... }` – tlačítka, slot, panely (vysoká priorita)
+6. `@layer components { ... }` – tlačítka, panely, slot, hilo, dice (vysoká priorita)
 
 ## 4. Design tokeny (CSS proměnné)
 
@@ -86,13 +88,16 @@ V `_layout.css`: `input, select, textarea` – tmavé sklo, orange focus glow.
 - `.slot-reel` – gradient `#010104 → #0a0a16`
 - `.slot-cell.sym-*` – neonové glowy pro každý symbol
 
-### Inputy
-V `_panels.css`: focus state, tmavé sklo, neon border.
-
 ### Hi-Lo (_hilo.css)
 - `.hilo-card`, `.card-face`, `.card-front`, `.card-back` – 3D flip animace
 - `.hilo-container`, `.hilo-btns` – layout pro Hi-Lo hru
 - Zachovány CSS proměnné pro barvy a glow efekty
+
+### Dice (_dice.css)
+- `.dice-frame`, `.dice-display` – rámec kostky se sheen animací
+- `.dice-num-btn` – tlačítka výběru čísla s selected flash animací
+- Win state: zelené glow, `.win-active` třída
+- Zachovány CSS proměnné pro neon barvy
 
 ### Status Box (.status-box)
 - Fixed toast – `bottom: 160px`, tmavé sklo, blur
@@ -131,4 +136,4 @@ Provedené změny v `index.html`:
 - **Zbytečné utility třídy** v `_layout.css`: `flex-row-center`, `gap-sm`, `margin-top-md`, `text-center`, `text-muted` (už jsou v Tailwind)
 
 ### Zálohy
-Originální soubory zálohovány do `backup/css/20260629_010247/`.
+Žádné zálohy CSS nejsou aktuálně vedené v repozitáři.

@@ -1,141 +1,192 @@
-# 🎰 Neon Gamble Club
+# 🎰 Gamble Hub
 
-Vítejte v **Neon Gamble Club** – modernizované, vysoce estetické a plně responzivní webové herní platformě. Tento projekt vznikl kompletním refaktoringem původní hry (která je bezpečně uchována v souboru `index3.html`) do podoby moderní modulární JavaScriptové aplikace běžící na build nástroji Vite a využívající prémiové animační a UI knihovny z ekosystému npm.
+Moderní, modulární herní platforma s neonovým retro designem. Projekt je kompletně přepsán do architektury ES modules s build nástrojem Vite, Tailwind CSS v4 a prémiovými animacemi pomocí GSAP.
 
 ---
 
 ## ♿ Přístupnost (a11y)
 
-Aplikace je optimalizována pro čtečky obrazovky a ARIA:
-- Sémantické HTML5 tagy (`<main>`, `<nav>`, `<article>`, `<section>`, `<header>`)
-- ARIA role pro modály (`role="dialog" aria-modal="true"`) a seznamy (`role="list"/"listitem"`)
-- `aria-live="polite"` pro dynamické oznámení
-- `aria-label` na všechna interaktivní prvky
-- Emoji ikony mají `aria-hidden="true"`
-- Skryté nadpvy pro obrazovky používají `.sr-only` třídu
+Aplikace respektuje standardy WCAG a používá sémantické HTML5 tagy v kombinaci s ARIA atributy:
+
+- `<main role="main">` s `aria-label="Herní aplikace"`
+- `<nav aria-label="...">` pro navigaci a herní přepínače
+- `<article aria-labelledby="...">` pro samostatné herní sekce
+- `<section aria-labelledby="...">` pro obrazovky
+- Modály: `role="dialog" aria-modal="true" aria-labelledby="..."`
+- Emoji ikony: `aria-hidden="true"`
+- Seznamy: `role="list"` + `role="listitem"` na položky
+- `aria-live="polite"` pro dynamická oznámení
+- `.sr-only` třída pro skryté nadpisy
+- `prefers-reduced-motion` media query zakazuje všechny animace
 
 ---
 
-## 🎨 Design a vizuální styl (Rich Aesthetics)
+## 🎨 Design a vizuální styl
 
-Původní jednoduchý neonový design byl povýšen na prémiový zážitek inspirovaný rozhraním moderních luxusních kasin:
-- **Glassmorfismus**: Všechny herní panely a obrazovky využívají poloprůhledné pozadí s rozostřením (`backdrop-filter`) a jemnými světelnými okraji, což vytváří hloubku a prémiový kontrast.
-- **Neonová barevná paleta**: Pečlivě vybrané neonové odstíny (oranžová, zelená, růžová, modrá a zlatá) s dynamickými stíny a pulzujícími zářemi na tmavém radiálním pozadí.
-- **Prémiová typografie**: Integrace moderních Google Fonts – **Orbitron** pro herní nadpisy a retro-arcade styl a **Outfit** pro perfektně čitelné texty a UI prvky.
-- **Plná responzivita**: Rozhraní je optimalizováno pro mobilní zařízení (na výšku) i stolní počítače.
-- **Plovoucí oznámení (Win-Toast)**: Výsledky hry se nyní nezobrazují ve statickém elementu (který natahoval výšku aplikace), ale v absolutně napoziciovaném glassmorphic panelu (toastu), který se plynule vysune zespodu pomocí GSAP, chvíli visí nad ovládacími prvky a automaticky sjede dolů a zmizí. Vhodné pro telefony s omezenou výškou.
+- **Glassmorfismus**: Poloprůhledné panely s `backdrop-filter: blur() saturate()`, jemné světelné okraje a inset stíny pro hloubku.
+- **Neonová paleta**: CSS proměnné `--neon-gold`, `--neon-purple`, `--neon-cyan`, `--neon-blue`, `--neon-pink`, `--neon-green`, `--neon-orange` s dynamickými glow efekty.
+- **Typografie**: Google Fonts **Orbitron** (nadpisy, čísla) a **Outfit** (texty, UI).
+- **3D tlačítka**: Mechanické spínače s tlustou spodní hranou, `translateY` na hover/active a neonovými stíny.
+- **Retro efekt**: Idle pulzace, neonové kmitání (`initNeonFlicker`), zvukové efekty generované Web Audio API syntetizátorem.
+- **Plná responzivita**: Optimalizováno pro mobil (na výšku) i desktop.
 
 ---
 
-## 🚀 Klíčové změny a použité knihovny (Refaktoring)
+## 🎮 Hry
 
-Všechny zastaralé animace a nativní prohlížečové dialogy byly kompletně přepsány s využitím moderních npm knihoven:
+Aplikace obsahuje **6 her**, každá s vlastním herním modulem v `src/games/`:
 
-1. **GSAP (GreenSock Animation Platform)**:
-   - **Sloty (Bary 3x3)**: Původní okamžité přepínání emotikonů bylo nahrazeno fyzikálním mechanismem rotujících válců. Válce se roztáčí postupně (stagger efekt), během rotace se na ně aplikuje rychlostní rozostření (blur filtr) a zastavují se s jemným odpružením (bounce-back).
-   - **Více / Méně (Hi-Lo)**: Hra využívá plně 3D rotaci karty. Při sázce se karta otočí rubem nahoru (`180deg` Y-osa), na pozadí se vygeneruje nové číslo a karta se otočí lícem zpět se spring efektem.
+| # | Název | ID | Popis |
+|---|-------|----|-------|
+| 1 | **Hádanka 1-10** | 1 | Mřížka čísel 1–10, náhodné výherní číslo, Výplata: **10× sázka** |
+| 2 | **Hádanka 1-5** | 2 | Mřížka čísel 1–5, Výplata: **5× sázka** |
+| 3 | **Kostka 1-6** | 3 | Výběr čísla 1–6, hod kostkou s GSAP shuffle animací, Výplata: **6× sázka** |
+| 4 | **Ruleta 0-35** | 4 | Mřížka 0–36 s červenými/černými/zelenými políčky, Výplata: **36× sázka** |
+| 5 | **Automat (Slots)** | 5 | 3 válce × 3 řady, 6 symbolů, 5 výherních linií, Jackpot na třech `7️⃣`, Výplata: **2× – 100×** podle symbolu |
+| 6 | **Hi-Low** | 6 | Karty 1–10, tip VYŠŠÍ/NIŽŠÍ, dynamický koeficient `(9 / winningCards) × 0.95`, 3D flip animace karty |
 
-2. **SweetAlert2**:
-   - Nahradil standardní systémové alerty (`alert()`) a konfirmace (`confirm()`) za plně přizpůsobené, animované dialogy a modální okna v temném neonovém stylu, které neruší herní flow.
+### Herní tok
+1. Vybrání hry z hub obrazovky → zobrazí se 2s animovaný splash → herní obrazovka.
+2. Nastavení sázky (předvolená tlačítka 10/20/50/100/ALL-IN + custom slider).
+3. Kliknutí na SPIN/START → okamžité odečtení sázky z balance, uzamčení ovládání.
+4. Dokončení hry → přidání výhry, uložení zápasu, kontrola milníků, odeslání na Firebase, animace výsledku.
+5. Při vyrovnání balance `≤ 0` → zobrazení bankrotní obrazovky.
 
-3. **Chart.js**:
-   - V modálním okně statistik se nyní zobrazuje interaktivní prstencový graf (doughnut chart) poměru výher a proher konkrétního hráče s responzivní legendou a neonovým zbarvením.
+---
 
-4. **Canvas Confetti**:
-   - Při výhře vystřelí barevné konfety. U běžné výhry jde o rychlý středový výstřel, při trefení Jackpolu (trefení tří sedmiček `7️⃣`) se spustí masivní ohňostrojová kaskáda konfet po stranách obrazovky.
+## 🛠️ Tech Stack
 
-5. **Web Audio API (Syntetizované zvukové efekty)**:
-   - Integrován vlastní zvukový syntezátor [sound.js](file:///Users/pipap/projects/gamblehub/src/sound.js). Tóny a efekty (arpeggia, točení slotů, otočení karty Hi-Lo, fanfára jackpotu a klesající tón bankrotu) jsou generovány dynamicky.
-   - V pravém horním rohu je umístěno plovoucí tlačítko 🔊/🔇 dostupné ve všech obrazovkách. Stav ztlumení se ukládá do LocalStorage a kliknutí na jakékoliv interaktivní tlačítko přehraje tichý klik.
+- **Build**: Vite 6 (ES modules, sourcemaps, GitHub Pages base path `/GAMBLE-HUB/`)
+- **Styling**: Tailwind CSS v4 + vlastní CSS vrstvy `@layer components` / `@layer utilities`
+- **Animace**: GSAP 3 — slot válce, kartové otočení, mřížkové rolování, screen přechody
+- **UI efekty**: SweetAlert2 (dialogy), Canvas Confetti (výherní efekty), Chart.js (statistiky)
+- **Backend sync**: Firebase Firestore (globální žebříček, historie zápasů, návštěvy)
+- **Audio**: Web Audio API (vlastní syntetizátor bez audio souborů)
+- **Ikony**: Lucide (referencováno v package.json)
+- **PWA**: Web App Manifest (`public/manifest.json`)
 
 ---
 
 ## 📂 Architektura projektu
 
-Aplikace byla rozdělena do logických modulů (Separation of Concerns):
-
 ```
-├── .github/workflows/deploy.yml   # GitHub Actions pro automatické nasazení
+├── .github/workflows/deploy.yml   # GitHub Actions CD
+├── public/
+│   └── manifest.json               # PWA manifest
 ├── src/
+│   ├── main.js                     # Entry point – inicializace, splash, návštěvy
+│   ├── games.js                    # GameManager – orchestrátor sázek, autoplay, UI lock
+│   ├── ui.js                       # GameUI – obrazovky, modály, animace výsledků
+│   ├── db.js                       # GameDatabase – LocalStorage CRUD, milníky, import/export
+│   ├── api.js                      # API – Firebase Firestore sync (leaderboard, matches)
+│   ├── sound.js                    # SoundManager – Web Audio API syntetizátor
+│   ├── utils.js                    # Utility – formátování velkých čísel, zkratky
 │   ├── games/
-│   │   ├── slots.js               # Logika a GSAP animace slotů (Bary 3x3)
-│   │   ├── hilo.js                # Logika a 3D animace otáčení karet pro Hi-Lo
-│   │   └── guessing.js            # Logika číselných her (Ruleta, Kostka, atd.)
+│   │   ├── slots.js                # SlotMachineGame – 3x3 mřížka, 5 linií, GSAP spin
+│   │   ├── hilo.js                 # HiloGame – Hi-Lo karta, 3D flip, dynamický koeficient
+│   │   ├── guessing.js             # GuessingGame – číselné mřížky (Hádanka, Ruleta)
+│   │   └── dice.js                 # DiceGame – kostka 1-6, shuffle animace
 │   ├── ui/
-│   │   ├── Leaderboard.js         # Žebříček hráčů
-│   │   ├── Explorer.js            # Globální historie a filtry
-│   │   ├── Stats.js               # Statistiky a grafy
-│   │   ├── Accounts.js            # Správa účtů
-│   │   └── DeleteConfirm.js       # Dialog smazání
+│   │   ├── Leaderboard.js          # Žebříček hráčů (top 5, medaile)
+│   │   ├── Explorer.js             # Globální historie a leaderboard s filtry/sortem
+│   │   ├── Stats.js                # Statistiky hráče, win-rate, posledních 10 zápasů
+│   │   ├── Accounts.js             # Správa účtů (výběr, smazání)
+│   │   ├── DeleteConfirm.js        # Dialog pro potvrzení smazání účtu
+│   │   ├── BetSlider.js            # Custom logaritmický slider s hold-to-repeat
+│   │   └── gameInfo.js             # GAME_INFOS – HTML obsah pro info panely
 │   ├── events/
-│   │   └── globalHandlers.js        # Globální event handlery
-│   ├── db.js                      # Databázová vrstva (LocalStorage)
-│   ├── sound.js                   # Zvukový syntezátor (Web Audio API)
-│   ├── ui.js                      # UI manažer (obrazovky, modály)
-│   ├── games.js                   # Hlavní orchestrátor
-│   ├── css/
-│   │   ├── _variables.css         // CSS proměnné (neon paleta, glow)
-│   │   ├── _reset.css             // Globální reset
-│   │   ├── _typography.css        // Typografie a .sr-only utility
-│   │   ├── _layout.css            // Screen management, media queries
-│   │   ├── _buttons.css           // 3D tlačítka (komponenta)
-│   │   ├── _slot.css              // Slot machine (komponenta)
-│   │   └── _panels.css            // Modály a panely (komponenta)
-│   ├── tailwind.css               // Tailwind v4 utilities
-│   └── main.js                    // Vstupní bod
-├── index.html                     # Hlavní šablona s sémantickými tagy
-├── index3.html                    # Původní verze (záloha)
-├── package.json                   # Konfigurace závislostí a skriptů
-└── vite.config.js                 # Konfigurace sestavení Vite
+│   │   └── globalHandlers.js       # GlobalEventHandlers – window.* funkce z HTML onclick
+│   ├── animations/
+│   │   ├── buttons.js              # GSAP entrance animace tlačítek
+│   │   └── ui.js                   # Neónové kmitání, idle pulzace, screen přechody
+│   └── css/
+│       ├── main.css                # Entry point – importuje všechny CSS vrstvy
+│       ├── tailwind.css            # Tailwind v4 @theme s neon paletou
+│       ├── _variables.css          # CSS custom properties (barvy, glow, shadow)
+│       ├── _reset.css              # Základní reset, scrollbar, body pozadí
+│       ├── _typography.css         # Fonty, nadpisy, neon text utility, .sr-only
+│       ├── _layout.css             # Screen management, form inputs, grid rozložení
+│       ├── _buttons.css            # 3D tlačítka – massive component v @layer components
+│       ├── _panels.css             # Modály, info panely, status box, toast pozice
+│       ├── _slot.css               # Slot machine – glass panel, reel glow, symbol glows
+│       ├── _hilo.css               # Hi-Lo karta – 3D preserve-3d, flip animace
+│       └── _dice.css               # Dice frame – sheen animace, win glow, num button flash
+├── index.html                      # Hlavní šablona – sémantické tagy, screeny, modály
+└── package.json                    # Závislosti a skripty
 ```
+
+---
+
+## 💾 Databáze a ukládání
+
+### LocalStorage klíče
+| Klíč | Formát | Popis |
+|------|--------|-------|
+| `c_uziv` | `{ username: balance }` | Uživatelé a jejich zůstatky (startovní 500) |
+| `c_stat` | `{ username: { vyhry, prohry, historie: string[] } }` | Statistiky, historie omezena na 10 záznamů |
+| `c_scor` | `[{ jmeno, castka }]` | Leaderboard – pouze nejvyšší skóre na hráče |
+| `c_mute` | `"true"` / `"false"` | Stav ztlumení zvuku |
+
+### Firebase (volitelné, global sync)
+- `leaderboard/{username}` – `{ castka, updatedAt }`
+- `matches/{autoId}` – `{ username, gameName, bet, resultText, isWin, winAmount, timestamp }`
+- `visits/{ip}` – `{ count }` – návštěvy podle IP
+
+---
+
+## 🎯 Klíčové vlastnosti
+
+- **Multiplayer global leaderboard** přes Firebase Firestore
+- **Autoplay** – automatické točení slotů (700ms interval, zastaví se při nedostatku balance)
+- **PWA** – instalovatelná aplikace s manifestem
+- **Import / Export dat** – JSON záloha všech LocalStorage dat
+- **Visit counter** – sledování unikátních návštěv přes ipify.org
+- **Bankrot systém** – "Čistá Kasa" obrazovka při vyrovnání balance na 0
+- **Milníky** – automatický zápis do leaderboardu při překonání osobního rekordu
 
 ---
 
 ## 📱 CSS architektura
 
-- **Tailwind v4 utilities** v `tailwind.css` - utility třídy (flex, grid, spacing)
-- **CSS proměnné** v `_variables.css` - neon paleta, glow efekty
-- **Komponenty** v `_buttons.css`, `_slot.css`, `_panels.css` - složité 3D efekty a animace
+- **Tailwind v4 utilities** v `tailwind.css` – flex, grid, spacing, responzivita
+- **CSS proměnné** v `_variables.css` – neon paleta, glow RGBA, gradienty
+- **Komponenty** v `_buttons.css`, `_panels.css`, `_slot.css`, `_hilo.css`, `_dice.css` – komplexní efekty v `@layer components`
 - Layout utility přesunuty z `_layout.css` do Tailwind tříd v HTML
 
 ---
 
-## 🛠️ Lokální spuštění
+## 🚀 Lokální spuštění
 
-Pro spuštění projektu na svém počítači postupujte následovně:
+```bash
+npm install
+npm run dev
+```
 
-1. **Instalace závislostí**:
-   ```bash
-   npm install
-   ```
+Aplikace se otevře na `http://localhost:5173`.
 
-2. **Spuštění vývojového serveru**:
-   ```bash
-   npm run dev
-   ```
-   Projekt se otevře na adrese `http://localhost:5173`.
-
-3. **Sestavení produkční verze**:
-   ```bash
-   npm run build
-   ```
-   Tento příkaz vytvoří optimalizovanou složku `dist/` připravenou k nasazení.
+### Skripty
+| Příkaz | Popis |
+|--------|-------|
+| `npm run dev` | Vývojový server (Vite) |
+| `npm run build` | Produkční build do `dist/` |
+| `npm run preview` | Náhled production buildu |
+| `npm run deploy` | Commit + push na `main` (pro GitHub Pages) |
 
 ---
 
-## 🌐 Nasazení na GitHub Pages (GitHub Actions)
+## 🌐 Nasazení na GitHub Pages
 
-Projekt obsahuje předpřipravený CI/CD workflow, který aplikaci automaticky nasadí při každém pushnutí do větve `main`.
+Projekt obsahuje GitHub Actions workflow (`.github/workflows/deploy.yml`), který automaticky sestaví a nasadí aplikaci při každém push do větve `main`.
 
-### Nastavení na GitHubu:
-1. Otevřete nastavení vašeho repozitáře na GitHubu: **Settings** -> **Pages**.
-2. V sekci **Build and deployment** změňte **Source** na **GitHub Actions**.
-3. Pushněte kód do větve `main`. GitHub automaticky spustí akci, která zkompiluje projekt a nasadí ho na adresu:
+### Nastavení:
+1. V repozitáři **Settings → Pages** nastavte **Source** na **GitHub Actions**.
+2. Pushněte do `main`. GitHub automaticky zkompiluje проект a nasadí ho na:
    `https://314pap.github.io/GAMBLE-HUB/`
 
 ---
 
-## 💾 Záloha logiky
-Pokud byste potřebovali nahlédnout do původní monolitické verze kódu nebo obnovit původní chování hry, soubor **`index3.html`** zůstal zcela nedotčen a slouží jako reference původní herní logiky.
+## 📋 Dodatečné dokumentace
 
-<!-- Build trigger timestamp: 2026-06-20T23:23:50+02:00 -->
+- `STYLE_DOC.md` – detailní popis CSS architektury a design tokenů
+- `docs/visual_guideline.md` – neměnné vizuální pravidla (CRT glass, 3D tlačítka, audio-vizuální život)
+- `AGENTS.md` – instrukce pro autonomní agenty pracující na projektu

@@ -91,7 +91,7 @@ export class HiloGame {
           onComplete({
             isWin,
             winAmount,
-            resultText: `${originalNumber} → ${nextNumber} | ×${multiplier.toFixed(2)}`
+            resultText: `<span style="color:#ff4060">${originalNumber} → ${nextNumber}</span><br><span style="color:#ff4060;font-weight:bold">×${multiplier.toFixed(2)}</span>`
           });
         }
       });
@@ -101,7 +101,7 @@ export class HiloGame {
       onComplete({
         isWin,
         winAmount,
-        resultText: `${originalNumber} → ${nextNumber} | ×${multiplier.toFixed(2)}`
+        resultText: `<span style="color:#ff4060">${originalNumber} → ${nextNumber}</span><br><span style="color:#ff4060;font-weight:bold">×${multiplier.toFixed(2)}</span>`
       });
     }
   }
