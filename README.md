@@ -155,7 +155,7 @@ Aplikace obsahuje **6 her**, každá s vlastním herním modulem v `src/games/`:
 
 ---
 
-## 🚀 Lokální spuštění
+## 🛠️ Lokální spuštění
 
 ```bash
 npm install
@@ -164,12 +164,18 @@ npm run dev
 
 Aplikace se otevře na `http://localhost:5173`.
 
+### Firebase pro vývoj
+Pro lokální vývoj s Firebase zkopírujte `.env.example` do `.env` a vyplňte vlastní Firebase konfiguraci. `.env` je v `.gitignore` a nebude commitován.
+
 ### Skripty
 | Příkaz | Popis |
 |--------|-------|
 | `npm run dev` | Vývojový server (Vite) |
 | `npm run build` | Produkční build do `dist/` |
 | `npm run preview` | Náhled production buildu |
+| `npm run lint` | ESLint kontrola |
+| `npm run lint:fix` | ESLint automatické opravy |
+| `npm run format` | Prettier formátování |
 | `npm run deploy` | Commit + push na `main` (pro GitHub Pages) |
 
 ---
@@ -180,7 +186,14 @@ Projekt obsahuje GitHub Actions workflow (`.github/workflows/deploy.yml`), kter�
 
 ### Nastavení:
 1. V repozitáři **Settings → Pages** nastavte **Source** na **GitHub Actions**.
-2. Pushněte do `main`. GitHub automaticky zkompiluje проект a nasadí ho na:
+2. V repozitáři **Settings → Secrets and variables → Actions** vytvořte následující secrets:
+   - `VITE_FIREBASE_API_KEY`
+   - `VITE_FIREBASE_AUTH_DOMAIN`
+   - `VITE_FIREBASE_PROJECT_ID`
+   - `VITE_FIREBASE_STORAGE_BUCKET`
+   - `VITE_FIREBASE_MESSAGING_SENDER_ID`
+   - `VITE_FIREBASE_APP_ID`
+3. Pushněte do `main`. GitHub automaticky zkompiluje projekt a nasadí ho na:
    `https://314pap.github.io/GAMBLE-HUB/`
 
 ---
