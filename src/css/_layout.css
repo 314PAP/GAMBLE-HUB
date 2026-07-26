@@ -47,16 +47,11 @@
   flex-direction: column;
 }
 
-/* Removed fixed height on #screen-game.active */
+/* #screen-game fills the container — outer main handles clipping & rounding */
 #screen-game.active {
   display: flex;
   flex-direction: column;
   min-height: 0;
-  background: #000;
-  overflow: hidden !important;
-  box-sizing: border-box;
-  border-radius: 16px;
-  background-clip: padding-box;
 }
 
 .game-container {
