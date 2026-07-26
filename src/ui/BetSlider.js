@@ -207,18 +207,37 @@ export class BetSlider {
     this._setValue(this.value + delta);
   }
 
+  // ─── Log scale helpers ───────────────────────────────────────────────────────
+  // Logarithmic mapping so low values (e.g. 100) are reachable even with
+  // a very high max (e.g. 31 000). Linear scale would place 100/31000 at
+  // only 0.3% of the track — impossible to tap accurately.
+
+  /** value → ratio [0..1] using log scale */
+  _toRatio(value) {
+    if (this.max <= this.min) return 0;
+    const logMin = Math.log(this.min);
+    const logMax = Math.log(this.max);
+    return (Math.log(Math.max(this.min, value)) - logMin) / (logMax - logMin);
+  }
+
+  /** ratio [0..1] → value using log scale, snapped to step */
+  _fromRatio(ratio) {
+    const logMin = Math.log(this.min);
+    const logMax = Math.log(this.max);
+    const raw = Math.exp(logMin + ratio * (logMax - logMin));
+    return Math.round(raw / this.step) * this.step;
+  }
+
   _jumpToPointer(e) {
     const rect = this.track.getBoundingClientRect();
     const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-    const raw = this.min + ratio * (this.max - this.min);
-    this._setValue(Math.round(raw / this.step) * this.step);
+    this._setValue(this._fromRatio(ratio));
   }
 
   _moveToPointer(e) {
     const rect = this.track.getBoundingClientRect();
     const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-    const raw = this.min + ratio * (this.max - this.min);
-    this._setValue(Math.round(raw / this.step) * this.step);
+    this._setValue(this._fromRatio(ratio));
   }
 
   _setValue(val) {
@@ -232,9 +251,7 @@ export class BetSlider {
   // ─── Render ───────────────────────────────────────────────────────────────────
 
   _render() {
-    const pct = this.max > this.min
-      ? ((this.value - this.min) / (this.max - this.min)) * 100
-      : 0;
+    const pct = this.max > this.min ? this._toRatio(this.value) * 100 : 0;
 
     this.fill.style.width = `${pct}%`;
     this.thumb.style.left = `${pct}%`;
