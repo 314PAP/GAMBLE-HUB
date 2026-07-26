@@ -1,5 +1,5 @@
 import { sound } from '../sound.js';
-import { parseSuffixes } from '../utils.js';
+import { BetSlider } from '../ui/BetSlider.js';
 
 export class GlobalEventHandlers {
   constructor(db, api, ui, gm) {
@@ -7,7 +7,13 @@ export class GlobalEventHandlers {
     this.api = api;
     this.ui = ui;
     this.gm = gm;
+    this._betSlider = null;
     this._bindAll();
+
+    // Update slider max whenever player balance changes
+    document.addEventListener('balanceChanged', (e) => {
+      this.updateSliderMax(e.detail.balance);
+    });
   }
 
   _bindAll() {
@@ -122,58 +128,21 @@ window.smazatUcet = (username) => {
 
     window.spustitHru = (gameId) => {
       this.gm.launchGame(gameId);
+      // Init slider after game launch (balance is current)
+      setTimeout(() => this._initBetSlider(), 2100);
     };
 
     window.nastavSazku = (amount) => {
       this.gm.setBet(amount);
+      // Sync slider to new preset value (no callback loop)
+      if (this._betSlider) this._betSlider.setValue(amount);
     };
 
-    window.ukazVlastniSazku = () => {
-      const area = document.getElementById('custom-sazka-area');
-      if (!area) return;
-      if (area.classList.contains('hidden')) {
-        area.classList.remove('hidden');
-        const input = document.getElementById('game-sazka');
-        if (input) {
-          input.value = '';
-          input.focus();
-        }
-      } else {
-        area.classList.add('hidden');
-      }
-    };
-
-    window.potvrditVlastniSazku = () => {
-      const input = document.getElementById('game-sazka');
-      if (!input) return;
-      
-      let rawText = input.value.trim().toLowerCase().replace(/\s+/g, '').replace(',', '.');
-      if (!rawText) {
-        this.ui.showAlert('warning', 'Chybná sázka', 'Zadejte platnou částku!');
-        return;
-      }
-
-      let multiplier = 1;
-      const suffixes = parseSuffixes();
-
-      for (let i = 0; i < suffixes.length; i++) {
-        if (rawText.endsWith(suffixes[i].key)) {
-          multiplier = suffixes[i].val;
-          rawText = rawText.slice(0, -suffixes[i].key.length);
-          break;
-        }
-      }
-
-      const numVal = parseFloat(rawText);
-      if (isNaN(numVal) || numVal <= 0) {
-        this.ui.showAlert('warning', 'Chybná sázka', 'Zadejte platnou kladnou částku (např. 100, 1.5k, 10m)!');
-        return;
-      }
-
-      const finalBet = Math.round(numVal * multiplier);
-      this.gm.setBet(finalBet);
-      const area = document.getElementById('custom-sazka-area');
-      if (area) area.classList.add('hidden');
+    window.vsaditVse = () => {
+      const balance = this.db.getPlayerBalance(this.gm.currentPlayer);
+      if (!balance || balance <= 0) return;
+      this.gm.setBet(balance);
+      if (this._betSlider) this._betSlider.setValue(balance);
     };
 
     window.hodKostkami = () => {
@@ -285,5 +254,36 @@ window.smazatUcet = (username) => {
         }
       }
     };
+  }
+
+  /** Initialize / reinitialize BetSlider with current player balance as max */
+  _initBetSlider() {
+    const container = document.getElementById('bet-slider-container');
+    if (!container) return;
+
+    const balance = this.db.getPlayerBalance(this.gm.currentPlayer) || 100;
+    const currentBet = this.gm.activeBet || 10;
+
+    if (this._betSlider) {
+      this._betSlider.destroy();
+    }
+
+    this._betSlider = new BetSlider({
+      container,
+      min: 10,
+      max: Math.max(10, balance),
+      step: 10,
+      value: Math.min(currentBet, balance),
+      onChange: (amount) => {
+        this.gm.setBet(amount);
+      },
+    });
+  }
+
+  /** Update slider max after balance changes (called from GameManager) */
+  updateSliderMax(newBalance) {
+    if (this._betSlider) {
+      this._betSlider.setMax(Math.max(10, newBalance));
+    }
   }
 }

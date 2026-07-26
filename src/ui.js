@@ -205,8 +205,8 @@ export class GameUI {
     this.stats.close();
   }
 
-  // Highlights selected bet button and manages custom bets layout
-   updateBetButtonsSelection(activeBet, presetBets = [10, 20, 50, 100, 1000, 10000, 100000, 1000000, 10000000]) {
+  // Highlights selected bet button; deselects all others
+   updateBetButtonsSelection(activeBet, presetBets = [10, 20, 50, 100]) {
     presetBets.forEach(val => {
       const btn = document.getElementById(`bet-${val}`);
       if (btn) {
@@ -218,17 +218,15 @@ export class GameUI {
       }
     });
 
-    const custBtn = document.getElementById('bet-cust');
-    const customArea = document.getElementById('custom-sazka-area');
-    
-    if (!presetBets.includes(activeBet)) {
-      if (custBtn) custBtn.classList.add('selected');
-      if (customArea) customArea.classList.remove('hidden');
-      const input = document.getElementById('game-sazka');
-      if (input) input.value = activeBet;
-    } else {
-      if (custBtn) custBtn.classList.remove('selected');
-      if (customArea) customArea.classList.add('hidden');
+    // ALL-IN button — highlight when bet equals full balance
+    const allInBtn = document.getElementById('bet-all-in');
+    if (allInBtn) {
+      // We don't know balance here, so just deselect unless it's one of presets
+      if (!presetBets.includes(activeBet)) {
+        allInBtn.classList.add('selected');
+      } else {
+        allInBtn.classList.remove('selected');
+      }
     }
   }
 

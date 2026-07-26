@@ -184,24 +184,18 @@
               </div>
            </article>
 
-<div id="bet-area" class="grid grid-cols-5 gap-1 mt-2 mb-2 justify-center justify-items-stretch" role="region" aria-label="Volba sázky">
-<button class="btn bet-btn h-5" id="bet-10" onclick="nastavSazku(10)">10</button>
-               <button class="btn bet-btn h-5" id="bet-20" onclick="nastavSazku(20)">20</button>
-               <button class="btn bet-btn h-5" id="bet-50" onclick="nastavSazku(50)">50</button>
-               <button class="btn bet-btn h-5" id="bet-100" onclick="nastavSazku(100)">100</button>
-               <button class="btn bet-btn h-5" id="bet-cust" onclick="ukazVlastniSazku()" aria-label="Vlastní sázka">
-                   <span aria-hidden="true">•••</span>
-               </button>
-               <button class="btn bet-btn h-5" id="bet-1000" onclick="nastavSazku(1000)">1K</button>
-               <button class="btn bet-btn h-5" id="bet-10000" onclick="nastavSazku(10000)">10K</button>
-               <button class="btn bet-btn h-5" id="bet-100000" onclick="nastavSazku(100000)">100K</button>
-               <button class="btn bet-btn h-5" id="bet-1000000" onclick="nastavSazku(1000000)">1M</button>
-               <button class="btn bet-btn h-5" id="bet-10000000" onclick="nastavSazku(10000000)">10M</button>
-           </div>
-
-           <div id="custom-sazka-area" class="mt-2 hidden" role="region" aria-label="Vlastní sázka">
-              <input type="text" id="game-sazka" placeholder="Např. 1.5k, 10m + Enter" aria-label="Zadej vlastní částku" onkeydown="checkEnter(event, potvrditVlastniSazku)" class="px-3 py-2 mb-3">
-          </div>
+<nav id="bet-area" class="flex flex-col gap-1 mt-2 mb-2" role="region" aria-label="Volba sázky">
+  <!-- Řada 1: preset tlačítka + All-In -->
+  <div class="grid grid-cols-5 gap-1 justify-center justify-items-stretch">
+    <button class="btn bet-btn h-5" id="bet-10" onclick="nastavSazku(10)">10</button>
+    <button class="btn bet-btn h-5" id="bet-20" onclick="nastavSazku(20)">20</button>
+    <button class="btn bet-btn h-5" id="bet-50" onclick="nastavSazku(50)">50</button>
+    <button class="btn bet-btn h-5" id="bet-100" onclick="nastavSazku(100)">100</button>
+    <button class="btn bet-btn h-5" id="bet-all-in" onclick="vsaditVse()" aria-label="Vsadit vše (all-in)">ALL</button>
+  </div>
+  <!-- Řada 2: Bet Slider -->
+  <div id="bet-slider-container" role="none"></div>
+</nav>
 
            <div id="game-result" class="status-box game-result-classic hidden" role="status" aria-live="polite"></div>
 

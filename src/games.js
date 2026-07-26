@@ -220,6 +220,9 @@ export class GameManager {
 
     // Update UI profile
     this.ui.updateMiniProfile(this.currentPlayer, newBalance);
+
+    // Notify BetSlider of balance change so max can be updated
+    document.dispatchEvent(new CustomEvent('balanceChanged', { detail: { balance: newBalance } }));
     
     const resBox = document.getElementById('game-result');
     const resBoxClassic = document.getElementById('game-result-classic');
@@ -340,6 +343,13 @@ export class GameManager {
         b.classList.remove('is-locked');
       }
     });
+
+    // Disable BetSlider interaction
+    const sliderContainer = document.getElementById('bet-slider-container');
+    if (sliderContainer) {
+      sliderContainer.style.pointerEvents = lock ? 'none' : '';
+      sliderContainer.style.opacity = lock ? '0.4' : '';
+    }
 
     // Disable grid buttons in classic games
     document.querySelectorAll('.btn-num').forEach(b => {
