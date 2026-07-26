@@ -1,4 +1,4 @@
-import { formatLargeNumber, COIN_SVG, escapeHtml, wrapEmoji } from '../utils.js';
+import { formatLargeNumber, COIN_SVG, escapeHtml, wrapEmoji } from "../utils.js";
 
 export class ExplorerManager {
   constructor(ui) {
@@ -6,31 +6,33 @@ export class ExplorerManager {
   }
 
   async load() {
-    const modal = document.getElementById('explorer-modal');
+    const modal = document.getElementById("explorer-modal");
     if (!modal) return;
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
 
-    const searchL = document.getElementById('leaderboard-search');
-    if (searchL) searchL.value = '';
-    const searchH = document.getElementById('history-search');
-    if (searchH) searchH.value = '';
-    const filterG = document.getElementById('history-filter-game');
-    if (filterG) filterG.value = '';
-    const filterR = document.getElementById('history-filter-result');
-    if (filterR) filterR.value = '';
+    const searchL = document.getElementById("leaderboard-search");
+    if (searchL) searchL.value = "";
+    const searchH = document.getElementById("history-search");
+    if (searchH) searchH.value = "";
+    const filterG = document.getElementById("history-filter-game");
+    if (filterG) filterG.value = "";
+    const filterR = document.getElementById("history-filter-result");
+    if (filterR) filterR.value = "";
 
-    this.ui.prepniExplorerTab('leaderboard');
+    this.ui.prepniExplorerTab("leaderboard");
 
-    const listL = document.getElementById('explorer-leaderboard-list');
-if (listL) listL.innerHTML = `<span class="text-[#ffd700] text-xs italic p-4 text-center block" aria-hidden="true">🔄 Načítám žebříček...</span>`;
-      const listH = document.getElementById('explorer-history-list');
-      if (listH) listH.innerHTML = `<span class="text-[#ffd700] text-xs italic p-4 text-center block" aria-hidden="true">🔄 Načítám historii...</span>`;
+    const listL = document.getElementById("explorer-leaderboard-list");
+    if (listL)
+      listL.innerHTML = `<span class="text-[#ffd700] text-xs italic p-4 text-center block" aria-hidden="true">🔄 Načítám žebříček...</span>`;
+    const listH = document.getElementById("explorer-history-list");
+    if (listH)
+      listH.innerHTML = `<span class="text-[#ffd700] text-xs italic p-4 text-center block" aria-hidden="true">🔄 Načítám historii...</span>`;
 
     try {
       const [leaderboard, history] = await Promise.all([
         this.ui.api.getGlobalLeaderboard(),
-        this.ui.api.getGlobalMatches()
+        this.ui.api.getGlobalMatches(),
       ]);
 
       this.ui.leaderboardData = leaderboard;
@@ -39,19 +41,21 @@ if (listL) listL.innerHTML = `<span class="text-[#ffd700] text-xs italic p-4 tex
       this.renderHistory();
     } catch (e) {
       console.error("Failed to load explorer data", e);
-      if (listL) listL.innerHTML = `<span class="text-[#ff0055] text-xs p-4 text-center block">Chyba při načítání dat</span>`;
-      if (listH) listH.innerHTML = `<span class="text-[#ff0055] text-xs p-4 text-center block">Chyba při načítání dat</span>`;
+      if (listL)
+        listL.innerHTML = `<span class="text-[#ff0055] text-xs p-4 text-center block">Chyba při načítání dat</span>`;
+      if (listH)
+        listH.innerHTML = `<span class="text-[#ff0055] text-xs p-4 text-center block">Chyba při načítání dat</span>`;
     }
   }
 
   close() {
-    const modal = document.getElementById('explorer-modal');
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
+    const modal = document.getElementById("explorer-modal");
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
   }
 
-renderHistory(filteredData = null) {
-    const list = document.getElementById('explorer-history-list');
+  renderHistory(filteredData = null) {
+    const list = document.getElementById("explorer-history-list");
     if (!list) return;
     const data = filteredData || this.ui.historyData;
     if (data.length === 0) {
@@ -59,17 +63,26 @@ renderHistory(filteredData = null) {
       return;
     }
 
-    let html = '';
-    data.forEach(item => {
+    let html = "";
+    data.forEach((item) => {
       const isWin = item.isWin;
       const winVal = item.winAmount || 0;
       const coinSvg = `${COIN_SVG}`;
-      const formattedWin = winVal > 0 ? `+${formatLargeNumber(winVal)} ${coinSvg}` : `${formatLargeNumber(winVal)} ${coinSvg}`;
-      const timeString = item.timestamp ? new Date(item.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'}) : '';
+      const formattedWin =
+        winVal > 0
+          ? `+${formatLargeNumber(winVal)} ${coinSvg}`
+          : `${formatLargeNumber(winVal)} ${coinSvg}`;
+      const timeString = item.timestamp
+        ? new Date(item.timestamp).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          })
+        : "";
 
       let gameLabel = item.gameName;
-      if (item.gameName === 'Bary3x3') gameLabel = 'Automat';
-      else if (item.gameName === 'VíceMéně') gameLabel = 'HI-LOW';
+      if (item.gameName === "Bary3x3") gameLabel = "Automat";
+      else if (item.gameName === "VíceMéně") gameLabel = "HI-LOW";
 
       html += `
         <div role="listitem" class="py-1 my-0.5 flex justify-between items-center rounded-xl bg-[rgba(189,0,255,0.04)] gap-2">
@@ -78,8 +91,8 @@ renderHistory(filteredData = null) {
             <span class="text-[10px] text-[var(--text-secondary)] truncate">${gameLabel} – ${timeString}</span>
           </div>
           <div class="flex flex-col items-end gap-0.5 pr-2 shrink-0">
-            <span class="font-bold ${isWin ? 'text-[var(--neon-green)] text-glow-green' : 'text-[var(--neon-pink)] text-glow-pink'} text-[clamp(11px,3.8vw,15px)]">${formattedWin}</span>
-            <span class="text-[10px] text-[var(--neon-gold)] opacity-75">${item.resultText || ''}</span>
+            <span class="font-bold ${isWin ? "text-[var(--neon-green)] text-glow-green" : "text-[var(--neon-pink)] text-glow-pink"} text-[clamp(11px,3.8vw,15px)]">${formattedWin}</span>
+            <span class="text-[10px] text-[var(--neon-gold)] opacity-75">${item.resultText || ""}</span>
           </div>
         </div>
       `;
@@ -88,20 +101,20 @@ renderHistory(filteredData = null) {
   }
 
   filter() {
-    const searchVal = (document.getElementById('history-search')?.value || '').trim().toLowerCase();
-    const gameVal = document.getElementById('history-filter-game')?.value || '';
-    const resultVal = document.getElementById('history-filter-result')?.value || '';
+    const searchVal = (document.getElementById("history-search")?.value || "").trim().toLowerCase();
+    const gameVal = document.getElementById("history-filter-game")?.value || "";
+    const resultVal = document.getElementById("history-filter-result")?.value || "";
 
     let filtered = [...this.ui.historyData];
 
     if (searchVal) {
-      filtered = filtered.filter(item => item.username.toLowerCase().includes(searchVal));
+      filtered = filtered.filter((item) => item.username.toLowerCase().includes(searchVal));
     }
     if (gameVal) {
-      filtered = filtered.filter(item => item.gameName === gameVal);
+      filtered = filtered.filter((item) => item.gameName === gameVal);
     }
     if (resultVal) {
-      filtered = filtered.filter(item => resultVal === 'win' ? item.isWin : !item.isWin);
+      filtered = filtered.filter((item) => (resultVal === "win" ? item.isWin : !item.isWin));
     }
 
     this.ui.sortHistoryData(filtered);

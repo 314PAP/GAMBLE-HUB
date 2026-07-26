@@ -1,5 +1,6 @@
-import gsap from 'gsap';
-import { sound } from '../sound';
+import gsap from "gsap";
+
+import { sound } from "../sound";
 
 /**
  * HiloGame — Hi-Lo card game with dynamic multipliers
@@ -22,7 +23,7 @@ export class HiloGame {
   }
 
   updateCardDisplay(num) {
-    const card = document.getElementById('hilo-current-card');
+    const card = document.getElementById("hilo-current-card");
     if (card) {
       card.innerText = num;
     }
@@ -34,8 +35,8 @@ export class HiloGame {
    * @returns {number} count of winning cards (0–9)
    */
   getWinningCount(tip) {
-    if (tip === 'H') return 10 - this.currentNumber;
-    if (tip === 'L') return this.currentNumber - 1;
+    if (tip === "H") return 10 - this.currentNumber;
+    if (tip === "L") return this.currentNumber - 1;
     return 0;
   }
 
@@ -62,21 +63,21 @@ export class HiloGame {
     } while (nextNumber === this.currentNumber);
 
     let isWin = false;
-    if (tip === 'H' && nextNumber > this.currentNumber) isWin = true;
-    if (tip === 'L' && nextNumber < this.currentNumber) isWin = true;
+    if (tip === "H" && nextNumber > this.currentNumber) isWin = true;
+    if (tip === "L" && nextNumber < this.currentNumber) isWin = true;
 
     const multiplier = this.getMultiplier(tip);
     const winAmount = isWin ? Math.round(betAmount * multiplier) : 0;
 
     const originalNumber = this.currentNumber;
-    const card = document.getElementById('hilo-current-card');
+    const card = document.getElementById("hilo-current-card");
 
     if (card) {
       gsap.set(card, { transformPerspective: 1000 });
       gsap.to(card, {
         rotationY: 90,
         duration: 0.3,
-        ease: 'power2.inOut',
+        ease: "power2.inOut",
         yoyo: true,
         repeat: 1,
         onRepeat: () => {
@@ -85,15 +86,15 @@ export class HiloGame {
         },
         onComplete: () => {
           this.isAnimating = false;
-          card.classList.remove('hilo-card-pop');
+          card.classList.remove("hilo-card-pop");
           void card.offsetWidth;
-          card.classList.add('hilo-card-pop');
+          card.classList.add("hilo-card-pop");
           onComplete({
             isWin,
             winAmount,
-            resultText: `<span style="color:#ff4060">${originalNumber} → ${nextNumber}</span><br><span style="color:#ff4060;font-weight:bold">×${multiplier.toFixed(2)}</span>`
+            resultText: `<span style="color:#ff4060">${originalNumber} → ${nextNumber}</span><br><span style="color:#ff4060;font-weight:bold">×${multiplier.toFixed(2)}</span>`,
           });
-        }
+        },
       });
     } else {
       this.currentNumber = nextNumber;
@@ -101,7 +102,7 @@ export class HiloGame {
       onComplete({
         isWin,
         winAmount,
-        resultText: `<span style="color:#ff4060">${originalNumber} → ${nextNumber}</span><br><span style="color:#ff4060;font-weight:bold">×${multiplier.toFixed(2)}</span>`
+        resultText: `<span style="color:#ff4060">${originalNumber} → ${nextNumber}</span><br><span style="color:#ff4060;font-weight:bold">×${multiplier.toFixed(2)}</span>`,
       });
     }
   }

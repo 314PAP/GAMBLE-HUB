@@ -1,5 +1,5 @@
-import { sound } from '../sound.js';
-import { BetSlider } from '../ui/BetSlider.js';
+import { sound } from "../sound.js";
+import { BetSlider } from "../ui/BetSlider.js";
 
 export class GlobalEventHandlers {
   constructor(db, api, ui, gm) {
@@ -11,7 +11,7 @@ export class GlobalEventHandlers {
     this._bindAll();
 
     // Update slider max whenever player balance changes
-    document.addEventListener('balanceChanged', (e) => {
+    document.addEventListener("balanceChanged", (e) => {
       this.updateSliderMax(e.detail.balance);
     });
   }
@@ -20,16 +20,16 @@ export class GlobalEventHandlers {
     window.otevriPrihlaseni = () => {
       this.ui.renderAccounts(
         (username) => window.prihlasitHrace(username),
-        (username) => window.smazatUcet(username)
+        (username) => window.smazatUcet(username),
       );
-      this.ui.showScreen('screen-select-user');
+      this.ui.showScreen("screen-select-user");
     };
 
     window.otevriRegistraci = () => {
-      const regInput = document.getElementById('reg-name');
-      if (regInput) regInput.value = '';
-      
-      this.ui.showScreen('screen-register');
+      const regInput = document.getElementById("reg-name");
+      if (regInput) regInput.value = "";
+
+      this.ui.showScreen("screen-register");
       setTimeout(() => {
         if (regInput) regInput.focus();
       }, 100);
@@ -37,7 +37,7 @@ export class GlobalEventHandlers {
 
     window.zpetDoMenu = () => {
       this.gm.stopAutoPlay();
-      this.ui.showScreen('screen-login');
+      this.ui.showScreen("screen-login");
       this.ui.renderLeaderboard();
     };
 
@@ -45,7 +45,7 @@ export class GlobalEventHandlers {
       this.gm.stopAutoPlay();
       const balance = this.db.getPlayerBalance(this.gm.currentPlayer);
       this.ui.updateMiniProfile(this.gm.currentPlayer, balance);
-      this.ui.showScreen('screen-hub');
+      this.ui.showScreen("screen-hub");
     };
 
     window.prihlasitHrace = (username) => {
@@ -57,35 +57,35 @@ export class GlobalEventHandlers {
       }
       this.gm.setCurrentPlayer(username);
       this.ui.updateMiniProfile(username, balance);
-      this.ui.showScreen('screen-hub');
+      this.ui.showScreen("screen-hub");
     };
 
-window.smazatUcet = (username) => {
-        this.ui.deleteConfirm.show(username, () => {
-          const success = this.db.deletePlayer(username);
-          if (success) {
-            this.ui.showAlert('success', 'Účet smazán', `Hráč ${username} byl permanentně smazán.`);
-            window.otevriPrihlaseni();
-          } else {
-            this.ui.showAlert('error', 'Chyba', 'Účet se nepodařilo smazat.');
-          }
-        });
-      };
+    window.smazatUcet = (username) => {
+      this.ui.deleteConfirm.show(username, () => {
+        const success = this.db.deletePlayer(username);
+        if (success) {
+          this.ui.showAlert("success", "Účet smazán", `Hráč ${username} byl permanentně smazán.`);
+          window.otevriPrihlaseni();
+        } else {
+          this.ui.showAlert("error", "Chyba", "Účet se nepodařilo smazat.");
+        }
+      });
+    };
 
-      window.zavriDeleteConfirm = () => {
-        this.ui.deleteConfirm.hide();
-      };
+    window.zavriDeleteConfirm = () => {
+      this.ui.deleteConfirm.hide();
+    };
 
     window.potvrditRegistraci = () => {
-      const regInput = document.getElementById('reg-name');
+      const regInput = document.getElementById("reg-name");
       if (!regInput) return;
-      
+
       const username = regInput.value.trim();
       const res = this.db.createPlayer(username);
       if (res.success) {
         window.prihlasitHrace(username);
       } else {
-        this.ui.showAlert('warning', 'Registrace se nezdařila', res.message);
+        this.ui.showAlert("warning", "Registrace se nezdařila", res.message);
       }
     };
 
@@ -95,34 +95,34 @@ window.smazatUcet = (username) => {
     };
 
     window.otevriDisclaimer = () => {
-      const panel = document.getElementById('disclaimer-panel');
+      const panel = document.getElementById("disclaimer-panel");
       if (panel) {
-        panel.classList.remove('hidden');
-        panel.classList.add('flex');
+        panel.classList.remove("hidden");
+        panel.classList.add("flex");
       }
     };
 
     window.zavriDisclaimer = () => {
-      const panel = document.getElementById('disclaimer-panel');
+      const panel = document.getElementById("disclaimer-panel");
       if (panel) {
-        panel.classList.add('hidden');
-        panel.classList.remove('flex');
+        panel.classList.add("hidden");
+        panel.classList.remove("flex");
       }
     };
 
     window.otevriInstalaciInfo = () => {
-      const panel = document.getElementById('install-panel');
+      const panel = document.getElementById("install-panel");
       if (panel) {
-        panel.classList.remove('hidden');
-        panel.classList.add('flex');
+        panel.classList.remove("hidden");
+        panel.classList.add("flex");
       }
     };
 
     window.zavriInstalaciInfo = () => {
-      const panel = document.getElementById('install-panel');
+      const panel = document.getElementById("install-panel");
       if (panel) {
-        panel.classList.add('hidden');
-        panel.classList.remove('flex');
+        panel.classList.add("hidden");
+        panel.classList.remove("flex");
       }
     };
 
@@ -149,10 +149,31 @@ window.smazatUcet = (username) => {
       if (this.gm.activeGameId === 5) {
         this.gm.playSlots();
       } else {
-        const maxVal = this.gm.activeGameId === 1 ? 10 : (this.gm.activeGameId === 2 ? 5 : (this.gm.activeGameId === 3 ? 6 : 36));
+        const maxVal =
+          this.gm.activeGameId === 1
+            ? 10
+            : this.gm.activeGameId === 2
+              ? 5
+              : this.gm.activeGameId === 3
+                ? 6
+                : 36;
         const minVal = this.gm.activeGameId === 4 ? 0 : 1;
-        const multVal = this.gm.activeGameId === 1 ? 10 : (this.gm.activeGameId === 2 ? 5 : (this.gm.activeGameId === 3 ? 6 : 36));
-        const gameLabel = this.gm.activeGameId === 1 ? "Hádanka 1-10" : (this.gm.activeGameId === 2 ? "Hádanka 1-5" : (this.gm.activeGameId === 3 ? "Kostka" : "Ruleta"));
+        const multVal =
+          this.gm.activeGameId === 1
+            ? 10
+            : this.gm.activeGameId === 2
+              ? 5
+              : this.gm.activeGameId === 3
+                ? 6
+                : 36;
+        const gameLabel =
+          this.gm.activeGameId === 1
+            ? "Hádanka 1-10"
+            : this.gm.activeGameId === 2
+              ? "Hádanka 1-5"
+              : this.gm.activeGameId === 3
+                ? "Kostka"
+                : "Ruleta";
         this.gm.playGuessingGame(num, minVal, maxVal, multVal, gameLabel);
       }
     };
@@ -203,7 +224,7 @@ window.smazatUcet = (username) => {
     window.exportovatData = () => {
       const data = this.db.exportData();
       const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.setAttribute("href", dataStr);
       link.setAttribute("download", "gamblehub_data.json");
       document.body.appendChild(link);
@@ -220,13 +241,13 @@ window.smazatUcet = (username) => {
           const data = JSON.parse(e.target.result);
           const success = this.db.importData(data);
           if (success) {
-            this.ui.showAlert('success', 'Import úspěšný', 'Herní data byla úspěšně nahrána.');
+            this.ui.showAlert("success", "Import úspěšný", "Herní data byla úspěšně nahrána.");
             window.otevriPrihlaseni();
           } else {
-            this.ui.showAlert('error', 'Chyba importu', 'Záložní soubor nemá správný formát.');
+            this.ui.showAlert("error", "Chyba importu", "Záložní soubor nemá správný formát.");
           }
-        } catch (_err) {
-          this.ui.showAlert('error', 'Chyba', 'Soubor se nepodařilo přečíst.');
+        } catch {
+          this.ui.showAlert("error", "Chyba", "Soubor se nepodařilo přečíst.");
         }
       };
       reader.readAsText(file);
@@ -241,12 +262,12 @@ window.smazatUcet = (username) => {
 
     window.toggleMuteState = () => {
       const isMuted = sound.toggleMute();
-      const toggleBtn = document.getElementById('global-sound-toggle');
+      const toggleBtn = document.getElementById("global-sound-toggle");
       if (toggleBtn) {
         if (isMuted) {
-          toggleBtn.classList.add('muted');
+          toggleBtn.classList.add("muted");
         } else {
-          toggleBtn.classList.remove('muted');
+          toggleBtn.classList.remove("muted");
         }
       }
     };
@@ -254,7 +275,7 @@ window.smazatUcet = (username) => {
 
   /** Initialize / reinitialize BetSlider with current player balance as max */
   _initBetSlider() {
-    const container = document.getElementById('bet-slider-container');
+    const container = document.getElementById("bet-slider-container");
     if (!container) return;
 
     const balance = this.db.getPlayerBalance(this.gm.currentPlayer) || 100;

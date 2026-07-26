@@ -1,12 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Outfit:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Outfit:wght@300;400;500;600;700&display=swap");
 
 /* === H1 – hlavní nadpis (použito na login obrazovce) === */
 h1 {
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   font-weight: 900;
   font-size: clamp(1.1rem, 4vw, 1.75rem);
   letter-spacing: clamp(2px, 0.8vw, 5px);
-  background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-purple) 30%, var(--neon-blue) 70%, var(--neon-cyan) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--neon-pink) 0%,
+    var(--neon-purple) 30%,
+    var(--neon-blue) 70%,
+    var(--neon-cyan) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -15,7 +21,7 @@ h1 {
 }
 
 .splash-logo-title {
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   font-weight: 900;
   font-size: clamp(1.8rem, 6vw, 2.8rem);
   letter-spacing: clamp(3px, 1vw, 6px);
@@ -48,7 +54,7 @@ h1 {
 
 /* === H2 – sekundární nadpis === */
 h2 {
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   font-weight: 700;
   font-size: clamp(0.9rem, 2.5vw, 1.1rem);
   letter-spacing: 1px;
@@ -57,23 +63,40 @@ h2 {
   text-transform: uppercase;
 }
 
-
 /* === NEON TEXT GLOW UTILITY === */
 
 .neon-text {
   color: var(--neon-gold);
-  text-shadow: 0 0 6px var(--neon-gold-glow), 0 0 12px var(--neon-gold-glow);
+  text-shadow:
+    0 0 6px var(--neon-gold-glow),
+    0 0 12px var(--neon-gold-glow);
 }
 
 /* === TEXT GLOW VARIANTS (nahrazují inline text-shadow v HTML) === */
-.text-glow-gold { text-shadow: 0 0 8px var(--neon-gold-glow); }
-  .text-glow-green { text-shadow: 0 0 8px var(--neon-green-glow); }
-  .text-glow-red { text-shadow: 0 0 8px var(--neon-red-glow); }
-  .text-glow-cyan { text-shadow: 0 0 8px var(--neon-cyan-glow); }
-  .text-glow-purple { text-shadow: 0 0 8px var(--neon-purple-glow); }
-  .text-glow-blue { text-shadow: 0 0 8px var(--neon-blue-glow); }
-  .text-glow-orange { text-shadow: 0 0 8px var(--neon-orange-glow); }
-  .text-glow-pink { text-shadow: 0 0 8px var(--neon-pink-glow); }
+.text-glow-gold {
+  text-shadow: 0 0 8px var(--neon-gold-glow);
+}
+.text-glow-green {
+  text-shadow: 0 0 8px var(--neon-green-glow);
+}
+.text-glow-red {
+  text-shadow: 0 0 8px var(--neon-red-glow);
+}
+.text-glow-cyan {
+  text-shadow: 0 0 8px var(--neon-cyan-glow);
+}
+.text-glow-purple {
+  text-shadow: 0 0 8px var(--neon-purple-glow);
+}
+.text-glow-blue {
+  text-shadow: 0 0 8px var(--neon-blue-glow);
+}
+.text-glow-orange {
+  text-shadow: 0 0 8px var(--neon-orange-glow);
+}
+.text-glow-pink {
+  text-shadow: 0 0 8px var(--neon-pink-glow);
+}
 
 /* === SCREEN READER ONLY === */
 .sr-only {
@@ -90,12 +113,15 @@ h2 {
 
 /* === WARNING PULSE ANIMATION === */
 @keyframes warningPulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.4;
     text-shadow: 0 0 4px rgba(255, 0, 127, 0.5);
   }
   50% {
     opacity: 1;
-    text-shadow: 0 0 15px rgba(255, 0, 127, 1), 0 0 25px rgba(255, 0, 127, 0.8);
+    text-shadow:
+      0 0 15px rgba(255, 0, 127, 1),
+      0 0 25px rgba(255, 0, 127, 0.8);
   }
 }

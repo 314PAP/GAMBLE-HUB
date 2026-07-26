@@ -1,4 +1,4 @@
-import { formatLargeNumber, COIN_SVG, escapeHtml, wrapEmoji } from '../utils.js';
+import { formatLargeNumber, COIN_SVG, escapeHtml, wrapEmoji } from "../utils.js";
 
 export class LeaderboardManager {
   constructor(ui) {
@@ -14,7 +14,7 @@ export class LeaderboardManager {
       const scores = await this.ui.api.getGlobalLeaderboard();
       const isOnline = this.ui.api.isOnline;
 
-if (scores.length === 0) {
+      if (scores.length === 0) {
         container.innerHTML = `<span class="text-[var(--neon-gold)] text-[13px] text-glow-gold">Zatím žádné rekordy...</span>`;
         return;
       }
@@ -23,9 +23,7 @@ if (scores.length === 0) {
         ? `<span class="text-[10px] text-[#00ff99] bg-[#00ff99]/10 px-1.5 py-0.5 rounded-full ml-2" aria-hidden="true">🌐 Online</span>`
         : `<span class="text-[10px] text-[#ffd700] bg-[#ffd700]/5 border border-[#ffd700]/10 px-1.5 py-0.5 rounded-full ml-2" aria-hidden="true">💾 Lokální</span>`;
 
-      const titleEl = document.querySelector(
-        "#screen-login .leaderboard-badge",
-      );
+      const titleEl = document.querySelector("#screen-login .leaderboard-badge");
       if (titleEl) titleEl.innerHTML = badge;
 
       let html = "";
@@ -43,7 +41,7 @@ if (scores.length === 0) {
           `;
       });
       container.innerHTML = html;
-    } catch (e) {
+    } catch {
       container.innerHTML = `<span class="text-[var(--neon-pink)] text-[13px] text-glow-pink">Nepodařilo se načíst žebříček.</span>`;
     }
   }
@@ -59,10 +57,8 @@ if (scores.length === 0) {
 
     let html = "";
     const medals = ["🥇", "🥈", "🥉"];
-    data.forEach((record, idx) => {
-      const originalIdx = this.ui.leaderboardData.findIndex(
-        (r) => r.jmeno === record.jmeno,
-      );
+    data.forEach((_record, _idx) => {
+      const originalIdx = this.ui.leaderboardData.findIndex((r) => r.jmeno === record.jmeno);
       const medal = medals[originalIdx] || `#${originalIdx + 1}`;
 
       html += `
@@ -83,9 +79,7 @@ if (scores.length === 0) {
       this.renderExplorer();
       return;
     }
-    const filtered = this.ui.leaderboardData.filter((r) =>
-      r.jmeno.toLowerCase().includes(query),
-    );
+    const filtered = this.ui.leaderboardData.filter((r) => r.jmeno.toLowerCase().includes(query));
     this.renderExplorer(filtered);
   }
 }

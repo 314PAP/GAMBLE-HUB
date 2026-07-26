@@ -1,4 +1,4 @@
-import { formatLargeNumber } from '../utils.js';
+import { formatLargeNumber } from "../utils.js";
 
 /**
  * BetSlider — Interactive bet amount slider module
@@ -46,45 +46,45 @@ export class BetSlider {
   // ─── Build DOM ───────────────────────────────────────────────────────────────
 
   _build() {
-    this.container.innerHTML = '';
-    this.container.className = 'bet-slider-root';
-    this.container.setAttribute('role', 'group');
-    this.container.setAttribute('aria-label', 'Výše sázky');
+    this.container.innerHTML = "";
+    this.container.className = "bet-slider-root";
+    this.container.setAttribute("role", "group");
+    this.container.setAttribute("aria-label", "Výše sázky");
 
     // Left arrow button
-    this.btnLeft = document.createElement('button');
-    this.btnLeft.className = 'btn bet-btn bet-slider-arrow';
-    this.btnLeft.setAttribute('aria-label', 'Snížit sázku');
-    this.btnLeft.setAttribute('type', 'button');
-    this.btnLeft.innerHTML = '&#9664;'; // ◄
+    this.btnLeft = document.createElement("button");
+    this.btnLeft.className = "btn bet-btn bet-slider-arrow";
+    this.btnLeft.setAttribute("aria-label", "Snížit sázku");
+    this.btnLeft.setAttribute("type", "button");
+    this.btnLeft.innerHTML = "&#9664;"; // ◄
 
     // Track wrapper
-    this.trackWrap = document.createElement('div');
-    this.trackWrap.className = 'bet-slider-track-wrap';
+    this.trackWrap = document.createElement("div");
+    this.trackWrap.className = "bet-slider-track-wrap";
 
     // Track background
-    this.track = document.createElement('div');
-    this.track.className = 'bet-slider-track';
-    this.track.setAttribute('role', 'none');
+    this.track = document.createElement("div");
+    this.track.className = "bet-slider-track";
+    this.track.setAttribute("role", "none");
 
     // Fill bar
-    this.fill = document.createElement('div');
-    this.fill.className = 'bet-slider-fill';
+    this.fill = document.createElement("div");
+    this.fill.className = "bet-slider-fill";
 
     // Value display — centered inside the track
-    this.valueDisplay = document.createElement('div');
-    this.valueDisplay.className = 'bet-slider-value';
-    this.valueDisplay.setAttribute('aria-live', 'polite');
-    this.valueDisplay.setAttribute('aria-atomic', 'true');
+    this.valueDisplay = document.createElement("div");
+    this.valueDisplay.className = "bet-slider-value";
+    this.valueDisplay.setAttribute("aria-live", "polite");
+    this.valueDisplay.setAttribute("aria-atomic", "true");
 
     // Thumb
-    this.thumb = document.createElement('div');
-    this.thumb.className = 'bet-slider-thumb';
-    this.thumb.setAttribute('role', 'slider');
-    this.thumb.setAttribute('tabindex', '0');
-    this.thumb.setAttribute('aria-valuemin', String(this.min));
-    this.thumb.setAttribute('aria-valuemax', String(this.max));
-    this.thumb.setAttribute('aria-valuenow', String(this.value));
+    this.thumb = document.createElement("div");
+    this.thumb.className = "bet-slider-thumb";
+    this.thumb.setAttribute("role", "slider");
+    this.thumb.setAttribute("tabindex", "0");
+    this.thumb.setAttribute("aria-valuemin", String(this.min));
+    this.thumb.setAttribute("aria-valuemax", String(this.max));
+    this.thumb.setAttribute("aria-valuenow", String(this.value));
 
     this.track.appendChild(this.fill);
     this.track.appendChild(this.valueDisplay);
@@ -92,11 +92,11 @@ export class BetSlider {
     this.trackWrap.appendChild(this.track);
 
     // Right arrow button
-    this.btnRight = document.createElement('button');
-    this.btnRight.className = 'btn bet-btn bet-slider-arrow';
-    this.btnRight.setAttribute('aria-label', 'Zvýšit sázku');
-    this.btnRight.setAttribute('type', 'button');
-    this.btnRight.innerHTML = '&#9654;'; // ►
+    this.btnRight = document.createElement("button");
+    this.btnRight.className = "btn bet-btn bet-slider-arrow";
+    this.btnRight.setAttribute("aria-label", "Zvýšit sázku");
+    this.btnRight.setAttribute("type", "button");
+    this.btnRight.innerHTML = "&#9654;"; // ►
 
     this.container.appendChild(this.btnLeft);
     this.container.appendChild(this.trackWrap);
@@ -109,10 +109,10 @@ export class BetSlider {
 
   _bindEvents() {
     // Arrow buttons — click + hold
-    this.btnLeft.addEventListener('pointerdown', (e) => {
+    this.btnLeft.addEventListener("pointerdown", (_e) => {
       this._startHold(-1);
     });
-    this.btnRight.addEventListener('pointerdown', (e) => {
+    this.btnRight.addEventListener("pointerdown", (_e) => {
       this._startHold(1);
     });
 
@@ -126,53 +126,53 @@ export class BetSlider {
     };
     this._docPointerUp = () => this._stopHold();
     this._docPointerCancel = () => this._stopHold();
-    this.btnLeft.addEventListener('pointerup', this._stopHoldAndBlur);
-    this.btnLeft.addEventListener('pointercancel', this._stopHoldAndBlur);
-    this.btnRight.addEventListener('pointerup', this._stopHoldAndBlur);
-    this.btnRight.addEventListener('pointercancel', this._stopHoldAndBlur);
-    document.addEventListener('pointerup', this._docPointerUp);
-    document.addEventListener('pointercancel', this._docPointerCancel);
+    this.btnLeft.addEventListener("pointerup", this._stopHoldAndBlur);
+    this.btnLeft.addEventListener("pointercancel", this._stopHoldAndBlur);
+    this.btnRight.addEventListener("pointerup", this._stopHoldAndBlur);
+    this.btnRight.addEventListener("pointercancel", this._stopHoldAndBlur);
+    document.addEventListener("pointerup", this._docPointerUp);
+    document.addEventListener("pointercancel", this._docPointerCancel);
 
     // Track click to jump
-    this.track.addEventListener('pointerdown', (e) => {
+    this.track.addEventListener("pointerdown", (e) => {
       if (e.target === this.thumb) return;
       e.preventDefault();
       this._jumpToPointer(e);
     });
 
     // Thumb drag — pointer events
-    this.thumb.addEventListener('pointerdown', (e) => {
+    this.thumb.addEventListener("pointerdown", (e) => {
       e.preventDefault();
       e.stopPropagation();
       this._dragging = true;
       this.thumb.setPointerCapture(e.pointerId);
     });
-    this.thumb.addEventListener('pointermove', (e) => {
+    this.thumb.addEventListener("pointermove", (e) => {
       if (!this._dragging) return;
       e.preventDefault();
       this._moveToPointer(e);
     });
-    this.thumb.addEventListener('pointerup', (e) => {
+    this.thumb.addEventListener("pointerup", (e) => {
       this._dragging = false;
       this.thumb.releasePointerCapture(e.pointerId);
     });
-    this.thumb.addEventListener('pointercancel', (e) => {
+    this.thumb.addEventListener("pointercancel", (e) => {
       this._dragging = false;
       this.thumb.releasePointerCapture(e.pointerId);
     });
 
     // Keyboard on thumb
-    this.thumb.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+    this.thumb.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft" || e.key === "ArrowDown") {
         e.preventDefault();
         this._step(-1);
-      } else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+      } else if (e.key === "ArrowRight" || e.key === "ArrowUp") {
         e.preventDefault();
         this._step(1);
-      } else if (e.key === 'Home') {
+      } else if (e.key === "Home") {
         e.preventDefault();
         this._setValue(this.min);
-      } else if (e.key === 'End') {
+      } else if (e.key === "End") {
         e.preventDefault();
         this._setValue(this.max);
       }
@@ -263,7 +263,7 @@ export class BetSlider {
 
     this.fill.style.width = `${pct}%`;
     this.thumb.style.left = `${pct}%`;
-    this.thumb.setAttribute('aria-valuenow', String(this.value));
+    this.thumb.setAttribute("aria-valuenow", String(this.value));
     this.valueDisplay.textContent = formatLargeNumber(this.value);
 
     // Disable arrows at limits
@@ -283,7 +283,7 @@ export class BetSlider {
   /** Update the maximum (e.g. after balance change) */
   setMax(newMax) {
     this.max = Math.max(this.min, newMax);
-    this.thumb.setAttribute('aria-valuemax', String(this.max));
+    this.thumb.setAttribute("aria-valuemax", String(this.max));
     // Clamp current value to new max
     if (this.value > this.max) {
       this.value = this.max;
@@ -296,11 +296,11 @@ export class BetSlider {
   destroy() {
     this._stopHold();
     if (this._docPointerUp) {
-      document.removeEventListener('pointerup', this._docPointerUp);
+      document.removeEventListener("pointerup", this._docPointerUp);
     }
     if (this._docPointerCancel) {
-      document.removeEventListener('pointercancel', this._docPointerCancel);
+      document.removeEventListener("pointercancel", this._docPointerCancel);
     }
-    this.container.innerHTML = '';
+    this.container.innerHTML = "";
   }
 }

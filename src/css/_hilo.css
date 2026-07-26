@@ -1,4 +1,3 @@
-
 .hilo-card-face {
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%),
@@ -8,7 +7,7 @@
   border: 4px solid rgba(255, 120, 0, 0.85);
   border-radius: 6px;
   color: var(--neon-gold);
-  font-family: 'Press Start 2P', monospace;
+  font-family: "Press Start 2P", monospace;
   font-weight: 800;
   text-shadow:
     3px 3px 0px rgba(0, 0, 0, 0.9),
@@ -53,5 +52,3 @@
 .hilo-btns .btn-danger {
   width: auto;
 }
-
-

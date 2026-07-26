@@ -10,15 +10,25 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
+const isFirebaseConfigured = Boolean(
+  firebaseConfig.apiKey &&
+  firebaseConfig.authDomain &&
+  firebaseConfig.projectId
+);
+
 export class API {
   constructor(localDb) {
     this.db = localDb;
     this.isOnline = false;
     
     try {
-      this.app = initializeApp(firebaseConfig);
-      this.firestore = getFirestore(this.app);
-      this.isOnline = true;
+      if (isFirebaseConfigured) {
+        this.app = initializeApp(firebaseConfig);
+        this.firestore = getFirestore(this.app);
+        this.isOnline = true;
+      } else {
+        console.warn('Firebase config missing — running in local-only mode');
+      }
     } catch(e) {
       console.error("Firebase init failed", e);
     }

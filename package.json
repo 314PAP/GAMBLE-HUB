@@ -7,11 +7,15 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "lint": "eslint src/**/*.js",
+    "lint:fix": "eslint src/**/*.js --fix",
+    "format": "prettier --write src/**/*.js src/**/*.css index.html",
     "deploy": "sh -c \"git add -A && git commit -m 'chore: deploy $(date)' && git push origin main\""
   },
   "dependencies": {
     "canvas-confetti": "^1.9.3",
     "chart.js": "^4.4.2",
+    "dompurify": "^3.4.12",
     "firebase": "^12.15.0",
     "gsap": "^3.15.0",
     "lucide": "^0.368.0",
@@ -21,8 +25,12 @@
     "@tailwindcss/postcss": "^4.3.1",
     "autoprefixer": "^10.5.0",
     "cssnano": "^6.1.2",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
     "postcss": "^8.5.15",
     "postcss-cli": "^11.0.1",
+    "prettier": "^3.9.6",
     "tailwindcss": "^4.3.1",
     "vite": "^6.0.0"
   }

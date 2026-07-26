@@ -22,7 +22,7 @@
 
 /* === CONTAINER GRID OVERLAY (glass sheen background) === */
 .container::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background-image:
@@ -88,13 +88,19 @@
 }
 
 .game-title {
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   font-weight: 900;
   font-size: clamp(14px, 4.5vw, 20px);
   height: clamp(24px, 5.5vw, 32px);
   line-height: 1;
   letter-spacing: 1px;
-  background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-purple) 30%, var(--neon-blue) 70%, var(--neon-cyan) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--neon-pink) 0%,
+    var(--neon-purple) 30%,
+    var(--neon-blue) 70%,
+    var(--neon-cyan) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -104,7 +110,9 @@
 }
 
 /* === FORM INPUTS === */
-input, select, textarea {
+input,
+select,
+textarea {
   font-family: inherit;
   background: rgba(0, 0, 0, 0.4);
   border: 1.5px solid rgba(0, 240, 255, 0.2);
@@ -114,7 +122,9 @@ input, select, textarea {
   transition: all 0.2s ease;
 }
 
-input:focus, select:focus, textarea:focus {
+input:focus,
+select:focus,
+textarea:focus {
   outline: none;
   border-color: var(--neon-orange);
   box-shadow: 0 0 15px var(--neon-orange-glow);

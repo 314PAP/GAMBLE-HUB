@@ -1,5 +1,6 @@
-import gsap from 'gsap';
-import { sound } from '../sound';
+import gsap from "gsap";
+
+import { sound } from "../sound";
 
 export class DiceGame {
   constructor() {
@@ -16,7 +17,7 @@ export class DiceGame {
   }
 
   render() {
-    const display = document.getElementById('dice-display');
+    const display = document.getElementById("dice-display");
     if (display) {
       display.textContent = this.currentValue;
     }
@@ -28,8 +29,8 @@ export class DiceGame {
     this.clearSelection();
     this.selectedNumber = num;
 
-    document.querySelectorAll('.dice-num-btn').forEach(btn => {
-      btn.classList.toggle('selected', parseInt(btn.dataset.num) === num);
+    document.querySelectorAll(".dice-num-btn").forEach((btn) => {
+      btn.classList.toggle("selected", parseInt(btn.dataset.num) === num);
     });
 
     sound.playClick();
@@ -37,17 +38,17 @@ export class DiceGame {
 
   clearSelection() {
     this.selectedNumber = null;
-    document.querySelectorAll('.dice-num-btn').forEach(btn => btn.classList.remove('selected'));
-    const frame = document.getElementById('dice-frame');
-    if (frame) frame.classList.remove('win');
+    document.querySelectorAll(".dice-num-btn").forEach((btn) => btn.classList.remove("selected"));
+    const frame = document.getElementById("dice-frame");
+    if (frame) frame.classList.remove("win");
   }
 
   roll(onComplete) {
     if (this.isPlaying || this.selectedNumber === null) return;
     this.isPlaying = true;
 
-    const frame = document.getElementById('dice-frame');
-    const display = document.getElementById('dice-display');
+    const frame = document.getElementById("dice-frame");
+    const display = document.getElementById("dice-display");
     const finalValue = Math.floor(Math.random() * 6) + 1;
 
     sound.playDiceRoll();
@@ -60,8 +61,8 @@ export class DiceGame {
         const isWin = this.selectedNumber === finalValue;
 
         if (isWin) {
-          frame.classList.add('win');
-          setTimeout(() => frame.classList.remove('win'), 2000);
+          frame.classList.add("win");
+          setTimeout(() => frame.classList.remove("win"), 2000);
         }
 
         this.isPlaying = false;
@@ -71,18 +72,22 @@ export class DiceGame {
           winAmount: isWin ? 6 : 0,
           resultText: `Tvá volba: ${this.selectedNumber} | Padlo: ${finalValue}`,
           selectedNum: this.selectedNumber,
-          diceValue: finalValue
+          diceValue: finalValue,
         });
-      }
+      },
     });
 
     // Animace rychlého přechodu čísel během hodu
     for (let i = 0; i < 12; i++) {
-      tl.call(() => {
-        const val = Math.floor(Math.random() * 6) + 1;
-        display.textContent = val;
-        this.currentValue = val;
-      }, null, i * 0.1);
+      tl.call(
+        () => {
+          const val = Math.floor(Math.random() * 6) + 1;
+          display.textContent = val;
+          this.currentValue = val;
+        },
+        null,
+        i * 0.1,
+      );
     }
   }
 }

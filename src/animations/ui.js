@@ -1,34 +1,39 @@
-import { gsap } from 'gsap';
+import { gsap } from "gsap";
 
 export function initTitleFlicker() {
-  const title = document.querySelector('h1');
+  const title = document.querySelector("h1");
   if (!title) return;
   gsap.to(title, {
     opacity: 0.85,
     duration: 0.4,
     repeat: -1,
     yoyo: true,
-    ease: 'sine.inOut',
+    ease: "sine.inOut",
   });
 }
 
 /* === RULE 4: Neon Flicker – simulates old neon tube instabilit === */
 export function initNeonFlicker(element, colorGlow) {
   if (!element) return;
-  const glow = colorGlow || 'rgba(0, 240, 255, 0.6)';
+  const glow = colorGlow || "rgba(0, 240, 255, 0.6)";
   gsap.to(element, {
     opacity: 0.82,
     duration: 0.12 + Math.random() * 0.25,
     repeat: -1,
     yoyo: true,
-    ease: 'steps(1)',
-    onRepeat: function() {
+    ease: "steps(1)",
+    onRepeat: function () {
       // occasional longer flicker
       if (Math.random() < 0.08) {
         gsap.set(element, { opacity: 0.4, textShadow: `0 0 2px ${glow}` });
-        gsap.to(element, { opacity: 0.9, textShadow: `0 0 8px ${glow}, 0 0 16px ${glow}`, duration: 0.08, delay: 0.06 });
+        gsap.to(element, {
+          opacity: 0.9,
+          textShadow: `0 0 8px ${glow}, 0 0 16px ${glow}`,
+          duration: 0.08,
+          delay: 0.06,
+        });
       }
-    }
+    },
   });
 }
 
@@ -40,24 +45,32 @@ export function initIdlePulse(element) {
     duration: 1.2,
     repeat: -1,
     yoyo: true,
-    ease: 'sine.inOut',
+    ease: "sine.inOut",
   });
 }
 
 export function animateScreenIn(element) {
-  gsap.fromTo(element, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' });
+  gsap.fromTo(
+    element,
+    { opacity: 0, y: 10 },
+    { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+  );
 }
 
 export function initModalAnimations() {
-  const modal = document.querySelector('.modal');
+  const modal = document.querySelector(".modal");
   if (!modal) return;
-  const content = modal.querySelector('.modal-content');
+  const content = modal.querySelector(".modal-content");
 
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((m) => {
-      if (m.attributeName === 'class' && modal.classList.contains('show')) {
-        gsap.fromTo(modal, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: 'power2.out' });
-        gsap.fromTo(content, { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(1.7)' });
+      if (m.attributeName === "class" && modal.classList.contains("show")) {
+        gsap.fromTo(modal, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" });
+        gsap.fromTo(
+          content,
+          { scale: 0.9, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.7)" },
+        );
       }
     });
   });
@@ -65,14 +78,18 @@ export function initModalAnimations() {
 }
 
 export function initInfoPanelAnimations() {
-  const panel = document.querySelector('.info-panel');
+  const panel = document.querySelector(".info-panel");
   if (!panel) return;
-  const content = panel.querySelector('.info-panel-content');
+  const content = panel.querySelector(".info-panel-content");
 
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((m) => {
-      if (m.attributeName === 'class' && panel.classList.contains('show')) {
-        gsap.fromTo(content, { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(1.7)' });
+      if (m.attributeName === "class" && panel.classList.contains("show")) {
+        gsap.fromTo(
+          content,
+          { scale: 0.9, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.7)" },
+        );
       }
     });
   });
@@ -80,12 +97,16 @@ export function initInfoPanelAnimations() {
 }
 
 export function initStatusBoxAnimation() {
-  const box = document.querySelector('.status-box');
+  const box = document.querySelector(".status-box");
   if (!box) return;
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((m) => {
-      if (m.attributeName === 'class' && box.classList.contains('show')) {
-        gsap.fromTo(box, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, ease: 'back.out(1.7)' });
+      if (m.attributeName === "class" && box.classList.contains("show")) {
+        gsap.fromTo(
+          box,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.7)" },
+        );
       }
     });
   });
@@ -93,25 +114,25 @@ export function initStatusBoxAnimation() {
 }
 
 export function initSockaShake() {
-  const icon = document.querySelector('.socka-icon');
+  const icon = document.querySelector(".socka-icon");
   if (!icon) return;
-  gsap.to(icon, { rotation: 5, duration: 0.5, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+  gsap.to(icon, { rotation: 5, duration: 0.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
 }
 
 export function initPulseSeven() {
-  document.querySelectorAll('.slot-cell.sym-seven').forEach((el) => {
-    gsap.to(el, { scale: 1.15, duration: 0.8, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+  document.querySelectorAll(".slot-cell.sym-seven").forEach((el) => {
+    gsap.to(el, { scale: 1.15, duration: 0.8, repeat: -1, yoyo: true, ease: "sine.inOut" });
   });
 }
 
 export function animateSlotWin(cell) {
   gsap.to(cell, {
-    backgroundColor: 'rgba(255, 238, 0, 0.4)',
-    boxShadow: 'inset 0 0 20px var(--neon-gold-glow)',
+    backgroundColor: "rgba(255, 238, 0, 0.4)",
+    boxShadow: "inset 0 0 20px var(--neon-gold-glow)",
     duration: 0.2,
     repeat: -1,
     yoyo: true,
-    ease: 'sine.inOut',
+    ease: "sine.inOut",
   });
 }
 
@@ -119,42 +140,42 @@ export function animateAutoSpinGlow(autoBtn) {
   if (!autoBtn) return;
   gsap.killTweensOf(autoBtn);
   gsap.to(autoBtn, {
-    boxShadow: '0 0 25px rgba(255, 215, 0, 0.7), inset 0 0 15px rgba(255, 215, 0, 0.2)',
+    boxShadow: "0 0 25px rgba(255, 215, 0, 0.7), inset 0 0 15px rgba(255, 215, 0, 0.2)",
     duration: 0.5,
     repeat: -1,
     yoyo: true,
-    ease: 'sine.inOut',
+    ease: "sine.inOut",
   });
 }
 
 export function stopAutoSpinGlow(autoBtn) {
   if (!autoBtn) return;
   gsap.killTweensOf(autoBtn);
-  gsap.set(autoBtn, { boxShadow: 'none' });
+  gsap.set(autoBtn, { boxShadow: "none" });
 }
 
 // Animate bet buttons with yellow glow during auto-spin
 export function animateBetButtonsGlow() {
-  const betBtns = document.querySelectorAll('.btn-bet, .bet-btn');
+  const betBtns = document.querySelectorAll(".btn-bet, .bet-btn");
   betBtns.forEach((btn, i) => {
     gsap.killTweensOf(btn);
     // Stagger start times so buttons blink sequentially like slot machine lights
     gsap.to(btn, {
-      backgroundColor: 'rgba(255, 215, 0, 0.2)',
-      borderColor: '#ffd700',
+      backgroundColor: "rgba(255, 215, 0, 0.2)",
+      borderColor: "#ffd700",
       duration: 0.3,
       repeat: -1,
       yoyo: true,
-      ease: 'sine.inOut',
+      ease: "sine.inOut",
       delay: i * 0.12,
     });
   });
 }
 
 export function stopBetButtonsGlow() {
-  const betBtns = document.querySelectorAll('.btn-bet, .bet-btn');
-  betBtns.forEach(btn => {
+  const betBtns = document.querySelectorAll(".btn-bet, .bet-btn");
+  betBtns.forEach((btn) => {
     gsap.killTweensOf(btn);
-    gsap.set(btn, { backgroundColor: 'transparent', borderColor: 'transparent' });
+    gsap.set(btn, { backgroundColor: "transparent", borderColor: "transparent" });
   });
 }

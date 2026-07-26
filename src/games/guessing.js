@@ -1,6 +1,7 @@
 // Guessing games module (Guess 1-10, Guess 1-5, Dice, Roulette) with grid roll animations
-import gsap from 'gsap';
-import { sound } from '../sound';
+import gsap from "gsap";
+
+import { sound } from "../sound";
 
 export class GuessingGame {
   constructor() {
@@ -9,39 +10,38 @@ export class GuessingGame {
 
   // Generates number buttons in the grid
   generateGrid(min, max, onNumberClick) {
-    const gridContainer = document.getElementById('game-number-buttons');
+    const gridContainer = document.getElementById("game-number-buttons");
     if (!gridContainer) return;
-    
-    gridContainer.innerHTML = '';
-    
+
+    gridContainer.innerHTML = "";
+
     // For Roulette (0-36), adjust columns if needed
     if (max - min > 10) {
-      gridContainer.classList.remove('grid-cols-5');
-      gridContainer.classList.add('grid-cols-6');
+      gridContainer.classList.remove("grid-cols-5");
+      gridContainer.classList.add("grid-cols-6");
     } else {
-      gridContainer.classList.remove('grid-cols-6');
-      gridContainer.classList.add('grid-cols-5');
+      gridContainer.classList.remove("grid-cols-6");
+      gridContainer.classList.add("grid-cols-5");
     }
 
     // Classic roulette number colors
-    const redNums = [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
-    const blackNums = [2,4,6,8,10,11,13,15,17,20,22,24,26,28,29,31,33,35];
+    // colors are applied via CSS classes .red-num / .black-num / .green-num
 
     for (let i = min; i <= max; i++) {
-      const btn = document.createElement('button');
-      btn.className = 'btn-num';
-      
+      const btn = document.createElement("button");
+      btn.className = "btn-num";
+
       // === RULE 2: Retro Digital Contrast – casino colors for roulette ===
       if (min === 0 && max === 35) {
         if (i === 0) {
-          btn.classList.add('green-num');
+          btn.classList.add("green-num");
         } else if (redNums.includes(i)) {
-          btn.classList.add('red-num');
+          btn.classList.add("red-num");
         } else {
-          btn.classList.add('black-num');
+          btn.classList.add("black-num");
         }
       }
-      
+
       btn.innerText = i;
       btn.dataset.num = i;
       btn.onclick = () => {
@@ -58,17 +58,17 @@ export class GuessingGame {
     this.isPlaying = true;
 
     const winningNum = Math.floor(Math.random() * (max - min + 1)) + min;
-    const isWin = (selectedNum === winningNum);
+    const isWin = selectedNum === winningNum;
     const winAmount = isWin ? betAmount * multiplier : 0;
 
-    const buttons = Array.from(document.querySelectorAll('.btn-num'));
-    
+    const buttons = Array.from(document.querySelectorAll(".btn-num"));
+
     // Disable all buttons and highlight selected
-    buttons.forEach(btn => {
+    buttons.forEach((btn) => {
       btn.disabled = true;
-      btn.classList.remove('selected', 'winning');
+      btn.classList.remove("selected", "winning");
       if (parseInt(btn.dataset.num) === selectedNum) {
-        btn.classList.add('selected');
+        btn.classList.add("selected");
       }
     });
 
@@ -77,22 +77,22 @@ export class GuessingGame {
     const tl = gsap.timeline({
       onComplete: () => {
         // Final landing
-        buttons.forEach(b => b.classList.remove('winning'));
-        
+        buttons.forEach((b) => b.classList.remove("winning"));
+
         // Find winning button
-        const winBtn = buttons.find(b => parseInt(b.dataset.num) === winningNum);
+        const winBtn = buttons.find((b) => parseInt(b.dataset.num) === winningNum);
         if (winBtn) {
-          winBtn.classList.add('winning');
+          winBtn.classList.add("winning");
         }
 
         // Keep selected button highlighted
-        const selBtn = buttons.find(b => parseInt(b.dataset.num) === selectedNum);
+        const selBtn = buttons.find((b) => parseInt(b.dataset.num) === selectedNum);
         if (selBtn) {
           if (isWin) {
-            selBtn.classList.remove('selected');
-            selBtn.classList.add('winning');
+            selBtn.classList.remove("selected");
+            selBtn.classList.add("winning");
           } else {
-            selBtn.classList.add('losing');
+            selBtn.classList.add("losing");
           }
         }
 
@@ -102,29 +102,30 @@ export class GuessingGame {
           onComplete({
             isWin,
             winAmount,
-            resultText: `Tvá volba: ${selectedNum} | Padlo: ${winningNum}`
+            resultText: `Tvá volba: ${selectedNum} | Padlo: ${winningNum}`,
           });
         });
-      }
+      },
     });
 
     // Create a sequential glowing wave across the buttons that progressively slows down
     for (let step = 0; step < totalSteps; step++) {
-      const targetBtn = (step === totalSteps - 1)
-        ? buttons.find(b => parseInt(b.dataset.num) === winningNum)
-        : buttons[Math.floor(Math.random() * buttons.length)];
-        
+      const targetBtn =
+        step === totalSteps - 1
+          ? buttons.find((b) => parseInt(b.dataset.num) === winningNum)
+          : buttons[Math.floor(Math.random() * buttons.length)];
+
       const stepDuration = 0.06 + Math.pow(step / totalSteps, 2) * 0.35; // Dramatic slow down at the end
 
       tl.to(targetBtn, {
         duration: stepDuration,
         onStart: () => {
-          buttons.forEach(b => b.classList.remove('winning'));
+          buttons.forEach((b) => b.classList.remove("winning"));
           if (parseInt(targetBtn.dataset.num) !== selectedNum) {
-            targetBtn.classList.add('winning');
+            targetBtn.classList.add("winning");
           }
           sound.playClick();
-        }
+        },
       });
     }
   }
