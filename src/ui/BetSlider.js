@@ -109,10 +109,25 @@ export class BetSlider {
 
   _bindEvents() {
     // Arrow buttons — click + hold
-    this.btnLeft.addEventListener('pointerdown', (e) => { e.preventDefault(); this._startHold(-1); });
-    this.btnRight.addEventListener('pointerdown', (e) => { e.preventDefault(); this._startHold(1); });
+    // No preventDefault: letting the browser handle native button focus/click
+    // so that pointerup fires reliably on all mobile browsers (incl. iOS Safari)
+    this.btnLeft.addEventListener('pointerdown', (e) => {
+      this._activeArrow = this.btnLeft;
+      this._startHold(-1);
+    });
+    this.btnRight.addEventListener('pointerdown', (e) => {
+      this._activeArrow = this.btnRight;
+      this._startHold(1);
+    });
 
+    // Stop hold: both on the buttons themselves AND on document (belt + suspenders)
     const stopHold = () => this._stopHold();
+    this.btnLeft.addEventListener('pointerup', stopHold);
+    this.btnLeft.addEventListener('pointerleave', stopHold);
+    this.btnLeft.addEventListener('pointercancel', stopHold);
+    this.btnRight.addEventListener('pointerup', stopHold);
+    this.btnRight.addEventListener('pointerleave', stopHold);
+    this.btnRight.addEventListener('pointercancel', stopHold);
     document.addEventListener('pointerup', stopHold);
     document.addEventListener('pointercancel', stopHold);
 
@@ -178,6 +193,11 @@ export class BetSlider {
     this._holdTimer = null;
     this._holdInterval = null;
     this._holdCount = 0;
+    // Blur the arrow so it doesn't stay visually "stuck" on mobile
+    if (this._activeArrow) {
+      this._activeArrow.blur();
+      this._activeArrow = null;
+    }
   }
 
   // ─── Value manipulation ───────────────────────────────────────────────────────

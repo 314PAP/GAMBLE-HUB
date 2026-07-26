@@ -477,12 +477,20 @@
   align-items: center;
   justify-content: center;
   user-select: none;
-  touch-action: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   /* Override btn/bet-btn heavy box-shadow with a quieter version */
   border: 1.5px solid rgba(255, 120, 0, 0.5) !important;
   box-shadow:
     inset 1px 1px 0px rgba(255, 159, 28, 0.2),
     inset -1px -1px 0px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Reset visual state after tap — prevent sticky hover/focus on mobile */
+.bet-slider-arrow:focus:not(:focus-visible) {
+  outline: none;
+  transform: none;
+  filter: none;
 }
 
 .bet-slider-arrow:hover:not(:disabled) {
