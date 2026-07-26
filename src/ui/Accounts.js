@@ -26,7 +26,7 @@ export class AccountsManager {
 
       const selectBtn = document.createElement("button");
       selectBtn.className = "btn flex-1 min-w-0 text-left text-sm py-1.5 px-3 flex flex-row items-center gap-1";
-      selectBtn.innerHTML = `<span class="truncate flex-1 min-w-0 text-[clamp(0.7rem,1.8vw,0.95rem)]">${wrapEmoji(escapeHtml(username))}</span><span class="shrink-0 whitespace-nowrap text-[var(--neon-green)] text-glow-green text-[clamp(0.55rem,1.2vw,0.7rem)]"><span class="score-display">${this.formatLargeNumber(balance)}${COIN_SVG}</span></span>`;
+      selectBtn.innerHTML = `<span class="truncate flex-1 min-w-0 text-[clamp(0.7rem,1.8vw,0.95rem)]">${wrapEmoji(escapeHtml(username))}</span><span class="shrink-0 whitespace-nowrap text-[var(--neon-green)] text-glow-green text-[clamp(0.55rem,1.2vw,0.7rem)]"><span class="score-display">${formatLargeNumber(balance)}${COIN_SVG}</span></span>`;
       selectBtn.onclick = () => onSelect(username);
 
       const deleteBtn = document.createElement("button");

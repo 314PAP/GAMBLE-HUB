@@ -38,7 +38,7 @@ if (scores.length === 0) {
                 <span class="font-bold text-[var(--neon-gold)] text-[clamp(11px,3.8vw,18px)] w-[clamp(18px,5vw,25px)] shrink-0 text-glow-gold text-center">${medal}</span>
                 <span class="scoreboard-name text-[var(--neon-gold)] font-semibold !text-[clamp(11px,3.8vw,18px)] flex-1 min-w-0 truncate">${wrapEmoji(escapeHtml(record.jmeno))}</span>
               </div>
-              <span class="score-display inline-flex items-center gap-1 font-bold text-[var(--neon-green)] text-[clamp(11px,3.8vw,18px)] text-glow-green shrink-0">${this.formatLargeNumber(record.castka)}${COIN_SVG}</span>
+              <span class="score-display inline-flex items-center gap-1 font-bold text-[var(--neon-green)] text-[clamp(11px,3.8vw,18px)] text-glow-green shrink-0">${formatLargeNumber(record.castka)}${COIN_SVG}</span>
             </div>
           `;
       });
@@ -71,7 +71,7 @@ if (scores.length === 0) {
             <span class="font-bold text-[var(--neon-gold)] text-[clamp(11px,3.8vw,16px)] w-[clamp(18px,5vw,25px)] shrink-0 text-glow-gold text-center">${medal}</span>
              <span class="scoreboard-name text-[var(--neon-gold)] font-semibold !text-[clamp(11px,3.8vw,16px)] flex-1 min-w-0 truncate">${wrapEmoji(escapeHtml(record.jmeno))}</span>
           </div>
-          <span class="score-display inline-flex items-center gap-1 font-bold text-[var(--neon-green)] text-[clamp(11px,3.8vw,16px)] text-glow-green shrink-0">${this.formatLargeNumber(record.castka)}${COIN_SVG}</span>
+          <span class="score-display inline-flex items-center gap-1 font-bold text-[var(--neon-green)] text-[clamp(11px,3.8vw,16px)] text-glow-green shrink-0">${formatLargeNumber(record.castka)}${COIN_SVG}</span>
         </div>
       `;
     });

@@ -1,10 +1,8 @@
-import { defineConfig } from 'vite';
-
-export default defineConfig({
+export default {
   base: '/GAMBLE-HUB/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
     sourcemap: true
   }
-});
+};
