@@ -141,9 +141,10 @@
                 <div id="game-result-hilo" class="game-result-hilo mb-1" role="status" aria-live="polite"></div>
               </div>
               <div class="game-actions pt-1 shrink-0">
+                <p class="hilo-rules-hint text-center text-[0.6rem] text-[rgba(255,180,60,0.6)] mb-1.5 leading-tight px-2">Stejná karta = prohra · Čím větší riziko, tím vyšší výhra</p>
                 <div class="hilo-btns flex flex-wrap justify-center gap-2 mb-2" role="region" aria-label="Ovládání HI-LOW">
-                    <button class="btn btn-primary px-4 py-2 text-sm font-bold flex-1" id="btn-hilo-high" onclick="hrajHiLo('H')"><span class="icon-node" aria-hidden="true"></span> VYŠŠÍ</button>
-                    <button class="btn btn-danger px-4 py-2 text-sm font-bold flex-1" id="btn-hilo-low" onclick="hrajHiLo('L')"><span class="icon-node" aria-hidden="true"></span> NIŽŠÍ</button>
+                    <button class="btn btn-primary px-4 py-2 text-sm font-bold flex-1" id="btn-hilo-high" onclick="hrajHiLo('H')"><span class="icon-node" aria-hidden="true"></span> VYŠŠÍ <span class="hilo-mult" aria-label="multiplikátor">×1.00</span></button>
+                    <button class="btn btn-danger px-4 py-2 text-sm font-bold flex-1" id="btn-hilo-low" onclick="hrajHiLo('L')"><span class="icon-node" aria-hidden="true"></span> NIŽŠÍ <span class="hilo-mult" aria-label="multiplikátor">×1.00</span></button>
                 </div>
               </div>
           </article>
