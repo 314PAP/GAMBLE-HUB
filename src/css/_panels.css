@@ -246,12 +246,12 @@
 .score-display {
   display: inline-flex;
   align-items: center;
-  gap: 0.35em;
+  gap: 0.15em;
 }
 
 .score-display .coin-icon-svg {
-  width: 1em;
-  height: 1em;
+  width: 0.85em;
+  height: 0.85em;
   animation: coinFlicker 2s ease-in-out infinite;
 }
 

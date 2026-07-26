@@ -33,8 +33,8 @@ export class AccountsManager {
       row.setAttribute("role", "listitem");
 
       const selectBtn = document.createElement("button");
-      selectBtn.className = "btn flex-1 min-w-0 text-left text-sm py-2 px-3 flex flex-row items-center gap-2";
-      selectBtn.innerHTML = `<span class="truncate flex-1 min-w-0 text-[clamp(0.7rem,1.8vw,0.95rem)]">${this.wrapEmoji(username)}</span><span class="shrink-0 whitespace-nowrap text-[var(--neon-green)] text-glow-green text-[clamp(0.65rem,1.5vw,0.8rem)]"><span class="score-display">${this.formatLargeNumber(balance)}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span></span>`;
+      selectBtn.className = "btn flex-1 min-w-0 text-left text-sm py-1.5 px-3 flex flex-row items-center gap-1";
+      selectBtn.innerHTML = `<span class="truncate flex-1 min-w-0 text-[clamp(0.7rem,1.8vw,0.95rem)]">${this.wrapEmoji(username)}</span><span class="shrink-0 whitespace-nowrap text-[var(--neon-green)] text-glow-green text-[clamp(0.55rem,1.2vw,0.7rem)]"><span class="score-display">${this.formatLargeNumber(balance)}<svg class="coin-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg></span></span>`;
       selectBtn.onclick = () => onSelect(username);
 
       const deleteBtn = document.createElement("button");
