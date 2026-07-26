@@ -320,10 +320,12 @@ export class GameManager {
    playSlots() {
      if (this.slots.isSpinning) return;
      if (!this._startRound()) return;
-      
+       
       // Animate bet buttons yellow glow during spin (both auto and manual)
       this.lockGameControls(true);
       animateBetButtonsGlow();
+      
+      const balance = this.db.getPlayerBalance(this.currentPlayer);
       
       this.slots.spin(this.activeBet, balance, (res) => {
         this.lockGameControls(false);

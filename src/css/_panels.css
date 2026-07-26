@@ -41,14 +41,7 @@
   100% { border-color: var(--neon-gold); box-shadow: 0 0 15px var(--neon-gold-glow); }
 }
 
-.game-title {
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 800;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: #00f0ff;
-  text-shadow: 0 0 8px rgba(0,240,255,0.6), 0 0 16px rgba(0,240,255,0.4);
-}
+/* Note: .game-title is defined in _layout.css */
 
 .modal {
   display: none;

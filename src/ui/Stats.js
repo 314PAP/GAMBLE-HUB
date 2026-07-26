@@ -19,7 +19,7 @@ export class StatsManager {
     if (statsContainer) {
       statsContainer.innerHTML = `
         <div class="flex-row-center mb-1.5">
-          <span aria-hidden="true">👤</span> <span>Hráč:</span> <strong>${username}</strong>
+          <span aria-hidden="true">👤</span> <span>Hráč:</span> <strong>${escapeHtml(username)}</strong>
         </div>
         <div class="flex-row-center mb-1.5">
           <span aria-hidden="true">🔄</span> <span>Odehraných her:</span> <strong>${totalMatches}</strong>
