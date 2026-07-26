@@ -204,7 +204,12 @@ export class BetSlider {
   // ─── Value manipulation ───────────────────────────────────────────────────────
 
   _step(dir, accel = 1) {
-    const delta = dir * this.step * accel;
+    // Proportional step: ~10% of current value so arrows are useful at any scale
+    // Round to a "nice" number (nearest power-of-10 magnitude) for clean jumps
+    const proportional = Math.max(this.step, this.value * 0.1);
+    const magnitude = Math.pow(10, Math.floor(Math.log10(proportional)));
+    const niceStep = Math.max(this.step, Math.round(proportional / magnitude) * magnitude);
+    const delta = dir * niceStep * accel;
     this._setValue(this.value + delta);
   }
 
