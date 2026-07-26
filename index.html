@@ -182,7 +182,7 @@
                     <button class="btn dice-num-btn py-1 px-2 text-sm font-bold w-full" data-num="6" aria-label="Sázet na 6">6</button>
                 </div>
               </div>
-          </article>
+           </article>
 
 <div id="bet-area" class="grid grid-cols-5 gap-1 mt-2 mb-2 justify-center justify-items-stretch" role="region" aria-label="Volba sázky">
 <button class="btn bet-btn h-5" id="bet-10" onclick="nastavSazku(10)">10</button>
@@ -197,7 +197,7 @@
                <button class="btn bet-btn h-5" id="bet-100000" onclick="nastavSazku(100000)">100K</button>
                <button class="btn bet-btn h-5" id="bet-1000000" onclick="nastavSazku(1000000)">1M</button>
                <button class="btn bet-btn h-5" id="bet-10000000" onclick="nastavSazku(10000000)">10M</button>
-          </div>
+           </div>
 
            <div id="custom-sazka-area" class="mt-2 hidden" role="region" aria-label="Vlastní sázka">
               <input type="text" id="game-sazka" placeholder="Např. 1.5k, 10m + Enter" aria-label="Zadej vlastní částku" onkeydown="checkEnter(event, potvrditVlastniSazku)" class="px-3 py-2 mb-3">
@@ -336,6 +336,27 @@
       </div>
   </div>
 
- </body>
+<div id="abbrev-modal" class="fixed inset-0 z-[500] flex items-center justify-center bg-[rgba(0,0,0,0.85)] hidden" role="dialog" aria-modal="true" aria-labelledby="abbrev-modal-title" onclick="zavriAbbrevModal()">
+  <div class="modal-content p-0 w-[95vw] max-w-[700px] max-h-[85vh] rounded-2xl flex flex-col border-2 border-[#1a1a2e] shadow-[0_0_40px_rgba(189,0,255,0.3)]" role="document" onclick="event.stopPropagation()">
+    <div class="flex justify-between items-center px-5 py-3 border-b border-[rgba(255,255,255,0.06)] shrink-0">
+      <h3 id="abbrev-modal-title" class="font-[Orbitron] text-[var(--neon-cyan)] text-sm font-bold tracking-wider">Číselné zkratky</h3>
+      <button onclick="zavriAbbrevModal()" class="bg-transparent border-none text-[var(--neon-gold)] text-lg cursor-pointer hover:text-white transition-colors" aria-label="Zavřít">✕</button>
+    </div>
+    <div class="overflow-y-auto flex-1 p-2">
+      <table class="w-full text-[clamp(10px,2.2vw,12px)] border-collapse">
+        <thead class="sticky top-0 z-10">
+          <tr class="bg-[var(--neon-purple)] text-white uppercase tracking-wider">
+            <th class="px-3 py-2 text-left font-bold border-b border-[rgba(255,255,255,0.08)]">Zkratka</th>
+            <th class="px-3 py-2 text-left font-bold border-b border-[rgba(255,255,255,0.08)]">Název</th>
+            <th class="px-3 py-2 text-right font-bold border-b border-[rgba(255,255,255,0.08)]">Nuly</th>
+          </tr>
+        </thead>
+        <tbody id="abbrev-modal-body" class="divide-y divide-[rgba(255,255,255,0.04)]"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+  </body>
  <script type="module" src="/src/main.js"></script>
  </html>

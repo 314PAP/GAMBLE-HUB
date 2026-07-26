@@ -1,4 +1,5 @@
 import { sound } from '../sound.js';
+import { parseSuffixes } from '../utils.js';
 
 export class GlobalEventHandlers {
   constructor(db, api, ui, gm) {
@@ -153,17 +154,7 @@ window.smazatUcet = (username) => {
       }
 
       let multiplier = 1;
-      const suffixes = [
-        { key: 'qd', val: 1e27 },
-        { key: 'q',  val: 1e24 },
-        { key: 'td', val: 1e21 },
-        { key: 't',  val: 1e18 },
-        { key: 'bld',val: 1e15 },
-        { key: 'b',  val: 1e12 },
-        { key: 'mld',val: 1e9 },
-        { key: 'm',  val: 1e6 },
-        { key: 'k',  val: 1e3 }
-      ];
+      const suffixes = parseSuffixes();
 
       for (let i = 0; i < suffixes.length; i++) {
         if (rawText.endsWith(suffixes[i].key)) {
