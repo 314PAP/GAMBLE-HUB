@@ -14,7 +14,7 @@ const SYMBOL_REVERSE_MAP = {
   diamanty: "💎",
   Hvězdy: "⭐",
   hvězdy: "⭐",
-  "777": "7️⃣",
+  777: "7️⃣",
 };
 
 const GAME_LABELS = {
@@ -122,10 +122,9 @@ export class ExplorerManager {
         const compactResult = cleanResult
           ? cleanResult
               .split(":")[0]
-              .replace(/×[\d.]+$/, "")
               .trim()
               .replace(
-                /\b(Citrony|Třešně|třešně|Zvonky|Švestky|Diamanty|Hvězdy|777)\b/gi,
+                /\b(Citrony|Třešně|třešně|Třešní|třešní|Zvonky|zvonky|Švestky|švestky|Diamanty|diamanty|Hvězdy|hvězdy|777)\b/gi,
                 (m) => SYMBOL_REVERSE_MAP[m] || m,
               )
           : "";
