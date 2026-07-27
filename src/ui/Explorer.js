@@ -1,5 +1,15 @@
 import { formatLargeNumber, COIN_SVG, escapeHtml, wrapEmoji } from "../utils.js";
 
+const SYMBOL_REVERSE_MAP = {
+  Citrony: "🍋",
+  Třešně: "🍒",
+  Zvonky: "🔔",
+  Švestky: "🍇",
+  Diamanty: "💎",
+  Hvězdy: "⭐",
+  777: "7️⃣",
+};
+
 const GAME_LABELS = {
   Bary3x3: "Automat",
   VíceMéně: "HI-LOW",
@@ -101,11 +111,16 @@ export class ExplorerManager {
         const resultTypeText = isWin ? "Výhra" : "Prohra";
 
         // Compact Detaily: show only what fell, no win amount suffix
+        // Also map old Czech names (from pre-emoji records) back to emojis
         const compactResult = cleanResult
           ? cleanResult
               .split(":")[0]
               .replace(/×[\d.]+$/, "")
               .trim()
+              .replace(
+                /\b(Citrony|Třešně|Zvonky|Švestky|Diamanty|Hvězdy|777)\b/g,
+                (m) => SYMBOL_REVERSE_MAP[m] || m,
+              )
           : "";
         return `
         <tr class="history-row group border-b border-[rgba(255,255,255,0.06)] last:border-b-0 hover:bg-[rgba(189,0,255,0.1)] transition-colors">
