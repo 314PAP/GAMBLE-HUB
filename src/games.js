@@ -61,6 +61,13 @@ export class GameManager {
   async _ensureGameModules() {
     if (this._gameModulesLoaded) return true;
     
+    // Show loading indicator
+    const loadingEl = document.getElementById('game-loading');
+    if (loadingEl) {
+      loadingEl.classList.remove('hidden');
+      loadingEl.classList.add('flex');
+    }
+    
     const MAX_RETRIES = 2;
     const RETRY_DELAY = 500;
     
@@ -79,6 +86,13 @@ export class GameManager {
         this.dice = new diceModule.DiceGame();
         
         this._gameModulesLoaded = true;
+        
+        // Hide loading indicator
+        if (loadingEl) {
+          loadingEl.classList.add('hidden');
+          loadingEl.classList.remove('flex');
+        }
+        
         return true;
       } catch (error) {
         console.error(`Failed to load game modules (attempt ${attempt}/${MAX_RETRIES}):`, error);
@@ -86,6 +100,12 @@ export class GameManager {
           await new Promise(resolve => setTimeout(resolve, RETRY_DELAY));
         }
       }
+    }
+    
+    // Hide loading indicator on error
+    if (loadingEl) {
+      loadingEl.classList.add('hidden');
+      loadingEl.classList.remove('flex');
     }
     
     this.ui.showAlert('error', 'Chyba načítání', 'Nepodařilo se načíst herní moduly. Obnovte stránku.');

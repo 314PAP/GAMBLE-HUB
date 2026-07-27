@@ -172,3 +172,8 @@ textarea:focus {
 }
 
 /* Removed manual z-index management - let Tailwind handle stacking */
+
+/* Game loading indicator */
+#game-loading {
+  pointer-events: none;
+}

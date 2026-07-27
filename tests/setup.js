@@ -30,7 +30,43 @@ globalThis.document = {
   dispatchEvent: vi.fn(),
 };
 
-globalThis.window = {};
+globalThis.window = {
+  __GAMBLE_HUB__: {
+    otevriPrihlaseni: vi.fn(),
+    otevriRegistraci: vi.fn(),
+    zpetDoMenu: vi.fn(),
+    navratDoHubu: vi.fn(),
+    prihlasitHrace: vi.fn(),
+    smazatUcet: vi.fn(),
+    zavriDeleteConfirm: vi.fn(),
+    potvrditRegistraci: vi.fn(),
+    odhlasitSe: vi.fn(),
+    otevriDisclaimer: vi.fn(),
+    zavriDisclaimer: vi.fn(),
+    otevriInstalaciInfo: vi.fn(),
+    zavriInstalaciInfo: vi.fn(),
+    spustitHru: vi.fn(),
+    nastavSazku: vi.fn(),
+    vsaditVse: vi.fn(),
+    kliknutoCislo: vi.fn(),
+    toggleAutoPlay: vi.fn(),
+    hrajHiLo: vi.fn(),
+    otevriStatsModal: vi.fn(),
+    zavriStatsModal: vi.fn(),
+    otevriExplorer: vi.fn(),
+    zavriExplorer: vi.fn(),
+    prepniExplorerTab: vi.fn(),
+    filtrujLeaderboard: vi.fn(),
+    filtrujHistorii: vi.fn(),
+    seradHistorii: vi.fn(),
+    toggleInfoPanel: vi.fn(),
+    zavriInfoPanel: vi.fn(),
+    exportovatData: vi.fn(),
+    importovatData: vi.fn(),
+    checkEnter: vi.fn(),
+    toggleMuteState: vi.fn(),
+  },
+};
 
 // Mock sound.js before any test imports it
 vi.mock('../src/sound.js', () => ({
