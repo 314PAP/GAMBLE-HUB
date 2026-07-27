@@ -50,8 +50,10 @@ export class ExplorerManager {
 
   close() {
     const modal = document.getElementById("explorer-modal");
-    modal.classList.add("hidden");
-    modal.classList.remove("flex");
+    if (modal) {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
   }
 
   renderHistory(filteredData = null) {
