@@ -1,6 +1,6 @@
 import { sound } from "../sound.js";
 import { BetSlider } from "../ui/BetSlider.js";
-import { GAME_CONFIG } from "../games.js";
+import { GAME_CONFIG, DISPLAY_STATES } from "../games.js";
 
 export class GlobalEventHandlers {
   constructor(db, api, ui, gm) {
@@ -128,6 +128,38 @@ export class GlobalEventHandlers {
     };
 
     window.spustitHru = (gameId) => {
+      const state = DISPLAY_STATES[gameId] || DISPLAY_STATES[1];
+
+      // Skrýt všechny herní sekce
+      ['classic-inputs', 'dice-area', 'slots-area', 'hilo-area'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.classList.add('hidden');
+          el.classList.remove('flex');
+        }
+      });
+
+      // Zobrazit jen aktivní sekci
+      if (state.classic) {
+        const el = document.getElementById('classic-inputs');
+        if (el) el.classList.remove('hidden');
+      }
+      if (state.dice) {
+        const el = document.getElementById('dice-area');
+        if (el) el.classList.remove('hidden');
+      }
+      if (state.slots) {
+        const el = document.getElementById('slots-area');
+        if (el) el.classList.remove('hidden');
+      }
+      if (state.hilo) {
+        const el = document.getElementById('hilo-area');
+        if (el) {
+          el.classList.remove('hidden');
+          el.classList.add('flex');
+        }
+      }
+
       this.gm.launchGame(gameId);
       // Init slider after game launch (balance is current)
       setTimeout(() => this._initBetSlider(), 2100);
