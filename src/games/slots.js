@@ -191,7 +191,7 @@ export class SlotMachineGame {
       resultText = "🔥 JACKPOT 777! 🔥";
     } else {
       const symbols = [...new Set(lineDetails.map((d) => d.symbol))];
-      const symbolNames = symbols.map((s) => symbolMap[s] || s).join(", ");
+      const symbolNames = symbols.join(", ");
       const multiplierText = winningLineCount > 1 ? `×${winningLineCount}` : "";
       resultText = `${winningLineCount}× ${symbolNames}${multiplierText}: +${formatLargeNumber(winAmount)} $`;
     }
