@@ -25,7 +25,7 @@ export class GuessingGame {
     }
 
     // Classic roulette number colors
-    // colors are applied via CSS classes .red-num / .black-num / .green-num
+    const redNums = [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
 
     for (let i = min; i <= max; i++) {
       const btn = document.createElement("button");
@@ -128,5 +128,11 @@ export class GuessingGame {
         },
       });
     }
+  }
+
+  playAsync(selectedNum, min, max, betAmount, multiplier) {
+    return new Promise((resolve) => {
+      this.play(selectedNum, min, max, betAmount, multiplier, resolve);
+    });
   }
 }

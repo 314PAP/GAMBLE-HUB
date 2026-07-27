@@ -90,4 +90,10 @@ export class DiceGame {
       );
     }
   }
+
+  rollAsync() {
+    return new Promise((resolve) => {
+      this.roll(resolve);
+    });
+  }
 }

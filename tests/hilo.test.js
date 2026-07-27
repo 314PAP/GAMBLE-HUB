@@ -1,8 +1,10 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 vi.mock('gsap', () => ({
-  set: vi.fn(),
-  to: vi.fn(() => ({ onRepeat: () => {}, onComplete: () => {} })),
+  default: {
+    set: vi.fn(),
+    to: vi.fn(() => ({ onRepeat: () => {}, onComplete: () => {} })),
+  },
 }));
 
 vi.mock('../src/sound.js', () => ({
@@ -80,6 +82,16 @@ describe('HiloGame', () => {
       game.currentNumber = 9;
       const mult = game.getMultiplier('H');
       expect(mult).toBeCloseTo((9 / 1) * 0.95, 1);
+    });
+  });
+
+  describe('playAsync', () => {
+    it('should resolve with result object', async () => {
+      game.currentNumber = 5;
+      const result = await game.playAsync('H', 100);
+      expect(result).toHaveProperty('isWin');
+      expect(result).toHaveProperty('winAmount');
+      expect(result).toHaveProperty('resultText');
     });
   });
 });

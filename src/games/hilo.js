@@ -99,11 +99,17 @@ export class HiloGame {
     } else {
       this.currentNumber = nextNumber;
       this.isAnimating = false;
-        onComplete({
-          isWin,
-          winAmount,
-          resultText: `<span class="hilo-result-number">${originalNumber} → ${nextNumber}</span><br><span class="hilo-result-multiplier">×${multiplier.toFixed(2)}</span>`,
-        });
+      onComplete({
+        isWin,
+        winAmount,
+        resultText: `<span class="hilo-result-number">${originalNumber} → ${nextNumber}</span><br><span class="hilo-result-multiplier">×${multiplier.toFixed(2)}</span>`,
+      });
     }
+  }
+
+  async playAsync(tip, betAmount) {
+    return new Promise((resolve) => {
+      this.play(tip, betAmount, resolve);
+    });
   }
 }
