@@ -320,8 +320,12 @@ export class GameUI {
     const panel = document.getElementById("info-panel");
     if (!panel) return;
 
+    const btn = document.getElementById("btn-game-info");
+    if (!btn) return;
+
     if (panel.classList.contains("flex")) {
       this.zavriInfoPanel();
+      btn.classList.remove("is-pressed");
       return;
     }
 
@@ -336,13 +340,20 @@ export class GameUI {
 
     panel.classList.add("flex");
     panel.classList.remove("hidden");
+    btn.classList.add("is-pressed");
+    panel.classList.add("is-open");
   }
 
   zavriInfoPanel() {
     const panel = document.getElementById("info-panel");
+    const btn = document.getElementById("btn-game-info");
     if (panel) {
       panel.classList.add("hidden");
       panel.classList.remove("flex");
+      panel.classList.remove("is-open");
+    }
+    if (btn) {
+      btn.classList.remove("is-pressed");
     }
   }
 
