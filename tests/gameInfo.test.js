@@ -63,7 +63,8 @@ describe('GAME_INFOS', () => {
     expect(hiLo.title).toBe('HI-LOW');
     expect(hiLo.html).toContain('VYŠŠÍ');
     expect(hiLo.html).toContain('NIŽŠÍ');
-    expect(hiLo.html).toContain('dynamicky');
+    expect(hiLo.html).toContain('Výplata');
+    expect(hiLo.html).toContain('násobek');
   });
 
   it('should not contain any script tags', () => {

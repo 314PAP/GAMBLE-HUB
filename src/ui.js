@@ -139,6 +139,7 @@ export class GameUI {
         boxShadow: '0 10px 25px rgba(0,0,0,0.5), 0 0 20px var(--neon-gold-glow), 0 0 40px var(--neon-gold-glow)'
       });
       gsap.set(resBox, { opacity: 0, scale: 0.8, y: 20 });
+      const multiplierEl = resBox.querySelector('.hilo-result-multiplier');
       const tl = gsap.timeline();
       tl.to(resBox, { 
         opacity: 1, 
@@ -158,6 +159,22 @@ export class GameUI {
           resBox.classList.add('hidden');
         }
       });
+      
+      if (multiplierEl) {
+        tl.to(multiplierEl, {
+          scale: 1.4,
+          duration: 0.35,
+          ease: 'power2.out',
+          delay: 2.2,
+        }, 0)
+        .to(multiplierEl, {
+          opacity: 0,
+          scale: 1.1,
+          duration: 0.4,
+          ease: 'power2.in',
+          delay: 2.55,
+        }, 0);
+      }
     }
   }
 
