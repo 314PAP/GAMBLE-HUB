@@ -1,5 +1,5 @@
 export default {
-  base: process.env.VITE_BASE || '/',
+  base: process.env.VITE_BASE ?? '/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',

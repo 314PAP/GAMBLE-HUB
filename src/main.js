@@ -17,10 +17,18 @@ import {
 } from './animations/ui.js';
 import { GlobalEventHandlers } from './events/globalHandlers.js';
 
+console.debug('[DEBUG] location.href =', location.href);
+console.debug('[DEBUG] import.meta.env.BASE_URL =', import.meta.env.BASE_URL);
+console.debug('[DEBUG] VITE_BASE =', import.meta.env.VITE_BASE);
+
 const db = new GameDatabase();
 const api = new API(db);
 const ui = new GameUI(db, api);
 const gm = new GameManager(db, ui, api);
+
+console.debug('[DEBUG] api.isOnline =', api.isOnline);
+console.debug('[DEBUG] firebase projectId =', import.meta.env.VITE_FIREBASE_PROJECT_ID);
+console.debug('[DEBUG] firebase apiKey present =', Boolean(import.meta.env.VITE_FIREBASE_API_KEY));
 
 window._globalHandlersInstance = new GlobalEventHandlers(db, api, ui, gm);
 

@@ -1,11 +1,10 @@
 const CACHE_NAME = 'gamblehub-1.0.0';
 const STATIC_ASSETS = [
   '/',
-  '/GAMBLE-HUB/',
-  '/GAMBLE-HUB/index.html',
-  '/GAMBLE-HUB/manifest.json',
-  '/GAMBLE-HUB/icon.svg',
-  '/GAMBLE-HUB/offline.html',
+  '/index.html',
+  '/manifest.json',
+  '/icon.svg',
+  '/offline.html',
 ];
 
 // Install - cache static assets
@@ -41,13 +40,9 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  if (request.method !== 'GET') return;
-
-  if (url.origin !== self.location.origin) {
+  if (request.method !== 'GET' || url.origin !== self.location.origin) {
     return;
   }
-
-  if (request.method !== 'GET') return;
 
   event.respondWith(
     caches.open(CACHE_NAME).then((cache) => {
@@ -59,9 +54,8 @@ self.addEventListener('fetch', (event) => {
           }
           return response;
         }).catch(() => {
-          // Offline fallback for HTML pages
           if (request.headers.get('accept')?.includes('text/html')) {
-            return caches.match('/GAMBLE-HUB/offline.html');
+            return caches.match('/offline.html');
           }
           return cached;
         });
