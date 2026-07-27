@@ -237,11 +237,12 @@ export class GameManager {
     const resBoxHilo = document.getElementById('game-result-hilo');
 
     const gameConfig = GAME_CONFIG[this.activeGameId] || GAME_CONFIG[1];
-    let targetResBox = resBox;
-    if (gameConfig.resultBox === 'resBoxDice') targetResBox = resBoxDice;
-    else if (gameConfig.resultBox === 'resBoxSlots') targetResBox = resBoxSlots;
-    else if (gameConfig.resultBox === 'resBoxHilo') targetResBox = resBoxHilo;
-    else targetResBox = resBoxClassic;
+    const boxMap = {
+      resBoxDice: document.getElementById('game-result-dice'),
+      resBoxSlots: document.getElementById('game-result-slots'),
+      resBoxHilo: document.getElementById('game-result-hilo'),
+    };
+    let targetResBox = boxMap[gameConfig.resultBox] || document.getElementById('game-result-classic') || document.getElementById('game-result');
 
     if (isWin) {
       const hiloColor = gameConfig.hiloColor ? '#ff4060' : 'var(--neon-orange)';
