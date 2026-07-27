@@ -106,8 +106,6 @@ export class ExplorerManager {
           ? "text-[var(--neon-green)] text-glow-green"
           : "text-[var(--neon-pink)] text-glow-pink";
         const cleanResult = stripHtml(item.resultText || "");
-        const resultTypeClass = isWin ? "text-[var(--neon-green)]" : "text-[var(--neon-pink)]";
-        const resultTypeText = isWin ? "Výhra" : "Prohra";
 
         // Compact Detaily: show count of symbols (×3 7️⃣) not winning line count
         // Extract ×N multiplier and use as prefix, drop line-count prefix
@@ -138,7 +136,6 @@ export class ExplorerManager {
           <td class="px-2 py-1.5 text-[clamp(10px,2vw,12px)] font-bold text-center whitespace-nowrap ${winClass}">
             <span class="inline-flex items-center gap-1.5">${formattedWin}<span class="coin-icon-table w-[1.1em] h-[1.1em] inline-flex items-center flex-shrink-0">${coinSvg}</span></span>
           </td>
-          <td class="px-2 py-1.5 text-[clamp(9px,1.5vw,11px)] font-bold text-center whitespace-nowrap ${resultTypeClass}">${resultTypeText}</td>
           <td class="px-2 py-1.5 text-[clamp(10px,2vw,12px)] text-[var(--text-secondary)] font-mono whitespace-nowrap text-center">${isWin ? escapeHtml(compactResult) : "—"}</td>
         </tr>
       `;
@@ -155,13 +152,10 @@ export class ExplorerManager {
             <th class="px-2 py-1.5 text-center w-[20%]">
               <button onclick="seradHistorii('gameName')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Hra ⇅</button>
             </th>
-            <th class="px-2 py-1.5 text-center w-[20%]">
+            <th class="px-2 py-1.5 text-center w-[25%]">
               <button onclick="seradHistorii('winAmount')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Výhra ⇅</button>
             </th>
-            <th class="px-2 py-1.5 text-center w-[20%]">
-              <button onclick="seradHistorii('isWin')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Typ ⇅</button>
-            </th>
-            <th class="px-2 py-1.5 text-center w-[20%]">
+            <th class="px-2 py-1.5 text-center w-[25%]">
               <button onclick="seradHistorii('resultText')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Detaily ⇅</button>
             </th>
           </tr>

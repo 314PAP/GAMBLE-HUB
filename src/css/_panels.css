@@ -161,7 +161,7 @@
   width: 100%;
   border-collapse: collapse;
   font-size: clamp(10px, 2.5vw, 12px);
-  table-layout: fixed;
+  table-layout: auto;
 }
 
 .explorer-history-table thead th {
