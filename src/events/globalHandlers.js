@@ -280,6 +280,20 @@ export class GlobalEventHandlers {
         }
       }
     };
+
+    window.toggleTheme = () => {
+      const html = document.documentElement;
+      const current = html.getAttribute("data-theme");
+      const next = current === "cyan" ? "purple" : "cyan";
+      html.setAttribute("data-theme", next === "cyan" ? "cyan" : "");
+      localStorage.setItem("c_theme", next);
+    };
+
+    // Restore saved theme on load
+    const savedTheme = localStorage.getItem("c_theme");
+    if (savedTheme === "cyan") {
+      document.documentElement.setAttribute("data-theme", "cyan");
+    }
   }
 
   /** Initialize / reinitialize BetSlider with current player balance as max */
