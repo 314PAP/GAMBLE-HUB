@@ -109,15 +109,21 @@ export class ExplorerManager {
         const resultTypeClass = isWin ? "text-[var(--neon-green)]" : "text-[var(--neon-pink)]";
         const resultTypeText = isWin ? "Výhra" : "Prohra";
 
-        // Compact Detaily: show count of symbols (×3 🍒) not winning line count
+        // Compact Detaily: show count of symbols (×3 7️⃣) not winning line count
         // Extract ×N multiplier and use as prefix, drop line-count prefix
         const compactResult = cleanResult
           ? (() => {
               const parts = cleanResult.split(":")[0].trim();
-              // Match "N× symbol×M" or "N× symbol" (multiplier M on cherries per line)
+
+              // Jackpot: show just the 777 symbol with count
+              if (parts.includes("JACKPOT")) {
+                return "3× 7️⃣";
+              }
+
+              // Match "N× symbol×M" or "N× symbol" (multiplier M on symbols per line)
               const m = parts.match(/\d+×\s+(.+?)(?:×(\d+))?$/);
               if (m) {
-                const count = m[2] || "1";
+                const count = m[2] || "3";
                 const symbol = m[1].trim();
                 const mapped = SYMBOL_REVERSE_MAP[symbol] || symbol;
                 return `${count}× ${mapped}`;
