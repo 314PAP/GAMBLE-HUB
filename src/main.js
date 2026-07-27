@@ -217,7 +217,8 @@ if ('serviceWorker' in navigator) {
   const registerSW = async () => {
     try {
       const swPath = `${import.meta.env.BASE_URL}sw.js`;
-      const registration = await navigator.serviceWorker.register(swPath, { scope: '/' });
+      const baseUrl = import.meta.env.BASE_URL || '/';
+      const registration = await navigator.serviceWorker.register(swPath, { scope: baseUrl });
       
       // Check for updates every 4 hours
       const checkForUpdates = async () => {
