@@ -20,6 +20,7 @@ import { GlobalEventHandlers } from './events/globalHandlers.js';
 console.debug('[DEBUG] location.href =', location.href);
 console.debug('[DEBUG] import.meta.env.BASE_URL =', import.meta.env.BASE_URL);
 console.debug('[DEBUG] VITE_BASE =', import.meta.env.VITE_BASE);
+console.debug('[DEBUG] sw path =', `${import.meta.env.BASE_URL}sw.js`);
 
 const db = new GameDatabase();
 const api = new API(db);

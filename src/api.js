@@ -10,6 +10,11 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
+console.debug('[Firebase] env apiKey=', Boolean(import.meta.env.VITE_FIREBASE_API_KEY));
+console.debug('[Firebase] env authDomain=', Boolean(import.meta.env.VITE_FIREBASE_AUTH_DOMAIN));
+console.debug('[Firebase] env projectId=', Boolean(import.meta.env.VITE_FIREBASE_PROJECT_ID));
+console.debug('[Firebase] config=', JSON.stringify({ ...firebaseConfig, apiKey: firebaseConfig.apiKey ? '***' : '' }));
+
 const isFirebaseConfigured = Boolean(
   firebaseConfig.apiKey &&
   firebaseConfig.authDomain &&
