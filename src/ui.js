@@ -326,7 +326,10 @@ export class GameUI {
       return;
     }
 
-    const effectiveGameId = gameId ?? this._lastInfoGameId ?? 1;
+    let effectiveGameId = gameId;
+    if (effectiveGameId == null) {
+      effectiveGameId = this._lastInfoGameId ?? 1;
+    }
     this._lastInfoGameId = effectiveGameId;
 
     const info = GAME_INFOS[effectiveGameId];

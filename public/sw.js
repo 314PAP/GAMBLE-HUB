@@ -35,7 +35,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch - stale-while-revalidate for better UX
+// Fetch - cache first, fallback to network, then offline page
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
@@ -45,23 +45,23 @@ self.addEventListener('fetch', (event) => {
   }
 
   event.respondWith(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.match(request).then((cached) => {
-        const fetchPromise = fetch(request).then((response) => {
-          if (response && response.status === 200) {
-            const clone = response.clone();
+    caches.match(request).then((cached) => {
+      const networkPromise = fetch(request).then((response) => {
+        if (response && response.status === 200 && response.type !== 'opaque') {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
             cache.put(request, clone);
-          }
-          return response;
-        }).catch(() => {
-          if (request.headers.get('accept')?.includes('text/html')) {
-            return caches.match('/offline.html');
-          }
-          return cached;
-        });
-
-        return cached || fetchPromise;
+          });
+        }
+        return response;
+      }).catch(() => {
+        if (request.headers.get('accept')?.includes('text/html')) {
+          return caches.match('/offline.html');
+        }
+        return cached;
       });
+
+      return cached || networkPromise;
     })
   );
 });
