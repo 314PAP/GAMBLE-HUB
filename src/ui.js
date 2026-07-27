@@ -4,6 +4,7 @@ import gsap from "gsap";
 import DOMPurify from "dompurify";
 
 import { animateScreenIn } from "./animations/ui.js";
+import { initInfoToggleAnimations, epilepticFlash, stopEpilepticFlash, animatePanelOpen, stopPanelAnimation } from "./animations/infoToggle.js";
 import { GAME_INFOS } from "./ui/gameInfo.js";
 import { LeaderboardManager } from "./ui/Leaderboard.js";
 import { ExplorerManager } from "./ui/Explorer.js";
@@ -30,6 +31,9 @@ export class GameUI {
     this.stats = new StatsManager(this);
     this.accounts = new AccountsManager(this);
     this.deleteConfirm = new DeleteConfirmDialog(this);
+
+    // Initialize GSAP info toggle animations
+    initInfoToggleAnimations();
   }
 
   // Transitions between screens with a fade effect
@@ -345,6 +349,10 @@ export class GameUI {
     panel.classList.remove("hidden");
     btn.classList.add("is-pressed");
     panel.classList.add("is-open");
+
+    // Trigger GSAP animations
+    epilepticFlash(btn);
+    animatePanelOpen(panel);
   }
 
   zavriInfoPanel() {
@@ -358,6 +366,10 @@ export class GameUI {
     if (btn) {
       btn.classList.remove("is-pressed");
     }
+
+    // Stop GSAP animations and reset
+    stopEpilepticFlash(btn);
+    stopPanelAnimation(panel);
   }
 
   openExplorer() {

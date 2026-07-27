@@ -213,9 +213,17 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
   }
   requestAnimationFrame(updateFPS);
 }
-if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator && !import.meta.env.DEV) {
   const registerSW = async () => {
     try {
+      // Clean up stale SWs from previous sessions with different scopes
+      const existingRegistrations = await navigator.serviceWorker.getRegistrations();
+      for (const registration of existingRegistrations) {
+        if (registration.scope !== `${window.location.origin}/`) {
+          await registration.unregister();
+        }
+      }
+
       const swPath = `${import.meta.env.BASE_URL}sw.js`;
       const baseUrl = import.meta.env.BASE_URL || '/';
       const registration = await navigator.serviceWorker.register(swPath, { scope: baseUrl });

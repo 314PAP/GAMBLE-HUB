@@ -58,7 +58,7 @@ self.addEventListener('fetch', (event) => {
         if (request.headers.get('accept')?.includes('text/html')) {
           return caches.match('/offline.html');
         }
-        return cached;
+        return new Response('Offline', { status: 503, statusText: 'Service Unavailable' });
       });
 
       return cached || networkPromise;

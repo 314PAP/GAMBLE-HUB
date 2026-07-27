@@ -95,18 +95,6 @@
   backdrop-filter: blur(18px);
 }
 
-.info-panel.is-open {
-  animation: epileptic-panel-bg 0.4s linear infinite;
-}
-
-@keyframes epileptic-panel-bg {
-  0% { background: rgba(2, 2, 5, 0.92); }
-  25% { background: rgba(5, 0, 10, 0.92); }
-  50% { background: rgba(0, 5, 10, 0.92); }
-  75% { background: rgba(10, 0, 5, 0.92); }
-  100% { background: rgba(2, 2, 5, 0.92); }
-}
-
 .info-panel-content {
   background: #0a0a14;
   border: 2px solid #1a1a2e;
@@ -117,7 +105,6 @@
 
 .info-panel.is-open .info-panel-content {
   border-width: 3px;
-  animation: epileptic-panel-border 0.3s linear infinite;
 }
 
 .info-panel-header span {
@@ -283,111 +270,6 @@
   border-color: #ff9f1c;
   color: #ff9f1c;
   filter: drop-shadow(0 0 6px rgba(255, 159, 28, 0.8));
-}
-
-/* Epileptic neon flash for info toggle */
-.btn-info-toggle.is-pressed,
-.btn-info-toggle:active {
-  animation: epileptic-neon-flash 0.15s linear infinite;
-  border-color: #fff;
-  z-index: 10;
-  transition: none;
-  outline: none;
-}
-
-@keyframes epileptic-neon-flash {
-  0% {
-    border-color: #ff0000;
-    color: #ff0000;
-    box-shadow: 0 0 20px #ff0000, inset 0 0 10px #ff0000;
-    filter: drop-shadow(0 0 12px #ff0000);
-    transform: scale(1.2);
-  }
-  16% {
-    border-color: #ff8800;
-    color: #ff8800;
-    box-shadow: 0 0 20px #ff8800, inset 0 0 10px #ff8800;
-    filter: drop-shadow(0 0 12px #ff8800);
-    transform: scale(1.2);
-  }
-  33% {
-    border-color: #ffff00;
-    color: #ffff00;
-    box-shadow: 0 0 20px #ffff00, inset 0 0 10px #ffff00;
-    filter: drop-shadow(0 0 12px #ffff00);
-    transform: scale(1.2);
-  }
-  50% {
-    border-color: #00ff00;
-    color: #00ff00;
-    box-shadow: 0 0 20px #00ff00, inset 0 0 10px #00ff00;
-    filter: drop-shadow(0 0 12px #00ff00);
-    transform: scale(1.2);
-  }
-  66% {
-    border-color: #00ffff;
-    color: #00ffff;
-    box-shadow: 0 0 20px #00ffff, inset 0 0 10px #00ffff;
-    filter: drop-shadow(0 0 12px #00ffff);
-    transform: scale(1.2);
-  }
-  83% {
-    border-color: #8855ff;
-    color: #8855ff;
-    box-shadow: 0 0 20px #8855ff, inset 0 0 10px #8855ff;
-    filter: drop-shadow(0 0 12px #8855ff);
-    transform: scale(1.2);
-  }
-  100% {
-    border-color: #ff0000;
-    color: #ff0000;
-    box-shadow: 0 0 20px #ff0000, inset 0 0 10px #ff0000;
-    filter: drop-shadow(0 0 12px #ff0000);
-    transform: scale(1.2);
-  }
-}
-
-/* Info panel epileptic border */
-.info-panel.is-open {
-  animation: epileptic-panel-border 0.3s linear infinite;
-}
-
-@keyframes epileptic-panel-border {
-  0% {
-    border-color: #ff0000;
-    box-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
-  }
-  16% {
-    border-color: #ff8800;
-    box-shadow: 0 0 20px #ff8800, 0 0 40px #ff8800;
-  }
-  33% {
-    border-color: #ffff00;
-    box-shadow: 0 0 20px #ffff00, 0 0 40px #ffff00;
-  }
-  50% {
-    border-color: #00ff00;
-    box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00;
-  }
-  66% {
-    border-color: #00ffff;
-    box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
-  }
-  83% {
-    border-color: #8855ff;
-    box-shadow: 0 0 20px #8855ff, 0 0 40px #8855ff;
-  }
-  100% {
-    border-color: #ff0000;
-    box-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
-  }
-}
-
-/* Additive epilepsy safety: respects user motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  .info-panel.is-open {
-    animation: none;
-  }
 }
 
 /* Explorer modal overrides */
