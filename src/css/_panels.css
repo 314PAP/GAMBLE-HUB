@@ -299,42 +299,49 @@
     color: #ff0000;
     box-shadow: 0 0 20px #ff0000, inset 0 0 10px #ff0000;
     filter: drop-shadow(0 0 12px #ff0000);
+    transform: scale(1.2);
   }
   16% {
     border-color: #ff8800;
     color: #ff8800;
     box-shadow: 0 0 20px #ff8800, inset 0 0 10px #ff8800;
     filter: drop-shadow(0 0 12px #ff8800);
+    transform: scale(1.2);
   }
   33% {
     border-color: #ffff00;
     color: #ffff00;
     box-shadow: 0 0 20px #ffff00, inset 0 0 10px #ffff00;
     filter: drop-shadow(0 0 12px #ffff00);
+    transform: scale(1.2);
   }
   50% {
     border-color: #00ff00;
     color: #00ff00;
     box-shadow: 0 0 20px #00ff00, inset 0 0 10px #00ff00;
     filter: drop-shadow(0 0 12px #00ff00);
+    transform: scale(1.2);
   }
   66% {
     border-color: #00ffff;
     color: #00ffff;
     box-shadow: 0 0 20px #00ffff, inset 0 0 10px #00ffff;
     filter: drop-shadow(0 0 12px #00ffff);
+    transform: scale(1.2);
   }
   83% {
     border-color: #8855ff;
     color: #8855ff;
     box-shadow: 0 0 20px #8855ff, inset 0 0 10px #8855ff;
     filter: drop-shadow(0 0 12px #8855ff);
+    transform: scale(1.2);
   }
   100% {
     border-color: #ff0000;
     color: #ff0000;
     box-shadow: 0 0 20px #ff0000, inset 0 0 10px #ff0000;
     filter: drop-shadow(0 0 12px #ff0000);
+    transform: scale(1.2);
   }
 }
 

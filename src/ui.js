@@ -318,18 +318,18 @@ export class GameUI {
 
   toggleInfoPanel(gameId) {
     const panel = document.getElementById("info-panel");
-    if (!panel) return;
-
     const btn = document.getElementById("btn-game-info");
-    if (!btn) return;
+    if (!panel || !btn) return;
 
     if (panel.classList.contains("flex")) {
       this.zavriInfoPanel();
-      btn.classList.remove("is-pressed");
       return;
     }
 
-    const info = GAME_INFOS[gameId];
+    const effectiveGameId = gameId ?? this._lastInfoGameId ?? 1;
+    this._lastInfoGameId = effectiveGameId;
+
+    const info = GAME_INFOS[effectiveGameId];
     if (!info) return;
 
     const titleEl = document.getElementById("info-panel-title");
