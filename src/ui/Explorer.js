@@ -100,14 +100,13 @@ export class ExplorerManager {
         const resultTypeClass = isWin ? "text-[var(--neon-green)]" : "text-[var(--neon-pink)]";
         const resultTypeText = isWin ? "Výhra" : "Prohra";
 
-        // Compact Detaily: emoji + brief type, emojis same size as coin
+        // Compact Detaily: show only what fell, no win amount suffix
         const compactResult = cleanResult
           ? cleanResult
-              .replace(/\d+[→\s]*/gi, "")
-              .replace(/×[\d.]+/i, "")
+              .split(":")[0]
+              .replace(/×[\d.]+$/, "")
               .trim()
           : "";
-        const resultEmojiStyle = "w-[1.1em] h-[1.1em] inline-flex items-center flex-shrink-0";
         return `
         <tr class="history-row group border-b border-[rgba(255,255,255,0.06)] last:border-b-0 hover:bg-[rgba(189,0,255,0.1)] transition-colors">
           <td class="px-2 py-1.5 text-[clamp(10px,2vw,12px)] font-semibold text-[var(--neon-gold)] truncate">${wrapEmoji(escapeHtml(item.username))}</td>
