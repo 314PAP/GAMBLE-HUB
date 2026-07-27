@@ -32,8 +32,8 @@ export class StatsManager {
             ? `
         <div class="mb-2">
           <div class="stats-progress">
-            ${winPct > 0 ? `<div class="stats-progress-win" style="width:${winPct}%">${winPct >= 15 ? `✓ ${winRate}%` : ''}</div>` : ''}
-            ${winPct < 100 ? `<div class="stats-progress-loss" style="width:${100 - winPct}%">${100 - winPct >= 15 ? `✗ ${lossRate}%` : ''}</div>` : ''}
+            ${winPct > 0 ? `<div class="stats-progress-win" style="width:${winPct}%">${winPct >= 15 ? `✓ ${winRate}%` : ""}</div>` : ""}
+            ${winPct < 100 ? `<div class="stats-progress-loss" style="width:${100 - winPct}%">${100 - winPct >= 15 ? `✗ ${lossRate}%` : ""}</div>` : ""}
           </div>
           <div class="stats-footer">
             <span style="color:#39ff14">✓ ${stats.vyhry} výher</span>

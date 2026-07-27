@@ -57,8 +57,8 @@ export class LeaderboardManager {
 
     let html = "";
     const medals = ["🥇", "🥈", "🥉"];
-     data.forEach((record, _idx) => {
-       const originalIdx = this.ui.leaderboardData.findIndex((r) => r.jmeno === record.jmeno);
+    data.forEach((record, _idx) => {
+      const originalIdx = this.ui.leaderboardData.findIndex((r) => r.jmeno === record.jmeno);
       const medal = medals[originalIdx] || `#${originalIdx + 1}`;
 
       html += `

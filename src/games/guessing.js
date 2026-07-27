@@ -25,7 +25,7 @@ export class GuessingGame {
     }
 
     // Classic roulette number colors
-    const redNums = [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
+    const redNums = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
 
     for (let i = min; i <= max; i++) {
       const btn = document.createElement("button");
@@ -102,7 +102,7 @@ export class GuessingGame {
           onComplete({
             isWin,
             winAmount,
-            resultText: `Tvá volba: ${selectedNum} | Padlo: ${winningNum}`,
+            resultText: `${winningNum}`,
           });
         });
       },

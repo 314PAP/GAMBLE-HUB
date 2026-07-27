@@ -133,7 +133,7 @@ export class ExplorerManager {
           : "";
         return `
         <tr class="history-row group border-b border-[rgba(255,255,255,0.06)] last:border-b-0 hover:bg-[rgba(189,0,255,0.1)] transition-colors">
-          <td class="px-2 py-1.5 text-[clamp(10px,2vw,12px)] font-semibold text-[var(--neon-gold)] truncate">${wrapEmoji(escapeHtml(item.username))}</td>
+          <td class="px-2 py-1.5 text-[clamp(10px,2vw,12px)] font-semibold text-[var(--neon-gold)] truncate text-center">${wrapEmoji(escapeHtml(item.username))}</td>
           <td class="px-2 py-1.5 text-[clamp(9px,1.5vw,11px)] text-[var(--text-primary)] whitespace-nowrap text-center">${escapeHtml(gameLabel)}</td>
           <td class="px-2 py-1.5 text-[clamp(10px,2vw,12px)] font-bold text-center whitespace-nowrap ${winClass}">
             <span class="inline-flex items-center gap-1.5">${formattedWin}<span class="coin-icon-table w-[1.1em] h-[1.1em] inline-flex items-center flex-shrink-0">${coinSvg}</span></span>
@@ -149,19 +149,19 @@ export class ExplorerManager {
       <table class="w-full text-[var(--text-primary)] border-collapse explorer-history-table text-[clamp(10px,2vw,12px)]" role="table" aria-label="Historie her">
         <thead>
           <tr class="text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] uppercase font-bold tracking-wider border-b border-[rgba(189,0,255,0.2)]">
-            <th class="px-2 py-1.5 text-left w-[25%]">
+            <th class="px-2 py-1.5 text-center w-[20%]">
               <button onclick="seradHistorii('username')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Hráč ⇅</button>
             </th>
-            <th class="px-2 py-1.5 text-center w-[10%]">
+            <th class="px-2 py-1.5 text-center w-[20%]">
               <button onclick="seradHistorii('gameName')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Hra ⇅</button>
             </th>
-            <th class="px-2 py-1.5 text-center w-[15%]">
+            <th class="px-2 py-1.5 text-center w-[20%]">
               <button onclick="seradHistorii('winAmount')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Výhra ⇅</button>
             </th>
-            <th class="px-2 py-1.5 text-center w-[10%]">
+            <th class="px-2 py-1.5 text-center w-[20%]">
               <button onclick="seradHistorii('isWin')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Typ ⇅</button>
             </th>
-            <th class="px-2 py-1.5 text-center w-[40%]">
+            <th class="px-2 py-1.5 text-center w-[20%]">
               <button onclick="seradHistorii('resultText')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Detaily ⇅</button>
             </th>
           </tr>

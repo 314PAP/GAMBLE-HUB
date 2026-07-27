@@ -70,7 +70,7 @@ export class DiceGame {
         onComplete({
           isWin,
           winAmount: isWin ? 6 : 0,
-          resultText: `Tvá volba: ${this.selectedNumber} | Padlo: ${finalValue}`,
+          resultText: `${finalValue}`,
           selectedNum: this.selectedNumber,
           diceValue: finalValue,
         });
