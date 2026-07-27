@@ -383,8 +383,6 @@
 
 /* Additive epilepsy safety: respects user motion preferences */
 @media (prefers-reduced-motion: reduce) {
-  .btn-info-toggle.is-pressed,
-  .btn-info-toggle:active,
   .info-panel.is-open {
     animation: none;
   }
