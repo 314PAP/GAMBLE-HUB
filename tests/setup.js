@@ -26,6 +26,9 @@ globalThis.document = {
     innerHTML: '',
     appendChild: vi.fn(),
     setAttribute: vi.fn(),
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    style: { width: '', left: '' },
   })),
   dispatchEvent: vi.fn(),
 };
