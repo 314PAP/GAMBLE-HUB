@@ -92,18 +92,18 @@ export class HiloGame {
           onComplete({
             isWin,
             winAmount,
-            resultText: `<span style="color:#ff4060">${originalNumber} → ${nextNumber}</span><br><span style="color:#ff4060;font-weight:bold">×${multiplier.toFixed(2)}</span>`,
+            resultText: `<span class="hilo-result-number">${originalNumber} → ${nextNumber}</span><br><span class="hilo-result-multiplier">×${multiplier.toFixed(2)}</span>`,
           });
         },
       });
     } else {
       this.currentNumber = nextNumber;
       this.isAnimating = false;
-      onComplete({
-        isWin,
-        winAmount,
-        resultText: `<span style="color:#ff4060">${originalNumber} → ${nextNumber}</span><br><span style="color:#ff4060;font-weight:bold">×${multiplier.toFixed(2)}</span>`,
-      });
+        onComplete({
+          isWin,
+          winAmount,
+          resultText: `<span class="hilo-result-number">${originalNumber} → ${nextNumber}</span><br><span class="hilo-result-multiplier">×${multiplier.toFixed(2)}</span>`,
+        });
     }
   }
 }

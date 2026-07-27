@@ -52,3 +52,12 @@
 .hilo-btns .btn-danger {
   width: auto;
 }
+
+/* Hi-Lo result text colors (used instead of inline styles) */
+.hilo-result-number {
+  color: #ff4060;
+}
+.hilo-result-multiplier {
+  color: #ff4060;
+  font-weight: bold;
+}
