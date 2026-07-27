@@ -92,7 +92,7 @@ export class HiloGame {
           onComplete({
             isWin,
             winAmount,
-            resultText: `<span class="hilo-result-number">${originalNumber} → ${nextNumber}</span><br><span class="hilo-result-multiplier text-base sm:text-lg md:text-xl">×${multiplier.toFixed(2)}</span>`,
+            resultText: `<span class="hilo-result-number text-[var(--neon-gold)] text-sm sm:text-base md:text-lg font-bold">${originalNumber} → ${nextNumber}</span><br><span class="hilo-result-multiplier text-base sm:text-lg md:text-xl">×${multiplier.toFixed(2)}</span>`,
           });
         },
       });
@@ -102,7 +102,7 @@ export class HiloGame {
       onComplete({
         isWin,
         winAmount,
-        resultText: `<span class="hilo-result-number">${originalNumber} → ${nextNumber}</span><br><span class="hilo-result-multiplier text-base sm:text-lg md:text-xl">×${multiplier.toFixed(2)}</span>`,
+        resultText: `<span class="hilo-result-number text-[var(--neon-gold)] text-sm sm:text-base md:text-lg font-bold">${originalNumber} → ${nextNumber}</span><br><span class="hilo-result-multiplier text-base sm:text-lg md:text-xl">×${multiplier.toFixed(2)}</span>`,
       });
     }
   }

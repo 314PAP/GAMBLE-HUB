@@ -55,7 +55,7 @@
 
 /* Hi-Lo result text colors (used instead of inline styles) */
 .hilo-result-number {
-  color: #ff4060;
+  /* color and size handled via Tailwind classes in hilo.js */
 }
 .hilo-result-multiplier {
   color: #ff4060;
