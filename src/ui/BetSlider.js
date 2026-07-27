@@ -296,11 +296,11 @@ export class BetSlider {
   destroy() {
     this._stopHold();
     if (this._docPointerUp) {
-      document.removeEventListener("pointerup", this._docPointerUp);
+      document.removeEventListener('pointerup', this._docPointerUp);
     }
     if (this._docPointerCancel) {
-      document.removeEventListener("pointercancel", this._docPointerCancel);
+      document.removeEventListener('pointercancel', this._docPointerCancel);
     }
-    this.container.innerHTML = "";
+    this.container.innerHTML = '';
   }
 }

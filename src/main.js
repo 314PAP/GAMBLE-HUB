@@ -131,4 +131,26 @@ window.zavriAbbrevModal = function () {
    if (modal) modal.classList.add('hidden');
 };
 
+window.addEventListener('error', (event) => {
+  if (event.filename && event.filename.includes('games/')) {
+    console.error('Game module loading error:', event.error);
+    const gameArea = document.getElementById('game-area');
+    if (gameArea) {
+      gameArea.innerHTML = `
+        <div class="text-center p-4">
+          <h2 class="text-[var(--neon-red)] text-glow-red mb-2">Chyba načítání hry</h2>
+          <p class="text-text-muted">Nepodařilo se načíst herní modul. Zkuste obnovit stránku.</p>
+          <button onclick="location.reload()" class="btn btn-primary mt-4">Obnovit stránku</button>
+        </div>
+      `;
+    }
+  }
+});
+
+window.addEventListener('unhandledrejection', (event) => {
+  if (event.reason && event.reason.message && event.reason.message.includes('game')) {
+    console.error('Unhandled game module error:', event.reason);
+  }
+});
+
 

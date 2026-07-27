@@ -59,21 +59,37 @@ export class GameManager {
   static SPLASH_DURATION_MS = 2000;
 
   async _ensureGameModules() {
-    if (this._gameModulesLoaded) return;
+    if (this._gameModulesLoaded) return true;
     
-    const [slotsModule, hiloModule, guessingModule, diceModule] = await Promise.all([
-      import('./games/slots.js'),
-      import('./games/hilo.js'),
-      import('./games/guessing.js'),
-      import('./games/dice.js'),
-    ]);
+    const MAX_RETRIES = 2;
+    const RETRY_DELAY = 500;
     
-    this.slots = new slotsModule.SlotMachineGame(this.symbols, this.winningLines);
-    this.hilo = new hiloModule.HiloGame();
-    this.guessing = new guessingModule.GuessingGame();
-    this.dice = new diceModule.DiceGame();
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+      try {
+        const [slotsModule, hiloModule, guessingModule, diceModule] = await Promise.all([
+          import('./games/slots.js'),
+          import('./games/hilo.js'),
+          import('./games/guessing.js'),
+          import('./games/dice.js'),
+        ]);
+        
+        this.slots = new slotsModule.SlotMachineGame(this.symbols, this.winningLines);
+        this.hilo = new hiloModule.HiloGame();
+        this.guessing = new guessingModule.GuessingGame();
+        this.dice = new diceModule.DiceGame();
+        
+        this._gameModulesLoaded = true;
+        return true;
+      } catch (error) {
+        console.error(`Failed to load game modules (attempt ${attempt}/${MAX_RETRIES}):`, error);
+        if (attempt < MAX_RETRIES) {
+          await new Promise(resolve => setTimeout(resolve, RETRY_DELAY));
+        }
+      }
+    }
     
-    this._gameModulesLoaded = true;
+    this.ui.showAlert('error', 'Chyba načítání', 'Nepodařilo se načíst herní moduly. Obnovte stránku.');
+    return false;
   }
 
   setCurrentPlayer(username) {
@@ -293,6 +309,9 @@ export class GameManager {
 
 // Play Dice game
   async playDiceGame() {
+    const modulesLoaded = await this._ensureGameModules();
+    if (!modulesLoaded) return;
+    
     if (!this._startRound()) return;
     if (this.dice.selectedNumber === null) {
       this.ui.showAlert('warning', 'Vyber číslo', 'Nejprve klikni na kostku, na kterou vsadíš!');
@@ -312,6 +331,9 @@ export class GameManager {
 
   // Play numeric guessing games
   async playGuessingGame(selectedNum, min, max, multiplier, gameName) {
+    const modulesLoaded = await this._ensureGameModules();
+    if (!modulesLoaded) return;
+    
     if (!this._startRound()) return;
 
     this.ui.resetNumberButtons();
@@ -327,6 +349,8 @@ export class GameManager {
 
   // Play Hi-Lo card game
   async playHilo(tip) {
+    const modulesLoaded = await this._ensureGameModules();
+    if (!modulesLoaded) return;
     if (this.hilo.isAnimating) return;
     if (!this._startRound()) return;
 
@@ -341,6 +365,9 @@ export class GameManager {
 
 // Spin slots
   async playSlots() {
+    const modulesLoaded = await this._ensureGameModules();
+    if (!modulesLoaded) return;
+    
     if (this.slots.isSpinning) return;
     if (!this._startRound()) return;
        
@@ -398,27 +425,31 @@ export class GameManager {
   }
 
   // Handles Slot Machine Autoplay toggling
-  toggleAutoPlay() {
+  async toggleAutoPlay() {
     const autoBtn = document.getElementById('btn-auto-slots');
     if (this.autoPlayInterval) {
       this.stopAutoPlay();
-    } else {
-      if (!this.preGameChecks()) return;
-
-      autoBtn.classList.add('active');
-      autoBtn.innerHTML = '<span class="icon-node"></span> STOP';
-
-      this.playSlots(); // Play first turn immediately
-
-      this.autoPlayInterval = setInterval(() => {
-        const balance = this.db.getPlayerBalance(this.currentPlayer);
-        if (balance >= this.activeBet && !this.slots.isSpinning) {
-          this.playSlots();
-        } else if (balance < this.activeBet) {
-          this.stopAutoPlay();
-        }
-      }, GameManager.AUTOPLAY_INTERVAL_MS); // Fast autoplay loop
+      return;
     }
+
+    const modulesLoaded = await this._ensureGameModules();
+    if (!modulesLoaded) return;
+    
+    if (!this.preGameChecks()) return;
+
+    autoBtn.classList.add('active');
+    autoBtn.innerHTML = '<span class="icon-node"></span> STOP';
+
+    this.playSlots(); // Play first turn immediately
+
+    this.autoPlayInterval = setInterval(() => {
+      const balance = this.db.getPlayerBalance(this.currentPlayer);
+      if (balance >= this.activeBet && !this.slots.isSpinning) {
+        this.playSlots();
+      } else if (balance < this.activeBet) {
+        this.stopAutoPlay();
+      }
+    }, GameManager.AUTOPLAY_INTERVAL_MS); // Fast autoplay loop
   }
 
   stopAutoPlay() {
