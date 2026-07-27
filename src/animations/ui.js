@@ -52,8 +52,8 @@ export function initIdlePulse(element) {
 export function animateScreenIn(element) {
   gsap.fromTo(
     element,
-    { opacity: 0, y: 10 },
-    { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+    { opacity: 0, y: 12, scale: 0.98 },
+    { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" },
   );
 }
 

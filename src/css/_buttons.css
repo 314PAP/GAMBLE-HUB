@@ -46,6 +46,16 @@
     inset 2px 2px 0px rgba(0, 0, 0, 0.6);
 }
 
+.btn:active,
+.btn.is-pressed {
+  border-color: var(--neon-gold);
+  box-shadow:
+    0 0 18px var(--neon-gold-glow),
+    0 1px 4px rgba(0, 0, 0, 0.6),
+    inset 2px 2px 0px rgba(255, 255, 255, 0.25),
+    inset -2px -2px 0px rgba(0, 0, 0, 0.5);
+}
+
 .btn:disabled,
 .btn:disabled:hover {
   opacity: 0.35;

@@ -185,6 +185,29 @@ export class GameUI {
           delay: 2.55,
         }, 0);
       }
+
+      if (isJackpot) {
+        tl.to(resBox, {
+          scale: 1.08,
+          duration: 0.35,
+          ease: 'power2.out',
+          delay: 1.8,
+        }, 0)
+        .to(resBox, {
+          x: 3,
+          duration: 0.06,
+          repeat: 6,
+          yoyo: true,
+          ease: 'none',
+          delay: 2.15,
+        }, 0)
+        .to(resBox, {
+          scale: 1.03,
+          duration: 0.25,
+          ease: 'power1.inOut',
+          delay: 2.5,
+        }, 0);
+      }
     }
   }
 

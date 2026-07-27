@@ -20,6 +20,20 @@ export class HiloGame {
   init() {
     this.currentNumber = Math.floor(Math.random() * 8) + 2;
     this.updateCardDisplay(this.currentNumber);
+    this._initIdleCardPulse();
+  }
+
+  _initIdleCardPulse() {
+    const card = document.getElementById("hilo-current-card");
+    if (!card) return;
+    gsap.killTweensOf(card);
+    gsap.to(card, {
+      scale: 1.04,
+      duration: 1.6,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+    });
   }
 
   updateCardDisplay(num) {
