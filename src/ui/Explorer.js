@@ -130,38 +130,30 @@ export class ExplorerManager {
             })()
           : "";
         return `
-        <tr class="history-row group border-b border-[rgba(255,255,255,0.06)] last:border-b-0 hover:bg-[rgba(189,0,255,0.1)] transition-colors">
-          <td class="px-2 py-1.5 text-[clamp(10px,2vw,12px)] font-semibold text-[var(--neon-gold)] truncate text-center">${wrapEmoji(escapeHtml(item.username))}</td>
-          <td class="px-2 py-1.5 text-[clamp(9px,1.5vw,11px)] text-[var(--text-primary)] whitespace-nowrap text-center">${escapeHtml(gameLabel)}</td>
-          <td class="px-2 py-1.5 text-[clamp(10px,2vw,12px)] font-bold text-center whitespace-nowrap ${winClass}">
-            <span class="inline-flex items-center gap-1.5">${formattedWin}<span class="coin-icon-table w-[1.1em] h-[1.1em] inline-flex items-center flex-shrink-0">${coinSvg}</span></span>
-          </td>
-          <td class="px-2 py-1.5 text-[clamp(10px,2vw,12px)] text-[var(--text-secondary)] font-mono whitespace-nowrap text-center">${isWin ? escapeHtml(compactResult) : "—"}</td>
-        </tr>
+        <div class="history-row group border-b border-[rgba(255,255,255,0.06)] last:border-b-0 hover:bg-[rgba(189,0,255,0.1)] transition-colors">
+          <div class="flex flex-col sm:grid sm:grid-cols-[1fr_1fr_1fr_1fr] gap-1 sm:gap-2 px-2 py-1.5 text-[clamp(10px,2vw,12px)]">
+            <div class="sm:text-center font-semibold text-[var(--neon-gold)] truncate">${wrapEmoji(escapeHtml(item.username))}</div>
+            <div class="sm:text-center text-[var(--text-primary)]">${escapeHtml(gameLabel)}</div>
+            <div class="sm:text-center font-bold whitespace-nowrap ${winClass}">
+              <span class="inline-flex items-center gap-1">${formattedWin}<span class="coin-icon-table w-[1.1em] h-[1.1em] inline-flex items-center flex-shrink-0">${coinSvg}</span></span>
+            </div>
+            <div class="sm:text-center text-[var(--text-secondary)] font-mono text-[10px] sm:text-[clamp(10px,2vw,12px)]">${isWin ? escapeHtml(compactResult) : "—"}</div>
+          </div>
+        </div>
       `;
       })
       .join("");
 
     list.innerHTML = `
-      <table class="w-full text-[var(--text-primary)] border-collapse explorer-history-table text-[clamp(10px,2vw,12px)]" role="table" aria-label="Historie her">
-        <thead>
-          <tr class="text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] uppercase font-bold tracking-wider border-b border-[rgba(189,0,255,0.2)]">
-            <th class="px-2 py-1.5 text-center w-[25%]">
-              <button onclick="seradHistorii('username')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Hráč ⇅</button>
-            </th>
-            <th class="px-2 py-1.5 text-center w-[25%]">
-              <button onclick="seradHistorii('gameName')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Hra ⇅</button>
-            </th>
-            <th class="px-2 py-1.5 text-center w-[25%]">
-              <button onclick="seradHistorii('winAmount')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Výhra ⇅</button>
-            </th>
-            <th class="px-2 py-1.5 text-center w-[25%]">
-              <button onclick="seradHistorii('resultText')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Detaily ⇅</button>
-            </th>
-          </tr>
-        </thead>
-        <tbody>${rows}</tbody>
-      </table>
+      <div class="explorer-history-list w-full" role="list" aria-label="Historie her">
+        <div class="hidden sm:grid grid-cols-[1fr_1fr_1fr_1fr] gap-2 px-2 py-1.5 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] uppercase font-bold tracking-wider border-b border-[rgba(189,0,255,0.2)] mb-1">
+          <div class="text-center">Hráč</div>
+          <div class="text-center">Hra</div>
+          <div class="text-center">Výhra</div>
+          <div class="text-center">Detaily</div>
+        </div>
+        ${rows}
+      </div>
     `;
   }
 
