@@ -1,7 +1,6 @@
 import { vi } from 'vitest';
 
-// tests/setup.js - Global test setup
-
+// LocalStorage mock
 const localStorageMock = (() => {
   let store = {};
   return {
@@ -12,7 +11,26 @@ const localStorageMock = (() => {
   };
 })();
 
-Object.defineProperty(globalThis, 'localStorage', { value: localStorageMock });
+globalThis.localStorage = localStorageMock;
+
+globalThis.document = {
+  addEventListener: vi.fn(),
+  removeEventListener: vi.fn(),
+  getElementById: vi.fn(() => null),
+  querySelectorAll: vi.fn(() => []),
+  createElement: vi.fn(() => ({
+    className: '',
+    classList: { add: vi.fn(), remove: vi.fn() },
+    dataset: {},
+    onclick: null,
+    innerHTML: '',
+    appendChild: vi.fn(),
+    setAttribute: vi.fn(),
+  })),
+  dispatchEvent: vi.fn(),
+};
+
+globalThis.window = {};
 
 // Mock sound.js before any test imports it
 vi.mock('../src/sound.js', () => ({

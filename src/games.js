@@ -1,12 +1,8 @@
 // Game Manager orchestrating bets, autoplay, database updates and game launches
 
 import gsap from 'gsap';
-import { SlotMachineGame } from './games/slots';
-import { HiloGame } from './games/hilo';
-import { GuessingGame } from './games/guessing';
-import { DiceGame } from './games/dice';
-import { sound } from './sound';
-import { animateBetButtonsGlow, stopBetButtonsGlow } from './animations/ui';
+import { sound } from './sound.js';
+import { animateBetButtonsGlow, stopBetButtonsGlow } from './animations/ui.js';
 
 export const DISPLAY_STATES = {
   1: { title: "HÁDANKA 1-10", classic: true, dice: false, slots: false, hilo: false },
@@ -26,6 +22,12 @@ export const GAME_CONFIG = {
   6: { resultBox: 'resBoxHilo', hiloColor: true, label: 'Hi-Low', minVal: 1, maxVal: 6, multVal: 6 },
 };
 
+const gameModules = {
+  3: () => import('./games/dice.js'),
+  5: () => import('./games/slots.js'),
+  6: () => import('./games/hilo.js'),
+};
+
 export class GameManager {
   constructor(db, ui, api) {
     this.db = db;
@@ -36,17 +38,18 @@ export class GameManager {
     this.symbols = ["🍒", "🔔", "🍋", "⭐", "💎", "7️⃣"];
     this.winningLines = [[0,1,2],[3,4,5],[6,7,8],[0,4,8],[2,4,6]];
 
-    // Game Instances
-    this.slots = new SlotMachineGame(this.symbols, this.winningLines);
-    this.hilo = new HiloGame();
-    this.guessing = new GuessingGame();
-    this.dice = new DiceGame();
+    // Game Instances (loaded dynamically)
+    this.slots = null;
+    this.hilo = null;
+    this.guessing = null;
+    this.dice = null;
 
     // Active States
     this.activeGameId = 0; // 1: Guess 1-10, 2: Guess 1-5, 3: Dice, 4: Roulette, 5: Slots, 6: Hi-Lo
     this.activeBet = GameManager.DEFAULT_BET;
     this.autoPlayInterval = null;
     this.currentPlayer = null;
+    this._gameModulesLoaded = false;
   }
 
   // Konstanty
@@ -54,6 +57,24 @@ export class GameManager {
   static DEFAULT_BET = 10;
   static AUTOPLAY_INTERVAL_MS = 700;
   static SPLASH_DURATION_MS = 2000;
+
+  async _ensureGameModules() {
+    if (this._gameModulesLoaded) return;
+    
+    const [slotsModule, hiloModule, guessingModule, diceModule] = await Promise.all([
+      import('./games/slots.js'),
+      import('./games/hilo.js'),
+      import('./games/guessing.js'),
+      import('./games/dice.js'),
+    ]);
+    
+    this.slots = new slotsModule.SlotMachineGame(this.symbols, this.winningLines);
+    this.hilo = new hiloModule.HiloGame();
+    this.guessing = new guessingModule.GuessingGame();
+    this.dice = new diceModule.DiceGame();
+    
+    this._gameModulesLoaded = true;
+  }
 
   setCurrentPlayer(username) {
     this.currentPlayer = username;
@@ -65,7 +86,9 @@ export class GameManager {
   }
 
   // Launches the specified game screen
-  launchGame(gameId) {
+  async launchGame(gameId) {
+    await this._ensureGameModules();
+    
     this.activeGameId = gameId;
     this.stopAutoPlay();
 
@@ -269,60 +292,57 @@ export class GameManager {
   }
 
 // Play Dice game
-   playDiceGame() {
-     if (!this._startRound()) return;
-     if (this.dice.selectedNumber === null) {
-       this.ui.showAlert('warning', 'Vyber číslo', 'Nejprve klikni na kostku, na kterou vsadíš!');
-       return;
-     }
+  async playDiceGame() {
+    if (!this._startRound()) return;
+    if (this.dice.selectedNumber === null) {
+      this.ui.showAlert('warning', 'Vyber číslo', 'Nejprve klikni na kostku, na kterou vsadíš!');
+      return;
+    }
 
-     this.lockGameControls(true);
-     animateBetButtonsGlow();
+    this.lockGameControls(true);
+    animateBetButtonsGlow();
 
-     this.dice.roll((res) => {
-       this.lockGameControls(false);
-       stopBetButtonsGlow();
-       const multiplier = 6;
-       this.processGameResult(res.isWin, res.isWin ? this.activeBet * multiplier : 0, "Kostka", res.resultText);
-       this.dice.clearSelection();
-     });
-   }
+    const res = await this.dice.rollAsync();
+    this.lockGameControls(false);
+    stopBetButtonsGlow();
+    const multiplier = 6;
+    this.processGameResult(res.isWin, res.isWin ? this.activeBet * multiplier : 0, "Kostka", res.resultText);
+    this.dice.clearSelection();
+  }
 
-   // Play numeric guessing games
-   playGuessingGame(selectedNum, min, max, multiplier, gameName) {
-     if (!this._startRound()) return;
+  // Play numeric guessing games
+  async playGuessingGame(selectedNum, min, max, multiplier, gameName) {
+    if (!this._startRound()) return;
 
-     this.ui.resetNumberButtons();
-     this.lockGameControls(true);
-     animateBetButtonsGlow();
+    this.ui.resetNumberButtons();
+    this.lockGameControls(true);
+    animateBetButtonsGlow();
 
-     this.guessing.play(selectedNum, min, max, this.activeBet, multiplier, (res) => {
-       this.lockGameControls(false);
-       stopBetButtonsGlow();
-       this.processGameResult(res.isWin, res.winAmount, gameName, res.resultText);
-       this.ui.resetNumberButtons();
-     });
-   }
+    const res = await this.guessing.playAsync(selectedNum, min, max, this.activeBet, multiplier);
+    this.lockGameControls(false);
+    stopBetButtonsGlow();
+    this.processGameResult(res.isWin, res.winAmount, gameName, res.resultText);
+    this.ui.resetNumberButtons();
+  }
 
-   // Play Hi-Lo card game
-   playHilo(tip) {
-     if (this.hilo.isAnimating) return;
-     if (!this._startRound()) return;
+  // Play Hi-Lo card game
+  async playHilo(tip) {
+    if (this.hilo.isAnimating) return;
+    if (!this._startRound()) return;
 
-     this.lockGameControls(true);
-     animateBetButtonsGlow();
+    this.lockGameControls(true);
+    animateBetButtonsGlow();
 
-     this.hilo.play(tip, this.activeBet, (res) => {
-       this.lockGameControls(false);
-       stopBetButtonsGlow();
-       this.processGameResult(res.isWin, res.winAmount, "VíceMéně", res.resultText);
-     });
-   }
+    const res = await this.hilo.playAsync(tip, this.activeBet);
+    this.lockGameControls(false);
+    stopBetButtonsGlow();
+    this.processGameResult(res.isWin, res.winAmount, "VíceMéně", res.resultText);
+  }
 
 // Spin slots
-   playSlots() {
-     if (this.slots.isSpinning) return;
-     if (!this._startRound()) return;
+  async playSlots() {
+    if (this.slots.isSpinning) return;
+    if (!this._startRound()) return;
        
       // Animate bet buttons yellow glow during spin (both auto and manual)
       this.lockGameControls(true);
@@ -330,12 +350,11 @@ export class GameManager {
       
       const balance = this.db.getPlayerBalance(this.currentPlayer);
       
-      this.slots.spin(this.activeBet, balance, (res) => {
-        this.lockGameControls(false);
-        // Stop bet buttons glow animation
-        stopBetButtonsGlow();
-        this.processGameResult(res.isWin, res.winAmount, "Bary3x3", res.resultText, res.isJackpot);
-      });
+      const res = await this.slots.spinAsync(this.activeBet, balance);
+      this.lockGameControls(false);
+      // Stop bet buttons glow animation
+      stopBetButtonsGlow();
+      this.processGameResult(res.isWin, res.winAmount, "Bary3x3", res.resultText, res.isJackpot);
     }
 
   // Utility to prevent user clicks on other options during animations

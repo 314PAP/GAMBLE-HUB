@@ -125,6 +125,12 @@ export class SlotMachineGame {
     }
   }
 
+  spinAsync(betAmount, userBalance) {
+    return new Promise((resolve) => {
+      this.spin(betAmount, userBalance, resolve);
+    });
+  }
+
   checkWinnings(betAmount, onComplete) {
     let winAmount = 0;
     const winningCells = new Set();

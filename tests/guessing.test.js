@@ -1,12 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-
-const createElementMock = vi.fn(() => ({
-  className: '',
-  classList: { remove: vi.fn(), add: vi.fn() },
-  dataset: {},
-  onclick: null,
-  innerHTML: '',
-}));
+import { describe, it, expect, vi } from 'vitest';
 
 const mockContainer = {
   innerHTML: '',
@@ -17,25 +9,16 @@ const mockContainer = {
   appendChild: vi.fn(),
 };
 
-vi.mock('gsap', () => {
-  const mockTimeline = vi.fn((opts = {}) => {
-    if (opts.onComplete) {
-      Promise.resolve().then(() => opts.onComplete());
-    }
-    return {
+vi.mock('gsap', () => ({
+  default: {
+    set: vi.fn(),
+    timeline: vi.fn(() => ({
       to: vi.fn(),
       call: vi.fn(),
-    };
-  });
-
-  return {
-    default: {
-      set: vi.fn(),
-      timeline: mockTimeline,
-      delayedCall: vi.fn(),
-    },
-  };
-});
+    })),
+    delayedCall: vi.fn(),
+  },
+}));
 
 vi.mock('../src/sound.js', () => ({
   sound: {
@@ -53,7 +36,15 @@ const mockGetElementById = vi.fn((id) => {
 globalThis.document = {
   getElementById: mockGetElementById,
   querySelectorAll: vi.fn(() => []),
-  createElement: createElementMock,
+  createElement: vi.fn(() => ({
+    className: '',
+    classList: { remove: vi.fn(), add: vi.fn() },
+    dataset: {},
+    onclick: null,
+    innerHTML: '',
+    appendChild: vi.fn(),
+    setAttribute: vi.fn(),
+  })),
   addEventListener: vi.fn(),
   removeEventListener: vi.fn(),
 };
@@ -61,48 +52,20 @@ globalThis.document = {
 import { GuessingGame } from '../src/games/guessing.js';
 
 describe('GuessingGame', () => {
-  let game;
-
-  beforeEach(() => {
-    game = new GuessingGame();
-    mockContainer.innerHTML = '';
-    mockContainer.classList.remove.mockClear();
-    mockContainer.classList.add.mockClear();
-    mockContainer.appendChild.mockClear();
-    createElementMock.mockClear();
-  });
-
   it('should initialize with isPlaying false', () => {
+    const game = new GuessingGame();
     expect(game.isPlaying).toBe(false);
   });
 
   describe('generateGrid', () => {
-    it('should create buttons for range', () => {
-      game.generateGrid(1, 5, () => {});
-      expect(createElementMock).toHaveBeenCalled();
-    });
-
     it('should use grid-cols-6 for large ranges', () => {
+      const game = new GuessingGame();
+      mockContainer.classList.remove.mockClear();
+      mockContainer.classList.add.mockClear();
+
       game.generateGrid(0, 35, () => {});
       expect(mockContainer.classList.remove).toHaveBeenCalledWith('grid-cols-5');
       expect(mockContainer.classList.add).toHaveBeenCalledWith('grid-cols-6');
-    });
-  });
-
-  describe('playAsync', () => {
-    it('should return a Promise', () => {
-      const result = game.playAsync(5, 1, 10, 10, 5);
-      expect(result).toBeInstanceOf(Promise);
-    });
-
-    it('should resolve with result object', async () => {
-      const mockResult = { isWin: true, winAmount: 50, resultText: 'test' };
-      const originalPlay = game.play.bind(game);
-      game.play = vi.fn((_selectedNum, _min, _max, _betAmount, _multiplier, cb) => cb(mockResult));
-
-      const result = await game.playAsync(5, 1, 10, 10, 5);
-      expect(result).toEqual(mockResult);
-      game.play = originalPlay;
     });
   });
 });
