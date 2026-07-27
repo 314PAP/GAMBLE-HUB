@@ -3,11 +3,18 @@ import { formatLargeNumber, COIN_SVG, escapeHtml, wrapEmoji } from "../utils.js"
 const SYMBOL_REVERSE_MAP = {
   Citrony: "🍋",
   Třešně: "🍒",
+  třešně: "🍒",
+  Třešní: "🍒",
+  třešní: "🍒",
   Zvonky: "🔔",
+  zvonky: "🔔",
   Švestky: "🍇",
+  švestky: "🍇",
   Diamanty: "💎",
+  diamanty: "💎",
   Hvězdy: "⭐",
-  777: "7️⃣",
+  hvězdy: "⭐",
+  "777": "7️⃣",
 };
 
 const GAME_LABELS = {
@@ -118,7 +125,7 @@ export class ExplorerManager {
               .replace(/×[\d.]+$/, "")
               .trim()
               .replace(
-                /\b(Citrony|Třešně|Zvonky|Švestky|Diamanty|Hvězdy|777)\b/g,
+                /\b(Citrony|Třešně|třešně|Zvonky|Švestky|Diamanty|Hvězdy|777)\b/gi,
                 (m) => SYMBOL_REVERSE_MAP[m] || m,
               )
           : "";
