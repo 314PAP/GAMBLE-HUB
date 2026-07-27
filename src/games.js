@@ -127,6 +127,10 @@ export class GameManager {
     
     this.activeGameId = gameId;
     this.stopAutoPlay();
+    this.ui.cancelWinConfetti();
+
+    // Kill all running GSAP animations before switching games
+    gsap.globalTimeline.clear();
 
     const balance = this.db.getPlayerBalance(this.currentPlayer);
     this.ui.updateMiniProfile(this.currentPlayer, balance);

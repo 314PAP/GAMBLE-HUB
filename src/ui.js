@@ -22,6 +22,7 @@ export class GameUI {
     this.activeExplorerTab = 'leaderboard';
     this.historySortField = 'timestamp';
     this.historySortAsc = false;
+    this._confettiInterval = null;
 
     this.leaderboard = new LeaderboardManager(this);
     this.explorer = new ExplorerManager(this);
@@ -92,22 +93,24 @@ export class GameUI {
 
   // Confetti effects when winning money
   triggerWinConfetti(isJackpot) {
+    this.cancelWinConfetti();
+
     if (isJackpot) {
       // Massive explosion
-      const duration = 2.5 * 1000;
+      const duration = 2500;
       const animationEnd = Date.now() + duration;
       const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
 
-      const interval = setInterval(function() {
+      this._confettiInterval = setInterval(() => {
         const timeLeft = animationEnd - Date.now();
-
         if (timeLeft <= 0) {
-          return clearInterval(interval);
+          this.cancelWinConfetti();
+          return;
         }
 
-        const particleCount = 50 * (timeLeft / duration);
-        confetti(Object.assign({}, defaults, { particleCount, origin: { x: Math.random() * 0.3, y: Math.random() - 0.2 } }));
-        confetti(Object.assign({}, defaults, { particleCount, origin: { x: Math.random() * 0.3 + 0.7, y: Math.random() - 0.2 } }));
+        const particleCount = Math.max(1, Math.floor(50 * (timeLeft / duration)));
+        confetti({ ...defaults, particleCount, origin: { x: Math.random() * 0.3, y: Math.random() - 0.2 } });
+        confetti({ ...defaults, particleCount, origin: { x: Math.random() * 0.3 + 0.7, y: Math.random() - 0.2 } });
       }, 250);
     } else {
       // Normal win burst
@@ -116,6 +119,13 @@ export class GameUI {
         spread: 70,
         origin: { y: 0.7 }
       });
+    }
+  }
+
+  cancelWinConfetti() {
+    if (this._confettiInterval) {
+      clearInterval(this._confettiInterval);
+      this._confettiInterval = null;
     }
   }
 
