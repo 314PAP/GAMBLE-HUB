@@ -100,14 +100,6 @@ export class ExplorerManager {
         const winVal = item.winAmount || 0;
         const sign = winVal > 0 ? "+" : "";
         const formattedWin = `${sign}${formatLargeNumber(winVal)}`;
-        const timeString = item.timestamp
-          ? new Date(item.timestamp).toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-              second: "2-digit",
-            })
-          : "";
-
         const gameLabel = GAME_LABELS[item.gameName] || item.gameName;
 
         const winClass = isWin
@@ -117,16 +109,21 @@ export class ExplorerManager {
         const resultTypeClass = isWin ? "text-[var(--neon-green)]" : "text-[var(--neon-pink)]";
         const resultTypeText = isWin ? "Výhra" : "Prohra";
 
-        // Compact Detaily: show only what fell, no win amount suffix
-        // Also map old Czech names (from pre-emoji records) back to emojis
+        // Compact Detaily: show count of symbols (×3 🍒) not winning line count
+        // Extract ×N multiplier and use as prefix, drop line-count prefix
         const compactResult = cleanResult
-          ? cleanResult
-              .split(":")[0]
-              .trim()
-              .replace(
-                /\b(Citrony|Třešně|třešně|Třešní|třešní|Zvonky|zvonky|Švestky|švestky|Diamanty|diamanty|Hvězdy|hvězdy|777)\b/gi,
-                (m) => SYMBOL_REVERSE_MAP[m] || m,
-              )
+          ? (() => {
+              const parts = cleanResult.split(":")[0].trim();
+              // Match "N× symbol×M" or "N× symbol" (multiplier M on cherries per line)
+              const m = parts.match(/\d+×\s+(.+?)(?:×(\d+))?$/);
+              if (m) {
+                const count = m[2] || "1";
+                const symbol = m[1].trim();
+                const mapped = SYMBOL_REVERSE_MAP[symbol] || symbol;
+                return `${count}× ${mapped}`;
+              }
+              return parts;
+            })()
           : "";
         return `
         <tr class="history-row group border-b border-[rgba(255,255,255,0.06)] last:border-b-0 hover:bg-[rgba(189,0,255,0.1)] transition-colors">
@@ -137,7 +134,6 @@ export class ExplorerManager {
           </td>
           <td class="px-2 py-1.5 text-[clamp(9px,1.5vw,11px)] font-bold text-center whitespace-nowrap ${resultTypeClass}">${resultTypeText}</td>
           <td class="px-2 py-1.5 text-[clamp(10px,2vw,12px)] text-[var(--text-secondary)] font-mono whitespace-nowrap text-center">${isWin ? escapeHtml(compactResult) : "—"}</td>
-          <td class="px-2 py-1.5 text-[clamp(8px,1.2vw,9px)] text-[var(--text-secondary)] font-mono whitespace-nowrap text-center opacity-70">${timeString}</td>
         </tr>
       `;
       })
@@ -147,23 +143,20 @@ export class ExplorerManager {
       <table class="w-full text-[var(--text-primary)] border-collapse explorer-history-table text-[clamp(10px,2vw,12px)]" role="table" aria-label="Historie her">
         <thead>
           <tr class="text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] uppercase font-bold tracking-wider border-b border-[rgba(189,0,255,0.2)]">
-            <th class="px-2 py-1.5 text-left w-[22%]">
+            <th class="px-2 py-1.5 text-left w-[25%]">
               <button onclick="seradHistorii('username')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Hráč ⇅</button>
             </th>
             <th class="px-2 py-1.5 text-center w-[10%]">
               <button onclick="seradHistorii('gameName')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Hra ⇅</button>
             </th>
-            <th class="px-2 py-1.5 text-center w-[18%]">
+            <th class="px-2 py-1.5 text-center w-[15%]">
               <button onclick="seradHistorii('winAmount')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Výhra ⇅</button>
             </th>
             <th class="px-2 py-1.5 text-center w-[10%]">
               <button onclick="seradHistorii('isWin')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Typ ⇅</button>
             </th>
-            <th class="px-2 py-1.5 text-center w-[27%]">
+            <th class="px-2 py-1.5 text-center w-[40%]">
               <button onclick="seradHistorii('resultText')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Detaily ⇅</button>
-            </th>
-            <th class="px-2 py-1.5 text-center w-[13%]">
-              <button onclick="seradHistorii('timestamp')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Čas ⇅</button>
             </th>
           </tr>
         </thead>

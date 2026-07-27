@@ -192,8 +192,9 @@ export class SlotMachineGame {
     } else {
       const symbols = [...new Set(lineDetails.map((d) => d.symbol))];
       const symbolNames = symbols.join(", ");
+      const symbolCount = lineDetails.length > 0 ? lineDetails[0].length : 0;
       const multiplierText = winningLineCount > 1 ? `×${winningLineCount}` : "";
-      resultText = `${winningLineCount}× ${symbolNames}${multiplierText}: +${formatLargeNumber(winAmount)} $`;
+      resultText = `${symbolCount}× ${symbolNames}${multiplierText}: +${formatLargeNumber(winAmount)} $`;
     }
 
     if (isWin) {
