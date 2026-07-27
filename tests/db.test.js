@@ -74,4 +74,45 @@ describe('GameDatabase', () => {
     expect(exported.s).toBeDefined();
     expect(exported.h).toBeDefined();
   });
+
+  it('should return default stats for non-existent player', () => {
+    const stats = db.getStats('nonexistent');
+    expect(stats.vyhry).toBe(0);
+    expect(stats.prohry).toBe(0);
+    expect(stats.historie).toEqual([]);
+  });
+
+  it('should return empty leaderboard when no players', () => {
+    const leaderboard = db.getLeaderboard();
+    expect(Array.isArray(leaderboard)).toBe(true);
+    expect(leaderboard.length).toBe(0);
+  });
+
+  it('should update leaderboard with milestones', () => {
+    db.createPlayer('test');
+    db.updatePlayerBalance('test', 1000);
+    db.checkMilestones('test', GameDatabase.STARTING_BALANCE, 1000);
+    const leaderboard = db.getLeaderboard();
+    expect(leaderboard.length).toBeGreaterThan(0);
+    expect(leaderboard[0].jmeno).toBe('test');
+  });
+
+  it('should not add to leaderboard below starting balance', () => {
+    db.createPlayer('test');
+    db.updatePlayerBalance('test', 300);
+    db.checkMilestones('test', GameDatabase.STARTING_BALANCE, 300);
+    const leaderboard = db.getLeaderboard();
+    expect(leaderboard.length).toBe(0);
+  });
+
+  it('should record multiple matches correctly', () => {
+    db.createPlayer('test');
+    db.recordMatch('test', 'Hádanka', 10, 'VÝHRA', true);
+    db.recordMatch('test', 'Kostka', 20, 'PROHRA', false);
+    db.recordMatch('test', 'Ruleta', 30, 'VÝHRA', true);
+    const stats = db.getStats('test');
+    expect(stats.vyhry).toBe(2);
+    expect(stats.prohry).toBe(1);
+    expect(stats.historie.length).toBe(3);
+  });
 });
