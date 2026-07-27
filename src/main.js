@@ -207,7 +207,8 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
 if ('serviceWorker' in navigator) {
   const registerSW = async () => {
     try {
-      const registration = await navigator.serviceWorker.register('/GAMBLE-HUB/sw.js', { scope: '/' });
+      const swPath = `${import.meta.env.BASE_URL}sw.js`;
+      const registration = await navigator.serviceWorker.register(swPath, { scope: '/' });
       
       // Check for updates every 4 hours
       const checkForUpdates = async () => {

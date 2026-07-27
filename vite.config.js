@@ -1,5 +1,5 @@
 export default {
-  base: '/GAMBLE-HUB/',
+  base: process.env.VITE_BASE || '/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',

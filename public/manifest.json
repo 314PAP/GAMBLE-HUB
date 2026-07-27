@@ -1,7 +1,7 @@
 {
   "name": "GAMBLE HUB",
   "short_name": "GambleHub",
-  "start_url": "/GAMBLE-HUB/",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a12",
   "theme_color": "#0a0a12",

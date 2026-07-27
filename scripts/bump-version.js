@@ -12,9 +12,14 @@ const manifestPath = path.join(root, 'public', 'manifest.json');
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 const version = packageJson.version;
 
+// Determine base path from environment
+const basePath = process.env.VITE_BASE || '/';
+const startUrl = basePath === '/' ? '/' : `${basePath}`;
+
 // Update manifest.json
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 manifest.version = version;
+manifest.start_url = startUrl;
 fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
 
 // Update sw.js cache name
@@ -27,5 +32,5 @@ swContent = swContent.replace(
 fs.writeFileSync(swPath, swContent);
 
 console.log(`✓ Version bumped to ${version}`);
-console.log(`✓ manifest.json updated`);
+console.log(`✓ manifest.json updated (start_url: ${startUrl})`);
 console.log(`✓ sw.js cache name updated`);
