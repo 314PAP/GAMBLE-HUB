@@ -153,7 +153,57 @@ window.addEventListener('unhandledrejection', (event) => {
   }
 });
 
-// Register service worker for offline support
+// Show update notification
+function showUpdateNotification() {
+  const existing = document.getElementById('update-notification');
+  if (existing) return;
+
+  const notification = document.createElement('div');
+  notification.id = 'update-notification';
+  notification.className = 'fixed top-4 left-1/2 -translate-x-1/2 z-[100] px-6 py-3 rounded-xl bg-[var(--neon-purple)] text-white font-bold text-sm shadow-lg flex items-center gap-3';
+  notification.innerHTML = `
+    <span>🎮</span>
+    <span>Nová verze k dispozici</span>
+    <button onclick="window.location.reload()" class="ml-2 px-3 py-1 bg-white/20 rounded-lg hover:bg-white/30 transition-colors text-xs">
+      Obnovit
+    </button>
+    <button onclick="this.closest('#update-notification').remove()" class="ml-1 text-white/70 hover:text-white" aria-label="Zavřít">
+      ✕
+    </button>
+  `;
+  document.body.appendChild(notification);
+
+  // Auto-hide after 30 seconds
+  setTimeout(() => {
+    if (notification.parentNode) {
+      notification.remove();
+    }
+  }, 30000);
+}
+
+// FPS meter for dev mode (only on localhost)
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+  let lastTime = performance.now();
+  let frames = 0;
+  const fpsMeter = document.createElement('div');
+  fpsMeter.id = 'fps-meter';
+  fpsMeter.className = 'fixed bottom-2 right-2 z-50 px-2 py-1 rounded bg-black/80 text-[var(--neon-green)] text-xs font-mono border border-[var(--neon-green)]/30';
+  document.body.appendChild(fpsMeter);
+
+  function updateFPS() {
+    frames++;
+    const now = performance.now();
+    if (now - lastTime >= 1000) {
+      const fps = Math.round((frames * 1000) / (now - lastTime));
+      fpsMeter.textContent = `FPS: ${fps}`;
+      fpsMeter.style.color = fps < 30 ? 'var(--neon-red)' : fps < 50 ? 'var(--neon-orange)' : 'var(--neon-green)';
+      frames = 0;
+      lastTime = now;
+    }
+    requestAnimationFrame(updateFPS);
+  }
+  requestAnimationFrame(updateFPS);
+}
 if ('serviceWorker' in navigator) {
   const registerSW = async () => {
     try {
@@ -181,8 +231,7 @@ if ('serviceWorker' in navigator) {
           newWorker.addEventListener('statechange', () => {
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
               // New version available - show notification
-              console.log('New version available. Please refresh to update.');
-              // You could show a subtle toast here
+              showUpdateNotification();
             }
           });
         }
