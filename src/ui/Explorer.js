@@ -100,13 +100,14 @@ export class ExplorerManager {
         const resultTypeClass = isWin ? "text-[var(--neon-green)]" : "text-[var(--neon-pink)]";
         const resultTypeText = isWin ? "Výhra" : "Prohra";
 
-        // Compact Detaily: just emoji + brief result type
+        // Compact Detaily: emoji + brief type, emojis same size as coin
         const compactResult = cleanResult
           ? cleanResult
               .replace(/\d+[→\s]*/gi, "")
               .replace(/×[\d.]+/i, "")
               .trim()
           : "";
+        const resultEmojiStyle = "w-[1.1em] h-[1.1em] inline-flex items-center flex-shrink-0";
         return `
         <tr class="history-row group border-b border-[rgba(255,255,255,0.06)] last:border-b-0 hover:bg-[rgba(189,0,255,0.1)] transition-colors">
           <td class="px-2 py-1.5 text-[clamp(10px,2vw,12px)] font-semibold text-[var(--neon-gold)] truncate">${wrapEmoji(escapeHtml(item.username))}</td>
@@ -115,7 +116,7 @@ export class ExplorerManager {
             <span class="inline-flex items-center gap-1.5">${formattedWin}<span class="coin-icon-table w-[1.1em] h-[1.1em] inline-flex items-center flex-shrink-0">${coinSvg}</span></span>
           </td>
           <td class="px-2 py-1.5 text-[clamp(9px,1.5vw,11px)] font-bold text-center whitespace-nowrap ${resultTypeClass}">${resultTypeText}</td>
-          <td class="px-2 py-1.5 text-[clamp(9px,1.5vw,11px)] text-[var(--text-secondary)] font-mono whitespace-nowrap text-center">${isWin ? escapeHtml(compactResult) : "—"}</td>
+          <td class="px-2 py-1.5 text-[clamp(10px,2vw,12px)] text-[var(--text-secondary)] font-mono whitespace-nowrap text-center">${isWin ? escapeHtml(compactResult) : "—"}</td>
           <td class="px-2 py-1.5 text-[clamp(8px,1.2vw,9px)] text-[var(--text-secondary)] font-mono whitespace-nowrap text-center opacity-70">${timeString}</td>
         </tr>
       `;
