@@ -8,6 +8,15 @@ import { DiceGame } from './games/dice';
 import { sound } from './sound';
 import { animateBetButtonsGlow, stopBetButtonsGlow } from './animations/ui';
 
+export const DISPLAY_STATES = {
+  1: { title: "HÁDANKA 1-10", classic: true, dice: false, slots: false, hilo: false },
+  2: { title: "HÁDANKA 1-5", classic: true, dice: false, slots: false, hilo: false },
+  3: { title: "KOSTKA 1-6", classic: false, dice: true, slots: false, hilo: false },
+  4: { title: "RULETA 0-35", classic: true, dice: false, slots: false, hilo: false },
+  5: { title: "AUTOMAT", classic: false, dice: false, slots: true, hilo: false },
+  6: { title: "HI-LOW", classic: false, dice: false, slots: false, hilo: true },
+};
+
 export const GAME_CONFIG = {
   1: { resultBox: 'resBoxClassic', hiloColor: false, label: 'Hádanka 1-10', minVal: 1, maxVal: 10, multVal: 10 },
   2: { resultBox: 'resBoxClassic', hiloColor: false, label: 'Hádanka 1-5', minVal: 1, maxVal: 5, multVal: 5 },
@@ -93,48 +102,39 @@ export class GameManager {
 
     const titleEl = document.getElementById('game-title');
     const cfg = GAME_CONFIG[gameId];
+    const state = DISPLAY_STATES[gameId] || DISPLAY_STATES[1];
 
-    switch (gameId) {
-      case 1:
-        titleEl.innerText = "HÁDANKA 1-10";
-        document.getElementById('classic-inputs').classList.remove('hidden');
-        this.guessing.generateGrid(cfg.minVal, cfg.maxVal, (num) => this.playGuessingGame(num, cfg.minVal, cfg.maxVal, cfg.multVal, cfg.label));
-        break;
-      case 2:
-        titleEl.innerText = "HÁDANKA 1-5";
-        document.getElementById('classic-inputs').classList.remove('hidden');
-        this.guessing.generateGrid(cfg.minVal, cfg.maxVal, (num) => this.playGuessingGame(num, cfg.minVal, cfg.maxVal, cfg.multVal, cfg.label));
-        break;
-      case 3:
-        titleEl.innerText = "KOSTKA 1-6";
-        document.getElementById('classic-inputs').classList.add('hidden');
-        const diceEl = document.getElementById('dice-area');
-        diceEl.classList.remove('hidden');
-        this.dice.init();
-        document.querySelectorAll('.dice-num-btn').forEach(btn => {
-          btn.onclick = () => {
-            if (this.dice.isPlaying) return;
-            this.dice.selectNumber(parseInt(btn.dataset.num));
-            this.playDiceGame();
-          };
-        });
-        break;
-      case 4:
-        titleEl.innerText = "RULETA 0-35";
-        document.getElementById('classic-inputs').classList.remove('hidden');
-        this.guessing.generateGrid(cfg.minVal, cfg.maxVal, (num) => this.playGuessingGame(num, cfg.minVal, cfg.maxVal, cfg.multVal, cfg.label));
-        break;
-      case 5:
-        titleEl.innerText = "AUTOMAT";
-        document.getElementById('slots-area').classList.remove('hidden');
-        break;
-      case 6:
-        titleEl.innerText = "HI-LOW";
-        document.getElementById('hilo-area').classList.remove('hidden');
-        document.getElementById('hilo-area').classList.add('flex');
-        this.hilo.init();
-        break;
+    if (state.classic) {
+      document.getElementById('classic-inputs').classList.remove('hidden');
+      this.guessing.generateGrid(cfg.minVal, cfg.maxVal, (num) => this.playGuessingGame(num, cfg.minVal, cfg.maxVal, cfg.multVal, cfg.label));
+    } else {
+      document.getElementById('classic-inputs').classList.add('hidden');
     }
+
+    if (state.dice) {
+      const diceEl = document.getElementById('dice-area');
+      diceEl.classList.remove('hidden');
+      this.dice.init();
+      document.querySelectorAll('.dice-num-btn').forEach(btn => {
+        btn.onclick = () => {
+          if (this.dice.isPlaying) return;
+          this.dice.selectNumber(parseInt(btn.dataset.num));
+          this.playDiceGame();
+        };
+      });
+    }
+
+    if (state.slots) {
+      document.getElementById('slots-area').classList.remove('hidden');
+    }
+
+    if (state.hilo) {
+      document.getElementById('hilo-area').classList.remove('hidden');
+      document.getElementById('hilo-area').classList.add('flex');
+      this.hilo.init();
+    }
+
+    titleEl.innerText = state.title;
 
     // Reset number buttons for classic games (e.g., roulette) to clear previous selections
     this.ui.resetNumberButtons();
