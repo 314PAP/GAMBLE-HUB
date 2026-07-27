@@ -131,32 +131,32 @@ export class GlobalEventHandlers {
       const state = DISPLAY_STATES[gameId] || DISPLAY_STATES[1];
 
       // Skrýt všechny herní sekce
-      ['classic-inputs', 'dice-area', 'slots-area', 'hilo-area'].forEach(id => {
+      ["classic-inputs", "dice-area", "slots-area", "hilo-area"].forEach((id) => {
         const el = document.getElementById(id);
         if (el) {
-          el.classList.add('hidden');
-          el.classList.remove('flex');
+          el.classList.add("hidden");
+          el.classList.remove("flex");
         }
       });
 
       // Zobrazit jen aktivní sekci
       if (state.classic) {
-        const el = document.getElementById('classic-inputs');
-        if (el) el.classList.remove('hidden');
+        const el = document.getElementById("classic-inputs");
+        if (el) el.classList.remove("hidden");
       }
       if (state.dice) {
-        const el = document.getElementById('dice-area');
-        if (el) el.classList.remove('hidden');
+        const el = document.getElementById("dice-area");
+        if (el) el.classList.remove("hidden");
       }
       if (state.slots) {
-        const el = document.getElementById('slots-area');
-        if (el) el.classList.remove('hidden');
+        const el = document.getElementById("slots-area");
+        if (el) el.classList.remove("hidden");
       }
       if (state.hilo) {
-        const el = document.getElementById('hilo-area');
+        const el = document.getElementById("hilo-area");
         if (el) {
-          el.classList.remove('hidden');
-          el.classList.add('flex');
+          el.classList.remove("hidden");
+          el.classList.add("flex");
         }
       }
 
@@ -215,9 +215,6 @@ export class GlobalEventHandlers {
     };
     window.filtrujLeaderboard = () => {
       this.ui.filtrujLeaderboard();
-    };
-    window.filtrujHistorii = () => {
-      this.ui.filtrujHistorii();
     };
     window.seradHistorii = (columnName) => {
       this.ui.seradHistorii(columnName);
@@ -329,16 +326,16 @@ export class GlobalEventHandlers {
 
   /** Keyboard shortcuts */
   _initKeyboard() {
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        const modals = ['stats-modal', 'explorer-modal', 'info-panel', 'delete-confirm-dialog'];
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        const modals = ["stats-modal", "explorer-modal", "info-panel", "delete-confirm-dialog"];
         for (const modalId of modals) {
           const modal = document.getElementById(modalId);
-          if (modal && !modal.classList.contains('hidden')) {
-            if (modalId === 'stats-modal') this.ui.stats.close();
-            else if (modalId === 'explorer-modal') this.ui.explorer.close();
-            else if (modalId === 'info-panel') this.ui.toggleInfoPanel();
-            else if (modalId === 'delete-confirm-dialog') this.ui.deleteConfirm.hide();
+          if (modal && !modal.classList.contains("hidden")) {
+            if (modalId === "stats-modal") this.ui.stats.close();
+            else if (modalId === "explorer-modal") this.ui.explorer.close();
+            else if (modalId === "info-panel") this.ui.toggleInfoPanel();
+            else if (modalId === "delete-confirm-dialog") this.ui.deleteConfirm.hide();
             break;
           }
         }
@@ -348,8 +345,8 @@ export class GlobalEventHandlers {
 }
 
 // Initialize keyboard shortcuts after DOM is ready
-if (typeof window !== 'undefined') {
-  window.addEventListener('DOMContentLoaded', () => {
+if (typeof window !== "undefined") {
+  window.addEventListener("DOMContentLoaded", () => {
     if (window._globalHandlersInstance) {
       window._globalHandlersInstance._initKeyboard();
     }

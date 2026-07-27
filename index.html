@@ -160,15 +160,20 @@
                 </svg></span
               >
             </div>
-      </div>
-    </header>
-    <div id="game-loading" class="hidden flex-col items-center justify-center p-4 absolute inset-0 z-20 bg-black/80 backdrop-blur-sm">
-      <div class="text-center">
-        <div class="text-[var(--neon-cyan)] text-glow-cyan text-lg mb-2">⏳ Načítání hry...</div>
-        <div class="text-text-muted text-sm">Připojujeme herní moduly</div>
-      </div>
-    </div>
-    <nav
+          </div>
+        </header>
+        <div
+          id="game-loading"
+          class="hidden flex-col items-center justify-center p-4 absolute inset-0 z-20 bg-black/80 backdrop-blur-sm"
+        >
+          <div class="text-center">
+            <div class="text-[var(--neon-cyan)] text-glow-cyan text-lg mb-2">
+              ⏳ Načítání hry...
+            </div>
+            <div class="text-text-muted text-sm">Připojujeme herní moduly</div>
+          </div>
+        </div>
+        <nav
           aria-label="Výběr hry"
           class="flex flex-col gap-1.5 py-1 px-1 overflow-y-auto flex-1 min-h-0 justify-center"
         >
@@ -269,16 +274,16 @@
                 title="Zvuk"
                 aria-label="Přepnout zvuk"
               >
-                  <svg
-                    class="w-[58%] h-[58%]"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
+                <svg
+                  class="w-[58%] h-[58%]"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
                   <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
                   <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
                 </svg>
@@ -290,9 +295,20 @@
                 title="Přepnout téma"
                 aria-label="Přepnout barevné téma"
               >
-                <svg class="w-[58%] h-[58%]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <svg
+                  class="w-[58%] h-[58%]"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
                   <circle cx="12" cy="12" r="5" />
-                  <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                  <path
+                    d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+                  />
                 </svg>
               </button>
             </div>
@@ -658,71 +674,7 @@
           ></div>
         </div>
         <div id="explorer-sec-history" class="flex-1 flex flex-col min-h-0 hidden">
-          <div class="grid grid-cols-3 gap-1.5 mb-1.5 shrink-0">
-            <input
-              type="text"
-              id="history-search"
-              aria-label="Hledat v historii"
-              class="col-span-1 text-xs bg-[rgba(13,0,26,0.6)] border border-[var(--neon-purple)] rounded-xl px-2 py-1.5 text-[var(--neon-gold)]"
-              placeholder="Hledat..."
-              oninput="filtrujHistorii()"
-            />
-            <select
-              id="history-filter-game"
-              aria-label="Filtr podle hry"
-              class="col-span-1 text-xs bg-[rgba(13,0,26,0.6)] border border-[var(--neon-purple)] rounded-xl px-1.5 py-1.5 text-[var(--neon-gold)]"
-              onchange="filtrujHistorii()"
-            >
-              <option value="">Hry</option>
-              <option value="Bary3x3">Automat</option>
-              <option value="VíceMéně">HI-LOW</option>
-              <option value="Ruleta">Ruleta</option>
-              <option value="Hádanka 1-10">Hádanka 1-10</option>
-              <option value="Hádanka 1-5">Hádanka 1-5</option>
-              <option value="Kostka">Kostka</option>
-            </select>
-            <select
-              id="history-filter-result"
-              aria-label="Filtr podle výsledku"
-              class="col-span-1 text-xs bg-[rgba(13,0,26,0.6)] border border-[var(--neon-purple)] rounded-xl px-1.5 py-1.5 text-[var(--neon-gold)]"
-              onchange="filtrujHistorii()"
-            >
-              <option value="">Výsledek</option>
-              <option value="win">Výhry</option>
-              <option value="loss">Prohry</option>
-            </select>
-          </div>
-          <div
-            class="flex justify-between items-center px-2 py-0.5 text-xs text-[var(--neon-gold)] uppercase font-bold tracking-wider border-b border-[rgba(189,0,255,0.2)] mb-1 shrink-0"
-            role="row"
-          >
-            <button
-              onclick="seradHistorii('timestamp')"
-              aria-sort="none"
-              class="bg-transparent border-0 p-0 text-xs text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold"
-            >
-              Čas ⇅
-            </button>
-            <button
-              onclick="seradHistorii('username')"
-              aria-sort="none"
-              class="bg-transparent border-0 p-0 text-xs text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold"
-            >
-              Hráč ⇅
-            </button>
-            <button
-              onclick="seradHistorii('winAmount')"
-              aria-sort="none"
-              class="bg-transparent border-0 p-0 text-xs text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold"
-            >
-              Výhra ⇅
-            </button>
-          </div>
-          <div
-            id="explorer-history-list"
-            role="list"
-            class="flex-1 overflow-y-auto flex flex-col gap-1 px-1 pb-0.5"
-          ></div>
+          <div id="explorer-history-list" class="flex-1 overflow-y-auto"></div>
         </div>
         <div class="text-center pt-1 shrink-0">
           <button

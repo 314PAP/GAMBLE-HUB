@@ -1,5 +1,21 @@
 import { formatLargeNumber, COIN_SVG, escapeHtml, wrapEmoji } from "../utils.js";
 
+const GAME_LABELS = {
+  Bary3x3: "Automat",
+  VíceMéně: "HI-LOW",
+  Ruleta: "Ruleta",
+  "Hádanka 1-10": "Hádanka 1-10",
+  "Hádanka 1-5": "Hádanka 1-5",
+  Kostka: "Kostka",
+};
+
+function stripHtml(html) {
+  if (!html) return "";
+  const tmp = document.createElement("div");
+  tmp.innerHTML = html;
+  return tmp.textContent || tmp.innerText || "";
+}
+
 export class ExplorerManager {
   constructor(ui) {
     this.ui = ui;
@@ -13,12 +29,6 @@ export class ExplorerManager {
 
     const searchL = document.getElementById("leaderboard-search");
     if (searchL) searchL.value = "";
-    const searchH = document.getElementById("history-search");
-    if (searchH) searchH.value = "";
-    const filterG = document.getElementById("history-filter-game");
-    if (filterG) filterG.value = "";
-    const filterR = document.getElementById("history-filter-result");
-    if (filterR) filterR.value = "";
 
     this.ui.prepniExplorerTab("leaderboard");
 
@@ -65,62 +75,74 @@ export class ExplorerManager {
       return;
     }
 
-    let html = "";
-    data.forEach((item) => {
-      const isWin = item.isWin;
-      const winVal = item.winAmount || 0;
-      const coinSvg = `${COIN_SVG}`;
-      const formattedWin =
-        winVal > 0
-          ? `+${formatLargeNumber(winVal)} ${coinSvg}`
-          : `${formatLargeNumber(winVal)} ${coinSvg}`;
-      const timeString = item.timestamp
-        ? new Date(item.timestamp).toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-          })
-        : "";
+    const coinSvg = COIN_SVG;
 
-      let gameLabel = item.gameName;
-      if (item.gameName === "Bary3x3") gameLabel = "Automat";
-      else if (item.gameName === "VíceMéně") gameLabel = "HI-LOW";
+    const rows = data
+      .map((item) => {
+        const isWin = item.isWin;
+        const winVal = item.winAmount || 0;
+        const sign = winVal > 0 ? "+" : "";
+        const formattedWin = `${sign}${formatLargeNumber(winVal)}`;
+        const timeString = item.timestamp
+          ? new Date(item.timestamp).toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+            })
+          : "";
 
-      html += `
-        <div role="listitem" class="py-1 my-0.5 flex justify-between items-center rounded-xl bg-[rgba(189,0,255,0.04)] gap-2">
-          <div class="flex flex-col gap-0.5 pl-2 min-w-0 flex-1">
-            <span class="font-semibold text-[var(--neon-gold)] scoreboard-name !text-[clamp(11px,3.8vw,15px)] text-glow-gold truncate">${wrapEmoji(escapeHtml(item.username))}</span>
-            <span class="text-[10px] text-[var(--text-secondary)] truncate">${gameLabel} – ${timeString}</span>
-          </div>
-          <div class="flex flex-col items-end gap-0.5 pr-2 shrink-0">
-            <span class="font-bold ${isWin ? "text-[var(--neon-green)] text-glow-green" : "text-[var(--neon-pink)] text-glow-pink"} text-[clamp(11px,3.8vw,15px)]">${formattedWin}</span>
-            <span class="text-[10px] text-[var(--neon-gold)] opacity-75">${item.resultText || ""}</span>
-          </div>
-        </div>
+        const gameLabel = GAME_LABELS[item.gameName] || item.gameName;
+
+        const winClass = isWin
+          ? "text-[var(--neon-green)] text-glow-green"
+          : "text-[var(--neon-pink)] text-glow-pink";
+
+        const cleanResult = stripHtml(item.resultText || "");
+        const resultTypeClass = isWin ? "text-[var(--neon-green)]" : "text-[var(--neon-pink)]";
+        const resultTypeText = isWin ? "Výhra" : "Prohra";
+
+        return `
+        <tr class="history-row group border-b border-[rgba(255,255,255,0.06)] last:border-b-0 hover:bg-[rgba(189,0,255,0.1)] transition-colors">
+          <td class="px-2 py-1.5 text-[clamp(10px,2vw,12px)] font-semibold text-[var(--neon-gold)] truncate">${wrapEmoji(escapeHtml(item.username))}</td>
+          <td class="px-2 py-1.5 text-[clamp(9px,1.5vw,11px)] text-[var(--text-primary)] whitespace-nowrap text-center">${escapeHtml(gameLabel)}</td>
+          <td class="px-2 py-1.5 text-[clamp(10px,2vw,12px)] font-bold text-center whitespace-nowrap ${winClass}">
+            <span class="inline-flex items-center gap-1.5">${formattedWin}<span class="coin-icon-table w-[1.1em] h-[1.1em] inline-flex items-center flex-shrink-0">${coinSvg}</span></span>
+          </td>
+          <td class="px-2 py-1.5 text-[clamp(9px,1.5vw,11px)] font-bold text-center whitespace-nowrap ${resultTypeClass}">${resultTypeText}</td>
+          <td class="px-2 py-1.5 text-[clamp(9px,1.5vw,11px)] text-[var(--text-secondary)] font-mono whitespace-nowrap text-center">${isWin ? escapeHtml(cleanResult) : "—"}</td>
+          <td class="px-2 py-1.5 text-[clamp(8px,1.2vw,9px)] text-[var(--text-secondary)] font-mono whitespace-nowrap text-center opacity-70">${timeString}</td>
+        </tr>
       `;
-    });
-    list.innerHTML = html;
-  }
+      })
+      .join("");
 
-  filter() {
-    const searchVal = (document.getElementById("history-search")?.value || "").trim().toLowerCase();
-    const gameVal = document.getElementById("history-filter-game")?.value || "";
-    const resultVal = document.getElementById("history-filter-result")?.value || "";
-
-    let filtered = [...this.ui.historyData];
-
-    if (searchVal) {
-      filtered = filtered.filter((item) => item.username.toLowerCase().includes(searchVal));
-    }
-    if (gameVal) {
-      filtered = filtered.filter((item) => item.gameName === gameVal);
-    }
-    if (resultVal) {
-      filtered = filtered.filter((item) => (resultVal === "win" ? item.isWin : !item.isWin));
-    }
-
-    this.ui.sortHistoryData(filtered);
-    this.renderHistory(filtered);
+    list.innerHTML = `
+      <table class="w-full text-[var(--text-primary)] border-collapse explorer-history-table text-[clamp(10px,2vw,12px)]" role="table" aria-label="Historie her">
+        <thead>
+          <tr class="text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] uppercase font-bold tracking-wider border-b border-[rgba(189,0,255,0.2)]">
+            <th class="px-2 py-1.5 text-left w-[22%]">
+              <button onclick="seradHistorii('username')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Hráč ⇅</button>
+            </th>
+            <th class="px-2 py-1.5 text-center w-[10%]">
+              <button onclick="seradHistorii('gameName')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Hra ⇅</button>
+            </th>
+            <th class="px-2 py-1.5 text-center w-[18%]">
+              <button onclick="seradHistorii('winAmount')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Výhra ⇅</button>
+            </th>
+            <th class="px-2 py-1.5 text-center w-[10%]">
+              <button onclick="seradHistorii('isWin')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Typ ⇅</button>
+            </th>
+            <th class="px-2 py-1.5 text-center w-[27%]">
+              <button onclick="seradHistorii('resultText')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Detaily ⇅</button>
+            </th>
+            <th class="px-2 py-1.5 text-center w-[13%]">
+              <button onclick="seradHistorii('timestamp')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Čas ⇅</button>
+            </th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    `;
   }
 
   sort(columnName) {
@@ -130,6 +152,7 @@ export class ExplorerManager {
       this.ui.historySortField = columnName;
       this.ui.historySortAsc = false;
     }
-    this.filter();
+    this.ui.sortHistoryData(this.ui.historyData);
+    this.renderHistory();
   }
 }

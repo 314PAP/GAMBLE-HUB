@@ -156,6 +156,66 @@
   background: rgba(255, 0, 127, 0.06);
 }
 
+/* ── Explorer history table ── */
+.explorer-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(10px, 2.5vw, 12px);
+  table-layout: fixed;
+}
+
+.explorer-history-table thead th {
+  position: sticky;
+  top: 0;
+  background: #0a0a14;
+  z-index: 2;
+}
+
+.explorer-history-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.explorer-history-table tbody tr:hover {
+  background: rgba(189, 0, 255, 0.1);
+}
+
+.explorer-history-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.explorer-history-table .th-sort {
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s ease;
+}
+
+.explorer-history-table .th-sort:hover {
+  color: var(--neon-orange);
+}
+
+/* Coin icon within table cells — sized proportional to text */
+.coin-icon-table {
+  width: 1em;
+  height: 1em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.coin-icon-table svg {
+  width: 100%;
+  height: 100%;
+}
+
+.scoreboard-name {
+  font-size: 16px;
+  line-height: 1;
+  font-feature-settings: "liga" off;
+  flex: 1;
+  min-width: 0;
+}
+
 .socka-screen {
   text-align: center;
 }
@@ -249,14 +309,6 @@
   font-weight: 800;
   text-transform: uppercase;
   text-shadow: 0 0 10px var(--neon-pink-glow);
-}
-
-.scoreboard-name {
-  font-size: 16px;
-  line-height: 1;
-  font-feature-settings: "liga" off;
-  flex: 1;
-  min-width: 0;
 }
 
 .score-display {
