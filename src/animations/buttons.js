@@ -6,7 +6,7 @@ import { gsap } from "gsap";
  */
 export function initButtonAnimations() {
   const buttons = document.querySelectorAll(
-    "#btn-enter, #btn-create-player, #btn-spin-slots, #btn-auto-slots, .btn-info-toggle, .sound-toggle-btn, #btn-game-info",
+    "#btn-enter, #btn-create-player, #btn-spin-slots, #btn-auto-slots, .sound-toggle-btn",
   );
 
   buttons.forEach((btn) => {
