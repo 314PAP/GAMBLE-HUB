@@ -266,7 +266,6 @@
     inset 1px 1px 0px rgba(255, 255, 255, 0.4),
     inset -1px -1px 0px rgba(0, 0, 0, 0.6);
   filter: drop-shadow(0 0 6px rgba(255, 230, 0, 0.8));
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sound-toggle-btn:hover,
@@ -277,6 +276,7 @@
   box-shadow:
     0 0 18px rgba(255, 230, 0, 0.7),
     inset 1px 1px 0px rgba(255, 255, 255, 0.6);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sound-toggle-btn.muted {
@@ -288,9 +288,11 @@
 /* Epileptic neon flash for info toggle */
 .btn-info-toggle.is-pressed,
 .btn-info-toggle:active {
-  animation: epileptic-neon-flash 0.15s linear infinite;
-  border-color: #fff;
+  animation: epileptic-neon-flash 0.15s linear infinite !important;
+  border-color: #fff !important;
   z-index: 10;
+  transition: none !important;
+  outline: none;
 }
 
 @keyframes epileptic-neon-flash {
