@@ -326,4 +326,32 @@ export class GlobalEventHandlers {
       this._betSlider.setMax(Math.max(10, newBalance));
     }
   }
+
+  /** Keyboard shortcuts */
+  _initKeyboard() {
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modals = ['stats-modal', 'explorer-modal', 'info-panel', 'delete-confirm-dialog'];
+        for (const modalId of modals) {
+          const modal = document.getElementById(modalId);
+          if (modal && !modal.classList.contains('hidden')) {
+            if (modalId === 'stats-modal') this.ui.stats.close();
+            else if (modalId === 'explorer-modal') this.ui.explorer.close();
+            else if (modalId === 'info-panel') this.ui.toggleInfoPanel();
+            else if (modalId === 'delete-confirm-dialog') this.ui.deleteConfirm.hide();
+            break;
+          }
+        }
+      }
+    });
+  }
+}
+
+// Initialize keyboard shortcuts after DOM is ready
+if (typeof window !== 'undefined') {
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window._globalHandlersInstance) {
+      window._globalHandlersInstance._initKeyboard();
+    }
+  });
 }

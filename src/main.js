@@ -22,7 +22,7 @@ const api = new API(db);
 const ui = new GameUI(db, api);
 const gm = new GameManager(db, ui, api);
 
-new GlobalEventHandlers(db, api, ui, gm);
+window._globalHandlersInstance = new GlobalEventHandlers(db, api, ui, gm);
 
 document.addEventListener('DOMContentLoaded', () => {
     ui.showScreen('screen-splash');
