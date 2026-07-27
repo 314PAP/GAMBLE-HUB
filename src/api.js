@@ -41,6 +41,7 @@ export class API {
 
   // Získá globální leaderboard z Firebase
   async getGlobalLeaderboard() {
+    console.debug('[API] getGlobalLeaderboard() called, isOnline=', this.isOnline);
     if (this.isOnline) {
       try {
         const q = query(collection(this.firestore, "leaderboard"), orderBy("castka", "desc"), limit(33));
@@ -49,13 +50,16 @@ export class API {
         querySnapshot.forEach((doc) => {
           results.push({ jmeno: doc.id, castka: doc.data().castka });
         });
+        console.debug('[API] getGlobalLeaderboard() results=', results.length);
         return results;
       } catch (e) {
         console.error('Failed to fetch global leaderboard', e);
         return this.db.getLeaderboard(); // fallback na lokální
       }
     } else {
-      return Promise.resolve(this.db.getLeaderboard());
+      const local = this.db.getLeaderboard();
+      console.debug('[API] getGlobalLeaderboard() local fallback=', local.length);
+      return Promise.resolve(local);
     }
   }
 

@@ -8,10 +8,12 @@ export class LeaderboardManager {
   async render() {
     const container = document.getElementById("leaderboard-content");
     if (!container) return;
+    console.debug('[Leaderboard] render() called, isOnline=', this.ui.api.isOnline);
     container.innerHTML = `<span class="text-[#ffd700] text-lg italic" aria-hidden="true">🔄 Načítám žebříček...</span>`;
 
     try {
       const scores = await this.ui.api.getGlobalLeaderboard();
+      console.debug('[Leaderboard] scores length=', scores.length);
       const isOnline = this.ui.api.isOnline;
 
       if (scores.length === 0) {
