@@ -146,10 +146,10 @@ export class ExplorerManager {
       <table class="w-full text-[var(--text-primary)] border-collapse explorer-history-table text-[clamp(10px,2vw,12px)]" role="table" aria-label="Historie her">
         <thead>
           <tr class="text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] uppercase font-bold tracking-wider border-b border-[rgba(189,0,255,0.2)]">
-            <th class="px-2 py-1.5 text-center w-[20%]">
+            <th class="px-2 py-1.5 text-center w-[25%]">
               <button onclick="seradHistorii('username')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Hráč ⇅</button>
             </th>
-            <th class="px-2 py-1.5 text-center w-[20%]">
+            <th class="px-2 py-1.5 text-center w-[25%]">
               <button onclick="seradHistorii('gameName')" aria-sort="none" class="bg-transparent border-0 p-0 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] hover:text-[var(--neon-orange)] text-glow-gold cursor-pointer whitespace-nowrap">Hra ⇅</button>
             </th>
             <th class="px-2 py-1.5 text-center w-[25%]">
