@@ -2,8 +2,10 @@ import { defineConfig, loadEnv } from 'vite';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), 'VITE_');
+  const base = env.VITE_BASE || '/';
+  console.debug(`[Vite] mode=${mode} VITE_BASE=${env.VITE_BASE} base=${base}`);
   return {
-    base: env.VITE_BASE || '/',
+    base,
     build: {
       outDir: 'dist',
       assetsDir: 'assets',
