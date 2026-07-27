@@ -1,0 +1,16 @@
+node_modules
+dist
+.git
+.gitignore
+README.md
+*.log
+.DS_Store
+.env
+.env.local
+.vscode
+.idea
+coverage
+.vite
+tests/e2e
+.playwright-mcp
+screenshots
