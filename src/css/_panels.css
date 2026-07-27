@@ -235,7 +235,8 @@
 }
 
 .sound-toggle-btn,
-.btn-info-toggle {
+.btn-info-toggle,
+.theme-toggle-btn {
   background:
     linear-gradient(135deg, rgba(255, 230, 0, 0.25) 0%, rgba(255, 230, 0, 0.05) 100%),
     rgba(15, 15, 5, 0.8);
@@ -252,7 +253,8 @@
 }
 
 .sound-toggle-btn:hover,
-.btn-info-toggle:hover {
+.btn-info-toggle:hover,
+.theme-toggle-btn:hover {
   filter: brightness(1.3) drop-shadow(0 0 10px rgba(255, 230, 0, 1));
   transform: scale(1.1);
   box-shadow:
