@@ -59,6 +59,8 @@ describe('GameUI', () => {
     };
 
     ui = new GameUI(mockDb, mockApi);
+    ui.leaderboard = { filter: vi.fn(), render: vi.fn(() => '') };
+    ui.sortHistoryData = vi.fn();
   });
 
   describe('constructor', () => {
@@ -119,6 +121,50 @@ describe('GameUI', () => {
       const Swal = (await import('sweetalert2')).default;
       ui.showAlert('success', 'Test', 'Test message');
       expect(Swal.fire).toHaveBeenCalled();
+    });
+  });
+
+  describe('filtrujLeaderboard', () => {
+    it('should call leaderboard.filter with search value', () => {
+      globalThis.document.getElementById = vi.fn((id) => {
+        if (id === 'leaderboard-search') return { value: 'player1' };
+        return null;
+      });
+      ui.filtrujLeaderboard();
+      expect(ui.leaderboard.filter).toHaveBeenCalledWith('player1');
+    });
+
+    it('should handle empty search', () => {
+      globalThis.document.getElementById = vi.fn((id) => {
+        if (id === 'leaderboard-search') return { value: '' };
+        return null;
+      });
+      ui.filtrujLeaderboard();
+      expect(ui.leaderboard.filter).toHaveBeenCalledWith('');
+    });
+  });
+
+  describe('seradHistorii', () => {
+    it('should set sort field and modify sort state', () => {
+      ui.historyData = [{ timestamp: 2 }, { timestamp: 1 }];
+      ui.seradHistorii('timestamp');
+      expect(ui.historySortField).toBe('timestamp');
+    });
+
+    it('should toggle sort order for same field', () => {
+      ui.historySortField = 'timestamp';
+      ui.historySortAsc = true;
+      ui.seradHistorii('timestamp');
+      expect(ui.historySortAsc).toBe(false);
+    });
+
+    it('should set new field with descending order', () => {
+      ui.historySortField = 'timestamp';
+      ui.historySortAsc = true;
+      ui.historyData = [{ winAmount: 2 }, { winAmount: 1 }];
+      ui.seradHistorii('winAmount');
+      expect(ui.historySortField).toBe('winAmount');
+      expect(ui.historySortAsc).toBe(false);
     });
   });
 });

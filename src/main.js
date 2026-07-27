@@ -155,11 +155,50 @@ window.addEventListener('unhandledrejection', (event) => {
 
 // Register service worker for offline support
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/GAMBLE-HUB/sw.js').catch((err) => {
+  const registerSW = async () => {
+    try {
+      const registration = await navigator.serviceWorker.register('/GAMBLE-HUB/sw.js', { scope: '/' });
+      
+      // Check for updates every 4 hours
+      const checkForUpdates = async () => {
+        try {
+          const ready = await navigator.serviceWorker.ready;
+          await ready.update();
+        } catch (e) {
+          console.warn('SW update check failed:', e);
+        }
+      };
+      
+      // Initial check
+      setTimeout(checkForUpdates, 5000);
+      
+      // Periodic checks
+      setInterval(checkForUpdates, 4 * 60 * 60 * 1000); // 4 hours
+      
+      registration.addEventListener('updatefound', () => {
+        const newWorker = registration.installing;
+        if (newWorker) {
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              // New version available - show notification
+              console.log('New version available. Please refresh to update.');
+              // You could show a subtle toast here
+            }
+          });
+        }
+      });
+      
+    } catch (err) {
       console.warn('Service worker registration failed:', err);
-    });
-  });
+    }
+  };
+
+  // Register after page load
+  if (document.readyState === 'complete') {
+    registerSW();
+  } else {
+    window.addEventListener('load', registerSW);
+  }
 }
 
 

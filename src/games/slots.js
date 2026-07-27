@@ -177,14 +177,6 @@ export class SlotMachineGame {
     const isWin = winAmount > 0;
 
     const winningLineCount = lineDetails.length;
-    const symbolMap = {
-      "🍒": "Třešně",
-      "🔔": "Zvonky",
-      "🍋": "Citrony",
-      "⭐": "Hvězdy",
-      "💎": "Diamanty",
-      "7️⃣": "777",
-    };
 
     let resultText;
     if (isJackpot) {

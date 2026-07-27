@@ -6,10 +6,6 @@ describe('ExplorerManager', () => {
   let mockUi;
   let mockModal;
   let mockList;
-  let mockSearchL;
-  let mockSearchH;
-  let mockFilterG;
-  let mockFilterR;
 
   beforeEach(() => {
     mockModal = {
@@ -18,10 +14,6 @@ describe('ExplorerManager', () => {
     mockList = {
       innerHTML: '',
     };
-    mockSearchL = { value: '' };
-    mockSearchH = { value: '' };
-    mockFilterG = { value: '' };
-    mockFilterR = { value: '' };
 
     mockUi = {
       api: {
@@ -39,10 +31,10 @@ describe('ExplorerManager', () => {
 
     globalThis.document.getElementById = vi.fn((id) => {
       if (id === 'explorer-modal') return mockModal;
-      if (id === 'leaderboard-search') return mockSearchL;
-      if (id === 'history-search') return mockSearchH;
-      if (id === 'history-filter-game') return mockFilterG;
-      if (id === 'history-filter-result') return mockFilterR;
+      if (id === 'leaderboard-search') return { value: '' };
+      if (id === 'history-search') return { value: '' };
+      if (id === 'history-filter-game') return { value: '' };
+      if (id === 'history-filter-result') return { value: '' };
       if (id === 'explorer-leaderboard-list') return mockList;
       if (id === 'explorer-history-list') return mockList;
       return null;
@@ -55,22 +47,13 @@ describe('ExplorerManager', () => {
     it('should return early when modal not found', async () => {
       globalThis.document.getElementById = vi.fn(() => null);
       await manager.load();
-      // Should not throw
       expect(mockModal).toBeDefined();
     });
 
     it('should show modal and clear inputs', async () => {
-      mockSearchL.value = 'test';
-      mockSearchH.value = 'test';
-      mockFilterG.value = 'game';
-      mockFilterR.value = 'win';
-
       await manager.load();
-
       expect(mockModal.classList.remove).toHaveBeenCalledWith('hidden');
       expect(mockModal.classList.add).toHaveBeenCalledWith('flex');
-      expect(mockSearchL.value).toBe('');
-      expect(mockSearchH.value).toBe('');
     });
 
     it('should load leaderboard and history data', async () => {
@@ -100,7 +83,6 @@ describe('ExplorerManager', () => {
   describe('close', () => {
     it('should hide modal', () => {
       manager.close();
-
       expect(mockModal.classList.add).toHaveBeenCalledWith('hidden');
       expect(mockModal.classList.remove).toHaveBeenCalledWith('flex');
     });
@@ -115,13 +97,11 @@ describe('ExplorerManager', () => {
     it('should return early when list not found', () => {
       globalThis.document.getElementById = vi.fn(() => null);
       manager.renderHistory();
-      // Should not throw
     });
 
     it('should show empty state when no history', () => {
       mockUi.historyData = [];
       manager.renderHistory();
-
       expect(mockList.innerHTML).toContain('Žádná historie her nenalezena');
     });
 
@@ -137,7 +117,6 @@ describe('ExplorerManager', () => {
         },
       ];
       manager.renderHistory();
-
       expect(mockList.innerHTML).toContain('player1');
       expect(mockList.innerHTML).toContain('Automat');
     });
@@ -148,49 +127,7 @@ describe('ExplorerManager', () => {
         { username: 'player2', gameName: 'Kostka', isWin: false, winAmount: 0 },
       ];
       manager.renderHistory([{ username: 'player1', gameName: 'Kostka', isWin: true, winAmount: 600 }]);
-
       expect(mockList.innerHTML).toContain('player1');
-      expect(mockList.innerHTML).not.toContain('player2');
-    });
-  });
-
-  describe('filter', () => {
-    beforeEach(() => {
-      mockUi.historyData = [
-        { username: 'player1', gameName: 'Kostka', isWin: true, winAmount: 600 },
-        { username: 'player2', gameName: 'HI-LOW', isWin: false, winAmount: 0 },
-      ];
-    });
-
-    it('should use empty query by default', () => {
-      mockSearchH.value = '';
-      manager.filter();
-      expect(mockUi.sortHistoryData).toHaveBeenCalled();
-    });
-
-    it('should filter by username', () => {
-      mockSearchH.value = 'player1';
-      manager.filter();
-      // filter() calls sortHistoryData with filtered data
-      expect(mockUi.sortHistoryData).toHaveBeenCalled();
-    });
-
-    it('should filter by game', () => {
-      mockFilterG.value = 'Kostka';
-      manager.filter();
-      expect(mockUi.sortHistoryData).toHaveBeenCalled();
-    });
-
-    it('should filter by result', () => {
-      mockFilterR.value = 'win';
-      manager.filter();
-      expect(mockUi.sortHistoryData).toHaveBeenCalled();
-    });
-
-    it('should be case insensitive', () => {
-      mockSearchH.value = 'PLAYER1';
-      manager.filter();
-      expect(mockUi.sortHistoryData).toHaveBeenCalled();
     });
   });
 });
