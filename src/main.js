@@ -153,4 +153,13 @@ window.addEventListener('unhandledrejection', (event) => {
   }
 });
 
+// Register service worker for offline support
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/GAMBLE-HUB/sw.js').catch((err) => {
+      console.warn('Service worker registration failed:', err);
+    });
+  });
+}
+
 
