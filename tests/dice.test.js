@@ -39,6 +39,8 @@ const mockGetElementById = vi.fn((id) => {
 globalThis.document = {
   getElementById: mockGetElementById,
   querySelectorAll: vi.fn(() => []),
+  addEventListener: vi.fn(),
+  removeEventListener: vi.fn(),
 };
 
 import { DiceGame } from '../src/games/dice.js';
@@ -74,6 +76,17 @@ describe('DiceGame', () => {
       game.selectedNumber = 5;
       const result = game.rollAsync();
       expect(result).toBeInstanceOf(Promise);
+    });
+
+    it('should resolve with result object', async () => {
+      game.selectedNumber = 5;
+      const mockResult = { isWin: true, winAmount: 6, resultText: 'test', selectedNum: 5, diceValue: 3 };
+      const originalRoll = game.roll.bind(game);
+      game.roll = vi.fn((cb) => cb(mockResult));
+
+      const result = await game.rollAsync();
+      expect(result).toEqual(mockResult);
+      game.roll = originalRoll;
     });
   });
 

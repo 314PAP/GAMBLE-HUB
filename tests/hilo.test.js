@@ -16,6 +16,8 @@ vi.mock('../src/sound.js', () => ({
 const mockGetElementById = vi.fn(() => null);
 globalThis.document = {
   getElementById: mockGetElementById,
+  addEventListener: vi.fn(),
+  removeEventListener: vi.fn(),
 };
 
 import { HiloGame } from '../src/games/hilo.js';

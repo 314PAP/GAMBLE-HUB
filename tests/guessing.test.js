@@ -54,6 +54,8 @@ globalThis.document = {
   getElementById: mockGetElementById,
   querySelectorAll: vi.fn(() => []),
   createElement: createElementMock,
+  addEventListener: vi.fn(),
+  removeEventListener: vi.fn(),
 };
 
 import { GuessingGame } from '../src/games/guessing.js';
@@ -91,6 +93,16 @@ describe('GuessingGame', () => {
     it('should return a Promise', () => {
       const result = game.playAsync(5, 1, 10, 10, 5);
       expect(result).toBeInstanceOf(Promise);
+    });
+
+    it('should resolve with result object', async () => {
+      const mockResult = { isWin: true, winAmount: 50, resultText: 'test' };
+      const originalPlay = game.play.bind(game);
+      game.play = vi.fn((_selectedNum, _min, _max, _betAmount, _multiplier, cb) => cb(mockResult));
+
+      const result = await game.playAsync(5, 1, 10, 10, 5);
+      expect(result).toEqual(mockResult);
+      game.play = originalPlay;
     });
   });
 });

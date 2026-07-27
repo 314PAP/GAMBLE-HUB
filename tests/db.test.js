@@ -1,18 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { GameDatabase } from '../src/db.js';
 
-const localStorageMock = (() => {
-  let store = {};
-  return {
-    getItem: (key) => store[key] || null,
-    setItem: (key, value) => { store[key] = String(value); },
-    removeItem: (key) => { delete store[key]; },
-    clear: () => { store = {}; },
-  };
-})();
-
-Object.defineProperty(globalThis, 'localStorage', { value: localStorageMock });
-
 describe('GameDatabase', () => {
   let db;
 
