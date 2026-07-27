@@ -1,5 +1,6 @@
 import { sound } from "../sound.js";
 import { BetSlider } from "../ui/BetSlider.js";
+import { GAME_CONFIG } from "../games.js";
 
 export class GlobalEventHandlers {
   constructor(db, api, ui, gm) {
@@ -149,32 +150,8 @@ export class GlobalEventHandlers {
       if (this.gm.activeGameId === 5) {
         this.gm.playSlots();
       } else {
-        const maxVal =
-          this.gm.activeGameId === 1
-            ? 10
-            : this.gm.activeGameId === 2
-              ? 5
-              : this.gm.activeGameId === 3
-                ? 6
-                : 36;
-        const minVal = this.gm.activeGameId === 4 ? 0 : 1;
-        const multVal =
-          this.gm.activeGameId === 1
-            ? 10
-            : this.gm.activeGameId === 2
-              ? 5
-              : this.gm.activeGameId === 3
-                ? 6
-                : 36;
-        const gameLabel =
-          this.gm.activeGameId === 1
-            ? "Hádanka 1-10"
-            : this.gm.activeGameId === 2
-              ? "Hádanka 1-5"
-              : this.gm.activeGameId === 3
-                ? "Kostka"
-                : "Ruleta";
-        this.gm.playGuessingGame(num, minVal, maxVal, multVal, gameLabel);
+        const cfg = GAME_CONFIG[this.gm.activeGameId] || GAME_CONFIG[1];
+        this.gm.playGuessingGame(num, cfg.minVal, cfg.maxVal, cfg.multVal, cfg.label);
       }
     };
 

@@ -8,6 +8,15 @@ import { DiceGame } from './games/dice';
 import { sound } from './sound';
 import { animateBetButtonsGlow, stopBetButtonsGlow } from './animations/ui';
 
+export const GAME_CONFIG = {
+  1: { resultBox: 'resBoxClassic', hiloColor: false, label: 'Hádanka 1-10', minVal: 1, maxVal: 10, multVal: 10 },
+  2: { resultBox: 'resBoxClassic', hiloColor: false, label: 'Hádanka 1-5', minVal: 1, maxVal: 5, multVal: 5 },
+  3: { resultBox: 'resBoxDice', hiloColor: false, label: 'Kostka', minVal: 1, maxVal: 6, multVal: 6 },
+  4: { resultBox: 'resBoxClassic', hiloColor: false, label: 'Ruleta', minVal: 0, maxVal: 35, multVal: 35 },
+  5: { resultBox: 'resBoxSlots', hiloColor: false, label: 'Automat', minVal: 1, maxVal: 6, multVal: 6 },
+  6: { resultBox: 'resBoxHilo', hiloColor: true, label: 'Hi-Low', minVal: 1, maxVal: 6, multVal: 6 },
+};
+
 export class GameManager {
   constructor(db, ui, api) {
     this.db = db;
@@ -83,17 +92,18 @@ export class GameManager {
     document.querySelectorAll('.slot-cell').forEach(c => c.classList.remove('win-active'));
 
     const titleEl = document.getElementById('game-title');
+    const cfg = GAME_CONFIG[gameId];
 
     switch (gameId) {
       case 1:
         titleEl.innerText = "HÁDANKA 1-10";
         document.getElementById('classic-inputs').classList.remove('hidden');
-        this.guessing.generateGrid(1, 10, (num) => this.playGuessingGame(num, 1, 10, 10, "Hádanka 1-10"));
+        this.guessing.generateGrid(cfg.minVal, cfg.maxVal, (num) => this.playGuessingGame(num, cfg.minVal, cfg.maxVal, cfg.multVal, cfg.label));
         break;
       case 2:
         titleEl.innerText = "HÁDANKA 1-5";
         document.getElementById('classic-inputs').classList.remove('hidden');
-        this.guessing.generateGrid(1, 5, (num) => this.playGuessingGame(num, 1, 5, 5, "Hádanka 1-5"));
+        this.guessing.generateGrid(cfg.minVal, cfg.maxVal, (num) => this.playGuessingGame(num, cfg.minVal, cfg.maxVal, cfg.multVal, cfg.label));
         break;
       case 3:
         titleEl.innerText = "KOSTKA 1-6";
@@ -112,7 +122,7 @@ export class GameManager {
       case 4:
         titleEl.innerText = "RULETA 0-35";
         document.getElementById('classic-inputs').classList.remove('hidden');
-        this.guessing.generateGrid(0, 35, (num) => this.playGuessingGame(num, 0, 35, 35, "Ruleta"));
+        this.guessing.generateGrid(cfg.minVal, cfg.maxVal, (num) => this.playGuessingGame(num, cfg.minVal, cfg.maxVal, cfg.multVal, cfg.label));
         break;
       case 5:
         titleEl.innerText = "AUTOMAT";
@@ -158,34 +168,25 @@ export class GameManager {
     this.db.updatePlayerBalance(this.currentPlayer, balance - this.activeBet);
     this.ui.updateMiniProfile(this.currentPlayer, balance - this.activeBet);
 
-    const resBox = document.getElementById('game-result');
-    const resBoxClassic = document.getElementById('game-result-classic');
-    const resBoxDice = document.getElementById('game-result-dice');
-    const resBoxSlots = document.getElementById('game-result-slots');
-    const resBoxHilo = document.getElementById('game-result-hilo');
-
-    if (resBox) {
-      resBox.classList.add('hidden');
-      resBox.innerHTML = '';
-    }
-    if (resBoxClassic) {
-      resBoxClassic.classList.add('hidden');
-      resBoxClassic.innerHTML = '';
-    }
-    if (resBoxDice) {
-      resBoxDice.classList.add('hidden');
-      resBoxDice.innerHTML = '';
-    }
-    if (resBoxSlots) {
-      resBoxSlots.classList.add('hidden');
-      resBoxSlots.innerHTML = '';
-    }
-    if (resBoxHilo) {
-      resBoxHilo.classList.add('hidden');
-      resBoxHilo.innerHTML = '';
-    }
-
+    this.clearAllResultBoxes();
     return true;
+  }
+
+  clearAllResultBoxes() {
+    const boxes = [
+      'game-result',
+      'game-result-classic',
+      'game-result-dice',
+      'game-result-slots',
+      'game-result-hilo',
+    ];
+    boxes.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.classList.add('hidden');
+        el.innerHTML = '';
+      }
+    });
   }
 
    // Unified win/loss result processor
@@ -235,14 +236,15 @@ export class GameManager {
     const resBoxSlots = document.getElementById('game-result-slots');
     const resBoxHilo = document.getElementById('game-result-hilo');
 
+    const gameConfig = GAME_CONFIG[this.activeGameId] || GAME_CONFIG[1];
     let targetResBox = resBox;
-    if (this.activeGameId === 3) targetResBox = resBoxDice;
-    else if (this.activeGameId === 5) targetResBox = resBoxSlots;
-    else if (this.activeGameId === 6) targetResBox = resBoxHilo;
+    if (gameConfig.resultBox === 'resBoxDice') targetResBox = resBoxDice;
+    else if (gameConfig.resultBox === 'resBoxSlots') targetResBox = resBoxSlots;
+    else if (gameConfig.resultBox === 'resBoxHilo') targetResBox = resBoxHilo;
     else targetResBox = resBoxClassic;
 
     if (isWin) {
-      const hiloColor = this.activeGameId === 6 ? '#ff4060' : 'var(--neon-orange)';
+      const hiloColor = gameConfig.hiloColor ? '#ff4060' : 'var(--neon-orange)';
       this.ui.animateWinResult(targetResBox, winAmount, resultText, isJackpot, 'game-result', hiloColor);
     } else {
       this.ui.animateLossBalance(newBalance);

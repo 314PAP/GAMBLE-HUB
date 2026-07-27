@@ -144,18 +144,6 @@ textarea:focus {
   filter: grayscale(30%);
 }
 
-.text-muted {
-  color: rgba(255, 255, 255, 0.45);
-}
-
-.grid-cols-5 {
-  grid-template-columns: repeat(5, 1fr);
-}
-
-.grid-cols-6 {
-  grid-template-columns: repeat(6, 1fr);
-}
-
 /* === SVG DEFS HIDING === */
 .svg-defs {
   position: absolute;
