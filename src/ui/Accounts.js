@@ -14,7 +14,7 @@ export class AccountsManager {
     const usernames = Object.keys(players);
 
     if (usernames.length === 0) {
-      list.innerHTML = `<div class="text-center text-muted p-5">Žádní vytvoření hráči.</div>`;
+      list.innerHTML = `<div class="text-center text-text-muted p-5">Žádní vytvoření hráči.</div>`;
       return;
     }
 
@@ -32,7 +32,7 @@ export class AccountsManager {
 
       const deleteBtn = document.createElement("button");
       deleteBtn.className =
-        "delete-account-btn w-14 h-14 flex items-center justify-center shrink-0";
+        "delete-account-btn w-10 h-10 flex items-center justify-center shrink-0";
       deleteBtn.setAttribute("aria-label", `Smazat účet ${username}`);
       deleteBtn.innerHTML = '<span aria-hidden="true">🗑️</span>';
       deleteBtn.onclick = (e) => {

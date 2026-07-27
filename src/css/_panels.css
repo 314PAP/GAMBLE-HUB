@@ -276,6 +276,39 @@
   vertical-align: middle;
 }
 
+/* Stats modal progress bar */
+.stats-progress {
+  display: flex;
+  height: 20px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.stats-progress-win {
+  background: linear-gradient(90deg, #1db96a, #39ff14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  color: #000;
+}
+.stats-progress-loss {
+  background: linear-gradient(90deg, #ff0055, #c0004a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  color: #fff;
+}
+.stats-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  margin-top: 4px;
+}
+
 @keyframes coinFlicker {
   0%,
   85% {

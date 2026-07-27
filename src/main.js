@@ -55,11 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
      } else {
        toggleBtn.classList.remove('muted');
      }
-   }
+    }
 
-   ui.renderLeaderboard();
-
-   document.addEventListener('click', (e) => {
+    document.addEventListener('click', (e) => {
      const target = e.target;
      if (
        target.closest('button') ||

@@ -31,11 +31,11 @@ export class StatsManager {
           totalMatches > 0
             ? `
         <div class="mb-2">
-          <div style="display:flex;height:20px;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,0.1)">
-            ${winPct > 0 ? `<div style="width:${winPct}%;background:linear-gradient(90deg,#1db96a,#39ff14);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold;color:#000">${winPct >= 15 ? `✓ ${winRate}%` : ""}</div>` : ""}
-            ${winPct < 100 ? `<div style="width:${100 - winPct}%;background:linear-gradient(90deg,#ff0055,#c0004a);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold;color:#fff">${100 - winPct >= 15 ? `✗ ${lossRate}%` : ""}</div>` : ""}
+          <div class="stats-progress">
+            ${winPct > 0 ? `<div class="stats-progress-win" style="width:${winPct}%">${winPct >= 15 ? `✓ ${winRate}%` : ''}</div>` : ''}
+            ${winPct < 100 ? `<div class="stats-progress-loss" style="width:${100 - winPct}%">${100 - winPct >= 15 ? `✗ ${lossRate}%` : ''}</div>` : ''}
           </div>
-          <div style="display:flex;justify-content:space-between;font-size:10px;margin-top:4px">
+          <div class="stats-footer">
             <span style="color:#39ff14">✓ ${stats.vyhry} výher</span>
             <span style="color:#ff0055">✗ ${stats.prohry} proher</span>
           </div>
@@ -49,7 +49,7 @@ export class StatsManager {
     if (historyContainer) {
       historyContainer.innerHTML = "";
       if (stats.historie.length === 0) {
-        historyContainer.innerHTML = `<div class="text-center text-muted p-2.5">Žádná odehraná kola.</div>`;
+        historyContainer.innerHTML = `<div class="text-center text-text-muted p-2.5">Žádná odehraná kola.</div>`;
       } else {
         stats.historie.forEach((item) => {
           const isWin = item.includes("VÝHRA");
