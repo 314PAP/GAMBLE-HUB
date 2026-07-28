@@ -10,10 +10,12 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-console.debug('[Firebase] env apiKey=', Boolean(import.meta.env.VITE_FIREBASE_API_KEY));
-console.debug('[Firebase] env authDomain=', Boolean(import.meta.env.VITE_FIREBASE_AUTH_DOMAIN));
-console.debug('[Firebase] env projectId=', Boolean(import.meta.env.VITE_FIREBASE_PROJECT_ID));
-console.debug('[Firebase] config=', JSON.stringify({ ...firebaseConfig, apiKey: firebaseConfig.apiKey ? '***' : '' }));
+if (import.meta.env.DEV) {
+  console.debug('[Firebase] env apiKey=', Boolean(import.meta.env.VITE_FIREBASE_API_KEY));
+  console.debug('[Firebase] env authDomain=', Boolean(import.meta.env.VITE_FIREBASE_AUTH_DOMAIN));
+  console.debug('[Firebase] env projectId=', Boolean(import.meta.env.VITE_FIREBASE_PROJECT_ID));
+  console.debug('[Firebase] config=', JSON.stringify({ ...firebaseConfig, apiKey: firebaseConfig.apiKey ? '***' : '' }));
+}
 
 const isFirebaseConfigured = Boolean(
   firebaseConfig.apiKey &&
@@ -41,7 +43,7 @@ export class API {
 
   // Získá globální leaderboard z Firebase
   async getGlobalLeaderboard() {
-    console.debug('[API] getGlobalLeaderboard() called, isOnline=', this.isOnline);
+    if (import.meta.env.DEV) console.debug('[API] getGlobalLeaderboard() called, isOnline=', this.isOnline);
     if (this.isOnline) {
       try {
         const q = query(collection(this.firestore, "leaderboard"), orderBy("castka", "desc"), limit(33));
@@ -50,7 +52,7 @@ export class API {
         querySnapshot.forEach((doc) => {
           results.push({ jmeno: doc.id, castka: doc.data().castka });
         });
-        console.debug('[API] getGlobalLeaderboard() results=', results.length);
+        if (import.meta.env.DEV) console.debug('[API] getGlobalLeaderboard() results=', results.length);
         return results;
       } catch (e) {
         console.error('Failed to fetch global leaderboard', e);
@@ -58,7 +60,7 @@ export class API {
       }
     } else {
       const local = this.db.getLeaderboard();
-      console.debug('[API] getGlobalLeaderboard() local fallback=', local.length);
+      if (import.meta.env.DEV) console.debug('[API] getGlobalLeaderboard() local fallback=', local.length);
       return Promise.resolve(local);
     }
   }

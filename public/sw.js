@@ -1,10 +1,10 @@
 const CACHE_NAME = 'gamblehub-1.0.0';
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/icon.svg',
-  '/offline.html',
+  './',
+  './index.html',
+  './manifest.json',
+  './icon.svg',
+  './offline.html',
 ];
 
 // Install - cache static assets
