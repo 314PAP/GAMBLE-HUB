@@ -203,3 +203,4 @@ Projekt obsahuje GitHub Actions workflow (`.github/workflows/deploy.yml`), kter�
 - `STYLE_DOC.md` – detailní popis CSS architektury a design tokenů
 - `docs/visual_guideline.md` – neměnné vizuální pravidla (CRT glass, 3D tlačítka, audio-vizuální život)
 - `AGENTS.md` – instrukce pro autonomní agenty pracující na projektu
+# rebuild
