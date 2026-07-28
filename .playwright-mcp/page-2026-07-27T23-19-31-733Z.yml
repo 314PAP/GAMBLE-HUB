@@ -1,0 +1,50 @@
+- generic [ref=f3e1]:
+  - main "Herní aplikace" [ref=f3e2]:
+    - region "AUTOMAT" [ref=f3e8]:
+      - region "Herní lišta" [ref=f3e9]:
+        - generic [ref=f3e10]:
+          - generic [ref=f3e11]: AUTOMAT
+          - generic [ref=f3e12]:
+            - button "Jak se hraje" [ref=f3e13] [cursor=pointer]
+            - button "Přepnout zvuk" [ref=f3e15] [cursor=pointer]
+            - button "Přepnout barevné téma" [active] [ref=f3e19] [cursor=pointer]
+        - generic [ref=f3e24]:
+          - generic [ref=f3e25]: "480"
+          - img [ref=f3e26]:
+            - generic [ref=f3e28]: $
+      - article [ref=f3e29]:
+        - heading "Automat" [level=3] [ref=f3e30]
+        - region "Automat" [ref=f3e32]:
+          - generic [ref=f3e33]:
+            - generic [ref=f3e35]:
+              - generic [ref=f3e36]: 🍒
+              - generic [ref=f3e37]: ⭐
+              - generic [ref=f3e38]: 🔔
+            - generic [ref=f3e40]:
+              - generic [ref=f3e41]: 🍋
+              - generic [ref=f3e42]: 💎
+              - generic [ref=f3e43]: 🍒
+            - generic [ref=f3e45]:
+              - generic [ref=f3e46]: 🔔
+              - generic [ref=f3e47]: 7️⃣
+              - generic [ref=f3e48]: 🍋
+        - region "Ovládání automatu" [ref=f3e50]:
+          - button "SPIN" [ref=f3e51] [cursor=pointer]
+          - button "AUTO" [ref=f3e52] [cursor=pointer]
+      - region "Volba sázky" [ref=f3e53]:
+        - generic [ref=f3e54]:
+          - button "10" [ref=f3e55] [cursor=pointer]
+          - button "20" [ref=f3e56] [cursor=pointer]
+          - button "50" [ref=f3e57] [cursor=pointer]
+          - button "100" [ref=f3e58] [cursor=pointer]
+          - button "Vsadit vše (all-in)" [ref=f3e59] [cursor=pointer]: ALL
+        - group "Výše sázky" [ref=f3e60]:
+          - button "Snížit sázku" [disabled] [ref=f3e61]: ◀
+          - generic [ref=f3e62]:
+            - generic: "10"
+            - slider [ref=f3e63]
+          - button "Zvýšit sázku" [ref=f3e64] [cursor=pointer]: ▶
+      - group "Akce během hry" [ref=f3e65]:
+        - button "Statistiky" [ref=f3e66] [cursor=pointer]
+        - button "Menu" [ref=f3e67] [cursor=pointer]
+  - generic [ref=f3e7]: "FPS: 40"

@@ -1,0 +1,15 @@
+[      90ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ http://localhost:5173/GAMBLE-HUB/:0
+[  152019ms] [ERROR] WebSocket connection to 'ws://localhost:5173/?token=alWHGMl6WGJl' failed:  @ http://localhost:5173/@vite/client:801
+[  152019ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:5173/@vite/client:963
+[  152465ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/@vite/client:1034
+[  153468ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/@vite/client:1034
+[  154774ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ http://localhost:5173/GAMBLE-HUB/:0
+[  154841ms] [ERROR] WebSocket connection to 'ws://localhost:5173/?token=alWHGMl6WGJl' failed: Error during WebSocket handshake: Unexpected response code: 400 @ http://localhost:5173/@vite/client:801
+[  154885ms] [ERROR] WebSocket connection to 'ws://localhost:5173/?token=alWHGMl6WGJl' failed: Error during WebSocket handshake: Unexpected response code: 400 @ http://localhost:5173/@vite/client:814
+[  154885ms] [ERROR] [vite] failed to connect to websocket.
+your current setup:
+  (browser) localhost:5173/ <--[HTTP]--> localhost:5173/ (server)
+  (browser) localhost:5173/ <--[WebSocket (failing)]--> localhost:5173/ (server)
+Check out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr . @ http://localhost:5173/@vite/client:829
+[  643887ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ http://localhost:5173/GAMBLE-HUB/:0
+[ 1153435ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ http://localhost:5173/GAMBLE-HUB/:0

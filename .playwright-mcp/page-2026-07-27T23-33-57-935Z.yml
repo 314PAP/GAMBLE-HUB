@@ -1,0 +1,54 @@
+- generic [active] [ref=e1]:
+  - main "Herní aplikace" [ref=e2]:
+    - region [ref=e8]:
+      - heading "GAMBLE HUB" [level=1] [ref=e9]
+      - button "Zobrazit globální žebříček a historii" [ref=e10] [cursor=pointer]:
+        - generic [ref=e12]:
+          - text: Top Hráči
+          - generic [ref=e13]: 🌐 Online
+        - list [ref=e14]:
+          - generic [ref=e15]:
+            - generic [ref=e16]:
+              - generic [ref=e17]: 🥇
+              - generic [ref=e18]: 🧡💙💚
+            - generic [ref=e19]:
+              - text: 323.973 Kv
+              - img [ref=e20]:
+                - generic [ref=e22]: $
+          - generic [ref=e23]:
+            - generic [ref=e24]:
+              - generic [ref=e25]: 🥈
+              - generic [ref=e26]: stist
+            - generic [ref=e27]:
+              - text: 52.956 Qd
+              - img [ref=e28]:
+                - generic [ref=e30]: $
+          - generic [ref=e31]:
+            - generic [ref=e32]:
+              - generic [ref=e33]: 🥉
+              - generic [ref=e34]: Kerry
+            - generic [ref=e35]:
+              - text: 24.024 Qd
+              - img [ref=e36]:
+                - generic [ref=e38]: $
+          - generic [ref=e39]:
+            - generic [ref=e40]:
+              - generic [ref=e41]: "#4"
+              - generic [ref=e42]: GRC
+            - generic [ref=e43]:
+              - text: 28.358 Q
+              - img [ref=e44]:
+                - generic [ref=e46]: $
+          - generic [ref=e47]:
+            - generic [ref=e48]:
+              - generic [ref=e49]: "#5"
+              - generic [ref=e50]: HJ666
+            - generic [ref=e51]:
+              - text: 8.231 Bld
+              - img [ref=e52]:
+                - generic [ref=e54]: $
+      - generic [ref=e55]:
+        - button "VSTOUPIT" [ref=e56] [cursor=pointer]
+        - button "NOVÝ HRÁČ" [ref=e57] [cursor=pointer]
+      - button "⚠️ WARNING / DISKLEJMR ⚠️" [ref=e59] [cursor=pointer]
+  - generic [ref=e7]: "FPS: 60"

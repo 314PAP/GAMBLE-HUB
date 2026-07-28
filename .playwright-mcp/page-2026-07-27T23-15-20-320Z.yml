@@ -1,0 +1,54 @@
+- generic [active] [ref=f2e1]:
+  - main "Herní aplikace" [ref=f2e2]:
+    - region [ref=f2e4]:
+      - heading "GAMBLE HUB" [level=1] [ref=f2e5]
+      - button "Zobrazit globální žebříček a historii" [ref=f2e6] [cursor=pointer]:
+        - generic [ref=f2e8]:
+          - text: Top Hráči
+          - generic [ref=f2e9]: 🌐 Online
+        - list [ref=f2e10]:
+          - generic [ref=f2e11]:
+            - generic [ref=f2e12]:
+              - generic [ref=f2e13]: 🥇
+              - generic [ref=f2e14]: 🧡💙💚
+            - generic [ref=f2e15]:
+              - text: 323.973 Kv
+              - img [ref=f2e16]:
+                - generic [ref=f2e18]: $
+          - generic [ref=f2e19]:
+            - generic [ref=f2e20]:
+              - generic [ref=f2e21]: 🥈
+              - generic [ref=f2e22]: stist
+            - generic [ref=f2e23]:
+              - text: 52.956 Qd
+              - img [ref=f2e24]:
+                - generic [ref=f2e26]: $
+          - generic [ref=f2e27]:
+            - generic [ref=f2e28]:
+              - generic [ref=f2e29]: 🥉
+              - generic [ref=f2e30]: Kerry
+            - generic [ref=f2e31]:
+              - text: 24.024 Qd
+              - img [ref=f2e32]:
+                - generic [ref=f2e34]: $
+          - generic [ref=f2e35]:
+            - generic [ref=f2e36]:
+              - generic [ref=f2e37]: "#4"
+              - generic [ref=f2e38]: GRC
+            - generic [ref=f2e39]:
+              - text: 28.358 Q
+              - img [ref=f2e40]:
+                - generic [ref=f2e42]: $
+          - generic [ref=f2e43]:
+            - generic [ref=f2e44]:
+              - generic [ref=f2e45]: "#5"
+              - generic [ref=f2e46]: HJ666
+            - generic [ref=f2e47]:
+              - text: 8.231 Bld
+              - img [ref=f2e48]:
+                - generic [ref=f2e50]: $
+      - generic [ref=f2e51]:
+        - button "VSTOUPIT" [ref=f2e52] [cursor=pointer]
+        - button "NOVÝ HRÁČ" [ref=f2e53] [cursor=pointer]
+      - button "⚠️ WARNING / DISKLEJMR ⚠️" [ref=f2e55] [cursor=pointer]
+  - generic [ref=f2e56]: "FPS: 60"

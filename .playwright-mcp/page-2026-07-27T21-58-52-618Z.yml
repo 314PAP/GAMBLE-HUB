@@ -1,0 +1,3 @@
+- main "Herní aplikace" [ref=e2]:
+  - region "Spouštění hry" [ref=e4]:
+    - heading "GAMBLE HUB" [level=1] [ref=e6]

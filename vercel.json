@@ -4,7 +4,7 @@
   "framework": "vite",
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!_vercel/insights|assets|sw\\.js|manifest\\.json|icon\\.svg|offline\\.html).*)",
       "destination": "/index.html"
     }
   ],
