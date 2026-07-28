@@ -186,9 +186,10 @@ export function stopBetButtonsGlow() {
 }
 
 /* === MAIN CONTAINER BORDER GLOW (GSAP) ===
-   Cyles through the Gamble Hub title gradient colors:
-   pink → purple → blue → cyan → back to pink.
-   Replaces the removed CSS @keyframes borderGlow. */
+    Cycles through the Gamble Hub title gradient colors:
+    pink → purple → blue → purple → pink (smooth, seamless loop).
+    Each transition goes through adjacent hues — no harsh jumps.
+    Replaces the removed CSS @keyframes borderGlow. */
 const BORDER_GLOW_PHASES = [
   {
     borderColor: "#ff007f",
@@ -203,8 +204,12 @@ const BORDER_GLOW_PHASES = [
     glow: "rgba(59, 130, 246, 0.6)",
   },
   {
-    borderColor: "#3b82f6",
-    glow: "rgba(59, 130, 246, 0.6)",
+    borderColor: "#bd00ff",
+    glow: "rgba(189, 0, 255, 0.6)",
+  },
+  {
+    borderColor: "#ff007f",
+    glow: "rgba(255, 0, 127, 0.6)",
   },
 ];
 
