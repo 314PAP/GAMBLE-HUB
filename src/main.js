@@ -121,19 +121,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // GSAP border glow on main container (always runs, also after refresh)
-    // Válidace animation mode: 'gradient' (default, Gamble Hub colors) or 'stroboscopic' (yellow strobe)
-    const BORDER_ANIM_KEY = 'hub_border_anim';
-    const savedBorderMode = localStorage.getItem(BORDER_ANIM_KEY) || 'gradient';
-
+    // Default mode is always 'gradient' (Gamble Hub title gradient colors).
+    // No localStorage persistence — hard refresh always resets to default gradient.
     const mainContainer = document.querySelector('.container');
     if (mainContainer) {
       // Kill any existing tweens first (prevents duplicate animation)
       gsap.killTweensOf(mainContainer);
-      if (savedBorderMode === 'stroboscopic') {
-        initStroboscopicGlow(mainContainer);
-      } else {
-        initContainerBorderGlow(mainContainer);
-      }
+      initContainerBorderGlow(mainContainer);
     }
 
     // Override toggleTheme so it switches the main container border animation
@@ -151,7 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
           // Determine new mode: if theme is now cyan → stroboscopic, else → gradient
           const newMode = document.documentElement.getAttribute('data-theme') === 'cyan'
             ? 'stroboscopic' : 'gradient';
-          localStorage.setItem(BORDER_ANIM_KEY, newMode);
           if (newMode === 'stroboscopic') {
             initStroboscopicGlow(mainContainer);
           } else {
