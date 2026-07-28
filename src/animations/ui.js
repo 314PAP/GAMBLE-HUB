@@ -62,6 +62,11 @@ export function initModalAnimations() {
   if (!modal) return;
   const content = modal.querySelector(".modal-content");
 
+  // GSAP border glow for modal (replaces CSS animate-[borderGlow_3s_linear_infinite])
+  if (content) {
+    initContainerBorderGlow(content);
+  }
+
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((m) => {
       if (m.attributeName === "class" && modal.classList.contains("show")) {
@@ -178,4 +183,103 @@ export function stopBetButtonsGlow() {
     gsap.killTweensOf(btn);
     gsap.set(btn, { backgroundColor: "transparent", borderColor: "transparent" });
   });
+}
+
+/* === MAIN CONTAINER BORDER GLOW (GSAP) ===
+   Cyles through the Gamble Hub title gradient colors:
+   pink → purple → blue → cyan → back to pink.
+   Replaces the removed CSS @keyframes borderGlow. */
+const BORDER_GLOW_PHASES = [
+  {
+    borderColor: "#ff007f",
+    glow: "rgba(255, 0, 127, 0.6)",
+  },
+  {
+    borderColor: "#bd00ff",
+    glow: "rgba(189, 0, 255, 0.6)",
+  },
+  {
+    borderColor: "#3b82f6",
+    glow: "rgba(59, 130, 246, 0.6)",
+  },
+  {
+    borderColor: "#3b82f6",
+    glow: "rgba(59, 130, 246, 0.6)",
+  },
+];
+
+export function initContainerBorderGlow(element) {
+  if (!element) return;
+  gsap.killTweensOf(element);
+
+  // Okamžitý reset na první barvu, aby se přepnutí z jiného
+  // režimu (stroboskopický apod.) neprojevovalo přechodem
+  // přes nechtěné barvy (žlutá, oranžová).
+  gsap.set(element, {
+    borderColor: BORDER_GLOW_PHASES[0].borderColor,
+    boxShadow: `0 0 10px ${BORDER_GLOW_PHASES[0].glow}, 0 0 20px ${BORDER_GLOW_PHASES[0].glow}, inset 0 0 10px ${BORDER_GLOW_PHASES[0].glow.replace("0.6", "0.08")}`,
+  });
+
+  const tl = gsap.timeline({ repeat: -1, repeatDelay: 0 });
+
+  BORDER_GLOW_PHASES.forEach((phase, i) => {
+    tl.to(
+      element,
+      {
+        borderColor: phase.borderColor,
+        boxShadow: `0 0 10px ${phase.glow}, 0 0 20px ${phase.glow}, inset 0 0 10px ${phase.glow.replace("0.6", "0.08")}`,
+        duration: 1.2,
+        ease: "sine.inOut",
+      },
+      i * 1.2,
+    );
+  });
+
+  return tl;
+}
+
+/* === STROBOSCOPIC EPILEPTIC BORDER GLOW (GSAP) ===
+   Rapid-fire cycle through warm neon colors.
+   Called only when explicitly activated (e.g. cyan theme toggle). */
+const STROBO_PHASES = [
+  { borderColor: "#ffd700", glow: "rgba(255, 215, 0, 0.6)" },
+  { borderColor: "#ff9f1c", glow: "rgba(255, 159, 28, 0.6)" },
+  { borderColor: "#ffff00", glow: "rgba(255, 255, 0, 0.6)" },
+  { borderColor: "#39ff14", glow: "rgba(57, 255, 20, 0.6)" },
+  { borderColor: "#ffd700", glow: "rgba(255, 215, 0, 0.6)" },
+];
+
+export function initStroboscopicGlow(element) {
+  if (!element) return;
+  gsap.killTweensOf(element);
+
+  // Okamžitý reset na první stroboskopickou barvu.
+  gsap.set(element, {
+    borderColor: STROBO_PHASES[0].borderColor,
+    boxShadow: `0 0 15px ${STROBO_PHASES[0].glow}, 0 0 30px ${STROBO_PHASES[0].glow}`,
+  });
+
+  const tl = gsap.timeline({ repeat: -1, repeatDelay: 0 });
+
+  STROBO_PHASES.forEach((phase, i) => {
+    tl.to(
+      element,
+      {
+        borderColor: phase.borderColor,
+        boxShadow: `0 0 15px ${phase.glow}, 0 0 30px ${phase.glow}`,
+        duration: 0.15,
+        ease: "none",
+      },
+      i * 0.15,
+    );
+  });
+
+  return tl;
+}
+
+/* Kill all border glow tweens on an element */
+export function stopBorderGlow(element) {
+  if (!element) return;
+  gsap.killTweensOf(element);
+  gsap.set(element, { boxShadow: "none" });
 }

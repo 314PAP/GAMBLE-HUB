@@ -1,60 +1,8 @@
-.container {
-  background: #000000;
-  animation: borderGlow 4s ease-in-out infinite;
-}
-
-@keyframes borderGlow {
-  0%,
-  100% {
-    border-color: var(--neon-purple);
-    box-shadow:
-      0 0 10px var(--neon-purple-glow),
-      0 0 20px var(--neon-purple-glow),
-      inset 0 0 10px rgba(189, 0, 255, 0.08);
-  }
-  25% {
-    border-color: var(--neon-blue);
-    box-shadow:
-      0 0 12px var(--neon-blue-glow),
-      0 0 24px var(--neon-blue-glow),
-      inset 0 0 12px rgba(0, 240, 255, 0.1);
-  }
-  50% {
-    border-color: var(--neon-cyan);
-    box-shadow:
-      0 0 10px var(--neon-cyan-glow),
-      0 0 20px var(--neon-cyan-glow),
-      inset 0 0 10px rgba(0, 255, 255, 0.08);
-  }
-  75% {
-    border-color: var(--neon-blue);
-    box-shadow:
-      0 0 12px var(--neon-blue-glow),
-      0 0 24px var(--neon-blue-glow),
-      inset 0 0 12px rgba(0, 240, 255, 0.1);
-  }
-}
-
-@keyframes scoreBorderGlow {
-  0% {
-    border-color: var(--neon-gold);
-    box-shadow: 0 0 15px var(--neon-gold-glow);
-  }
-  33% {
-    border-color: var(--neon-green);
-    box-shadow: 0 0 15px var(--neon-green-glow);
-  }
-  66% {
-    border-color: var(--neon-orange);
-    box-shadow: 0 0 15px var(--neon-orange-glow);
-  }
-  100% {
-    border-color: var(--neon-gold);
-    box-shadow: 0 0 15px var(--neon-gold-glow);
-  }
-}
-
-/* Note: .game-title is defined in _layout.css */
+/*
+  Border glow animace jsou nyní řízeny GSAP v src/animations/ui.js.
+  CSS @keyframes borderGlow a @keyframes scoreBorderGlow byly odstraněny
+  aby nedocházelo ke konfliktům s GSAP animacemi.
+*/
 
 .modal {
   display: none;

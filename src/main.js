@@ -1,4 +1,5 @@
 import './css/main.css';
+import gsap from 'gsap';
 import { GameDatabase } from './db';
 import { GameUI } from './ui';
 import { GameManager } from './games';
@@ -14,6 +15,8 @@ import {
   initPulseSeven,
   initNeonFlicker,
   initIdlePulse,
+  initContainerBorderGlow,
+  initStroboscopicGlow,
 } from './animations/ui.js';
 import { GlobalEventHandlers } from './events/globalHandlers.js';
 
@@ -108,15 +111,56 @@ document.addEventListener('DOMContentLoaded', () => {
    initInfoPanelAnimations();
    initStatusBoxAnimation();
 
-   const gameTitle = document.getElementById('game-title');
-   if (gameTitle) {
-     initNeonFlicker(gameTitle, 'rgba(0, 240, 255, 0.6)');
-   }
-   const spinBtn = document.getElementById('btn-spin-slots');
-   if (spinBtn) {
-     initIdlePulse(spinBtn);
-   }
-});
+    const gameTitle = document.getElementById('game-title');
+    if (gameTitle) {
+      initNeonFlicker(gameTitle, 'rgba(0, 240, 255, 0.6)');
+    }
+    const spinBtn = document.getElementById('btn-spin-slots');
+    if (spinBtn) {
+      initIdlePulse(spinBtn);
+    }
+
+    // GSAP border glow on main container (always runs, also after refresh)
+    // Válidace animation mode: 'gradient' (default, Gamble Hub colors) or 'stroboscopic' (yellow strobe)
+    const BORDER_ANIM_KEY = 'hub_border_anim';
+    const savedBorderMode = localStorage.getItem(BORDER_ANIM_KEY) || 'gradient';
+
+    const mainContainer = document.querySelector('.container');
+    if (mainContainer) {
+      // Kill any existing tweens first (prevents duplicate animation)
+      gsap.killTweensOf(mainContainer);
+      if (savedBorderMode === 'stroboscopic') {
+        initStroboscopicGlow(mainContainer);
+      } else {
+        initContainerBorderGlow(mainContainer);
+      }
+    }
+
+    // Override toggleTheme so it switches the main container border animation
+    // (gradient ↔ stroboscopic yellow) WITHOUT changing the CSS background vars.
+    const originalToggleTheme = window.toggleTheme;
+    if (originalToggleTheme) {
+      window.toggleTheme = () => {
+        // Switch theme attribute (cyan ↔ default)
+        originalToggleTheme();
+
+        // Only change the border animation on main container — do NOT
+        // modify background/screen CSS variables (those stay constant).
+        if (mainContainer) {
+          gsap.killTweensOf(mainContainer);
+          // Determine new mode: if theme is now cyan → stroboscopic, else → gradient
+          const newMode = document.documentElement.getAttribute('data-theme') === 'cyan'
+            ? 'stroboscopic' : 'gradient';
+          localStorage.setItem(BORDER_ANIM_KEY, newMode);
+          if (newMode === 'stroboscopic') {
+            initStroboscopicGlow(mainContainer);
+          } else {
+            initContainerBorderGlow(mainContainer);
+          }
+        }
+      };
+    }
+  });
 
 window.otevriAbbrevModal = async function () {
    const modal = document.getElementById('abbrev-modal');
