@@ -269,11 +269,7 @@ export class GlobalEventHandlers {
 
     window.toggleMuteState = () => {
       const isMuted = sound.toggleMute();
-      const soundBtns = [
-        document.getElementById("global-sound-toggle"),
-        document.getElementById("login-sound-toggle"),
-      ];
-      soundBtns.forEach((btn) => {
+      [document.getElementById("global-sound-toggle"), document.getElementById("hub-sound-toggle"), document.getElementById("login-sound-toggle")].forEach((btn) => {
         if (btn) {
           if (isMuted) {
             btn.classList.add("muted");

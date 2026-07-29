@@ -1,10 +1,30 @@
 /*
-  Border glow animace jsou nyní řízeny GSAP v src/animations/ui.js.
-  CSS @keyframes borderGlow a @keyframes scoreBorderGlow byly odstraněny
-  aby nedocházelo ke konfliktům s GSAP animacemi.
+  CSS @keyframes borderGlow byly odstraněny
+  aby nedocházelo ke konfliktům s GSAP animacemi (initContainerBorderGlow).
+  @keyframes scoreBorderGlow je použito pouze pro leaderboard card
+  a nekonfliktuje s GSAP, protože ten na leaderboardu není aplikován.
 */
 
 /* === LEADERBOARD CARD === */
+@keyframes scoreBorderGlow {
+  0% {
+    border-color: var(--neon-gold);
+    box-shadow: 0 0 15px var(--neon-gold-glow);
+  }
+  33% {
+    border-color: var(--neon-green);
+    box-shadow: 0 0 15px var(--neon-green-glow);
+  }
+  66% {
+    border-color: var(--neon-orange);
+    box-shadow: 0 0 15px var(--neon-orange-glow);
+  }
+  100% {
+    border-color: var(--neon-gold);
+    box-shadow: 0 0 15px var(--neon-gold-glow);
+  }
+}
+
 .leaderboard-card-clickable {
   background: rgba(189, 0, 255, 0.04);
   border: 1px solid #2a1a3e;
@@ -200,35 +220,43 @@
   line-height: 1.5;
 }
 
+/* === TOGGLE BUTTONS === */
 .sound-toggle-btn,
+.music-toggle-btn,
 .btn-info-toggle,
 .theme-toggle-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  cursor: pointer;
   background:
     linear-gradient(135deg, rgba(255, 230, 0, 0.25) 0%, rgba(255, 230, 0, 0.05) 100%),
     rgba(15, 15, 5, 0.8);
   border: 2px solid #ffe600;
-  border-radius: 6px;
   color: #ffe600;
-  cursor: pointer;
   box-shadow:
     0 0 12px rgba(255, 230, 0, 0.5),
     inset 1px 1px 0px rgba(255, 255, 255, 0.4),
     inset -1px -1px 0px rgba(0, 0, 0, 0.6);
   filter: drop-shadow(0 0 6px rgba(255, 230, 0, 0.8));
-}
-
-.sound-toggle-btn:hover,
-.btn-info-toggle:hover,
-.theme-toggle-btn:hover {
-  filter: brightness(1.3) drop-shadow(0 0 10px rgba(255, 230, 0, 1));
-  transform: scale(1.1);
-  box-shadow:
-    0 0 18px rgba(255, 230, 0, 0.7),
-    inset 1px 1px 0px rgba(255, 255, 255, 0.6);
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.sound-toggle-btn.muted {
+.sound-toggle-btn:hover,
+.music-toggle-btn:hover,
+.btn-info-toggle:hover,
+.theme-toggle-btn:hover {
+  box-shadow:
+    0 0 18px rgba(255, 230, 0, 0.7),
+    inset 1px 1px 0px rgba(255, 255, 255, 0.6);
+  filter: brightness(1.3) drop-shadow(0 0 10px rgba(255, 230, 0, 1));
+}
+
+.sound-toggle-btn.muted,
+.music-toggle-btn.muted {
   border-color: #ff9f1c;
   color: #ff9f1c;
   filter: drop-shadow(0 0 6px rgba(255, 159, 28, 0.8));
@@ -375,10 +403,4 @@
 .history-row {
   border-radius: 0.5rem;
   margin-bottom: 0.25rem;
-}
-
-.coin-icon-table {
-  width: 1em;
-  height: 1em;
-  flex-shrink: 0;
 }
