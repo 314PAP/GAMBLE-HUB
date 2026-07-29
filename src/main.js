@@ -64,14 +64,60 @@ document.addEventListener('DOMContentLoaded', () => {
      }
    })();
 
-   const toggleBtn = document.getElementById('global-sound-toggle');
-   if (toggleBtn) {
-     if (sound.isMuted()) {
-       toggleBtn.classList.add('muted');
-     } else {
-       toggleBtn.classList.remove('muted');
+     const toggleBtn = document.getElementById('global-sound-toggle');
+     const loginToggleBtn = document.getElementById('login-sound-toggle');
+     if (toggleBtn) {
+       if (sound.isMuted()) {
+         toggleBtn.classList.add('muted');
+       } else {
+         toggleBtn.classList.remove('muted');
+       }
      }
-    }
+     if (loginToggleBtn) {
+       if (sound.isMuted()) {
+         loginToggleBtn.classList.add('muted');
+       } else {
+         loginToggleBtn.classList.remove('muted');
+       }
+     }
+
+     const musicToggleBtn = document.getElementById('global-music-toggle');
+     const loginMusicToggleBtn = document.getElementById('login-music-toggle');
+     if (musicToggleBtn) {
+       const musicMuted = localStorage.getItem('c_music_mute') === 'true';
+       if (musicMuted) {
+         musicToggleBtn.classList.add('muted');
+       } else {
+         musicToggleBtn.classList.remove('muted');
+       }
+     }
+     if (loginMusicToggleBtn) {
+       const musicMuted = localStorage.getItem('c_music_mute') === 'true';
+       if (musicMuted) {
+         loginMusicToggleBtn.classList.add('muted');
+       } else {
+         loginMusicToggleBtn.classList.remove('muted');
+       }
+     }
+
+    window.toggleMusicState = function() {
+      const isPlaying = sound.toggleBGM();
+      const btns = [
+        document.getElementById('global-music-toggle'),
+        document.getElementById('login-music-toggle'),
+      ];
+      btns.forEach((btn) => {
+        if (btn) {
+          if (isPlaying) {
+            btn.classList.remove('muted');
+            localStorage.setItem('c_music_mute', 'false');
+          } else {
+            btn.classList.add('muted');
+            localStorage.setItem('c_music_mute', 'true');
+          }
+        }
+      });
+    };
 
     document.addEventListener('click', (e) => {
      const target = e.target;
@@ -82,9 +128,11 @@ document.addEventListener('DOMContentLoaded', () => {
        target.closest('.bet-btn') ||
        target.closest('.btn-spin-slots') ||
        target.closest('.btn-auto-slots') ||
-       target.closest('.sound-toggle-btn')
+       target.closest('.sound-toggle-btn') ||
+       target.closest('#login-sound-toggle') ||
+       target.closest('#login-music-toggle')
      ) {
-       sound.playClick();
+       sound.playClickRetro();
      }
    });
 

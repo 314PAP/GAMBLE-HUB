@@ -51,7 +51,7 @@ export class DiceGame {
     const display = document.getElementById("dice-display");
     const finalValue = Math.floor(Math.random() * 6) + 1;
 
-    sound.playDiceRoll();
+    sound.play8BitJump();
 
     const tl = gsap.timeline({
       onComplete: () => {
@@ -63,6 +63,7 @@ export class DiceGame {
         if (isWin) {
           frame.classList.add("win");
           setTimeout(() => frame.classList.remove("win"), 2000);
+          sound.playWinBonus();
         }
 
         this.isPlaying = false;

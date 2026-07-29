@@ -37,32 +37,52 @@
         class="screen active flex flex-col h-full overflow-y-auto bg-black"
         aria-labelledby="login-title"
       >
-        <h1 id="login-title" class="mb-4">GAMBLE HUB</h1>
+        <h1 id="login-title" class="mb-4 flex items-center justify-between w-full">
+          <span>GAMBLE HUB</span>
+          <div class="flex items-center gap-1.5 shrink-0">
+            <button
+              class="sound-toggle-btn w-[28px] h-[28px] flex items-center justify-center rounded-md shrink-0"
+              id="login-sound-toggle"
+              onclick="toggleMuteState()"
+              title="Zvuk"
+              aria-label="Přepnout zvuk"
+            >
+              <svg class="w-[58%] h-[58%]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+              </svg>
+            </button>
+            <button
+              class="music-toggle-btn w-[28px] h-[28px] flex items-center justify-center rounded-md shrink-0"
+              id="login-music-toggle"
+              onclick="toggleMusicState()"
+              title="Hudba"
+              aria-label="Přepnout hudbu na pozadí"
+            >
+              <svg class="w-[58%] h-[58%]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 18V5l12-2v13" />
+                <circle cx="6" cy="18" r="3" />
+                <circle cx="18" cy="16" r="3" />
+              </svg>
+            </button>
+          </div>
+        </h1>
 
         <!-- Leaderboard karta -->
         <div
           id="leaderboard-card"
-          class="p-3 rounded-2xl mb-4 cursor-pointer transition-all w-full overflow-hidden relative border-2 border-transparent bg-gradient-to-br from-[rgba(13,0,26,0.4)] to-[rgba(13,0,26,0.6)] shadow-[0_0_15px_rgba(0,0,0,0.3),inset_0_0_10px_rgba(0,0,0,0.3)]"
+          class="leaderboard-card-clickable rounded-2xl mb-5 cursor-pointer transition-all w-full overflow-hidden relative"
           onclick="otevriExplorer()"
           aria-label="Zobrazit globální žebříček a historii"
           role="button"
           tabindex="0"
         >
-          <div
-            class="font-['Orbitron'] text-xs text-[var(--neon-gold)] uppercase tracking-wider pb-2"
-          >
-            <span class="flex items-center gap-2.5"
-              >Top Hráči <span class="leaderboard-badge"></span
-            ></span>
+          <div class="flex items-center justify-between font-['Orbitron',sans-serif] text-[12px] text-[#ff5500] tracking-wider mb-3 uppercase">
+            <span class="flex items-center gap-1.5">Top Hráči <span class="leaderboard-badge"></span></span>
+            <span class="text-[10px] text-[#475569] lowercase tracking-normal font-sans italic hover:text-[#00f0ff]">detaily ➔</span>
           </div>
-          <div
-            id="leaderboard-content"
-            role="list"
-            class="flex flex-col pl-0 pr-2 pb-2 max-h-48 overflow-y-auto"
-          >
-            <span class="text-[var(--neon-gold)] text-xs italic text-glow-gold"
-              >Načítám žebříček...</span
-            >
+          <div id="leaderboard-content" class="flex flex-col gap-2">
+            <span class="text-[#475569] text-xs italic">🔄 Načítám žebříček...</span>
           </div>
         </div>
 

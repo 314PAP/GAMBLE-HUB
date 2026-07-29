@@ -68,7 +68,7 @@ export class HiloGame {
   play(tip, betAmount, onComplete) {
     if (this.isAnimating) return;
     this.isAnimating = true;
-    sound.playFlip();
+    sound.playCardFlip();
 
     // Next card: 1–10, always different from current
     let nextNumber;
@@ -103,6 +103,11 @@ export class HiloGame {
           card.classList.remove("hilo-card-pop");
           void card.offsetWidth;
           card.classList.add("hilo-card-pop");
+          if (isWin) {
+            sound.playWinBonus();
+          } else {
+            sound.playLoss();
+          }
           onComplete({
             isWin,
             winAmount,
@@ -113,6 +118,11 @@ export class HiloGame {
     } else {
       this.currentNumber = nextNumber;
       this.isAnimating = false;
+      if (isWin) {
+        sound.playWinBonus();
+      } else {
+        sound.playLoss();
+      }
       onComplete({
         isWin,
         winAmount,

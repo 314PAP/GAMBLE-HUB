@@ -21,7 +21,11 @@ vi.mock('../src/ui/gameInfo.js', () => ({
 vi.mock('../src/sound.js', () => ({
   sound: {
     playClick: vi.fn(),
+    playClickRetro: vi.fn(),
+    playCardFlip: vi.fn(),
     playWin: vi.fn(),
+    playWinBonus: vi.fn(),
+    playLoss: vi.fn(),
     toggleMute: vi.fn(() => false),
     isMuted: vi.fn(() => false),
   },

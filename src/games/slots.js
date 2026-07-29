@@ -112,6 +112,7 @@ export class SlotMachineGame {
         },
         onComplete: () => {
           gsap.set(reelParent, { filter: "blur(0px)" });
+          sound.playSlotReelStop();
 
           completedReels++;
           if (completedReels === 3) {
@@ -189,6 +190,7 @@ export class SlotMachineGame {
     }
 
     if (isWin) {
+      sound.playWinBonus();
       winningCells.forEach((cellIdx) => {
         const reel = cellIdx % 3;
         const row = Math.floor(cellIdx / 3);

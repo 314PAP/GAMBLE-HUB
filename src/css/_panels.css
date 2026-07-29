@@ -4,6 +4,20 @@
   aby nedocházelo ke konfliktům s GSAP animacemi.
 */
 
+/* === LEADERBOARD CARD === */
+.leaderboard-card-clickable {
+  background: rgba(189, 0, 255, 0.04);
+  border: 1px solid #2a1a3e;
+  border-radius: 16px;
+  padding: 20px 24px 16px 24px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.leaderboard-card-clickable:hover {
+  border-color: #ffd700;
+  box-shadow: 0 0 20px rgba(255,215,0,0.15);
+}
+
 .modal {
   display: none;
   position: fixed;

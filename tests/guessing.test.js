@@ -23,6 +23,13 @@ vi.mock('gsap', () => ({
 vi.mock('../src/sound.js', () => ({
   sound: {
     playClick: vi.fn(),
+    playClickRetro: vi.fn(),
+    play8BitSelect: vi.fn(),
+    play8BitPowerUp: vi.fn(),
+    playWinBonus: vi.fn(),
+    playLoss: vi.fn(),
+    toggleMute: vi.fn(() => false),
+    isMuted: vi.fn(() => false),
   },
 }));
 

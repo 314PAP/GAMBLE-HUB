@@ -38,6 +38,7 @@ export class GlobalEventHandlers {
 
     window.zpetDoMenu = () => {
       this.gm.stopAutoPlay();
+      sound.playSlotCancel();
       this.ui.showScreen("screen-login");
       this.ui.renderLeaderboard();
     };
@@ -268,14 +269,19 @@ export class GlobalEventHandlers {
 
     window.toggleMuteState = () => {
       const isMuted = sound.toggleMute();
-      const toggleBtn = document.getElementById("global-sound-toggle");
-      if (toggleBtn) {
-        if (isMuted) {
-          toggleBtn.classList.add("muted");
-        } else {
-          toggleBtn.classList.remove("muted");
+      const soundBtns = [
+        document.getElementById("global-sound-toggle"),
+        document.getElementById("login-sound-toggle"),
+      ];
+      soundBtns.forEach((btn) => {
+        if (btn) {
+          if (isMuted) {
+            btn.classList.add("muted");
+          } else {
+            btn.classList.remove("muted");
+          }
         }
-      }
+      });
     };
 
     window.toggleTheme = () => {

@@ -99,6 +99,11 @@ export class GuessingGame {
         // Pause for 1.5 seconds so player can clearly see the outcome
         gsap.delayedCall(1.5, () => {
           this.isPlaying = false;
+          if (isWin) {
+            sound.playWinBonus();
+          } else {
+            sound.playLoss();
+          }
           onComplete({
             isWin,
             winAmount,
@@ -124,7 +129,11 @@ export class GuessingGame {
           if (parseInt(targetBtn.dataset.num) !== selectedNum) {
             targetBtn.classList.add("winning");
           }
-          sound.playClick();
+          if (step === totalSteps - 1) {
+            sound.play8BitSelect();
+          } else {
+            sound.playClick();
+          }
         },
       });
     }
