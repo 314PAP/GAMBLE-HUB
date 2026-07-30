@@ -136,4 +136,5 @@ Provedené změny v `index.html`:
 - **Zbytečné utility třídy** v `_layout.css`: `flex-row-center`, `gap-sm`, `margin-top-md`, `text-center`, `text-muted` (už jsou v Tailwind)
 
 ### Zálohy
-Žádné zálohy CSS nejsou aktuálně vedené v repozitáři.
+- Žádné zálohy CSS nejsou aktuálně vedené v repozitáři.
+- Při každé významné úpravě CSS (odstranění duplikátů, cleanup) zaznamenávat datum a seznam změn v sekci CSS Cleanup.

@@ -38,6 +38,12 @@ export class GameUI {
 
   // Transitions between screens with a fade effect
   showScreen(screenId) {
+    const currentScreen = document.querySelector(".screen.active");
+    if (currentScreen) {
+      gsap.killTweensOf(currentScreen);
+      const animated = currentScreen.querySelector("[data-animate]");
+      if (animated) gsap.killTweensOf(animated);
+    }
     document.querySelectorAll(".screen").forEach((screen) => {
       screen.classList.remove("active");
     });

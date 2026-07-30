@@ -271,12 +271,14 @@ function showUpdateNotification() {
 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
   let lastTime = performance.now();
   let frames = 0;
+  let fpsRunning = true;
   const fpsMeter = document.createElement('div');
   fpsMeter.id = 'fps-meter';
   fpsMeter.className = 'fixed bottom-2 right-2 z-50 px-2 py-1 rounded bg-black/80 text-[var(--neon-green)] text-xs font-mono border border-[var(--neon-green)]/30';
   document.body.appendChild(fpsMeter);
 
   function updateFPS() {
+    if (!fpsRunning) return;
     frames++;
     const now = performance.now();
     if (now - lastTime >= 1000) {
@@ -289,6 +291,16 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
     requestAnimationFrame(updateFPS);
   }
   requestAnimationFrame(updateFPS);
+
+  // Stop FPS meter when page is hidden to save resources
+  document.addEventListener('visibilitychange', () => {
+    fpsRunning = !document.hidden;
+    if (fpsRunning) {
+      lastTime = performance.now();
+      frames = 0;
+      requestAnimationFrame(updateFPS);
+    }
+  });
 }
 if ('serviceWorker' in navigator && !import.meta.env.DEV) {
   const registerSW = async () => {

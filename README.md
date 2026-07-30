@@ -73,14 +73,17 @@ Aplikace obsahuje **6 her**, každá s vlastním herním modulem v `src/games/`:
 ├── .github/workflows/deploy.yml   # GitHub Actions CD
 ├── public/
 │   └── manifest.json               # PWA manifest
+│   └── sounds/                     # Audio soubory (sfx + bgm)
+│   └── sw.js                       # Service Worker
 ├── src/
 │   ├── main.js                     # Entry point – inicializace, splash, návštěvy
 │   ├── games.js                    # GameManager – orchestrátor sázek, autoplay, UI lock
 │   ├── ui.js                       # GameUI – obrazovky, modály, animace výsledků
 │   ├── db.js                       # GameDatabase – LocalStorage CRUD, milníky, import/export
-│   ├── api.js                      # API – Firebase Firestore sync (leaderboard, matches)
-│   ├── sound.js                    # SoundManager – Web Audio API syntetizátor
-│   ├── utils.js                    # Utility – formátování velkých čísel, zkratky
+│   ├── api.js                      # API – Firebase Firestore sync (leaderboard, matches, visits)
+│   ├── sound.js                    # SoundManager – Web Audio API syntetizátor + file-based audio
+│   ├── soundIndex.js                # Sound asset registry (SOUND_ASSETS, BGM_TRACKS)
+│   ├── utils.js                    # Utility – formátování velkých čísel, zkratky, escapeHtml, COIN_SVG
 │   ├── games/
 │   │   ├── slots.js                # SlotMachineGame – 3x3 mřížka, 5 linií, GSAP spin
 │   │   ├── hilo.js                 # HiloGame – Hi-Lo karta, 3D flip, dynamický koeficient
@@ -98,19 +101,20 @@ Aplikace obsahuje **6 her**, každá s vlastním herním modulem v `src/games/`:
 │   │   └── globalHandlers.js       # GlobalEventHandlers – window.* funkce z HTML onclick
 │   ├── animations/
 │   │   ├── buttons.js              # GSAP entrance animace tlačítek
-│   │   └── ui.js                   # Neónové kmitání, idle pulzace, screen přechody
+│   │   ├── infoToggle.js           # Neónové kmitání, idle pulzace, screen přechody info panelu
+│   │   └── ui.js                   # Neónové kmitání, idle pulzace, screen přechody, border glow
 │   └── css/
 │       ├── main.css                # Entry point – importuje všechny CSS vrstvy
 │       ├── tailwind.css            # Tailwind v4 @theme s neon paletou
 │       ├── _variables.css          # CSS custom properties (barvy, glow, shadow)
 │       ├── _reset.css              # Základní reset, scrollbar, body pozadí
 │       ├── _typography.css         # Fonty, nadpisy, neon text utility, .sr-only
-│       ├── _layout.css             # Screen management, form inputs, grid rozložení
+│       ├── _layout.css             # Screen state management, @media queries
 │       ├── _buttons.css            # 3D tlačítka – massive component v @layer components
 │       ├── _panels.css             # Modály, info panely, status box, toast pozice
 │       ├── _slot.css               # Slot machine – glass panel, reel glow, symbol glows
 │       ├── _hilo.css               # Hi-Lo karta – 3D preserve-3d, flip animace
-│       └── _dice.css               # Dice frame – sheen animace, win glow, num button flash
+│       └── _dice.css               # Dice frame – sheen animace, win glow
 ├── index.html                      # Hlavní šablona – sémantické tagy, screeny, modály
 └── package.json                    # Závislosti a skripty
 ```
@@ -126,6 +130,8 @@ Aplikace obsahuje **6 her**, každá s vlastním herním modulem v `src/games/`:
 | `c_stat` | `{ username: { vyhry, prohry, historie: string[] } }` | Statistiky, historie omezena na 10 záznamů |
 | `c_scor` | `[{ jmeno, castka }]` | Leaderboard – pouze nejvyšší skóre na hráče |
 | `c_mute` | `"true"` / `"false"` | Stav ztlumení zvuku |
+| `c_music_mute` | `"true"` / `"false"` | Stav ztlumení hudby |
+| `c_theme` | `"cyan"` / absent | Barevné téma |
 
 ### Firebase (volitelné, global sync)
 - `leaderboard/{username}` – `{ castka, updatedAt }`

@@ -61,18 +61,20 @@ class SoundManager {
 
   _playFile(src, volume = 1.0, loop = false, isBGM = false) {
     const muteKey = isBGM ? this.bgmMuted : this.sfxMuted;
-    if (muteKey) return;
+    if (muteKey) return null;
     this.initContext();
-    if (!this.ctx) return;
+    if (!this.ctx) return null;
 
     const audio = new Audio(src);
     audio.volume = volume;
     audio.loop = loop;
     audio.play().catch(() => {});
     this._activeFileAudios.add(audio);
-    audio.addEventListener('ended', () => {
+    const cleanup = () => {
       this._activeFileAudios.delete(audio);
-    });
+      audio.removeEventListener('ended', cleanup);
+    };
+    audio.addEventListener('ended', cleanup);
     return audio;
   }
 

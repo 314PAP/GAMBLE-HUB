@@ -11,11 +11,18 @@ export class GameDatabase {
   static STARTING_BALANCE = 500;
   static MAX_HISTORY = 10;
 
-  saveAll() {
-    localStorage.setItem('c_uziv', JSON.stringify(this.uzivatele));
-    localStorage.setItem('c_stat', JSON.stringify(this.statistiky));
-    localStorage.setItem('c_scor', JSON.stringify(this.scoreTable));
-  }
+   _savePending = false;
+
+   saveAll() {
+     if (this._savePending) return;
+     this._savePending = true;
+     setTimeout(() => {
+       localStorage.setItem('c_uziv', JSON.stringify(this.uzivatele));
+       localStorage.setItem('c_stat', JSON.stringify(this.statistiky));
+       localStorage.setItem('c_scor', JSON.stringify(this.scoreTable));
+       this._savePending = false;
+     }, 0);
+   }
 
   getPlayers() {
     return this.uzivatele;
@@ -78,11 +85,6 @@ export class GameDatabase {
     if (this.uzivatele[username] !== undefined) {
       const oldVal = this.uzivatele[username];
       this.uzivatele[username] = Math.max(0, amount);
-      // Debug: log large balance changes
-      const diff = this.uzivatele[username] - oldVal;
-      if (Math.abs(diff) >= 1000000 && diff !== 0) {
-        // Large balance change detected (silent in production)
-      }
       this.saveAll();
     }
   }

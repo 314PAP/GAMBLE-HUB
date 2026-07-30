@@ -264,18 +264,12 @@ export class GameManager {
       // if(jeVyhra) uzivatele[aktualniHrac] += vyhraMnozstvi;
       // So we follow this exactly: we deduct at start of spin, and here we just add the winnings.)
       
-      let newBalance = oldBalance;
-      if (isWin) {
-        newBalance = oldBalance + winAmount;
-        
-        // Debug: log large balance changes
-        if (winAmount >= 10000000) { // 10M+
-          // Large win detected (silent in production)
-        }
-        
-        this.db.updatePlayerBalance(this.currentPlayer, newBalance);
-        this.ui.triggerWinConfetti(isJackpot);
-      }
+       let newBalance = oldBalance;
+       if (isWin) {
+         newBalance = oldBalance + winAmount;
+         this.db.updatePlayerBalance(this.currentPlayer, newBalance);
+         this.ui.triggerWinConfetti(isJackpot);
+       }
     
     // Log in DB
     this.db.recordMatch(this.currentPlayer, gameName, this.activeBet, resultText, isWin);
@@ -293,19 +287,15 @@ export class GameManager {
     // Notify BetSlider of balance change so max can be updated
     document.dispatchEvent(new CustomEvent('balanceChanged', { detail: { balance: newBalance } }));
     
-    const resBox = document.getElementById('game-result');
     const resBoxClassic = document.getElementById('game-result-classic');
     const resBoxDice = document.getElementById('game-result-dice');
     const resBoxSlots = document.getElementById('game-result-slots');
     const resBoxHilo = document.getElementById('game-result-hilo');
 
-    const gameConfig = GAME_CONFIG[this.activeGameId] || GAME_CONFIG[1];
-    const boxMap = {
-      resBoxDice: document.getElementById('game-result-dice'),
-      resBoxSlots: document.getElementById('game-result-slots'),
-      resBoxHilo: document.getElementById('game-result-hilo'),
-    };
-    let targetResBox = boxMap[gameConfig.resultBox] || document.getElementById('game-result-classic') || document.getElementById('game-result');
+    let targetResBox = resBoxClassic;
+    if (gameConfig.resultBox === 'resBoxDice' && resBoxDice) targetResBox = resBoxDice;
+    if (gameConfig.resultBox === 'resBoxSlots' && resBoxSlots) targetResBox = resBoxSlots;
+    if (gameConfig.resultBox === 'resBoxHilo' && resBoxHilo) targetResBox = resBoxHilo;
 
     if (isWin) {
       const hiloColor = gameConfig.hiloColor ? '#ff4060' : 'var(--neon-orange)';
@@ -387,66 +377,69 @@ export class GameManager {
     this.processGameResult(res.isWin, res.winAmount, "VíceMéně", res.resultText);
   }
 
-// Spin slots
+  // Spin slots
   async playSlots() {
     const modulesLoaded = await this._ensureGameModules();
     if (!modulesLoaded) return;
-    
+
     if (this.slots.isSpinning) return;
     if (!this._startRound()) return;
-       
-      // Animate bet buttons yellow glow during spin (both auto and manual)
-      this.lockGameControls(true);
-      animateBetButtonsGlow();
-      
-      const balance = this.db.getPlayerBalance(this.currentPlayer);
-      
-      const res = await this.slots.spinAsync(this.activeBet, balance);
-      this.lockGameControls(false);
-      // Stop bet buttons glow animation
-      stopBetButtonsGlow();
-      this.processGameResult(res.isWin, res.winAmount, "Bary3x3", res.resultText, res.isJackpot);
-    }
 
-  // Utility to prevent user clicks on other options during animations
-  lockGameControls(lock) {
-    // Disable bet presets (both btn-bet and bet-btn classes)
-    document.querySelectorAll('.btn-bet, .bet-btn').forEach(b => {
-      b.disabled = lock;
-      if (lock) {
-        b.classList.add('is-locked');
-      } else {
-        b.classList.remove('is-locked');
-      }
-    });
+    // Animate bet buttons yellow glow during spin (both auto and manual)
+    this.lockGameControls(true);
+    animateBetButtonsGlow();
 
-    // Disable BetSlider interaction
-    const sliderContainer = document.getElementById('bet-slider-container');
-    if (sliderContainer) {
-      sliderContainer.style.pointerEvents = lock ? 'none' : '';
-      sliderContainer.style.opacity = lock ? '0.4' : '';
-    }
+    const balance = this.db.getPlayerBalance(this.currentPlayer);
 
-    // Disable grid buttons in classic games
-    document.querySelectorAll('.btn-num').forEach(b => {
-      b.disabled = lock;
-    });
-
-    // Disable dice number buttons
-    document.querySelectorAll('.dice-num-btn').forEach(b => {
-      b.disabled = lock;
-    });
-
-    // Disable slot spin button
-    const spinBtn = document.getElementById('btn-spin-slots');
-    if (spinBtn) spinBtn.disabled = lock;
-
-    // Disable Hilo buttons
-    const hiloHigh = document.getElementById('btn-hilo-high');
-    const hiloLow = document.getElementById('btn-hilo-low');
-    if (hiloHigh) hiloHigh.disabled = lock;
-    if (hiloLow) hiloLow.disabled = lock;
+    const res = await this.slots.spinAsync(this.activeBet, balance);
+    this.lockGameControls(false);
+    // Stop bet buttons glow animation
+    stopBetButtonsGlow();
+    this.processGameResult(res.isWin, res.winAmount, "Bary3x3", res.resultText, res.isJackpot);
   }
+
+   // Utility to prevent user clicks on other options during animations
+   lockGameControls(lock) {
+     // Disable bet presets (both btn-bet and bet-btn classes)
+     const betButtons = document.querySelectorAll('.btn-bet, .bet-btn');
+     betButtons.forEach((b) => {
+       b.disabled = lock;
+       if (lock) {
+         b.classList.add('is-locked');
+       } else {
+         b.classList.remove('is-locked');
+       }
+     });
+
+     // Disable BetSlider interaction
+     const sliderContainer = document.getElementById('bet-slider-container');
+     if (sliderContainer) {
+       sliderContainer.style.pointerEvents = lock ? 'none' : '';
+       sliderContainer.style.opacity = lock ? '0.4' : '';
+     }
+
+     // Disable grid buttons in classic games
+     const numButtons = document.querySelectorAll('.btn-num');
+     numButtons.forEach((b) => {
+       b.disabled = lock;
+     });
+
+     // Disable dice number buttons
+     const diceButtons = document.querySelectorAll('.dice-num-btn');
+     diceButtons.forEach((b) => {
+       b.disabled = lock;
+     });
+
+     // Disable slot spin button
+     const spinBtn = document.getElementById('btn-spin-slots');
+     if (spinBtn) spinBtn.disabled = lock;
+
+     // Disable Hilo buttons
+     const hiloHigh = document.getElementById('btn-hilo-high');
+     const hiloLow = document.getElementById('btn-hilo-low');
+     if (hiloHigh) hiloHigh.disabled = lock;
+     if (hiloLow) hiloLow.disabled = lock;
+   }
 
   // Handles Slot Machine Autoplay toggling
   async toggleAutoPlay() {
