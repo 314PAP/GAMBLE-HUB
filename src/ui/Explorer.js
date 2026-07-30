@@ -88,7 +88,7 @@ export class ExplorerManager {
     if (!list) return;
     const data = filteredData || this.ui.historyData;
     if (data.length === 0) {
-      list.innerHTML = `<span class="text-[var(--neon-gold)] text-xs italic p-4 text-center block text-glow-gold">Žádná historie her nenalezena</span>`;
+      list.innerHTML = `<span class="text-neon-gold text-xs italic p-4 text-center block text-glow-gold">Žádná historie her nenalezena</span>`;
       return;
     }
 
@@ -103,8 +103,8 @@ export class ExplorerManager {
         const gameLabel = GAME_LABELS[item.gameName] || item.gameName;
 
         const winClass = isWin
-          ? "text-[var(--neon-green)] text-glow-green"
-          : "text-[var(--neon-pink)] text-glow-pink";
+          ? "text-neon-green text-glow-green"
+          : "text-neon-pink text-glow-pink";
         const cleanResult = stripHtml(item.resultText || "");
 
         // Compact Detaily: show count of symbols (×3 7️⃣) not winning line count
@@ -132,12 +132,12 @@ export class ExplorerManager {
         return `
         <div class="history-row group border-b border-[rgba(255,255,255,0.06)] last:border-b-0 hover:bg-[rgba(189,0,255,0.1)] transition-colors">
           <div class="flex flex-col sm:grid sm:grid-cols-[1fr_1fr_1fr_1fr] gap-1 sm:gap-2 px-2 py-1.5 text-[clamp(10px,2vw,12px)]">
-            <div class="sm:text-center font-semibold text-[var(--neon-gold)] truncate">${wrapEmoji(escapeHtml(item.username))}</div>
-            <div class="sm:text-center text-[var(--text-primary)]">${escapeHtml(gameLabel)}</div>
+            <div class="sm:text-center font-semibold text-neon-gold truncate">${wrapEmoji(escapeHtml(item.username))}</div>
+            <div class="sm:text-center text-text-primary">${escapeHtml(gameLabel)}</div>
             <div class="sm:text-center font-bold whitespace-nowrap ${winClass}">
               <span class="inline-flex items-center gap-1">${formattedWin}<span class="coin-icon-table w-[1.1em] h-[1.1em] inline-flex items-center flex-shrink-0">${coinSvg}</span></span>
             </div>
-            <div class="sm:text-center text-[var(--text-secondary)] font-mono text-[10px] sm:text-[clamp(10px,2vw,12px)]">${isWin ? escapeHtml(compactResult) : "—"}</div>
+            <div class="sm:text-center text-text-secondary font-mono text-[10px] sm:text-[clamp(10px,2vw,12px)]">${isWin ? escapeHtml(compactResult) : "—"}</div>
           </div>
         </div>
       `;
@@ -146,7 +146,7 @@ export class ExplorerManager {
 
     list.innerHTML = `
       <div class="explorer-history-list w-full" role="list" aria-label="Historie her">
-        <div class="hidden sm:grid grid-cols-[1fr_1fr_1fr_1fr] gap-2 px-2 py-1.5 text-[clamp(9px,1.5vw,11px)] text-[var(--neon-gold)] uppercase font-bold tracking-wider border-b border-[rgba(189,0,255,0.2)] mb-1">
+        <div class="hidden sm:grid grid-cols-[1fr_1fr_1fr_1fr] gap-2 px-2 py-1.5 text-[clamp(9px,1.5vw,11px)] text-neon-gold uppercase font-bold tracking-wider border-b border-[rgba(189,0,255,0.2)] mb-1">
           <div class="text-center">Hráč</div>
           <div class="text-center">Hra</div>
           <div class="text-center">Výhra</div>

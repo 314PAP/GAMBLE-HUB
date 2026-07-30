@@ -37,7 +37,11 @@
    The visible-to-hidden transition is handled by GSAP (animateScreenIn),
    not CSS transitions, to avoid layout thrashing on display:none→grid. */
 
-.hidden {
+/* Game visibility: Tailwind utilities are loaded FIRST, but
+   component styles here must override them (cascade order).
+   .game-container.hidden needs !important because .game-container
+   has display:flex and its later position overrides Tailwind .hidden. */
+.game-container.hidden {
   display: none !important;
 }
 
@@ -80,10 +84,7 @@
   flex-direction: column;
   flex: 1;
   min-height: 0;
-}
-
-.game-container.hidden {
-  display: none;
+  pointer-events: auto;
 }
 
 .game-main {
@@ -156,6 +157,7 @@ textarea:focus {
   justify-content: center;
 }
 
+/* visibility-hidden — used by JS ui.js to toggle result box visibility */
 .visibility-hidden {
   visibility: hidden;
 }
@@ -185,11 +187,6 @@ textarea:focus {
     inset 2px 2px 0px rgba(255, 255, 255, 0.25),
     inset -2px -2px 0px rgba(0, 0, 0, 0.6);
   transition: all 0.3s ease;
-}
-
-/* Ensure game containers are properly visible when activated */
-.game-container {
-  pointer-events: auto;
 }
 
 /* Removed manual z-index management - let Tailwind handle stacking */

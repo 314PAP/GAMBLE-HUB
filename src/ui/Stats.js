@@ -18,14 +18,14 @@ export class StatsManager {
     const statsContainer = document.getElementById("modal-stats-data");
     if (statsContainer) {
       statsContainer.innerHTML = `
-        <div class="flex-row-center mb-1.5">
+        <div class="flex items-center mb-1.5">
           <span aria-hidden="true">👤</span> <span>Hráč:</span> <strong>${escapeHtml(username)}</strong>
         </div>
-        <div class="flex-row-center mb-1.5">
+        <div class="flex items-center mb-1.5">
           <span aria-hidden="true">🔄</span> <span>Odehraných her:</span> <strong>${totalMatches}</strong>
         </div>
-        <div class="flex-row-center mb-2">
-          <span aria-hidden="true">📈</span> <span>Úspěšnost:</span> <strong class="text-[var(--neon-orange)]">${winRate}%</strong>
+        <div class="flex items-center mb-2">
+          <span aria-hidden="true">📈</span> <span>Úspěšnost:</span> <strong class="text-neon-orange">${winRate}%</strong>
         </div>
         ${
           totalMatches > 0
@@ -67,8 +67,8 @@ export class StatsManager {
           div.className = `history-item p-2 rounded-xl flex justify-between items-center ${isWin ? "win border-l-4 border-l-[#39ff14]" : "loss border-l-4 border-l-[#ff007f]"}`;
           div.setAttribute("role", "listitem");
           div.innerHTML = `
-            <span class="text-[var(--neon-gold)] flex items-center gap-1">🎮 ${wrapEmoji(gamePart)}</span>
-            <strong class="${isWin ? "text-[var(--neon-green)] text-glow-green" : "text-[var(--neon-pink)] text-glow-pink"}">${statusPart}</strong>
+            <span class="text-neon-gold flex items-center gap-1">🎮 ${wrapEmoji(gamePart)}</span>
+            <strong class="${isWin ? "text-neon-green text-glow-green" : "text-neon-pink text-glow-pink"}">${statusPart}</strong>
           `;
           historyContainer.appendChild(div);
         });

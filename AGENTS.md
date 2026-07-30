@@ -46,9 +46,10 @@ src/
 
 ## Stylování
 - **Tailwind v4 utilities** v `tailwind.css` – flex, grid, spacing utility
-- **CSS proměnné** v `_variables.css` – neon barvy, glow, shadow
+- **CSS proměnné** v `_variables.css` – neon barvy, glow, shadow (pro komponentový CSS)
 - **Komponenty** v `_buttons.css`, `_slot.css`, `_hilo.css`, `_dice.css`, `_panels.css` – složité efekty
 - Nové styly přidávej do `tailwind.css` v `@layer utilities` nebo do příslušné komponenty
+- **HTML/JS**: používaj Tailwind utility třídy z `@theme` (`text-neon-gold`, `bg-neon-purple`, `border-neon-cyan`, `text-text-primary`, atd.) místo CSS custom property workarounků (`text-[var(--neon-gold)]` se nepoužívá)
 - **CSS cleanup**: `_buttons.css` a `_panels.css` nemají `!important` (odstraněno 2026-06-29)
 
 ## Sémantické HTML & ARIA

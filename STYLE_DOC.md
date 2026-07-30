@@ -110,7 +110,7 @@ Breakpointy v `_layout.css`:
 
 ## 7. Tailwind v4
 
-Projekt používá Tailwind CSS v4 (`@tailwindcss/postcss`). Utility třídy se applikují přímo v HTML (např. `flex`, `grid-cols-2`, `text-[var(--neon-gold)]`, `gap-3`). V build čas se generuje `dist/assets/index-*.css`.
+Projekt používá Tailwind CSS v4 (`@tailwindcss/postcss`). Utility třídy se applikují přímo v HTML (např. `flex`, `grid-cols-2`, `text-neon-gold`, `gap-3`). CSS custom property workarounds (`text-[var(--neon-gold)]`, `bg-[var(--neon-purple)]`, atd.) se nepoužívají — Tailwind `@theme` barevné tokeny generují odpovídající utility třídy. V build čas se generuje `dist/assets/index-*.css`.
 
 Konfigurace je v `tailwind.config.js` ( backwards-compatible JS config):
 - Rozšířená barevná paleta: `neon-*` barvy + kompletní `gray` paleta
@@ -133,7 +133,23 @@ Provedené změny v `index.html`:
 ### Odstraněno
 - **Duplicitní definice `.dice-num-btn`** v `_hilo.css` (existovaly 3x stejná definice, nyní 1x)
 - **Duplicitní definice `.history-item.win/loss`** a `.leaderboard-item` v `_panels.css` (2x → 1x)
-- **Zbytečné utility třídy** v `_layout.css`: `flex-row-center`, `gap-sm`, `margin-top-md`, `text-center`, `text-muted` (už jsou v Tailwind)
+### Zbytečné utility třídy v _layout.css (2026-07-30)
+- `.hidden { display: none !important; }` — duplikuje Tailwind `hidden`, odstraněno
+- `.visibility-hidden` — duplicita Tailwind `invisible`, nebylo použito v HTML, odstraněno
+- `.game-container` definováno dvakrát — sloučeno, duplicitní `pointer-events: auto` odstraněn
+- `.game-container.hidden` — redundantní override oproti Tailwind `hidden`, odstraněno
+
+### Zbytečné CSS custom property workarounds v HTML/JS (2026-07-30)
+- Nahrazeno `text-[var(--neon-gold)]` → `text-neon-gold` (Tailwind @theme)
+- Nahrazeno `bg-[var(--neon-purple)]` → `bg-neon-purple`
+- Nahrazeno `border-[var(--neon-cyan)]` → `border-neon-cyan`
+- Nahrazeno `text-[var(--text-primary)]` → `text-text-primary`, `text-[var(--text-secondary)]` → `text-text-secondary`
+- Nahrazeno `bg-[#ffd700]` → `bg-neon-gold`, `border-[#ffd700]` → `border-neon-gold`
+- Nahrazeno `flex-row-center` (odstraněno z CSS) → `flex items-center` (Tailwind) v `Stats.js`
+
+### Aktualizace Tailwind @theme (2026-07-30)
+- Přidány `--color-text-primary` a `--color-text-secondary` do `@theme` pro `text-text-primary`/`text-text-secondary` utility
+- Odstraněny nepoužité `--shadow-neon-*` a `--shadow-premium` z `@theme` (shadow efekty jsou komplexnější, používají se CSS proměnné v komponentovém CSS)
 
 ### Zálohy
 - Žádné zálohy CSS nejsou aktuálně vedené v repozitáři.

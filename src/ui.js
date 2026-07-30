@@ -162,7 +162,7 @@ export class GameUI {
       resBox.classList.add("block");
       resBox.classList.remove("visibility-hidden");
       resBox.innerHTML = `
-        <span class="text-[var(--neon-gold)] text-lg font-bold text-glow-gold flex items-center justify-center gap-1.5">
+        <span class="text-neon-gold text-lg font-bold text-glow-gold flex items-center justify-center gap-1.5">
           <span>🎉 +${formatLargeNumber(winAmount)}</span>
           <svg class="coin-icon-svg w-[1.1em] h-[1.1em]" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg>
           ${isJackpot ? "🔥" : ""}

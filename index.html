@@ -77,7 +77,7 @@
           role="button"
           tabindex="0"
         >
-          <div class="font-['Orbitron'] text-xs text-[var(--neon-gold)] uppercase tracking-wider pb-2">
+          <div class="font-['Orbitron'] text-xs text-neon-gold uppercase tracking-wider pb-2">
             <span class="flex items-center gap-2.5">Top Hráči <span class="leaderboard-badge"></span></span>
           </div>
           <div
@@ -85,7 +85,7 @@
             role="list"
             class="flex flex-col pl-0 pr-2 pb-2 max-h-48 overflow-y-auto"
           >
-            <span class="text-[var(--neon-gold)] text-xs italic text-glow-gold">Načítám žebříček...</span>
+            <span class="text-neon-gold text-xs italic text-glow-gold">Načítám žebříček...</span>
           </div>
         </div>
 
@@ -157,11 +157,11 @@
           aria-label="Herní lišta"
         >
           <div class="flex items-center justify-between w-full gap-2 min-w-0 shrink">
-            <div class="text-sm truncate text-[var(--neon-gold)]">
+            <div class="text-sm truncate text-neon-gold">
               <span id="hub-player-name" class="sr-only">Jméno hráče</span>
             </div>
             <div
-              class="text-base sm:text-lg font-bold whitespace-nowrap text-[var(--neon-green)] text-glow-green"
+              class="text-base sm:text-lg font-bold whitespace-nowrap text-neon-green text-glow-green"
             >
               <span class="score-display flex items-center gap-1.5"
                 ><span id="hub-player-money"></span
@@ -236,7 +236,7 @@
           class="hidden flex-col items-center justify-center p-4 absolute inset-0 z-20 bg-black/80 backdrop-blur-sm"
         >
           <div class="text-center">
-            <div class="text-[var(--neon-cyan)] text-glow-cyan text-lg mb-2">
+            <div class="text-neon-cyan text-glow-cyan text-lg mb-2">
               ⏳ Načítání hry...
             </div>
             <div class="text-text-muted text-sm">Připojujeme herní moduly</div>
@@ -314,7 +314,7 @@
           <div class="flex items-center justify-between w-full gap-2">
             <div id="game-title" class="game-title" aria-hidden="true">AUTOMAT</div>
             <div class="flex items-center gap-1.5 shrink-0">
-              <div class="text-sm truncate text-[var(--neon-gold)] text-glow-gold">
+              <div class="text-sm truncate text-neon-gold text-glow-gold">
                 <span id="game-player-name"></span>
               </div>
               <button
@@ -405,7 +405,7 @@
             </div>
           </div>
           <div
-            class="w-full flex justify-center text-center text-[clamp(0.95rem,3.5vw,1.25rem)] text-[var(--neon-green)] text-glow-green font-bold py-0.5"
+            class="w-full flex justify-center text-center text-[clamp(0.95rem,3.5vw,1.25rem)] text-neon-green text-glow-green font-bold py-0.5"
           >
             <span class="score-display flex items-center justify-center gap-1.5">
               <span id="game-player-money"></span>
@@ -710,7 +710,7 @@
         <h3 id="stats-modal-title" class="modal-header mb-3">Přehled Hráče</h3>
         <div id="modal-stats-data" class="text-sm leading-relaxed mb-2"></div>
         <h4
-          class="text-sm text-[var(--neon-orange)] uppercase tracking-wider text-glow-orange mb-1.5"
+          class="text-sm text-neon-orange uppercase tracking-wider text-glow-orange mb-1.5"
         >
           Posledních 10 her:
         </h4>
@@ -745,14 +745,14 @@
           <button
             id="explorer-tab-leaderboard"
             onclick="prepniExplorerTab('leaderboard')"
-            class="flex-1 py-1 text-xs font-bold border-b-2 border-[var(--neon-orange)] text-[var(--neon-orange)] bg-transparent"
+            class="flex-1 py-1 text-xs font-bold border-b-2 border-neon-orange text-neon-orange bg-transparent"
           >
             <span class="leaderboard-tab-icon" aria-hidden="true">🏆</span> Žebříček
           </button>
           <button
             id="explorer-tab-history"
             onclick="prepniExplorerTab('history')"
-            class="flex-1 py-1 text-xs font-bold border-b-2 border-transparent text-[var(--neon-gold)] bg-transparent"
+            class="flex-1 py-1 text-xs font-bold border-b-2 border-transparent text-neon-gold bg-transparent"
           >
             <span aria-hidden="true">📜</span> <span>Historie</span>
           </button>
@@ -829,11 +829,11 @@
         >
           <span
             id="disclaimer-panel-title"
-            class="text-[var(--neon-pink)] text-glow-pink font-['Orbitron'] uppercase tracking-wider font-bold text-sm"
+            class="text-neon-pink text-glow-pink font-['Orbitron'] uppercase tracking-wider font-bold text-sm"
             >Upozornění</span
           >
           <button
-            class="info-panel-close w-6 h-6 text-xs flex items-center justify-center rounded-full text-[var(--neon-pink)] hover:text-white border border-[var(--neon-pink)] bg-transparent cursor-pointer"
+            class="info-panel-close w-6 h-6 text-xs flex items-center justify-center rounded-full text-neon-pink hover:text-white border border-neon-pink bg-transparent cursor-pointer"
             onclick="zavriDisclaimer()"
             aria-label="Zavřít upozornění"
           >
@@ -845,13 +845,13 @@
           class="info-panel-body p-3 text-xs leading-normal text-center flex flex-col gap-2.5"
         >
           <p class="text-white text-sm">
-            🎰 <strong class="text-[var(--neon-gold)]">Hrajte v klidu!</strong> 🎰
+            🎰 <strong class="text-neon-gold">Hrajte v klidu!</strong> 🎰
           </p>
-          <p class="text-[var(--text-secondary)]">
+          <p class="text-text-secondary">
             Tato hra byla vytvořena čistě pro relax a zábavu. Nelze v ní prohrát ani vyhrát skutečné
             peníze.
           </p>
-          <p class="text-[var(--text-secondary)]">
+          <p class="text-text-secondary">
             Přejeme vám příjemnou a ničím nerušenou zábavu!
           </p>
           <button
@@ -861,10 +861,10 @@
             Nainstalovat aplikaci
           </button>
           <div class="border-t border-[rgba(255,255,255,0.06)] pt-2 mt-1">
-            <p class="text-[10px] text-[var(--text-muted)] mb-0.5">Máte dotaz nebo nápad?</p>
+            <p class="text-[10px] text-text-muted mb-0.5">Máte dotaz nebo nápad?</p>
             <a
               href="mailto:gamble@pipap.cz"
-              class="text-[var(--neon-cyan)] text-glow-cyan font-semibold hover:underline text-xs"
+              class="text-neon-cyan text-glow-cyan font-semibold hover:underline text-xs"
               >gamble@pipap.cz</a
             >
           </div>
@@ -881,7 +881,7 @@
       onclick="zavriInstalaciInfo()"
     >
       <div
-        class="info-panel-content p-4 w-full max-w-[420px] rounded-2xl border-2 border-[var(--neon-cyan)] overflow-hidden"
+        class="info-panel-content p-4 w-full max-w-[420px] rounded-2xl border-2 border-neon-cyan overflow-hidden"
         role="document"
         onclick="event.stopPropagation()"
       >
@@ -890,11 +890,11 @@
         >
           <span
             id="install-panel-title"
-            class="text-[var(--neon-cyan)] text-glow-cyan font-['Orbitron'] uppercase tracking-wider font-bold"
+            class="text-neon-cyan text-glow-cyan font-['Orbitron'] uppercase tracking-wider font-bold"
             >Jak nainstalovat</span
           >
           <button
-            class="info-panel-close w-8 h-8 flex items-center justify-center rounded-full text-[var(--neon-cyan)] hover:text-white border border-[var(--neon-cyan)] bg-transparent cursor-pointer"
+            class="info-panel-close w-8 h-8 flex items-center justify-center rounded-full text-neon-cyan hover:text-white border border-neon-cyan bg-transparent cursor-pointer"
             onclick="zavriInstalaciInfo()"
             aria-label="Zavřít informace"
           >
@@ -905,20 +905,20 @@
           class="info-panel-body p-4 text-sm leading-relaxed max-h-[60vh] overflow-y-auto flex flex-col gap-4"
         >
           <div>
-            <h4 class="text-[var(--neon-orange)] font-bold text-base mb-1">
+            <h4 class="text-neon-orange font-bold text-base mb-1">
               🤖 Pro Android / Chrome:
             </h4>
-            <p class="text-[var(--text-secondary)]">
+            <p class="text-text-secondary">
               Klikněte na ikonu tří teček v prohlížeči a zvolte
               <strong class="text-white">Nainstalovat aplikaci</strong> nebo
               <strong class="text-white">Přidat na plochu</strong>.
             </p>
           </div>
           <div class="border-t border-[rgba(255,255,255,0.06)] pt-3">
-            <h4 class="text-[var(--neon-pink)] font-bold text-base mb-1">
+            <h4 class="text-neon-pink font-bold text-base mb-1">
               🍏 Pro iPhone / Safari:
             </h4>
-            <p class="text-[var(--text-secondary)]">
+            <p class="text-text-secondary">
               Klepněte na tlačítko sdílení <span aria-hidden="true">📤</span> (čtvereček se šipkou
               nahoru) a zvolte možnost <strong class="text-white">Přidat na plochu</strong>.
             </p>
@@ -977,13 +977,13 @@
         >
           <h3
             id="abbrev-modal-title"
-            class="font-[Orbitron] text-[var(--neon-cyan)] text-sm font-bold tracking-wider"
+            class="font-[Orbitron] text-neon-cyan text-sm font-bold tracking-wider"
           >
             Číselné zkratky
           </h3>
           <button
             onclick="zavriAbbrevModal()"
-            class="bg-transparent border-none text-[var(--neon-gold)] text-lg cursor-pointer hover:text-white transition-colors"
+            class="bg-transparent border-none text-neon-gold text-lg cursor-pointer hover:text-white transition-colors"
             aria-label="Zavřít"
           >
             ✕
@@ -992,7 +992,7 @@
         <div class="overflow-y-auto flex-1 p-2">
           <table class="w-full text-[clamp(10px,2.2vw,12px)] border-collapse">
             <thead class="sticky top-0 z-10">
-              <tr class="bg-[var(--neon-purple)] text-white uppercase tracking-wider">
+              <tr class="bg-neon-purple text-white uppercase tracking-wider">
                 <th class="px-3 py-2 text-left font-bold border-b border-[rgba(255,255,255,0.08)]">
                   Zkratka
                 </th>

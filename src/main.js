@@ -202,9 +202,9 @@ window.otevriAbbrevModal = async function () {
      const data = getAbbrevTableData();
      body.innerHTML = data.map((row, i) =>
        '<tr class="' + (i % 2 === 0 ? '' : 'bg-[rgba(255,255,255,0.03)]') + '">' +
-       '<td class="px-3 py-2 font-mono font-bold text-[var(--neon-cyan)]">' + row.sym + '</td>' +
-       '<td class="px-3 py-2 text-[var(--text-primary)]">' + row.name + '</td>' +
-       '<td class="px-3 py-2 text-right font-mono text-[var(--neon-orange)]">' + row.zeros + '</td>' +
+       '<td class="px-3 py-2 font-mono font-bold text-neon-cyan">' + row.sym + '</td>' +
+       '<td class="px-3 py-2 text-text-primary">' + row.name + '</td>' +
+       '<td class="px-3 py-2 text-right font-mono text-neon-orange">' + row.zeros + '</td>' +
        '</tr>'
      ).join('');
    } catch (e) {
@@ -224,7 +224,7 @@ window.addEventListener('error', (event) => {
     if (gameArea) {
       gameArea.innerHTML = `
         <div class="text-center p-4">
-          <h2 class="text-[var(--neon-red)] text-glow-red mb-2">Chyba načítání hry</h2>
+          <h2 class="text-neon-red text-glow-red mb-2">Chyba načítání hry</h2>
           <p class="text-text-muted">Nepodařilo se načíst herní modul. Zkuste obnovit stránku.</p>
           <button onclick="location.reload()" class="btn btn-primary mt-4">Obnovit stránku</button>
         </div>
@@ -246,7 +246,7 @@ function showUpdateNotification() {
 
   const notification = document.createElement('div');
   notification.id = 'update-notification';
-  notification.className = 'fixed top-4 left-1/2 -translate-x-1/2 z-[100] px-6 py-3 rounded-xl bg-[var(--neon-purple)] text-white font-bold text-sm shadow-lg flex items-center gap-3';
+  notification.className = 'fixed top-4 left-1/2 -translate-x-1/2 z-[100] px-6 py-3 rounded-xl bg-neon-purple text-white font-bold text-sm shadow-lg flex items-center gap-3';
   notification.innerHTML = `
     <span>🎮</span>
     <span>Nová verze k dispozici</span>
@@ -274,7 +274,7 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
   let fpsRunning = true;
   const fpsMeter = document.createElement('div');
   fpsMeter.id = 'fps-meter';
-  fpsMeter.className = 'fixed bottom-2 right-2 z-50 px-2 py-1 rounded bg-black/80 text-[var(--neon-green)] text-xs font-mono border border-[var(--neon-green)]/30';
+  fpsMeter.className = 'fixed bottom-2 right-2 z-50 px-2 py-1 rounded bg-black/80 text-neon-green text-xs font-mono border border-neon-green/30';
   document.body.appendChild(fpsMeter);
 
   function updateFPS() {
