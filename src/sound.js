@@ -80,16 +80,16 @@ class SoundManager {
 
   // ─── BGM music ────────────────────────────────────────────────────────────
 
-  playBGM(trackIndex = 2) {
+  playBGM(trackIndex = 0) {
     if (this._bgmPlaying) this._stopBGM();
     this._bgmTrackIndex = trackIndex;
     const track = BGM_TRACKS[trackIndex];
     if (!track) return;
 
-    this._bgmAudio = this._playFile(track.src, 0.35, true, true);
+    this._bgmAudio = this._playFile(track.src, 0.2, true, true);
     if (this._bgmAudio) {
       this._bgmAudio.addEventListener('ended', () => {
-        // Restart the same chiptune-action track instead of cycling
+        // Loop the same BGM track
         this.playBGM(this._bgmTrackIndex);
       });
       this._bgmPlaying = true;
@@ -97,16 +97,25 @@ class SoundManager {
   }
 
   toggleBGM() {
+    // Cycle: track 0 → track 1 → track 2 → OFF (mute + stop)
     if (this._bgmPlaying) {
-      this._stopBGM();
-      this.bgmMuted = true;
-      localStorage.setItem('c_music_mute', 'true');
-      return false;
+      if (this._bgmTrackIndex < BGM_TRACKS.length - 1) {
+        // Advance to next track
+        this.playBGM(this._bgmTrackIndex + 1);
+        return true;
+      } else {
+        // Was on last track — stop and mute
+        this._stopBGM();
+        this.bgmMuted = true;
+        localStorage.setItem('c_music_mute', 'true');
+        return false;
+      }
     } else {
+      // Music was off — start from track 0
       this.bgmMuted = false;
       localStorage.setItem('c_music_mute', 'false');
-      this.playBGM(2); // Always start with chiptune-action
-      return true;
+      this.playBGM(0);
+      return this._bgmPlaying;
     }
   }
 
