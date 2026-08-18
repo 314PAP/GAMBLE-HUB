@@ -1,5 +1,10 @@
 # GambleHub - Agent Instructions
 
+## 🚀 Nasazené instance
+- **GitHub Pages**: `https://314pap.github.io/GAMBLE-HUB/`
+- **Vercel**: `https://gamblehub.vercel.app/`
+- Workflow: `.github/workflows/pages.yml` (automatický deploy z `main`)
+
 ## Architektura projektu
 ```
 src/

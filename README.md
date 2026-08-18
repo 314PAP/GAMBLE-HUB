@@ -4,6 +4,17 @@ Moderní, modulární herní platforma s neonovým retro designem. Projekt je ko
 
 ---
 
+## 🚀 Živé verze
+
+Aplikace je nasazená na dvou platformách:
+
+- **GitHub Pages** — `https://314pap.github.io/GAMBLE-HUB/` (automatický deploy z `.github/workflows/pages.yml` při push do `main`)
+- **Vercel** — `https://gamblehub.vercel.app/` (deploy z `vercel.json`, framework Vite)
+
+Obě verze používají stejný build (`npm run build`) a sdílejí Firebase konfiguraci přes GitHub Secrets / Vercel Environment Variables.
+
+---
+
 ## ♿ Přístupnost (a11y)
 
 Aplikace respektuje standardy WCAG a používá sémantické HTML5 tagy v kombinaci s ARIA atributy:
@@ -61,7 +72,7 @@ Aplikace obsahuje **6 her**, každá s vlastním herním modulem v `src/games/`:
 - **Animace**: GSAP 3 — slot válce, kartové otočení, mřížkové rolování, screen přechody
 - **UI efekty**: SweetAlert2 (dialogy), Canvas Confetti (výherní efekty), Chart.js (statistiky)
 - **Backend sync**: Firebase Firestore (globální žebříček, historie zápasů, návštěvy)
-- **Audio**: Web Audio API (vlastní syntetizátor bez audio souborů)
+- **Audio**: Hybridní engine — Web Audio API syntetizátor pro proceduralní SFX (click, spin, win, dice roll, jackpot) + file-based audio pro slot efekty, 8-bit SFX a BGM (3 orchestrané skladby v `sounds/bgm/`)
 - **Ikony**: Lucide (referencováno v package.json)
 - **PWA**: Web App Manifest (`public/manifest.json`)
 
@@ -70,7 +81,7 @@ Aplikace obsahuje **6 her**, každá s vlastním herním modulem v `src/games/`:
 ## 📂 Architektura projektu
 
 ```
-├── .github/workflows/deploy.yml   # GitHub Actions CD
+├── .github/workflows/pages.yml   # GitHub Actions CD (push → build → deploy na GitHub Pages)
 ├── public/
 │   └── manifest.json               # PWA manifest
 │   └── sounds/                     # Audio soubory (sfx + bgm)
