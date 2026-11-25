@@ -148,4 +148,21 @@ export class GameDatabase {
       h: this.scoreTable
     };
   }
+
+  claimDailyBonus(username, amount = 100) {
+    if (!username) return false;
+    const today = new Date().toISOString().slice(0, 10);
+    let claimed = {};
+    try {
+      claimed = JSON.parse(localStorage.getItem('c_daily_bonus') || '{}');
+    } catch {
+      claimed = {};
+    }
+    if (claimed[username] === today) return false;
+    claimed[username] = today;
+    localStorage.setItem('c_daily_bonus', JSON.stringify(claimed));
+    const current = this.getPlayerBalance(username);
+    this.updatePlayerBalance(username, current + amount);
+    return true;
+  }
 }
