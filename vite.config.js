@@ -14,8 +14,8 @@ export default defineConfig(({ mode }) => {
         output: {
           manualChunks: {
             'gsap': ['gsap'],
-            'firebase': ['firebase/app', 'firebase/firestore'],
-            'chart': ['chart.js'],
+            'firebase-app': ['firebase/app'],
+            'firebase-firestore': ['firebase/firestore'],
             'sweetalert': ['sweetalert2'],
             'confetti': ['canvas-confetti'],
           },

@@ -7,10 +7,14 @@ service cloud.firestore {
     match /leaderboard/{username} {
       // Anyone can read the leaderboard
       allow read: if true;
-      // Allow writing only if the fields have the correct types
-      allow write: if request.resource.data.castka is number
-                   && request.resource.data.castka >= 0
-                   && request.resource.data.updatedAt is string;
+      // Allow creating or updating only with valid types and strictly higher score on update
+      allow create: if request.resource.data.castka is number
+                    && request.resource.data.castka >= 0
+                    && request.resource.data.updatedAt is string;
+      allow update: if request.resource.data.castka is number
+                    && request.resource.data.castka > resource.data.castka
+                    && request.resource.data.updatedAt is string;
+      allow delete: if false;
     }
 
     // Rules for the visits collection (IP tracking and global counter)
@@ -24,8 +28,11 @@ service cloud.firestore {
       allow read: if true;
       // Anyone can create a match entry, but validate the fields
       allow create: if request.resource.data.username is string
+                    && request.resource.data.username.size() > 0
+                    && request.resource.data.username.size() <= 32
                     && request.resource.data.gameName is string
                     && request.resource.data.bet is number
+                    && request.resource.data.bet > 0
                     && request.resource.data.isWin is bool
                     && request.resource.data.winAmount is number
                     && request.resource.data.timestamp is string;

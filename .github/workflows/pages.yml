@@ -43,6 +43,9 @@ jobs:
           VITE_FIREBASE_APP_ID=${{ secrets.VITE_FIREBASE_APP_ID }}
           EOF
 
+      - name: Lint & Unit Tests
+        run: npm run lint && npm run test
+
       - name: Build
         run: npm run build
         env:
