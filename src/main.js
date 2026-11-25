@@ -253,7 +253,7 @@ function showUpdateNotification() {
   notification.innerHTML = `
     <span>🎮</span>
     <span>Nová verze k dispozici</span>
-    <button onclick="window.location.reload()" class="ml-2 px-3 py-1 bg-white/20 rounded-lg hover:bg-white/30 transition-colors text-xs">
+    <button id="btn-sw-reload" class="ml-2 px-3 py-1 bg-white/20 rounded-lg hover:bg-white/30 transition-colors text-xs">
       Obnovit
     </button>
     <button onclick="this.closest('#update-notification').remove()" class="ml-1 text-white/70 hover:text-white" aria-label="Zavřít">
@@ -261,6 +261,19 @@ function showUpdateNotification() {
     </button>
   `;
   document.body.appendChild(notification);
+
+  const reloadBtn = document.getElementById('btn-sw-reload');
+  if (reloadBtn) {
+    reloadBtn.addEventListener('click', async () => {
+      if ('serviceWorker' in navigator) {
+        const reg = await navigator.serviceWorker.getRegistration();
+        if (reg && reg.waiting) {
+          reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+        }
+      }
+      window.location.reload();
+    });
+  }
 
   // Auto-hide after 30 seconds
   setTimeout(() => {
