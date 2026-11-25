@@ -46,6 +46,9 @@ jobs:
       - name: Lint & Unit Tests
         run: npm run lint && npm run test
 
+      - name: Install Playwright & Run E2E
+        run: npx playwright install --with-deps chromium && npm run test:e2e
+
       - name: Build
         run: npm run build
         env:

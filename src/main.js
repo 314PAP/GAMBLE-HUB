@@ -5,6 +5,8 @@ import { GameUI } from './ui';
 import { GameManager } from './games';
 import { sound } from './sound';
 import { API } from './api';
+import { getAbbrevTableData } from './utils.js';
+import { initKeyboardShortcuts } from './events/keyboardShortcuts.js';
 import { initButtonAnimations } from './animations/buttons.js';
 import {
   initTitleFlicker,
@@ -31,6 +33,7 @@ const db = new GameDatabase();
 const api = new API(db);
 const ui = new GameUI(db, api);
 const gm = new GameManager(db, ui, api);
+initKeyboardShortcuts(gm);
 
 if (import.meta.env.DEV) {
   console.debug('[DEBUG] api.isOnline =', api.isOnline);
@@ -198,7 +201,7 @@ window.otevriAbbrevModal = async function () {
    const body = document.getElementById('abbrev-modal-body');
    if (!body) return;
    try {
-      const { getAbbrevTableData } = await import('./utils.js');
+      // Static import used for getAbbrevTableData
      const data = getAbbrevTableData();
      body.innerHTML = data.map((row, i) =>
        '<tr class="' + (i % 2 === 0 ? '' : 'bg-[rgba(255,255,255,0.03)]') + '">' +
