@@ -12,11 +12,17 @@
 9. **CSS Modularization (Batch 3):** Extracted `_modals.css` (133 lines) from `src/css/_panels.css` (406 → 273 lines) and `_bet-buttons.css` (117 lines) from `src/css/_buttons.css` (415 → 298 lines), importing both in `src/css/main.css`.
 10. **Result Boxes Extraction:** Extracted `clearAllResultBoxes` from `src/games.js` (402 → 390 lines) into `src/games/resultBoxes.js`.
 11. **UI Test Guards:** Added defensive DOM guards in `src/animations/infoToggle.js` and `src/ui.js`, fixing all 10 failures in `tests/ui.test.js`.
+12. **Post-Audit Improvements & Cleanup:**
+    - Removed `.kilo/` directory completely.
+    - Updated `vitest.config.js` to exclude `node_modules/**` so `npm run test` runs cleanly (17/17 files, 140/140 tests).
+    - Fixed `gameConfig` resolution in `src/games.js` (`processGameResult`).
+    - Updated `submitScore` in `src/api.js` to only overwrite `leaderboard/{username}` when `balance` exceeds the player's previous best.
 
 ## Current State ("Kde jsme skončili")
-- **All `.js` and `.css` files in `src/` are now under 400 lines** (0 files over 400 or 500).
-- ESLint (`npm run lint`) passes with 0 errors and 0 warnings.
-- `tests/gameManager.test.js` (7/7) and `tests/ui.test.js` (10/10) pass.
+- **All `.js` and `.css` files in `src/` are under 400 lines** (0 files over 400 or 500).
+- `npm run lint`: 0 errors, 0 warnings.
+- `npm run test`: 17/17 test files passed (140/140 tests).
+- `npm run build`: clean production build.
 
 ## Remaining / Optional Targets
 - `index.html` (1014 lines): HTML entry point; only split if adopting a template/partial build step.

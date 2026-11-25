@@ -92,10 +92,15 @@ export class API {
   async submitScore(username, balance) {
     if (this.isOnline && balance > 500) {
       try {
-        await setDoc(doc(this.firestore, "leaderboard", username), {
-          castka: balance,
-          updatedAt: new Date().toISOString()
-        }, { merge: true });
+        const scoreRef = doc(this.firestore, "leaderboard", username);
+        const existing = await getDoc(scoreRef);
+        const prevBest = existing.exists() ? (existing.data()?.castka || 0) : 0;
+        if (balance > prevBest) {
+          await setDoc(scoreRef, {
+            castka: balance,
+            updatedAt: new Date().toISOString()
+          }, { merge: true });
+        }
       } catch (e) {
         console.error('Failed to submit score to Firebase', e);
       }

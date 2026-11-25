@@ -267,6 +267,7 @@ export class GameManager {
     const resBoxDice = document.getElementById('game-result-dice');
     const resBoxSlots = document.getElementById('game-result-slots');
     const resBoxHilo = document.getElementById('game-result-hilo');
+    const gameConfig = GAME_CONFIG[this.activeGameId] || GAME_CONFIG[1];
 
     let targetResBox = resBoxClassic;
     if (gameConfig.resultBox === 'resBoxDice' && resBoxDice) targetResBox = resBoxDice;
