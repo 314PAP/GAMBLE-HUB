@@ -16,17 +16,17 @@ export class LeaderboardManager {
       if (import.meta.env.DEV) console.debug('[Leaderboard] scores length=', scores.length);
       const isOnline = this.ui.api.isOnline;
 
-      if (scores.length === 0) {
-        container.innerHTML = `<span class="text-neon-gold text-[13px] text-glow-gold">Zatím žádné rekordy...</span>`;
-        return;
-      }
-
       const badge = isOnline
         ? `<span class="text-[10px] text-[#00ff99] bg-[#00ff99]/10 px-1.5 py-0.5 rounded-full ml-2" aria-hidden="true">🌐 Online</span>`
         : `<span class="text-[10px] text-neon-gold bg-neon-gold/5 border border-neon-gold/10 px-1.5 py-0.5 rounded-full ml-2" aria-hidden="true">💾 Lokální</span>`;
 
       const titleEl = document.querySelector("#screen-login .leaderboard-badge");
       if (titleEl) titleEl.innerHTML = badge;
+
+      if (scores.length === 0) {
+        container.innerHTML = `<span class="text-neon-gold text-[13px] text-glow-gold">Zatím žádné rekordy...</span>`;
+        return;
+      }
 
       let html = "";
       const medals = ["🥇", "🥈", "🥉"];

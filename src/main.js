@@ -268,7 +268,17 @@ function showUpdateNotification() {
       if ('serviceWorker' in navigator) {
         const reg = await navigator.serviceWorker.getRegistration();
         if (reg && reg.waiting) {
+          let reloaded = false;
+          const doReload = () => {
+            if (!reloaded) {
+              reloaded = true;
+              window.location.reload();
+            }
+          };
+          navigator.serviceWorker.addEventListener('controllerchange', doReload, { once: true });
           reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+          setTimeout(doReload, 500);
+          return;
         }
       }
       window.location.reload();
