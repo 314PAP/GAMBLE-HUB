@@ -4,23 +4,12 @@ import gsap from 'gsap';
 import { sound } from './sound.js';
 import { animateBetButtonsGlow, stopBetButtonsGlow } from './animations/ui.js';
 
-export const DISPLAY_STATES = {
-  1: { title: "HÁDANKA 1-10", classic: true, dice: false, slots: false, hilo: false },
-  2: { title: "HÁDANKA 1-5", classic: true, dice: false, slots: false, hilo: false },
-  3: { title: "KOSTKA 1-6", classic: false, dice: true, slots: false, hilo: false },
-  4: { title: "RULETA 0-35", classic: true, dice: false, slots: false, hilo: false },
-  5: { title: "AUTOMAT", classic: false, dice: false, slots: true, hilo: false },
-  6: { title: "HI-LOW", classic: false, dice: false, slots: false, hilo: true },
-};
+import { DISPLAY_STATES, GAME_CONFIG } from './games/config.js';
+import { toggleAutoPlay as runToggleAutoPlay, stopAutoPlay as runStopAutoPlay } from './games/autoPlay.js';
+import { lockGameControls as runLockGameControls } from './games/controlsLock.js';
+import { clearAllResultBoxes as runClearAllResultBoxes } from './games/resultBoxes.js';
 
-export const GAME_CONFIG = {
-  1: { resultBox: 'resBoxClassic', hiloColor: false, label: 'Hádanka 1-10', minVal: 1, maxVal: 10, multVal: 10 },
-  2: { resultBox: 'resBoxClassic', hiloColor: false, label: 'Hádanka 1-5', minVal: 1, maxVal: 5, multVal: 5 },
-  3: { resultBox: 'resBoxDice', hiloColor: false, label: 'Kostka', minVal: 1, maxVal: 6, multVal: 6 },
-  4: { resultBox: 'resBoxClassic', hiloColor: false, label: 'Ruleta', minVal: 0, maxVal: 35, multVal: 35 },
-  5: { resultBox: 'resBoxSlots', hiloColor: false, label: 'Automat', minVal: 1, maxVal: 6, multVal: 6 },
-  6: { resultBox: 'resBoxHilo', hiloColor: true, label: 'Hi-Low', minVal: 1, maxVal: 6, multVal: 6 },
-};
+export { DISPLAY_STATES, GAME_CONFIG };
 
 const gameModules = {
   3: () => import('./games/dice.js'),
@@ -236,20 +225,7 @@ export class GameManager {
   }
 
   clearAllResultBoxes() {
-    const boxes = [
-      'game-result',
-      'game-result-classic',
-      'game-result-dice',
-      'game-result-slots',
-      'game-result-hilo',
-    ];
-    boxes.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.classList.add('hidden');
-        el.innerHTML = '';
-      }
-    });
+    runClearAllResultBoxes();
   }
 
    // Unified win/loss result processor
@@ -398,89 +374,17 @@ export class GameManager {
     this.processGameResult(res.isWin, res.winAmount, "Bary3x3", res.resultText, res.isJackpot);
   }
 
-   // Utility to prevent user clicks on other options during animations
-   lockGameControls(lock) {
-     // Disable bet presets (both btn-bet and bet-btn classes)
-     const betButtons = document.querySelectorAll('.btn-bet, .bet-btn');
-     betButtons.forEach((b) => {
-       b.disabled = lock;
-       if (lock) {
-         b.classList.add('is-locked');
-       } else {
-         b.classList.remove('is-locked');
-       }
-     });
-
-     // Disable BetSlider interaction
-     const sliderContainer = document.getElementById('bet-slider-container');
-     if (sliderContainer) {
-       sliderContainer.style.pointerEvents = lock ? 'none' : '';
-       sliderContainer.style.opacity = lock ? '0.4' : '';
-     }
-
-     // Disable grid buttons in classic games
-     const numButtons = document.querySelectorAll('.btn-num');
-     numButtons.forEach((b) => {
-       b.disabled = lock;
-     });
-
-     // Disable dice number buttons
-     const diceButtons = document.querySelectorAll('.dice-num-btn');
-     diceButtons.forEach((b) => {
-       b.disabled = lock;
-     });
-
-     // Disable slot spin button
-     const spinBtn = document.getElementById('btn-spin-slots');
-     if (spinBtn) spinBtn.disabled = lock;
-
-     // Disable Hilo buttons
-     const hiloHigh = document.getElementById('btn-hilo-high');
-     const hiloLow = document.getElementById('btn-hilo-low');
-     if (hiloHigh) hiloHigh.disabled = lock;
-     if (hiloLow) hiloLow.disabled = lock;
-   }
+  // Utility to prevent user clicks on other options during animations
+  lockGameControls(lock) {
+    runLockGameControls(lock);
+  }
 
   // Handles Slot Machine Autoplay toggling
   async toggleAutoPlay() {
-    const autoBtn = document.getElementById('btn-auto-slots');
-    if (this.autoPlayInterval) {
-      this.stopAutoPlay();
-      return;
-    }
-
-    const modulesLoaded = await this._ensureGameModules();
-    if (!modulesLoaded) return;
-    
-    if (!this.preGameChecks()) return;
-
-    autoBtn.classList.add('active');
-    autoBtn.innerHTML = '<span class="icon-node"></span> STOP';
-
-    this.playSlots(); // Play first turn immediately
-
-    this.autoPlayInterval = setInterval(() => {
-      const balance = this.db.getPlayerBalance(this.currentPlayer);
-      if (balance >= this.activeBet && !this.slots.isSpinning) {
-        this.playSlots();
-      } else if (balance < this.activeBet) {
-        this.stopAutoPlay();
-      }
-    }, GameManager.AUTOPLAY_INTERVAL_MS); // Fast autoplay loop
+    return runToggleAutoPlay(this, GameManager.AUTOPLAY_INTERVAL_MS);
   }
 
   stopAutoPlay() {
-    if (this.autoPlayInterval) {
-      clearInterval(this.autoPlayInterval);
-      this.autoPlayInterval = null;
-    }
-    const autoBtn = document.getElementById('btn-auto-slots');
-    if (autoBtn) {
-      autoBtn.classList.remove('active');
-      autoBtn.innerHTML = '<span class="icon-node"></span> AUTO';
-    }
-    // Stop bet buttons glow animation
-    stopBetButtonsGlow();
-    this.lockGameControls(false);
+    runStopAutoPlay(this);
   }
 }

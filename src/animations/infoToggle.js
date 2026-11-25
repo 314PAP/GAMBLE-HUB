@@ -2,7 +2,7 @@ import gsap from "gsap";
 
 export function initInfoToggleAnimations() {
   const btn = document.getElementById("btn-game-info");
-  if (!btn) return;
+  if (!btn || typeof btn.addEventListener !== "function") return;
 
   // Hover: zlatý glow pulse
   btn.addEventListener("mouseenter", () => {

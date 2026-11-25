@@ -73,13 +73,13 @@ export class API {
   async recordVisit(ip) {
     if (!this.isOnline) return { ipCount: Number(localStorage.getItem('visitCount') || 0) + 1, total: null };
     try {
-      const { increment } = await import('firebase/firestore');
       const ipRef = doc(this.firestore, 'visits', ip);
-      await setDoc(ipRef, { count: increment(1) }, { merge: true });
       const globalRef = doc(this.firestore, 'visits', 'global');
-      await setDoc(globalRef, { total: increment(1) }, { merge: true });
-      const ipSnap = await getDoc(ipRef);
-      const globalSnap = await getDoc(globalRef);
+      await Promise.all([
+        setDoc(ipRef, { count: increment(1) }, { merge: true }),
+        setDoc(globalRef, { total: increment(1) }, { merge: true }),
+      ]);
+      const [ipSnap, globalSnap] = await Promise.all([getDoc(ipRef), getDoc(globalRef)]);
       const ipCount = ipSnap.data()?.count || 1;
       const total = globalSnap.data()?.total || 1;
       return { ipCount, total };

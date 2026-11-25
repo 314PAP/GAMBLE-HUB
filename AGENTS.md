@@ -94,3 +94,10 @@ npm run test          # Vitest unit tests
 npm run test:watch    # Vitest watch mode
 npm run test:e2e      # Playwright e2e tests
 ```
+
+## Modularization, Line Limits & Living Documentation
+- **Warning Threshold (400 lines):** Whenever a source file reaches or approaches 400 lines, plan and extract cohesive modules, helpers, subcomponents, or services.
+- **Hard Ceiling (500 lines):** No source file in the project may exceed 500 lines of code (ideal target: 120–320 lines per file).
+- **Single Responsibility & Deduplication:** Split oversized files by clear domain/technical boundaries. Consolidate duplicated logic, UI blocks, or helpers into shared modules.
+- **Class Map (`CLASS_MAP.md`):** Keep `CLASS_MAP.md` up to date with key classes, functions, responsibilities, dependencies, and approximate line counts whenever modules are added, split, renamed, or removed.
+- **Progress & Handoff (`DOCS_PROGRESS.md`):** Record completed refactoring steps, current state, remaining targets, known duplicates, and immediate next steps. Read `CLASS_MAP.md` and `DOCS_PROGRESS.md` before making architectural edits and update them afterward.
