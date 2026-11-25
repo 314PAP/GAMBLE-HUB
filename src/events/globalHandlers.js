@@ -47,6 +47,7 @@ export class GlobalEventHandlers {
       this.gm.stopAutoPlay();
       const balance = this.db.getPlayerBalance(this.gm.currentPlayer);
       this.ui.updateMiniProfile(this.gm.currentPlayer, balance);
+      this.ui.updateDailyBonusButton(this.gm.currentPlayer);
       this.ui.showScreen("screen-hub");
     };
 
@@ -59,7 +60,55 @@ export class GlobalEventHandlers {
       }
       this.gm.setCurrentPlayer(username);
       this.ui.updateMiniProfile(username, balance);
+      this.ui.updateDailyBonusButton(username);
       this.ui.showScreen("screen-hub");
+    };
+
+    window.vyzvednoutDenniBonus = () => {
+      const username = this.gm.currentPlayer;
+      if (!username) return;
+      const res = this.db.claimDailyBonus(username);
+      if (res.success) {
+        const balance = this.db.getPlayerBalance(username);
+        this.ui.updateMiniProfile(username, balance);
+        this.ui.updateDailyBonusButton(username);
+        document.dispatchEvent(new CustomEvent("balanceChanged", { detail: { balance } }));
+        sound.playWin?.();
+        this.ui.showAlert(
+          "success",
+          `Denní bonus +${res.amount}!`,
+          `Série ${res.streak} ${res.streak === 1 ? "den" : res.streak < 5 ? "dny" : "dní"} v řadě.`,
+        );
+      } else {
+        this.ui.showAlert(
+          "info",
+          "Bonus už vyzvednut",
+          `Dnešní odměnu už máš. Série: ${res.streak}. Přijď zítra!`,
+        );
+      }
+    };
+
+    window.vyzvednoutZachranu = () => {
+      const username = this.gm.currentPlayer;
+      if (!username) return;
+      const res = this.db.claimBailout(username);
+      if (res.success) {
+        const balance = this.db.getPlayerBalance(username);
+        this.ui.updateMiniProfile(username, balance);
+        this.ui.updateDailyBonusButton(username);
+        document.dispatchEvent(new CustomEvent("balanceChanged", { detail: { balance } }));
+        sound.playWin?.();
+        this.ui.showAlert(
+          "success",
+          `Záchranný kredit +${res.amount}!`,
+          "Ochranka tě pustila zpět ke stolům.",
+        );
+        this.ui.showScreen("screen-hub");
+      } else if (res.remainingMs > 0) {
+        const secs = Math.ceil(res.remainingMs / 1000);
+        this.ui.updateBailoutButton(username);
+        this.ui.showAlert("warning", "Počkej chvíli", `Další záchranu můžeš vzít za ${secs} s.`);
+      }
     };
 
     window.smazatUcet = (username) => {

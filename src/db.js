@@ -10,6 +10,11 @@ export class GameDatabase {
 
   static STARTING_BALANCE = 500;
   static MAX_HISTORY = 10;
+  static DAILY_BONUS_BASE = 250;
+  static DAILY_BONUS_STEP = 50;
+  static DAILY_BONUS_MAX_STREAK = 7;
+  static BAILOUT_AMOUNT = 200;
+  static BAILOUT_COOLDOWN_MS = 180000;
 
    _savePending = false;
 
@@ -149,20 +154,84 @@ export class GameDatabase {
     };
   }
 
-  claimDailyBonus(username, amount = 100) {
-    if (!username) return false;
-    const today = new Date().toISOString().slice(0, 10);
-    let claimed = {};
+  _readJsonStorage(key, fallback) {
     try {
-      claimed = JSON.parse(localStorage.getItem('c_daily_bonus') || '{}');
+      return JSON.parse(localStorage.getItem(key) || 'null') ?? fallback;
     } catch {
-      claimed = {};
+      return fallback;
     }
-    if (claimed[username] === today) return false;
-    claimed[username] = today;
+  }
+
+  getDailyBonusStatus(username, now = new Date()) {
+    if (!username) {
+      return { available: false, streak: 0, nextStreak: 1, nextAmount: GameDatabase.DAILY_BONUS_BASE, lastDate: null };
+    }
+    const today = now.toISOString().slice(0, 10);
+    const yesterdayDate = new Date(now);
+    yesterdayDate.setUTCDate(yesterdayDate.getUTCDate() - 1);
+    const yesterday = yesterdayDate.toISOString().slice(0, 10);
+
+    const claimed = this._readJsonStorage('c_daily_bonus', {});
+    const raw = claimed[username];
+    const lastDate = typeof raw === 'string' ? raw : raw?.lastDate || null;
+    const streak = typeof raw === 'object' && raw !== null ? Number(raw.streak) || 0 : (lastDate ? 1 : 0);
+
+    const available = lastDate !== today;
+    let nextStreak = 1;
+    if (!available) {
+      nextStreak = streak || 1;
+    } else if (lastDate === yesterday) {
+      nextStreak = Math.min(GameDatabase.DAILY_BONUS_MAX_STREAK, streak + 1);
+    }
+    const nextAmount = GameDatabase.DAILY_BONUS_BASE + (nextStreak - 1) * GameDatabase.DAILY_BONUS_STEP;
+    return { available, streak, nextStreak, nextAmount, lastDate };
+  }
+
+  claimDailyBonus(username, baseAmount = GameDatabase.DAILY_BONUS_BASE, now = new Date()) {
+    if (!username) return { success: false, amount: 0, streak: 0 };
+    const status = this.getDailyBonusStatus(username, now);
+    if (!status.available) {
+      return { success: false, amount: 0, streak: status.streak };
+    }
+
+    const today = now.toISOString().slice(0, 10);
+    const claimed = this._readJsonStorage('c_daily_bonus', {});
+    claimed[username] = { lastDate: today, streak: status.nextStreak };
     localStorage.setItem('c_daily_bonus', JSON.stringify(claimed));
+
+    const amount = baseAmount + (status.nextStreak - 1) * GameDatabase.DAILY_BONUS_STEP;
     const current = this.getPlayerBalance(username);
     this.updatePlayerBalance(username, current + amount);
-    return true;
+    return { success: true, amount, streak: status.nextStreak };
+  }
+
+  getBailoutStatus(username, nowMs = Date.now()) {
+    if (!username || this.getPlayerBalance(username) > 0) {
+      return { available: false, remainingMs: 0, amount: GameDatabase.BAILOUT_AMOUNT };
+    }
+    const bailouts = this._readJsonStorage('c_bailout', {});
+    const lastTs = Number(bailouts[username]) || 0;
+    const elapsed = Math.max(0, nowMs - lastTs);
+    const remainingMs = lastTs > 0 ? Math.max(0, GameDatabase.BAILOUT_COOLDOWN_MS - elapsed) : 0;
+    return {
+      available: remainingMs === 0,
+      remainingMs,
+      amount: GameDatabase.BAILOUT_AMOUNT,
+    };
+  }
+
+  claimBailout(username, amount = GameDatabase.BAILOUT_AMOUNT, nowMs = Date.now()) {
+    if (!username || this.getPlayerBalance(username) > 0) {
+      return { success: false, amount: 0, remainingMs: 0 };
+    }
+    const status = this.getBailoutStatus(username, nowMs);
+    if (!status.available) {
+      return { success: false, amount: 0, remainingMs: status.remainingMs };
+    }
+    const bailouts = this._readJsonStorage('c_bailout', {});
+    bailouts[username] = nowMs;
+    localStorage.setItem('c_bailout', JSON.stringify(bailouts));
+    this.updatePlayerBalance(username, amount);
+    return { success: true, amount, remainingMs: 0 };
   }
 }

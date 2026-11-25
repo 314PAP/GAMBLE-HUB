@@ -186,6 +186,15 @@
             </div>
             <div class="flex items-center gap-1.5 shrink-0">
               <button
+                class="w-[28px] h-[28px] flex items-center justify-center rounded-md shrink-0 border border-neon-gold/60 bg-neon-gold/15 text-xs transition-opacity"
+                id="hub-daily-bonus-btn"
+                onclick="vyzvednoutDenniBonus()"
+                title="Denní bonus"
+                aria-label="Vyzvednout denní bonus"
+              >
+                🎁
+              </button>
+              <button
                 class="sound-toggle-btn w-[28px] h-[28px] flex items-center justify-center rounded-md shrink-0"
                 id="hub-sound-toggle"
                 onclick="toggleMuteState()"
@@ -689,6 +698,14 @@
         <div class="socka-icon text-5xl mb-4" aria-hidden="true">💀</div>
         <h2 id="socka-title" class="socka-title mb-3">Čistá Kasa</h2>
         <p id="socka-text" class="socka-desc mb-4"></p>
+        <button
+          id="socka-bailout-btn"
+          class="btn btn-gold w-full mb-2"
+          onclick="vyzvednoutZachranu()"
+        >
+          🎁 Záchranný kredit (+200)
+        </button>
+        <p id="socka-bailout-hint" class="text-xs text-text-muted mb-3 text-center hidden"></p>
         <button class="btn btn-danger w-full" onclick="zpetDoMenu()">Zpět na začátek</button>
       </section>
     </main>

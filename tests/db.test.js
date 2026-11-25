@@ -115,4 +115,40 @@ describe('GameDatabase', () => {
     expect(stats.prohry).toBe(1);
     expect(stats.historie.length).toBe(3);
   });
+
+  it('should claim daily bonus once per day and increment streak on consecutive days', () => {
+    db.createPlayer('test');
+    const day1 = new Date('2026-11-20T12:00:00Z');
+    const day2 = new Date('2026-11-21T12:00:00Z');
+
+    const res1 = db.claimDailyBonus('test', 250, day1);
+    expect(res1).toEqual({ success: true, amount: 250, streak: 1 });
+    expect(db.getPlayerBalance('test')).toBe(750);
+
+    const res1Again = db.claimDailyBonus('test', 250, day1);
+    expect(res1Again).toEqual({ success: false, amount: 0, streak: 1 });
+
+    const res2 = db.claimDailyBonus('test', 250, day2);
+    expect(res2).toEqual({ success: true, amount: 300, streak: 2 });
+    expect(db.getPlayerBalance('test')).toBe(1050);
+  });
+
+  it('should allow bailout only at zero balance and enforce cooldown', () => {
+    db.createPlayer('test');
+    expect(db.claimBailout('test', 200, 1000).success).toBe(false);
+
+    db.updatePlayerBalance('test', 0);
+    const first = db.claimBailout('test', 200, 1000);
+    expect(first).toEqual({ success: true, amount: 200, remainingMs: 0 });
+    expect(db.getPlayerBalance('test')).toBe(200);
+
+    db.updatePlayerBalance('test', 0);
+    const tooSoon = db.claimBailout('test', 200, 1000 + 60_000);
+    expect(tooSoon.success).toBe(false);
+    expect(tooSoon.remainingMs).toBe(120_000);
+
+    const afterCooldown = db.claimBailout('test', 200, 1000 + 180_000);
+    expect(afterCooldown).toEqual({ success: true, amount: 200, remainingMs: 0 });
+    expect(db.getPlayerBalance('test')).toBe(200);
+  });
 });

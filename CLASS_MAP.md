@@ -9,12 +9,12 @@
 | `src/main.js` | ~387 | `window.onload`, `initApp`, theme/visit setup | App bootstrap, splash screen, visit tracking, theme init, SW update reload | `db.js`, `api.js`, `ui.js`, `games.js`, `sound.js`, `globalHandlers.js` |
 | `src/games.js` | ~390 | `GameManager` | Bet orchestration, UI lock, game routing (re-exports `config.js`) | `db.js`, `api.js`, `ui.js`, `sound.js`, `games/*`, `ui/BetSlider.js` |
 | `src/ui.js` | ~307 | `GameUI` | Screen switching, modals, alerts, profile/stats/leaderboard coordination | `db.js`, `ui/*`, `animations/*`, `utils.js` |
-| `src/events/globalHandlers.js` | ~356 | `GlobalEventHandlers` | Binds `window.*` handlers for HTML `onclick` attributes | `main.js`, `games.js`, `ui.js`, `sound.js` |
+| `src/events/globalHandlers.js` | ~405 | `GlobalEventHandlers` | Binds `window.*` handlers for HTML `onclick` attributes (incl. daily bonus & bailout) | `main.js`, `games.js`, `ui.js`, `sound.js` |
 
 ## Data, Persistence & Networking
 | File | Lines | Key Classes / Exports | Responsibility | Dependencies |
 |------|-------|-----------------------|----------------|--------------|
-| `src/db.js` | ~151 | `Database` | LocalStorage CRUD (`c_uziv`, `c_stat`, `c_scor`, `c_mute`, `c_music_mute`, `c_theme`) | — |
+| `src/db.js` | ~232 | `GameDatabase` | LocalStorage CRUD (`c_uziv`, `c_stat`, `c_scor`, `c_daily_bonus`, `c_bailout`, `c_mute`, `c_music_mute`, `c_theme`) | `utils.js` |
 | `src/api.js` | ~150 | `API` | Firebase Firestore sync (`leaderboard`, `matches`, `visits`) | Firebase SDK |
 | `src/clientWebSocket.js` | ~64 | WebSocket client | Real-time client WebSocket connection | — |
 | `src/utils.js` | ~104 | `formatNumber`, `escapeHtml`, `COIN_SVG`, etc. | Number formatting, HTML escaping, shared SVG constants | — |

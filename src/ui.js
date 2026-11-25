@@ -305,4 +305,41 @@ export class GameUI {
       return 0;
     });
   }
+
+  updateDailyBonusButton(username) {
+    const btn = document.getElementById("hub-daily-bonus-btn");
+    if (!btn || !username || typeof this.db.getDailyBonusStatus !== "function") return;
+    const status = this.db.getDailyBonusStatus(username);
+    if (status.available) {
+      btn.classList.remove("opacity-40");
+      btn.classList.add("animate-pulse");
+      btn.title = `Denní bonus (+${status.nextAmount}, den ${status.nextStreak})`;
+    } else {
+      btn.classList.add("opacity-40");
+      btn.classList.remove("animate-pulse");
+      btn.title = `Denní bonus už dnes vyzvednut (série: ${status.streak})`;
+    }
+  }
+
+  updateBailoutButton(username) {
+    const btn = document.getElementById("socka-bailout-btn");
+    const hint = document.getElementById("socka-bailout-hint");
+    if (!btn || !username || typeof this.db.getBailoutStatus !== "function") return;
+    const status = this.db.getBailoutStatus(username);
+    if (status.available) {
+      btn.disabled = false;
+      btn.classList.remove("opacity-50");
+      if (hint) hint.classList.add("hidden");
+    } else {
+      btn.disabled = status.remainingMs > 0;
+      if (status.remainingMs > 0) {
+        btn.classList.add("opacity-50");
+        const secs = Math.ceil(status.remainingMs / 1000);
+        if (hint) {
+          hint.innerText = `Další záchranný kredit za ${secs} s.`;
+          hint.classList.remove("hidden");
+        }
+      }
+    }
+  }
 }

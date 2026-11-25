@@ -293,8 +293,12 @@ export class GameManager {
   triggerBrokeScreen() {
     this.db.updatePlayerBalance(this.currentPlayer, 0);
     sound.playBroke();
-    document.getElementById('socka-text').innerText = 
-      `Hráč ${this.currentPlayer} prohrál úplně všechno. Ochranka tě vyvedla z casina!`;
+    const sockaText = document.getElementById('socka-text');
+    if (sockaText) {
+      sockaText.innerText =
+        `Hráč ${this.currentPlayer} prohrál úplně všechno. Ochranka tě vyvedla z casina!`;
+    }
+    this.ui.updateBailoutButton?.(this.currentPlayer);
     this.ui.showScreen('screen-socka');
   }
 

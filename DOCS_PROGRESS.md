@@ -23,11 +23,16 @@
     - Added `webServer` to `playwright.config.ts` and updated selectors in `tests/e2e/main-flow.spec.ts` (`#screen-login.active`, `#screen-register.active`, `Nový Hráč`, `#login-sound-toggle`).
     - Switched `public/sw.js` navigation requests to network-first and waited for `controllerchange` before reloading in `src/main.js`.
     - Updated `src/ui/Leaderboard.js` to always render the `🌐 Online` / `💾 Lokální` badge even when scores are empty.
+14. **Step 1 — Daily Bonus & Bankruptcy Bailout:**
+    - Upgraded `claimDailyBonus` in `src/db.js` with streak tracking (Day 1–7, 250–550 coins) and `getDailyBonusStatus`.
+    - Added `getBailoutStatus` and `claimBailout` (+200 coins with 3-min cooldown when balance is 0) in `src/db.js`.
+    - Wired `#hub-daily-bonus-btn` and `#socka-bailout-btn` in `index.html`, `src/ui.js`, `src/games.js`, and `src/events/globalHandlers.js`.
+    - Added unit tests in `tests/db.test.js` (142/142 passing).
 
 ## Current State ("Kde jsme skončili")
-- **All `.js` and `.css` files in `src/` are under 400 lines** (0 files over 400 or 500).
+- `src/events/globalHandlers.js` is at ~405 lines (plan to split in Step 7); all other `.js` and `.css` files in `src/` are under 400 lines.
 - `npm run lint`: 0 errors, 0 warnings.
-- `npm run test`: 17/17 test files passed (140/140 tests).
+- `npm run test`: 17/17 test files passed (142/142 tests).
 - `npm run build`: clean production build.
 
 ## Remaining / Optional Targets
