@@ -81,35 +81,43 @@ Aplikace obsahuje **6 her**, každá s vlastním herním modulem v `src/games/`:
 ## 📂 Architektura projektu
 
 ```
-├── .github/workflows/pages.yml   # GitHub Actions CD (push → build → deploy na GitHub Pages)
+├── .github/workflows/pages.yml   # GitHub Actions CI/CD (lint, testy, build → GitHub Pages)
 ├── public/
-│   └── manifest.json               # PWA manifest
-│   └── sounds/                     # Audio soubory (sfx + bgm)
-│   └── sw.js                       # Service Worker
+│   ├── manifest.json               # PWA manifest
+│   ├── offline.html                # Offline fallback stránka
+│   ├── sounds/                     # Audio soubory (sfx + bgm)
+│   └── sw.js                       # Service Worker (network-first pro navigaci)
 ├── src/
-│   ├── main.js                     # Entry point – inicializace, splash, návštěvy
+│   ├── main.js                     # Entry point – inicializace, splash, návštěvy, SW
 │   ├── games.js                    # GameManager – orchestrátor sázek, autoplay, UI lock
-│   ├── ui.js                       # GameUI – obrazovky, modály, animace výsledků
+│   ├── ui.js                       # GameUI – obrazovky, modály, koordinace komponent
 │   ├── db.js                       # GameDatabase – LocalStorage CRUD, milníky, import/export
 │   ├── api.js                      # API – Firebase Firestore sync (leaderboard, matches, visits)
+│   ├── clientWebSocket.js          # WebSocket klient
 │   ├── sound.js                    # SoundManager – Web Audio API syntetizátor + file-based audio
-│   ├── soundIndex.js                # Sound asset registry (SOUND_ASSETS, BGM_TRACKS)
+│   ├── soundIndex.js               # Sound asset registry (SOUND_ASSETS, BGM_TRACKS)
 │   ├── utils.js                    # Utility – formátování velkých čísel, zkratky, escapeHtml, COIN_SVG
 │   ├── games/
+│   │   ├── config.js               # DISPLAY_STATES a GAME_CONFIG
+│   │   ├── autoPlay.js             # Autoplay smyčka pro automaty
+│   │   ├── controlsLock.js         # Zamykání ovládacích prvků během animací
+│   │   ├── resultBoxes.js          # Skrytí a vyčištění výsledkových boxů
 │   │   ├── slots.js                # SlotMachineGame – 3x3 mřížka, 5 linií, GSAP spin
 │   │   ├── hilo.js                 # HiloGame – Hi-Lo karta, 3D flip, dynamický koeficient
 │   │   ├── guessing.js             # GuessingGame – číselné mřížky (Hádanka, Ruleta)
 │   │   └── dice.js                 # DiceGame – kostka 1-6, shuffle animace
 │   ├── ui/
-│   │   ├── Leaderboard.js          # Žebříček hráčů (top 5, medaile)
+│   │   ├── Leaderboard.js          # Žebříček hráčů (top 5, medaile, online/lokální badge)
 │   │   ├── Explorer.js             # Globální historie a leaderboard s filtry/sortem
 │   │   ├── Stats.js                # Statistiky hráče, win-rate, posledních 10 zápasů
 │   │   ├── Accounts.js             # Správa účtů (výběr, smazání)
 │   │   ├── DeleteConfirm.js        # Dialog pro potvrzení smazání účtu
 │   │   ├── BetSlider.js            # Custom logaritmický slider s hold-to-repeat
+│   │   ├── resultAnimations.js     # Konfety a GSAP animace výsledků/balance
 │   │   └── gameInfo.js             # GAME_INFOS – HTML obsah pro info panely
 │   ├── events/
-│   │   └── globalHandlers.js       # GlobalEventHandlers – window.* funkce z HTML onclick
+│   │   ├── globalHandlers.js       # GlobalEventHandlers – window.* funkce z HTML onclick
+│   │   └── keyboardShortcuts.js    # Klávesové zkratky pro hry
 │   ├── animations/
 │   │   ├── buttons.js              # GSAP entrance animace tlačítek
 │   │   ├── infoToggle.js           # Neónové kmitání, idle pulzace, screen přechody info panelu
@@ -121,11 +129,17 @@ Aplikace obsahuje **6 her**, každá s vlastním herním modulem v `src/games/`:
 │       ├── _reset.css              # Základní reset, scrollbar, body pozadí
 │       ├── _typography.css         # Fonty, nadpisy, neon text utility, .sr-only
 │       ├── _layout.css             # Screen state management, @media queries
-│       ├── _buttons.css            # 3D tlačítka – massive component v @layer components
-│       ├── _panels.css             # Modály, info panely, status box, toast pozice
+│       ├── _buttons.css            # 3D tlačítka a delete-account-btn
+│       ├── _bet-buttons.css        # 8-bit glass tlačítka pro předvolby sázek
+│       ├── _bet-slider.css         # Styly pro BetSlider
+│       ├── _number-buttons.css     # Barevné varianty a stavy pro .btn-num
+│       ├── _panels.css             # Leaderboard card, explorer tabulka, toggle tlačítka
+│       ├── _modals.css             # Explorer a Stats modály
 │       ├── _slot.css               # Slot machine – glass panel, reel glow, symbol glows
 │       ├── _hilo.css               # Hi-Lo karta – 3D preserve-3d, flip animace
 │       └── _dice.css               # Dice frame – sheen animace, win glow
+├── tests/                          # Vitest unit testy a Playwright E2E testy (`tests/e2e/`)
+├── playwright.config.ts            # Konfigurace Playwrightu (včetně `webServer`)
 ├── index.html                      # Hlavní šablona – sémantické tagy, screeny, modály
 └── package.json                    # Závislosti a skripty
 ```
@@ -167,7 +181,7 @@ Aplikace obsahuje **6 her**, každá s vlastním herním modulem v `src/games/`:
 
 - **Tailwind v4 utilities** v `tailwind.css` – flex, grid, spacing, responzivita
 - **CSS proměnné** v `_variables.css` – neon paleta, glow RGBA, gradienty
-- **Komponenty** v `_buttons.css`, `_panels.css`, `_slot.css`, `_hilo.css`, `_dice.css` – komplexní efekty v `@layer components`
+- **Komponenty** v `_buttons.css`, `_bet-buttons.css`, `_bet-slider.css`, `_number-buttons.css`, `_panels.css`, `_modals.css`, `_slot.css`, `_hilo.css`, `_dice.css` – komplexní efekty v `@layer components`
 - Layout utility přesunuty z `_layout.css` do Tailwind tříd v HTML
 
 ---
@@ -193,13 +207,16 @@ Pro lokální vývoj s Firebase zkopírujte `.env.example` do `.env` a vyplňte 
 | `npm run lint` | ESLint kontrola |
 | `npm run lint:fix` | ESLint automatické opravy |
 | `npm run format` | Prettier formátování |
+| `npm run test` | Vitest unit testy |
+| `npm run test:watch` | Vitest watch mode |
+| `npm run test:e2e` | Playwright E2E testy |
 | `npm run deploy` | Commit + push na `main` (pro GitHub Pages) |
 
 ---
 
 ## 🌐 Nasazení na GitHub Pages
 
-Projekt obsahuje GitHub Actions workflow (`.github/workflows/deploy.yml`), který automaticky sestaví a nasadí aplikaci při každém push do větve `main`.
+Projekt obsahuje GitHub Actions workflow (`.github/workflows/pages.yml`), který při každém push do větve `main` spustí lint, unit testy, Playwright E2E testy, sestaví produkční bundle s Firebase secrets a nasadí aplikaci na GitHub Pages.
 
 ### Nastavení:
 1. V repozitáři **Settings → Pages** nastavte **Source** na **GitHub Actions**.
@@ -220,4 +237,5 @@ Projekt obsahuje GitHub Actions workflow (`.github/workflows/deploy.yml`), kter�
 - `STYLE_DOC.md` – detailní popis CSS architektury a design tokenů
 - `docs/visual_guideline.md` – neměnné vizuální pravidla (CRT glass, 3D tlačítka, audio-vizuální život)
 - `AGENTS.md` – instrukce pro autonomní agenty pracující na projektu
-# rebuild
+- `CLASS_MAP.md` – mapa modulů, tříd a zodpovědností
+- `DOCS_PROGRESS.md` – přehled provedeného refaktoringu a změn

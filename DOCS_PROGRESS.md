@@ -17,6 +17,12 @@
     - Updated `vitest.config.js` to exclude `node_modules/**` so `npm run test` runs cleanly (17/17 files, 140/140 tests).
     - Fixed `gameConfig` resolution in `src/games.js` (`processGameResult`).
     - Updated `submitScore` in `src/api.js` to only overwrite `leaderboard/{username}` when `balance` exceeds the player's previous best.
+13. **CI/CD, E2E & Firebase / Service Worker Fix:**
+    - Removed duplicate `.github/workflows/deploy.yml` (which lacked Firebase secrets and overwrote GitHub Pages deployments).
+    - Passed `VITE_FIREBASE_*` directly in the `Build` step `env:` of `.github/workflows/pages.yml`.
+    - Added `webServer` to `playwright.config.ts` and updated selectors in `tests/e2e/main-flow.spec.ts` (`#screen-login.active`, `#screen-register.active`, `Nový Hráč`, `#login-sound-toggle`).
+    - Switched `public/sw.js` navigation requests to network-first and waited for `controllerchange` before reloading in `src/main.js`.
+    - Updated `src/ui/Leaderboard.js` to always render the `🌐 Online` / `💾 Lokální` badge even when scores are empty.
 
 ## Current State ("Kde jsme skončili")
 - **All `.js` and `.css` files in `src/` are under 400 lines** (0 files over 400 or 500).

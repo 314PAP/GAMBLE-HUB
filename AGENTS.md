@@ -9,44 +9,55 @@
 ```
 src/
 ├── css/
-│   ├── main.css      # Entry point – importuje všechny CSS vrstvy
-│   ├── tailwind.css  # Tailwind v4 @theme s neon paletou
-│   ├── _variables.css # CSS custom properties (--neon-*)
-│   ├── _reset.css    # Globální reset, scrollbar, body pozadí
-│   ├── _typography.css # Fonty, nadpisy, neon text utility, .sr-only
-│   ├── _layout.css   # Screen management, form inputs, grid rozložení
-│   ├── _buttons.css  # 3D tlačítka (komponenta) + BetSlider + delete-account-btn
-│   ├── _slot.css     # Slot machine (komponenta)
-│   ├── _hilo.css     # Hi-Lo karta (komponenta)
-│   ├── _panels.css   # Modály, info panely, status box, toast pozice
-│   └── _dice.css     # Dice frame – sheen animace, win glow
-├── ui/              # UI komponenty
-│   ├── Leaderboard.js   # Žebříček hráčů (top 5, medaile)
-│   ├── Explorer.js      # Globální historie a leaderboard s filtry/sortem
-│   ├── Stats.js         # Statistiky hráče, win-rate, posledních 10 zápasů
-│   ├── Accounts.js      # Správa účtů (výběr, smazání)
-│   ├── DeleteConfirm.js # Dialog pro potvrzení smazání účtu
-│   ├── BetSlider.js     # Custom logaritmický slider s hold-to-repeat
-│   └── gameInfo.js      # GAME_INFOS – HTML obsah pro info panely
-├── games/           # Herní logika
-│   ├── slots.js      # SlotMachineGame – 3x3 mřížka, 5 linií, GSAP spin
-│   ├── hilo.js       # HiloGame – Hi-Lo karta, 3D flip, dynamický koeficient
-│   ├── guessing.js   # GuessingGame – číselné mřížky (Hádanka, Ruleta)
-│   └── dice.js       # DiceGame – kostka 1-6, shuffle animace
-├── animations/      # Animace
-│   ├── buttons.js    # GSAP entrance animace tlačítek
-│   ├── infoToggle.js # Neónové kmitání, idle pulzace, screen přechody info panelu
-│   └── ui.js         # Neónové kmitání, idle pulzace, screen přechody, border glow
+│   ├── main.css           # Entry point – importuje všechny CSS vrstvy
+│   ├── tailwind.css       # Tailwind v4 @theme s neon paletou
+│   ├── _variables.css     # CSS custom properties (--neon-*)
+│   ├── _reset.css         # Globální reset, scrollbar, body pozadí
+│   ├── _typography.css    # Fonty, nadpisy, neon text utility, .sr-only
+│   ├── _layout.css        # Screen management, form inputs, grid rozložení
+│   ├── _buttons.css       # 3D tlačítka + delete-account-btn
+│   ├── _bet-buttons.css   # 8-bit glass tlačítka pro předvolby sázek
+│   ├── _bet-slider.css    # Styly pro BetSlider
+│   ├── _number-buttons.css # Barevné varianty a stavy pro .btn-num
+│   ├── _panels.css        # Leaderboard card, explorer tabulka, toggle tlačítka
+│   ├── _modals.css        # Explorer a Stats modály
+│   ├── _slot.css          # Slot machine (komponenta)
+│   ├── _hilo.css          # Hi-Lo karta (komponenta)
+│   └── _dice.css          # Dice frame – sheen animace, win glow
+├── ui/                    # UI komponenty
+│   ├── Leaderboard.js     # Žebříček hráčů (top 5, medaile, online/lokální badge)
+│   ├── Explorer.js        # Globální historie a leaderboard s filtry/sortem
+│   ├── Stats.js           # Statistiky hráče, win-rate, posledních 10 zápasů
+│   ├── Accounts.js        # Správa účtů (výběr, smazání)
+│   ├── DeleteConfirm.js   # Dialog pro potvrzení smazání účtu
+│   ├── BetSlider.js       # Custom logaritmický slider s hold-to-repeat
+│   ├── resultAnimations.js # Konfety a GSAP animace výsledků/balance
+│   └── gameInfo.js        # GAME_INFOS – HTML obsah pro info panely
+├── games/                 # Herní logika
+│   ├── config.js          # DISPLAY_STATES a GAME_CONFIG
+│   ├── autoPlay.js        # Autoplay smyčka pro automaty
+│   ├── controlsLock.js    # Zamykání ovládacích prvků během animací
+│   ├── resultBoxes.js     # Skrytí a vyčištění výsledkových boxů
+│   ├── slots.js           # SlotMachineGame – 3x3 mřížka, 5 linií, GSAP spin
+│   ├── hilo.js            # HiloGame – Hi-Lo karta, 3D flip, dynamický koeficient
+│   ├── guessing.js        # GuessingGame – číselné mřížky (Hádanka, Ruleta)
+│   └── dice.js            # DiceGame – kostka 1-6, shuffle animace
+├── animations/            # Animace
+│   ├── buttons.js         # GSAP entrance animace tlačítek
+│   ├── infoToggle.js      # Neónové kmitání, idle pulzace, screen přechody info panelu
+│   └── ui.js              # Neónové kmitání, idle pulzace, screen přechody, border glow
 ├── events/
-│   └── globalHandlers.js # GlobalEventHandlers – window.* funkce z HTML onclick
-├── sound.js         # SoundManager – Web Audio API syntetizátor + file-based audio
-├── soundIndex.js   # Sound asset registry (SOUND_ASSETS, BGM_TRACKS)
-├── main.js          # Entry point – inicializace, splash, návštěvy
-├── ui.js            # GameUI – obrazovky, modály, animace výsledků
-├── games.js         # GameManager – orchestrátor sázek, autoplay, UI lock
-├── db.js            # LocalStorage databáze
-├── api.js           # API – Firebase Firestore sync
-└── utils.js         # Utility – formátování velkých čísel, zkratky, escapeHtml, COIN_SVG
+│   ├── globalHandlers.js  # GlobalEventHandlers – window.* funkce z HTML onclick
+│   └── keyboardShortcuts.js # Klávesové zkratky pro hry
+├── sound.js               # SoundManager – Web Audio API syntetizátor + file-based audio
+├── soundIndex.js          # Sound asset registry (SOUND_ASSETS, BGM_TRACKS)
+├── main.js                # Entry point – inicializace, splash, návštěvy, SW registrace
+├── ui.js                  # GameUI – obrazovky, modály, koordinace komponent
+├── games.js               # GameManager – orchestrátor sázek, autoplay, UI lock
+├── db.js                  # LocalStorage databáze
+├── api.js                 # API – Firebase Firestore sync
+├── clientWebSocket.js     # WebSocket klient
+└── utils.js               # Utility – formátování velkých čísel, zkratky, escapeHtml, COIN_SVG
 ```
 
 ## Stylování
@@ -101,3 +112,9 @@ npm run test:e2e      # Playwright e2e tests
 - **Single Responsibility & Deduplication:** Split oversized files by clear domain/technical boundaries. Consolidate duplicated logic, UI blocks, or helpers into shared modules.
 - **Class Map (`CLASS_MAP.md`):** Keep `CLASS_MAP.md` up to date with key classes, functions, responsibilities, dependencies, and approximate line counts whenever modules are added, split, renamed, or removed.
 - **Progress & Handoff (`DOCS_PROGRESS.md`):** Record completed refactoring steps, current state, remaining targets, known duplicates, and immediate next steps. Read `CLASS_MAP.md` and `DOCS_PROGRESS.md` before making architectural edits and update them afterward.
+
+## CI/CD, E2E & PWA Guardrails
+- **Single Pages Workflow:** Používej výhradně `.github/workflows/pages.yml`. Nikdy nepřidávej druhý workflow (např. `deploy.yml`) se stejnou `pages` concurrency skupinou — bez Firebase secrets by přepisoval nasazení offline verzí.
+- **Firebase Env in CI:** V `pages.yml` předávej všechny `VITE_FIREBASE_*` proměnné přímo v `env:` kroku `Build` (kromě `.env`), aby je Vite vždy spolehlivě načetl z `Repository secrets`.
+- **Playwright `webServer`:** `playwright.config.ts` musí definovat `webServer` (`npm run dev -- --port 5173`), jinak `npm run test:e2e` v CI spadne na `ERR_CONNECTION_REFUSED`. Při úpravách UI/ID nezapomeň ověřit selektory v `tests/e2e/main-flow.spec.ts`.
+- **Service Worker (`public/sw.js` & `src/main.js`):** Navigační požadavky (`index.html`) obsluhuj strategií **network-first** (fallback na cache / `./offline.html`), a tlačítko aktualizace musí před `window.location.reload()` po `SKIP_WAITING` počkat na `controllerchange`, jinak prohlížeč zůstane na staré cache.
