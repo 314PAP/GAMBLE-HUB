@@ -242,6 +242,14 @@ export class GlobalEventHandlers {
       if (this._betSlider) this._betSlider.setValue(balance);
     };
 
+    window.nasobSazku = (factor) => {
+      if (!this.gm.currentPlayer) return;
+      const balance = this.db.getPlayerBalance(this.gm.currentPlayer);
+      const next = Math.max(10, Math.min(balance || 10, Math.round(this.gm.activeBet * factor)));
+      this.gm.setBet(next);
+      if (this._betSlider) this._betSlider.setValue(next);
+    };
+
     window.kliknutoCislo = (num) => {
       if (this.gm.activeGameId === 5) {
         this.gm.playSlots();

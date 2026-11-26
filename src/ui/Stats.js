@@ -1,9 +1,23 @@
-import { COIN_SVG, escapeHtml, wrapEmoji } from "../utils.js";
+import {
+  Chart,
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  CategoryScale,
+  Tooltip,
+  Filler,
+} from "chart.js";
+
+import { COIN_SVG, escapeHtml, formatLargeNumber, wrapEmoji } from "../utils.js";
 import { getPlayerAchievements } from "../achievements.js";
+
+Chart.register(LineController, LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Filler);
 
 export class StatsManager {
   constructor(ui) {
     this.ui = ui;
+    this.balanceChart = null;
   }
 
   open(username) {
@@ -97,8 +111,102 @@ export class StatsManager {
         .join("");
     }
 
+    this._renderBalanceChart(stats.balanceHistory || []);
+    this._renderPerGameStats(stats.perGame || {});
+
     statsModal.classList.remove("hidden");
     statsModal.classList.add("flex");
+  }
+
+  _renderBalanceChart(history) {
+    const wrap = document.getElementById("stats-chart-wrap");
+    const canvas = document.getElementById("stats-balance-chart");
+    if (!wrap || !canvas) return;
+
+    if (this.balanceChart) {
+      this.balanceChart.destroy();
+      this.balanceChart = null;
+    }
+
+    if (!Array.isArray(history) || history.length < 2) {
+      wrap.classList.add("hidden");
+      return;
+    }
+
+    const ctx = typeof canvas.getContext === "function" ? canvas.getContext("2d") : null;
+    if (!ctx) {
+      wrap.classList.add("hidden");
+      return;
+    }
+
+    wrap.classList.remove("hidden");
+    this.balanceChart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: history.map((_, idx) => `#${idx + 1}`),
+        datasets: [
+          {
+            label: "Zůstatek",
+            data: history,
+            borderColor: "#00f0ff",
+            backgroundColor: "rgba(0, 240, 255, 0.14)",
+            borderWidth: 2,
+            pointRadius: 2.5,
+            pointBackgroundColor: "#ffd700",
+            tension: 0.3,
+            fill: true,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+        },
+        scales: {
+          x: {
+            ticks: { color: "#94a3b8", font: { size: 10 } },
+            grid: { color: "rgba(255,255,255,0.05)" },
+          },
+          y: {
+            ticks: { color: "#94a3b8", font: { size: 10 } },
+            grid: { color: "rgba(255,255,255,0.06)" },
+          },
+        },
+      },
+    });
+  }
+
+  _renderPerGameStats(perGame) {
+    const container = document.getElementById("modal-pergame-stats");
+    if (!container) return;
+
+    const entries = Object.entries(perGame);
+    if (entries.length === 0) {
+      container.innerHTML = `<div class="text-center text-text-muted text-xs py-1">Zatím žádná data podle her.</div>`;
+      return;
+    }
+
+    container.innerHTML = entries
+      .map(([name, g]) => {
+        const roi = g.totalBet > 0 ? (((g.totalWon - g.totalBet) / g.totalBet) * 100).toFixed(0) : "0";
+        const roiNum = Number(roi);
+        const roiCls = roiNum >= 0 ? "text-neon-green" : "text-neon-pink";
+        return `
+          <div class="flex items-center justify-between text-xs py-1.5 px-2 rounded-lg bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.06)]">
+            <div class="min-w-0">
+              <div class="font-bold text-text-primary truncate">${escapeHtml(name)}</div>
+              <div class="text-[11px] text-text-secondary">✓ ${g.wins} / ✗ ${g.losses} • Vsazeno: ${formatLargeNumber(g.totalBet)}</div>
+            </div>
+            <div class="text-right shrink-0 ml-2">
+              <div class="font-bold text-neon-gold">Max: ${formatLargeNumber(g.highestWin)}</div>
+              <div class="text-[11px] font-semibold ${roiCls}">ROI: ${roiNum >= 0 ? `+${roi}%` : `${roi}%`}</div>
+            </div>
+          </div>
+        `;
+      })
+      .join("");
   }
 
   close() {

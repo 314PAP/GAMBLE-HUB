@@ -819,23 +819,45 @@
           role="region"
           aria-label="Volba sázky"
         >
-          <!-- Řada 1: preset tlačítka + All-In -->
-          <div class="grid grid-cols-5 gap-1.5 justify-center justify-items-stretch">
+          <!-- Řada 1: preset tlačítka + rychlé akce -->
+          <div class="grid grid-cols-7 gap-1 justify-center justify-items-stretch">
             <button class="btn bet-btn h-9" id="bet-10" onclick="nastavSazku(10)">10</button>
             <button class="btn bet-btn h-9" id="bet-20" onclick="nastavSazku(20)">20</button>
             <button class="btn bet-btn h-9" id="bet-50" onclick="nastavSazku(50)">50</button>
             <button class="btn bet-btn h-9" id="bet-100" onclick="nastavSazku(100)">100</button>
             <button
               class="btn bet-btn h-9"
+              id="bet-half"
+              onclick="nasobSazku(0.5)"
+              aria-label="Poloviční sázka"
+            >
+              1/2×
+            </button>
+            <button
+              class="btn bet-btn h-9"
+              id="bet-double"
+              onclick="nasobSazku(2)"
+              aria-label="Dvojnásobná sázka"
+            >
+              2×
+            </button>
+            <button
+              class="btn bet-btn h-9"
               id="bet-all-in"
               onclick="vsaditVse()"
               aria-label="Vsadit vše (all-in)"
             >
-              ALL
+              MAX
             </button>
           </div>
           <!-- Řada 2: Bet Slider -->
           <div id="bet-slider-container" role="none"></div>
+          <div
+            class="text-[10px] text-text-muted text-center tracking-wide hidden sm:block"
+            aria-label="Klávesové zkratky"
+          >
+            Zkratky: Space = Spin/Start | ←/→ = Sázka | H/L = Hi-Lo | M = Zvuk
+          </div>
         </nav>
 
         <div
@@ -887,6 +909,18 @@
       >
         <h3 id="stats-modal-title" class="modal-header mb-3">Přehled Hráče</h3>
         <div id="modal-stats-data" class="text-sm leading-relaxed mb-2"></div>
+        <div id="stats-chart-wrap" class="hidden mb-3">
+          <h4 class="text-sm text-neon-cyan uppercase tracking-wider mb-1.5">
+            Vývoj zůstatku:
+          </h4>
+          <div class="h-32 w-full bg-[rgba(0,0,0,0.3)] rounded-xl p-2 border border-[rgba(0,240,255,0.2)]">
+            <canvas id="stats-balance-chart"></canvas>
+          </div>
+        </div>
+        <h4 class="text-sm text-neon-cyan uppercase tracking-wider mb-1.5">
+          Statistiky podle her:
+        </h4>
+        <div id="modal-pergame-stats" class="flex flex-col gap-1.5 mb-3"></div>
         <h4
           class="text-sm text-neon-gold uppercase tracking-wider text-glow-gold mb-1.5"
         >

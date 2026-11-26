@@ -277,7 +277,7 @@ export class GameManager {
        }
     
     // Log in DB
-    this.db.recordMatch(this.currentPlayer, gameName, betAmount, resultText, isWin);
+    this.db.recordMatch(this.currentPlayer, gameName, betAmount, resultText, isWin, isWin ? winAmount : 0, newBalance);
     this.db.checkMilestones(this.currentPlayer, oldBalance - betAmount, newBalance);
 
     const unlocked = evaluateAchievements(this.currentPlayer, {

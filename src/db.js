@@ -94,20 +94,43 @@ export class GameDatabase {
     }
   }
 
-  recordMatch(username, gameName, bet, resultText, isWin) {
+  recordMatch(username, gameName, bet, resultText, isWin, winAmount = 0, newBalance = null) {
     if (!this.statistiky[username]) {
-      this.statistiky[username] = { vyhry: 0, prohry: 0, historie: [] };
+      this.statistiky[username] = { vyhry: 0, prohry: 0, historie: [], perGame: {}, balanceHistory: [] };
     }
-    
+    const userStats = this.statistiky[username];
+    if (!userStats.perGame) userStats.perGame = {};
+    if (!userStats.balanceHistory) userStats.balanceHistory = [];
+
     if (isWin) {
-      this.statistiky[username].vyhry++;
+      userStats.vyhry++;
     } else {
-      this.statistiky[username].prohry++;
+      userStats.prohry++;
+    }
+
+    if (!userStats.perGame[gameName]) {
+      userStats.perGame[gameName] = { wins: 0, losses: 0, totalBet: 0, totalWon: 0, highestWin: 0 };
+    }
+    const gs = userStats.perGame[gameName];
+    if (isWin) {
+      gs.wins++;
+      gs.totalWon += winAmount;
+      if (winAmount > gs.highestWin) gs.highestWin = winAmount;
+    } else {
+      gs.losses++;
+    }
+    gs.totalBet += bet || 0;
+
+    if (newBalance !== null && Number.isFinite(newBalance)) {
+      userStats.balanceHistory.push(newBalance);
+      if (userStats.balanceHistory.length > 25) {
+        userStats.balanceHistory = userStats.balanceHistory.slice(-25);
+      }
     }
 
     const matchString = `${gameName} (${formatLargeNumber(bet)}) – ${isWin ? 'VÝHRA' : 'PROHRA'}`;
-    this.statistiky[username].historie.unshift(matchString);
-    this.statistiky[username].historie = this.statistiky[username].historie.slice(0, GameDatabase.MAX_HISTORY); // Keep last 10 records for better stats
+    userStats.historie.unshift(matchString);
+    userStats.historie = userStats.historie.slice(0, GameDatabase.MAX_HISTORY); // Keep last 10 records for better stats
     this.saveAll();
   }
 

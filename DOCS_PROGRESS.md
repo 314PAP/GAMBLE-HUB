@@ -45,11 +45,16 @@
     - Hooked evaluation & neon toast alerts into `GameManager.processGameResult` (`src/games.js`) and bankruptcy bailout (`src/events/globalHandlers.js`).
     - Rendered unlocked/locked achievement badges in `src/ui/Stats.js` and `#modal-achievements-data` in `index.html`.
     - Added `tests/achievements.test.js` (157/157 passing).
+19. **Step 6 — Stats Charts, Per-Game Analytics & Bet UX:**
+    - Extended `recordMatch` in `src/db.js` to track `perGame` stats (`wins`, `losses`, `totalBet`, `totalWon`, `highestWin`) and `balanceHistory` (last 25 snapshots).
+    - Integrated tree-shaken `chart.js` line chart (`#stats-balance-chart`) and per-game ROI breakdown (`#modal-pergame-stats`) in `src/ui/Stats.js` and `index.html`.
+    - Added `1/2×` and `2×` quick-bet buttons (`nasobSazku`) and keyboard shortcut hint in `index.html` + `src/events/globalHandlers.js`, and fixed `#screen-game` + added `H`/`L`/`M`/`Space` shortcuts in `src/events/keyboardShortcuts.js`.
+    - Added unit test in `tests/db.test.js` (158/158 passing).
 
 ## Current State ("Kde jsme skončili")
 - `src/events/globalHandlers.js` is at ~420 lines (plan to split in Step 7); all other `.js` and `.css` files in `src/` are under 400 lines.
 - `npm run lint`: 0 errors, 0 warnings.
-- `npm run test`: 19/19 test files passed (157/157 tests).
+- `npm run test`: 19/19 test files passed (158/158 tests).
 - `npm run build`: clean production build.
 
 ## Remaining / Optional Targets

@@ -151,4 +151,20 @@ describe('GameDatabase', () => {
     expect(afterCooldown).toEqual({ success: true, amount: 200, remainingMs: 0 });
     expect(db.getPlayerBalance('test')).toBe(200);
   });
+
+  it('should track perGame stats and balanceHistory on recordMatch', () => {
+    db.createPlayer('test');
+    db.recordMatch('test', 'Kostka', 50, '6', true, 300, 750);
+    db.recordMatch('test', 'Kostka', 100, '2', false, 0, 650);
+
+    const stats = db.getStats('test');
+    expect(stats.perGame.Kostka).toEqual({
+      wins: 1,
+      losses: 1,
+      totalBet: 150,
+      totalWon: 300,
+      highestWin: 300,
+    });
+    expect(stats.balanceHistory).toEqual([750, 650]);
+  });
 });
