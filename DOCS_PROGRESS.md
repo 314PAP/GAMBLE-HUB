@@ -65,10 +65,10 @@
 23. **Step 10 — Bundle Optimization (Lazy-Loaded `chart.js`):**
     - Replaced static `chart.js` import in `src/ui/Stats.js` with a dynamic `import("chart.js")` loader (`loadChart`) guarded by `_chartRenderId` to avoid stale renders.
     - Split `chart-*.js` (`153.34 kB` / `53.88 kB` gzip) out of `index-*.js` (`387.75 kB` → `235.23 kB` / `61.38 kB` gzip).
+24. **Step 11 — Expanded E2E Test Suite (`tests/e2e/gameplay.spec.ts`):**
+    - Added 4 new E2E tests (8 runs across `chromium` and `Mobile Chrome`) covering player registration, Daily Bonus claim, Mines 5×5 round start, Slots controls, and Stats/Explorer modals (`18/18` E2E tests passing).
 
 ## Planned Next Steps
-24. **Step 11 — Expanded E2E Test Suite (`tests/e2e/`):**
-    - Add end-to-end tests covering player registration, Daily Bonus claim, Slots & Mines gameplay, and Stats/Explorer modals.
 25. **Step 12 — New Game: Crash (ID 8):**
     - Implement `src/games/crash.js` and `src/css/_crash.css`, wire into game config/UI/handlers/info, add unit tests, and update docs.
 
