@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getAuth, signInAnonymously } from "firebase/auth";
 import { getFirestore, collection, doc, setDoc, getDocs, getDoc, query, orderBy, limit, increment } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -23,21 +24,48 @@ const isFirebaseConfigured = Boolean(
   firebaseConfig.projectId
 );
 
+export function isValidScoreSubmission(balance, prevBest = 0) {
+  if (typeof balance !== "number" || !Number.isFinite(balance)) return false;
+  if (balance <= 500 || balance > 1_000_000_000) return false;
+  const maxAllowedJump = Math.max(50_000, prevBest * 200);
+  if (balance > maxAllowedJump) return false;
+  return balance > prevBest;
+}
+
 export class API {
   constructor(localDb) {
     this.db = localDb;
     this.isOnline = false;
+    this.uid = null;
+    this.authReady = Promise.resolve(null);
     
     try {
       if (isFirebaseConfigured) {
         this.app = initializeApp(firebaseConfig);
         this.firestore = getFirestore(this.app);
         this.isOnline = true;
+        this.authReady = this._initAuth();
       } else {
         console.warn('Firebase config missing — running in local-only mode');
       }
     } catch(e) {
       console.error("Firebase init failed", e);
+    }
+  }
+
+  async _initAuth() {
+    try {
+      const auth = getAuth(this.app);
+      if (auth.currentUser) {
+        this.uid = auth.currentUser.uid;
+        return this.uid;
+      }
+      const cred = await signInAnonymously(auth);
+      this.uid = cred?.user?.uid || null;
+      return this.uid;
+    } catch (e) {
+      console.warn("Firebase anonymous auth unavailable:", e?.message || e);
+      return null;
     }
   }
 
@@ -92,12 +120,14 @@ export class API {
   async submitScore(username, balance) {
     if (this.isOnline && balance > 500) {
       try {
+        await this.authReady;
         const scoreRef = doc(this.firestore, "leaderboard", username);
         const existing = await getDoc(scoreRef);
         const prevBest = existing.exists() ? (existing.data()?.castka || 0) : 0;
-        if (balance > prevBest) {
+        if (isValidScoreSubmission(balance, prevBest)) {
           await setDoc(scoreRef, {
             castka: balance,
+            uid: this.uid || null,
             updatedAt: new Date().toISOString()
           }, { merge: true });
         }
@@ -112,6 +142,7 @@ export class API {
   async submitMatch(username, gameName, bet, resultText, isWin, winAmount) {
     if (this.isOnline) {
       try {
+        await this.authReady;
         const matchesCol = collection(this.firestore, "matches");
         const matchDoc = doc(matchesCol);
         await setDoc(matchDoc, {
@@ -121,6 +152,7 @@ export class API {
           resultText,
           isWin,
           winAmount,
+          uid: this.uid || null,
           timestamp: new Date().toISOString()
         });
       } catch (e) {

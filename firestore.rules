@@ -1,43 +1,33 @@
 rules_version = '2';
-
 service cloud.firestore {
   match /databases/{database}/documents {
-
-    // Rules for the leaderboard collection
     match /leaderboard/{username} {
-      // Anyone can read the leaderboard
       allow read: if true;
-      // Allow creating or updating only with valid types and strictly higher score on update
-      allow create: if request.resource.data.castka is number
-                    && request.resource.data.castka >= 0
-                    && request.resource.data.updatedAt is string;
-      allow update: if request.resource.data.castka is number
-                    && request.resource.data.castka > resource.data.castka
-                    && request.resource.data.updatedAt is string;
+      allow create: if request.auth != null
+        && request.resource.data.castka is number
+        && request.resource.data.castka > 500
+        && request.resource.data.castka <= 1000000000
+        && request.resource.data.castka <= 50000;
+      allow update: if request.auth != null
+        && request.resource.data.castka is number
+        && request.resource.data.castka > resource.data.castka
+        && request.resource.data.castka <= 1000000000
+        && request.resource.data.castka <= (resource.data.castka * 200 + 50000);
       allow delete: if false;
     }
 
-    // Rules for the visits collection (IP tracking and global counter)
-    match /visits/{visitId} {
-      allow read, write: if true;
+    match /matches/{matchId} {
+      allow read: if true;
+      allow create: if request.auth != null
+        && request.resource.data.username is string
+        && request.resource.data.gameName is string
+        && request.resource.data.bet is number
+        && request.resource.data.bet > 0;
+      allow update, delete: if false;
     }
 
-    // Rules for the matches collection (game history)
-    match /matches/{matchId} {
-      // Anyone can view match history
-      allow read: if true;
-      // Anyone can create a match entry, but validate the fields
-      allow create: if request.resource.data.username is string
-                    && request.resource.data.username.size() > 0
-                    && request.resource.data.username.size() <= 32
-                    && request.resource.data.gameName is string
-                    && request.resource.data.bet is number
-                    && request.resource.data.bet > 0
-                    && request.resource.data.isWin is bool
-                    && request.resource.data.winAmount is number
-                    && request.resource.data.timestamp is string;
-      // Prevent editing or deleting matches once they are written
-      allow update, delete: if false;
+    match /visits/{docId} {
+      allow read, write: if true;
     }
   }
 }

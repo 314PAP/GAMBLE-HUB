@@ -1,5 +1,6 @@
 import { sound } from "../sound.js";
 import { evaluateAchievements } from "../achievements.js";
+import { broadcastBigWin } from "../liveFeed.js";
 
 import { GAME_CONFIG } from "./config.js";
 
@@ -84,6 +85,7 @@ export function processGameResult(
   if (isWin) {
     const hiloColor = gameConfig.hiloColor ? "#ff4060" : "var(--neon-orange)";
     gm.ui.animateWinResult(targetResBox, winAmount, resultText, isJackpot, "game-result", hiloColor);
+    broadcastBigWin(gm.currentPlayer, gameName, winAmount, isJackpot);
   } else {
     gm.ui.animateLossBalance(newBalance);
   }

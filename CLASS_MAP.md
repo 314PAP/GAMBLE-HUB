@@ -17,8 +17,9 @@
 | File | Lines | Key Classes / Exports | Responsibility | Dependencies |
 |------|-------|-----------------------|----------------|--------------|
 | `src/db.js` | ~232 | `GameDatabase` | LocalStorage CRUD (`c_uziv`, `c_stat`, `c_scor`, `c_daily_bonus`, `c_bailout`, `c_mute`, `c_music_mute`, `c_theme`) | `utils.js` |
-| `src/api.js` | ~150 | `API` | Firebase Firestore sync (`leaderboard`, `matches`, `visits`) | Firebase SDK |
-| `src/clientWebSocket.js` | ~64 | WebSocket client | Real-time client WebSocket connection | — |
+| `src/api.js` | ~185 | `API`, `isValidScoreSubmission` | Firebase Auth (anonymous) + Firestore sync (`leaderboard`, `matches`, `visits`) + score sanity check | Firebase SDK |
+| `src/clientWebSocket.js` | ~64 | `ClientWebSocket` | Real-time client WebSocket connection with exponential backoff | — |
+| `src/liveFeed.js` | ~65 | `initLiveFeed`, `broadcastBigWin`, `handleIncomingFeedMessage` | Live big-win feed via WebSocket (`VITE_WS_URL`) & `BroadcastChannel` | `clientWebSocket.js`, `utils.js` |
 | `src/utils.js` | ~104 | `formatNumber`, `escapeHtml`, `COIN_SVG`, etc. | Number formatting, HTML escaping, shared SVG constants | — |
 | `src/achievements.js` | ~115 | `ACHIEVEMENTS`, `evaluateAchievements`, `getPlayerAchievements` | Player milestones & achievement badges (`c_achiv`) | — |
 

@@ -32,6 +32,7 @@ if (import.meta.env.DEV) {
 const db = new GameDatabase();
 const api = new API(db);
 const ui = new GameUI(db, api);
+initLiveFeed(ui);
 const gm = new GameManager(db, ui, api);
 initKeyboardShortcuts(gm);
 
@@ -243,6 +244,7 @@ window.addEventListener('unhandledrejection', (event) => {
 });
 
 import { initServiceWorker } from './swRegister.js';
+import { initLiveFeed } from './liveFeed.js';
 
 initServiceWorker();
 

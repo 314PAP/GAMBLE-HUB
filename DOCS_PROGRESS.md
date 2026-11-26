@@ -54,10 +54,14 @@
     - Removed unused `lucide` dependency from `package.json`.
     - Extracted `src/games/resultProcessor.js`, `src/games/screenSetup.js`, `src/events/uiHandlers.js`, and `src/swRegister.js` so all JS files in `src/` are ≤ 377 lines (well under the 400-line warning threshold).
     - Added zero-dependency `htmlPartialsPlugin` in `vite.config.js` and split `index.html` (1235 → 341 lines) into `src/partials/screen-game.html` and `src/partials/modals.html`.
+21. **Step 8 — Online Fairness, Auth & Live Big-Win Feed:**
+    - Added Firebase Anonymous Auth (`_initAuth`) and `isValidScoreSubmission` jump/bounds validation in `src/api.js`, plus `firestore.rules` for `leaderboard`, `matches`, and `visits`.
+    - Created `src/liveFeed.js` wiring `src/clientWebSocket.js` (when `VITE_WS_URL` is configured) and `BroadcastChannel` for live big-win notifications, hooked into `src/main.js` and `src/games/resultProcessor.js`.
+    - Added `tests/liveFeed.test.js` (161/161 passing).
 
 ## Current State ("Kde jsme skončili")
 - All `.js` and `.css` files in `src/` are under 378 lines (`src/sound.js` 377, `src/events/globalHandlers.js` 355, `src/ui.js` 345, `src/games.js` 342).
 - `index.html` is 341 lines with `src/partials/screen-game.html` and `src/partials/modals.html`.
 - `npm run lint`: 0 errors, 0 warnings.
-- `npm run test`: 19/19 test files passed (158/158 tests).
+- `npm run test`: 20/20 test files passed (161/161 tests).
 - `npm run build`: clean production build.
