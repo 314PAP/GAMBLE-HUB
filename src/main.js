@@ -21,6 +21,8 @@ import {
   initStroboscopicGlow,
 } from './animations/ui.js';
 import { GlobalEventHandlers } from './events/globalHandlers.js';
+import { initLiveFeed } from './liveFeed.js';
+import { initServiceWorker } from './swRegister.js';
 
 if (import.meta.env.DEV) {
   console.debug('[DEBUG] location.href =', location.href);
@@ -242,9 +244,6 @@ window.addEventListener('unhandledrejection', (event) => {
     console.error('Unhandled game module error:', event.reason);
   }
 });
-
-import { initServiceWorker } from './swRegister.js';
-import { initLiveFeed } from './liveFeed.js';
 
 initServiceWorker();
 

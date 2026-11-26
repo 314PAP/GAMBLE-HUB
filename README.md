@@ -45,16 +45,17 @@ Aplikace respektuje standardy WCAG a používá sémantické HTML5 tagy v kombin
 
 ## 🎮 Hry
 
-Aplikace obsahuje **6 her**, každá s vlastním herním modulem v `src/games/`:
+Aplikace obsahuje **7 her**, každá s vlastním herním modulem v `src/games/`:
 
 | # | Název | ID | Popis |
 |---|-------|----|-------|
 | 1 | **Hádanka 1-10** | 1 | Mřížka čísel 1–10, náhodné výherní číslo, Výplata: **10× sázka** |
 | 2 | **Hádanka 1-5** | 2 | Mřížka čísel 1–5, Výplata: **5× sázka** |
 | 3 | **Kostka 1-6** | 3 | Výběr čísla 1–6, hod kostkou s GSAP shuffle animací, Výplata: **6× sázka** |
-| 4 | **Ruleta 0-35** | 4 | Mřížka 0–36 s červenými/černými/zelenými políčky, Výplata: **36× sázka** |
+| 4 | **Ruleta 0-35** | 4 | Mřížka 0–35 s červenými/černými/zelenými políčky (**36×**) + vedlejší sázky (Barva/Sudá-Lichá/Poloviny **2×**, Tucet **3×**) |
 | 5 | **Automat (Slots)** | 5 | 3 válce × 3 řady, 6 symbolů, 5 výherních linií, Jackpot na třech `7️⃣`, Výplata: **2× – 100×** podle symbolu |
-| 6 | **Hi-Low** | 6 | Karty 1–10, tip VYŠŠÍ/NIŽŠÍ, dynamický koeficient `(9 / winningCards) × 0.95`, 3D flip animace karty |
+| 6 | **Hi-Low** | 6 | Karty 1–10, tip VYŠŠÍ/NIŽŠÍ, série výher s násobením koeficientu a tlačítkem **Cash Out**, 3D flip animace |
+| 7 | **Miny 5×5** | 7 | Mřížka 5×5, volba 1/3/5/10 min, progresivní koeficient s každým bezpečným políčkem a **Cash Out** |
 
 ### Herní tok
 1. Vybrání hry z hub obrazovky → zobrazí se 2s animovaný splash → herní obrazovka.
@@ -71,10 +72,10 @@ Aplikace obsahuje **6 her**, každá s vlastním herním modulem v `src/games/`:
 - **Styling**: Tailwind CSS v4 + vlastní CSS vrstvy `@layer components` / `@layer utilities`
 - **Animace**: GSAP 3 — slot válce, kartové otočení, mřížkové rolování, screen přechody
 - **UI efekty**: SweetAlert2 (dialogy), Canvas Confetti (výherní efekty), Chart.js (statistiky)
-- **Backend sync**: Firebase Firestore (globální žebříček, historie zápasů, návštěvy)
+- **Backend sync**: Firebase Anonymous Auth + Firestore (`leaderboard`, `matches`, `visits`) + `firestore.rules`
+- **Live Feed**: WebSocket (`VITE_WS_URL`) + `BroadcastChannel` pro oznámení velkých výher v reálném čase
 - **Audio**: Hybridní engine — Web Audio API syntetizátor pro proceduralní SFX (click, spin, win, dice roll, jackpot) + file-based audio pro slot efekty, 8-bit SFX a BGM (3 orchestrané skladby v `sounds/bgm/`)
-- **Ikony**: Lucide (referencováno v package.json)
-- **PWA**: Web App Manifest (`public/manifest.json`)
+- **PWA**: Web App Manifest (`public/manifest.json`) a Service Worker (`public/sw.js`)
 
 ---
 
@@ -82,34 +83,44 @@ Aplikace obsahuje **6 her**, každá s vlastním herním modulem v `src/games/`:
 
 ```
 ├── .github/workflows/pages.yml   # GitHub Actions CI/CD (lint, testy, build → GitHub Pages)
+├── firestore.rules               # Bezpečnostní pravidla pro Firestore
 ├── public/
 │   ├── manifest.json               # PWA manifest
 │   ├── offline.html                # Offline fallback stránka
 │   ├── sounds/                     # Audio soubory (sfx + bgm)
 │   └── sw.js                       # Service Worker (network-first pro navigaci)
 ├── src/
-│   ├── main.js                     # Entry point – inicializace, splash, návštěvy, SW
+│   ├── main.js                     # Entry point – inicializace, splash, návštěvy
+│   ├── swRegister.js               # Registrace Service Workeru a update banner
 │   ├── games.js                    # GameManager – orchestrátor sázek, autoplay, UI lock
 │   ├── ui.js                       # GameUI – obrazovky, modály, koordinace komponent
-│   ├── db.js                       # GameDatabase – LocalStorage CRUD, milníky, import/export
-│   ├── api.js                      # API – Firebase Firestore sync (leaderboard, matches, visits)
+│   ├── db.js                       # GameDatabase – LocalStorage CRUD, statistiky, bonusy
+│   ├── achievements.js             # Systém achievementů a milníků (c_achiv)
+│   ├── api.js                      # API – Firebase Auth + Firestore sync + validace skóre
 │   ├── clientWebSocket.js          # WebSocket klient
+│   ├── liveFeed.js                 # Live Big-Win feed (WebSocket / BroadcastChannel)
 │   ├── sound.js                    # SoundManager – Web Audio API syntetizátor + file-based audio
 │   ├── soundIndex.js               # Sound asset registry (SOUND_ASSETS, BGM_TRACKS)
 │   ├── utils.js                    # Utility – formátování velkých čísel, zkratky, escapeHtml, COIN_SVG
+│   ├── partials/
+│   │   ├── screen-game.html        # Herní obrazovka (#screen-game)
+│   │   └── modals.html             # Explorer, Stats a DeleteConfirm modály
 │   ├── games/
 │   │   ├── config.js               # DISPLAY_STATES a GAME_CONFIG
 │   │   ├── autoPlay.js             # Autoplay smyčka pro automaty
 │   │   ├── controlsLock.js         # Zamykání ovládacích prvků během animací
 │   │   ├── resultBoxes.js          # Skrytí a vyčištění výsledkových boxů
+│   │   ├── resultProcessor.js      # Zpracování výsledku kola, DB/Firebase/achievementy, bankrot
+│   │   ├── screenSetup.js          # Příprava DOM a ovládání při přepnutí hry
 │   │   ├── slots.js                # SlotMachineGame – 3x3 mřížka, 5 linií, GSAP spin
-│   │   ├── hilo.js                 # HiloGame – Hi-Lo karta, 3D flip, dynamický koeficient
-│   │   ├── guessing.js             # GuessingGame – číselné mřížky (Hádanka, Ruleta)
-│   │   └── dice.js                 # DiceGame – kostka 1-6, shuffle animace
+│   │   ├── hilo.js                 # HiloGame – Hi-Lo karta, 3D flip, série & Cash Out
+│   │   ├── guessing.js             # GuessingGame – číselné mřížky (Hádanka, Ruleta + side bets)
+│   │   ├── dice.js                 # DiceGame – kostka 1-6, shuffle animace
+│   │   └── mines.js                # MinesGame – 5×5 miny, progresivní koeficienty & Cash Out
 │   ├── ui/
 │   │   ├── Leaderboard.js          # Žebříček hráčů (top 5, medaile, online/lokální badge)
 │   │   ├── Explorer.js             # Globální historie a leaderboard s filtry/sortem
-│   │   ├── Stats.js                # Statistiky hráče, win-rate, posledních 10 zápasů
+│   │   ├── Stats.js                # Statistiky hráče, Chart.js graf, ROI, achievementy, historie
 │   │   ├── Accounts.js             # Správa účtů (výběr, smazání)
 │   │   ├── DeleteConfirm.js        # Dialog pro potvrzení smazání účtu
 │   │   ├── BetSlider.js            # Custom logaritmický slider s hold-to-repeat
@@ -117,6 +128,7 @@ Aplikace obsahuje **6 her**, každá s vlastním herním modulem v `src/games/`:
 │   │   └── gameInfo.js             # GAME_INFOS – HTML obsah pro info panely
 │   ├── events/
 │   │   ├── globalHandlers.js       # GlobalEventHandlers – window.* funkce z HTML onclick
+│   │   ├── uiHandlers.js           # Modály, explorer, info, import/export, audio & téma
 │   │   └── keyboardShortcuts.js    # Klávesové zkratky pro hry
 │   ├── animations/
 │   │   ├── buttons.js              # GSAP entrance animace tlačítek
@@ -137,7 +149,8 @@ Aplikace obsahuje **6 her**, každá s vlastním herním modulem v `src/games/`:
 │       ├── _modals.css             # Explorer a Stats modály
 │       ├── _slot.css               # Slot machine – glass panel, reel glow, symbol glows
 │       ├── _hilo.css               # Hi-Lo karta – 3D preserve-3d, flip animace
-│       └── _dice.css               # Dice frame – sheen animace, win glow
+│       ├── _dice.css               # Dice frame – sheen animace, win glow
+│       └── _mines.css              # Mines 5×5 mřížka a stavy políček
 ├── tests/                          # Vitest unit testy a Playwright E2E testy (`tests/e2e/`)
 ├── playwright.config.ts            # Konfigurace Playwrightu (včetně `webServer`)
 ├── index.html                      # Hlavní šablona – sémantické tagy, screeny, modály
@@ -152,8 +165,11 @@ Aplikace obsahuje **6 her**, každá s vlastním herním modulem v `src/games/`:
 | Klíč | Formát | Popis |
 |------|--------|-------|
 | `c_uziv` | `{ username: balance }` | Uživatelé a jejich zůstatky (startovní 500) |
-| `c_stat` | `{ username: { vyhry, prohry, historie: string[] } }` | Statistiky, historie omezena na 10 záznamů |
+| `c_stat` | `{ username: { vyhry, prohry, historie: string[], perGame, balanceHistory } }` | Statistiky, historie (10 záznamů), per-game ROI a vývoj zůstatku |
 | `c_scor` | `[{ jmeno, castka }]` | Leaderboard – pouze nejvyšší skóre na hráče |
+| `c_achiv` | `{ username: string[] }` | Odemčené achievementy hráče |
+| `c_daily_bonus` | `{ [username]: { lastClaim, streak } }` | Denní bonus a streak (Den 1–7) |
+| `c_bailout` | `{ [username]: number }` | Čas posledního bankrotního záchranného bonusu |
 | `c_mute` | `"true"` / `"false"` | Stav ztlumení zvuku |
 | `c_music_mute` | `"true"` / `"false"` | Stav ztlumení hudby |
 | `c_theme` | `"cyan"` / absent | Barevné téma |

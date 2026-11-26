@@ -58,10 +58,15 @@
     - Added Firebase Anonymous Auth (`_initAuth`) and `isValidScoreSubmission` jump/bounds validation in `src/api.js`, plus `firestore.rules` for `leaderboard`, `matches`, and `visits`.
     - Created `src/liveFeed.js` wiring `src/clientWebSocket.js` (when `VITE_WS_URL` is configured) and `BroadcastChannel` for live big-win notifications, hooked into `src/main.js` and `src/games/resultProcessor.js`.
     - Added `tests/liveFeed.test.js` (161/161 passing).
+22. **Step 9 — E2E Verification & Documentation Sync:**
+    - Installed Playwright Chromium (`npx playwright install chromium`) and added `E2E_PORT` override (default `5173`) to `playwright.config.ts`.
+    - Moved `initServiceWorker` and `initLiveFeed` imports to the top of `src/main.js`.
+    - Updated `.gitignore` (`playwright-report/`, `test-results/`), `AGENTS.md`, and `README.md` to match the 7-game architecture and Step 4–8 modules.
 
 ## Current State ("Kde jsme skončili")
 - All `.js` and `.css` files in `src/` are under 378 lines (`src/sound.js` 377, `src/events/globalHandlers.js` 355, `src/ui.js` 345, `src/games.js` 342).
 - `index.html` is 341 lines with `src/partials/screen-game.html` and `src/partials/modals.html`.
 - `npm run lint`: 0 errors, 0 warnings.
 - `npm run test`: 20/20 test files passed (161/161 tests).
+- `npm run test:e2e`: 10/10 Playwright tests passed (Chromium + Mobile Chrome).
 - `npm run build`: clean production build.

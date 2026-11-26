@@ -23,11 +23,15 @@ src/
 │   ├── _modals.css        # Explorer a Stats modály
 │   ├── _slot.css          # Slot machine (komponenta)
 │   ├── _hilo.css          # Hi-Lo karta (komponenta)
-│   └── _dice.css          # Dice frame – sheen animace, win glow
+│   ├── _dice.css          # Dice frame – sheen animace, win glow
+│   └── _mines.css         # Mines 5×5 mřížka a stavy políček
+├── partials/              # HTML partials (načítané přes Vite plugin)
+│   ├── screen-game.html   # Herní obrazovka (#screen-game)
+│   └── modals.html        # Explorer, Stats a DeleteConfirm modály
 ├── ui/                    # UI komponenty
 │   ├── Leaderboard.js     # Žebříček hráčů (top 5, medaile, online/lokální badge)
 │   ├── Explorer.js        # Globální historie a leaderboard s filtry/sortem
-│   ├── Stats.js           # Statistiky hráče, win-rate, posledních 10 zápasů
+│   ├── Stats.js           # Statistiky hráče, Chart.js graf, ROI, achievementy, historie
 │   ├── Accounts.js        # Správa účtů (výběr, smazání)
 │   ├── DeleteConfirm.js   # Dialog pro potvrzení smazání účtu
 │   ├── BetSlider.js       # Custom logaritmický slider s hold-to-repeat
@@ -38,25 +42,32 @@ src/
 │   ├── autoPlay.js        # Autoplay smyčka pro automaty
 │   ├── controlsLock.js    # Zamykání ovládacích prvků během animací
 │   ├── resultBoxes.js     # Skrytí a vyčištění výsledkových boxů
+│   ├── resultProcessor.js # Zpracování výsledku kola, DB/Firebase/achievementy, bankrot
+│   ├── screenSetup.js     # Příprava DOM a ovládání při přepnutí hry
 │   ├── slots.js           # SlotMachineGame – 3x3 mřížka, 5 linií, GSAP spin
-│   ├── hilo.js            # HiloGame – Hi-Lo karta, 3D flip, dynamický koeficient
-│   ├── guessing.js        # GuessingGame – číselné mřížky (Hádanka, Ruleta)
-│   └── dice.js            # DiceGame – kostka 1-6, shuffle animace
+│   ├── hilo.js            # HiloGame – Hi-Lo karta, 3D flip, série & Cash Out
+│   ├── guessing.js        # GuessingGame – číselné mřížky (Hádanka, Ruleta + side bets)
+│   ├── dice.js            # DiceGame – kostka 1-6, shuffle animace
+│   └── mines.js           # MinesGame – 5×5 miny, progresivní koeficienty & Cash Out
 ├── animations/            # Animace
 │   ├── buttons.js         # GSAP entrance animace tlačítek
 │   ├── infoToggle.js      # Neónové kmitání, idle pulzace, screen přechody info panelu
 │   └── ui.js              # Neónové kmitání, idle pulzace, screen přechody, border glow
 ├── events/
 │   ├── globalHandlers.js  # GlobalEventHandlers – window.* funkce z HTML onclick
+│   ├── uiHandlers.js      # Modály, explorer, info, import/export, audio & téma
 │   └── keyboardShortcuts.js # Klávesové zkratky pro hry
 ├── sound.js               # SoundManager – Web Audio API syntetizátor + file-based audio
 ├── soundIndex.js          # Sound asset registry (SOUND_ASSETS, BGM_TRACKS)
 ├── main.js                # Entry point – inicializace, splash, návštěvy, SW registrace
+├── swRegister.js          # Registrace Service Workeru a update banner
 ├── ui.js                  # GameUI – obrazovky, modály, koordinace komponent
 ├── games.js               # GameManager – orchestrátor sázek, autoplay, UI lock
 ├── db.js                  # LocalStorage databáze
-├── api.js                 # API – Firebase Firestore sync
+├── achievements.js        # Systém achievementů a milníků (c_achiv)
+├── api.js                 # API – Firebase Auth + Firestore sync + validace skóre
 ├── clientWebSocket.js     # WebSocket klient
+├── liveFeed.js            # Live Big-Win feed (WebSocket / BroadcastChannel)
 └── utils.js               # Utility – formátování velkých čísel, zkratky, escapeHtml, COIN_SVG
 ```
 
@@ -82,8 +93,11 @@ src/
 | Klíč | Formát | Popis |
 |------|--------|-------|
 | `c_uziv` | `{ username: balance }` | Uživatelé a jejich zůstatky (startovní 500) |
-| `c_stat` | `{ username: { vyhry, prohry, historie: string[] } }` | Statistiky, historie omezena na 10 záznamů |
+| `c_stat` | `{ username: { vyhry, prohry, historie: string[], perGame, balanceHistory } }` | Statistiky, historie (10 záznamů), per-game ROI a vývoj zůstatku |
 | `c_scor` | `[{ jmeno, castka }]` | Leaderboard – pouze nejvyšší skóre na hráče |
+| `c_achiv` | `{ username: string[] }` | Odemčené achievementy hráče |
+| `c_daily_bonus` | `{ [username]: { lastClaim, streak } }` | Denní bonus a streak (Den 1–7) |
+| `c_bailout` | `{ [username]: number }` | Čas posledního bankrotního záchranného bonusu |
 | `c_mute` | `"true"` / `"false"` | Stav ztlumení zvuku |
 | `c_music_mute` | `"true"` / `"false"` | Stav ztlumení hudby |
 | `c_theme` | `"cyan"` / absent | Barevné téma |
