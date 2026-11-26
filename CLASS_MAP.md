@@ -6,10 +6,12 @@
 ## Entry & Core Orchestration
 | File | Lines | Key Classes / Exports | Responsibility | Dependencies |
 |------|-------|-----------------------|----------------|--------------|
-| `src/main.js` | ~387 | `window.onload`, `initApp`, theme/visit setup | App bootstrap, splash screen, visit tracking, theme init, SW update reload | `db.js`, `api.js`, `ui.js`, `games.js`, `sound.js`, `globalHandlers.js` |
-| `src/games.js` | ~390 | `GameManager` | Bet orchestration, UI lock, game routing (re-exports `config.js`) | `db.js`, `api.js`, `ui.js`, `sound.js`, `games/*`, `ui/BetSlider.js` |
-| `src/ui.js` | ~307 | `GameUI` | Screen switching, modals, alerts, profile/stats/leaderboard coordination | `db.js`, `ui/*`, `animations/*`, `utils.js` |
-| `src/events/globalHandlers.js` | ~405 | `GlobalEventHandlers` | Binds `window.*` handlers for HTML `onclick` attributes (incl. daily bonus & bailout) | `main.js`, `games.js`, `ui.js`, `sound.js` |
+| `src/main.js` | ~285 | `window.onload`, `initApp`, theme/visit setup | App bootstrap, splash screen, visit tracking, theme init | `db.js`, `api.js`, `ui.js`, `games.js`, `sound.js`, `globalHandlers.js`, `swRegister.js` |
+| `src/swRegister.js` | ~95 | `initServiceWorker`, `showUpdateNotification` | Service Worker registration & update reload banner | — |
+| `src/games.js` | ~342 | `GameManager` | Bet orchestration, UI lock, game routing (re-exports `config.js`) | `db.js`, `api.js`, `ui.js`, `sound.js`, `games/*`, `ui/BetSlider.js` |
+| `src/ui.js` | ~345 | `GameUI` | Screen switching, modals, alerts, profile/stats/leaderboard coordination | `db.js`, `ui/*`, `animations/*`, `utils.js` |
+| `src/events/globalHandlers.js` | ~355 | `GlobalEventHandlers` | Binds auth, economy & game `window.*` handlers for HTML `onclick` | `main.js`, `games.js`, `ui.js`, `sound.js`, `uiHandlers.js` |
+| `src/events/uiHandlers.js` | ~95 | `registerUiHandlers` | Binds modal, explorer, info, data import/export, audio & theme handlers | `sound.js` |
 
 ## Data, Persistence & Networking
 | File | Lines | Key Classes / Exports | Responsibility | Dependencies |
@@ -32,7 +34,9 @@
 | `src/games/config.js` | ~22 | `DISPLAY_STATES`, `GAME_CONFIG` | Game display states and configuration metadata | — |
 | `src/games/autoPlay.js` | ~52 | `toggleAutoPlay`, `stopAutoPlay` | Slot machine autoplay loop & cleanup | `animations/ui.js` |
 | `src/games/controlsLock.js` | ~26 | `lockGameControls` | Lock/unlock game controls during animations | — |
-| `src/games/resultBoxes.js` | ~20 | `clearAllResultBoxes` | Hide and clear all game result boxes | — |
+| `src/games/resultBoxes.js` | ~21 | `clearAllResultBoxes` | Hide and clear all game result boxes | — |
+| `src/games/resultProcessor.js` | ~95 | `processGameResult`, `triggerBrokeScreen` | Round settlement, DB/Firebase/achievements sync, UI result & broke screen | `sound.js`, `config.js`, `achievements.js` |
+| `src/games/screenSetup.js` | ~70 | `setupGameScreen` | DOM visibility & control setup when switching games | `config.js`, `resultBoxes.js` |
 | `src/games/slots.js` | ~215 | `SlotMachineGame` | 3x3 slot grid, 5 paylines, GSAP reel spin | `sound.js` |
 | `src/games/guessing.js` | ~183 | `GuessingGame`, `ROULETTE_SIDE_BETS`, `evaluateRouletteBet` | Number grid games (Guessing, Roulette + side bets) | `sound.js` |
 | `src/games/hilo.js` | ~225 | `HiloGame` | Hi-Lo card game, 3D flip, dynamic multiplier, streaks & Cash Out | `sound.js`, `utils.js` |

@@ -50,12 +50,14 @@
     - Integrated tree-shaken `chart.js` line chart (`#stats-balance-chart`) and per-game ROI breakdown (`#modal-pergame-stats`) in `src/ui/Stats.js` and `index.html`.
     - Added `1/2×` and `2×` quick-bet buttons (`nasobSazku`) and keyboard shortcut hint in `index.html` + `src/events/globalHandlers.js`, and fixed `#screen-game` + added `H`/`L`/`M`/`Space` shortcuts in `src/events/keyboardShortcuts.js`.
     - Added unit test in `tests/db.test.js` (158/158 passing).
+20. **Step 7 — Technical Cleanup & Modularization:**
+    - Removed unused `lucide` dependency from `package.json`.
+    - Extracted `src/games/resultProcessor.js`, `src/games/screenSetup.js`, `src/events/uiHandlers.js`, and `src/swRegister.js` so all JS files in `src/` are ≤ 377 lines (well under the 400-line warning threshold).
+    - Added zero-dependency `htmlPartialsPlugin` in `vite.config.js` and split `index.html` (1235 → 341 lines) into `src/partials/screen-game.html` and `src/partials/modals.html`.
 
 ## Current State ("Kde jsme skončili")
-- `src/events/globalHandlers.js` is at ~420 lines (plan to split in Step 7); all other `.js` and `.css` files in `src/` are under 400 lines.
+- All `.js` and `.css` files in `src/` are under 378 lines (`src/sound.js` 377, `src/events/globalHandlers.js` 355, `src/ui.js` 345, `src/games.js` 342).
+- `index.html` is 341 lines with `src/partials/screen-game.html` and `src/partials/modals.html`.
 - `npm run lint`: 0 errors, 0 warnings.
 - `npm run test`: 19/19 test files passed (158/158 tests).
 - `npm run build`: clean production build.
-
-## Remaining / Optional Targets
-- `index.html` (1014 lines): HTML entry point; only split if adopting a template/partial build step.

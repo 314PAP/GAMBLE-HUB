@@ -3,6 +3,8 @@ import { BetSlider } from "../ui/BetSlider.js";
 import { GAME_CONFIG, DISPLAY_STATES } from "../games.js";
 import { evaluateAchievements } from "../achievements.js";
 
+import { registerUiHandlers } from "./uiHandlers.js";
+
 export class GlobalEventHandlers {
   constructor(db, api, ui, gm) {
     this.db = db;
@@ -289,103 +291,7 @@ export class GlobalEventHandlers {
       this.gm.playGuessingGame(betType, cfg.minVal, cfg.maxVal, cfg.multVal, cfg.label);
     };
 
-    window.otevriStatsModal = () => {
-      if (this.gm.currentPlayer) {
-        this.ui.openStatsModal(this.gm.currentPlayer);
-      }
-    };
-    window.zavriStatsModal = () => {
-      this.ui.closeStatsModal();
-    };
-
-    window.otevriExplorer = () => {
-      this.ui.openExplorer();
-    };
-    window.zavriExplorer = () => {
-      this.ui.closeExplorer();
-    };
-    window.prepniExplorerTab = (tabName) => {
-      this.ui.prepniExplorerTab(tabName);
-    };
-    window.filtrujLeaderboard = () => {
-      this.ui.filtrujLeaderboard();
-    };
-    window.seradHistorii = (columnName) => {
-      this.ui.seradHistorii(columnName);
-    };
-
-    window.toggleInfoPanel = () => {
-      this.ui.toggleInfoPanel(this.gm.activeGameId);
-    };
-    window.zavriInfoPanel = () => {
-      this.ui.zavriInfoPanel();
-    };
-
-    window.exportovatData = () => {
-      const data = this.db.exportData();
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
-      const link = document.createElement("a");
-      link.setAttribute("href", dataStr);
-      link.setAttribute("download", "gamblehub_data.json");
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-    };
-
-    window.importovatData = (event) => {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        try {
-          const data = JSON.parse(e.target.result);
-          const success = this.db.importData(data);
-          if (success) {
-            this.ui.showAlert("success", "Import úspěšný", "Herní data byla úspěšně nahrána.");
-            window.otevriPrihlaseni();
-          } else {
-            this.ui.showAlert("error", "Chyba importu", "Záložní soubor nemá správný formát.");
-          }
-        } catch {
-          this.ui.showAlert("error", "Chyba", "Soubor se nepodařilo přečíst.");
-        }
-      };
-      reader.readAsText(file);
-    };
-
-    window.checkEnter = (event, callback) => {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        callback();
-      }
-    };
-
-    window.toggleMuteState = () => {
-      const isMuted = sound.toggleMute();
-      [document.getElementById("global-sound-toggle"), document.getElementById("hub-sound-toggle"), document.getElementById("login-sound-toggle")].forEach((btn) => {
-        if (btn) {
-          if (isMuted) {
-            btn.classList.add("muted");
-          } else {
-            btn.classList.remove("muted");
-          }
-        }
-      });
-    };
-
-    window.toggleTheme = () => {
-      const html = document.documentElement;
-      const current = html.getAttribute("data-theme");
-      const next = current === "cyan" ? "purple" : "cyan";
-      html.setAttribute("data-theme", next === "cyan" ? "cyan" : "");
-      localStorage.setItem("c_theme", next);
-    };
-
-    // Restore saved theme on load
-    const savedTheme = localStorage.getItem("c_theme");
-    if (savedTheme === "cyan") {
-      document.documentElement.setAttribute("data-theme", "cyan");
-    }
+    registerUiHandlers(this.db, this.ui, this.gm);
   }
 
   /** Initialize / reinitialize BetSlider with current player balance as max */
