@@ -181,7 +181,7 @@ export class GlobalEventHandlers {
       const state = DISPLAY_STATES[gameId] || DISPLAY_STATES[1];
 
       // Skrýt všechny herní sekce
-      ["classic-inputs", "dice-area", "slots-area", "hilo-area"].forEach((id) => {
+      ["classic-inputs", "dice-area", "slots-area", "hilo-area", "mines-area"].forEach((id) => {
         const el = document.getElementById(id);
         if (el) {
           el.classList.add("hidden");
@@ -252,6 +252,19 @@ export class GlobalEventHandlers {
 
     window.cashOutHiLo = () => {
       this.gm.cashOutHilo();
+    };
+
+    window.startMines = () => {
+      this.gm.startMines();
+    };
+    window.revealMineTile = (index) => {
+      this.gm.revealMineTile(index);
+    };
+    window.cashOutMines = () => {
+      this.gm.cashOutMines();
+    };
+    window.setMinesCount = (count) => {
+      this.gm.setMinesCount(count);
     };
 
     window.vsaditRuletaVedlejsi = (betType) => {

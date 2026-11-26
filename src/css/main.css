@@ -24,6 +24,7 @@
   @import "./_slot.css";
   @import "./_hilo.css";
   @import "./_dice.css";
+  @import "./_mines.css";
 }
 
 /* Custom utilities */

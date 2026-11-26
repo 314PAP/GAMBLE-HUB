@@ -36,11 +36,15 @@
     - Added streak tracking (`streak`, `currentMultiplier`, `streakBet`, `isStreakActive`), `cashOut()`, and `updateStreakUI()` in `src/games/hilo.js` (with impossible-guess button disabling and dynamic step multipliers).
     - Added `#hilo-streak-info` and `#btn-hilo-cashout` in `index.html`, control locking in `src/games/controlsLock.js`, `cashOutHilo()` + auto-cashout on game switch in `src/games.js`, and `window.cashOutHiLo` in `src/events/globalHandlers.js`.
     - Added streak & cashOut unit tests in `tests/hilo.test.js` (147/147 passing).
+17. **Step 4 — New Game: Mines 5×5:**
+    - Created `src/games/mines.js` (`MinesGame` with 5×5 grid, 1/3/5/10 mine presets, progressive 5%-edge multiplier formula, tile reveal, and Cash Out) and `src/css/_mines.css` imported in `src/css/main.css`.
+    - Registered game ID `7` in `src/games/config.js`, `src/games/resultBoxes.js`, `src/games/controlsLock.js`, `src/games.js`, `src/events/globalHandlers.js`, `src/ui/gameInfo.js`, and `index.html`.
+    - Added `tests/mines.test.js` and updated `tests/gameInfo.test.js` & `tests/gameManager.test.js` (153/153 passing).
 
 ## Current State ("Kde jsme skončili")
 - `src/events/globalHandlers.js` is at ~420 lines (plan to split in Step 7); all other `.js` and `.css` files in `src/` are under 400 lines.
 - `npm run lint`: 0 errors, 0 warnings.
-- `npm run test`: 17/17 test files passed (147/147 tests).
+- `npm run test`: 18/18 test files passed (153/153 tests).
 - `npm run build`: clean production build.
 
 ## Remaining / Optional Targets

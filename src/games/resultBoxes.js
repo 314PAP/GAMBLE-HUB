@@ -4,6 +4,7 @@ const RESULT_BOX_IDS = [
   'game-result-dice',
   'game-result-slots',
   'game-result-hilo',
+  'game-result-mines',
 ];
 
 /**

@@ -23,4 +23,8 @@ export const GAME_INFOS = {
     title: "HI-LOW",
     html: '<p>Kartická hra, kde hádáte, jestli bude další karta <strong>vyšší</strong> nebo <strong>nižší</strong> než ta aktuální. Karty mají hodnoty <strong>od 1 do 10</strong>.</p><ul><li><strong>Jak hrát:</strong> Vyberte <strong>VYŠŠÍ ▲</strong> nebo <strong>NIŽŠÍ ▼</strong> a potvrďte sázku.</li><li><strong>Výplata:</strong> Čím rizikovější váš tip, tím vyšší <strong>násobek</strong>. Vyhodnocení proběhne automaticky.</li></ul><div class="mt-4 pt-3 border-t border-[rgba(255,255,255,0.06)]"><button class="w-full py-2 px-3 text-xs font-bold text-neon-cyan border border-[rgba(255,255,255,0.1)] rounded-xl bg-[rgba(255,255,255,0.03)] hover:bg-[rgba(255,255,255,0.06)] transition-colors cursor-pointer" onclick="otevriAbbrevModal()">📊 Číselné zkratky</button></div>',
   },
+  7: {
+    title: "MINY 5×5",
+    html: '<p>Odkrývejte bezpečná pole na mřížce <strong>5×5</strong> a vyhněte se skrytým minám.</p><ul><li><strong>Počet min:</strong> Vyberte 1, 3, 5 nebo 10 min — více min znamená vyšší násobitel za každé odkryté pole.</li><li><strong>Cash Out:</strong> Kdykoli po odkrytí alespoň 1 bezpečného pole můžete kliknout na <strong>VYBRAT</strong> a připsat si výhru.</li></ul><div class="mt-4 pt-3 border-t border-[rgba(255,255,255,0.06)]"><button class="w-full py-2 px-3 text-xs font-bold text-neon-cyan border border-[rgba(255,255,255,0.1)] rounded-xl bg-[rgba(255,255,255,0.03)] hover:bg-[rgba(255,255,255,0.06)] transition-colors cursor-pointer" onclick="otevriAbbrevModal()">📊 Číselné zkratky</button></div>',
+  },
 };

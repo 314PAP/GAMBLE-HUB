@@ -15,6 +15,7 @@ const gameModules = {
   3: () => import('./games/dice.js'),
   5: () => import('./games/slots.js'),
   6: () => import('./games/hilo.js'),
+  7: () => import('./games/mines.js'),
 };
 
 export class GameManager {
@@ -32,6 +33,7 @@ export class GameManager {
     this.hilo = null;
     this.guessing = null;
     this.dice = null;
+    this.mines = null;
 
     // Active States
     this.activeGameId = 0; // 1: Guess 1-10, 2: Guess 1-5, 3: Dice, 4: Roulette, 5: Slots, 6: Hi-Lo
@@ -62,17 +64,19 @@ export class GameManager {
     
     for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
       try {
-        const [slotsModule, hiloModule, guessingModule, diceModule] = await Promise.all([
+        const [slotsModule, hiloModule, guessingModule, diceModule, minesModule] = await Promise.all([
           import('./games/slots.js'),
           import('./games/hilo.js'),
           import('./games/guessing.js'),
           import('./games/dice.js'),
+          import('./games/mines.js'),
         ]);
         
         this.slots = new slotsModule.SlotMachineGame(this.symbols, this.winningLines);
         this.hilo = new hiloModule.HiloGame();
         this.guessing = new guessingModule.GuessingGame();
         this.dice = new diceModule.DiceGame();
+        this.mines = new minesModule.MinesGame();
         
         this._gameModulesLoaded = true;
         
@@ -118,9 +122,14 @@ export class GameManager {
     this.stopAutoPlay();
     this.ui.cancelWinConfetti();
 
-    // Auto-cashout active Hi-Lo streak when switching games
+    // Auto-cashout active Hi-Lo or Mines streak when switching games
     if (this.hilo?.isStreakActive) {
       this.cashOutHilo();
+    }
+    if (this.mines?.isActive && this.mines.revealedIndices.size > 0) {
+      this.cashOutMines();
+    } else if (this.mines?.isActive) {
+      this.mines.init();
     }
 
     // Kill all running GSAP animations before switching games
@@ -133,6 +142,7 @@ export class GameManager {
     // Hide game-specific areas in the DOM
     const slotsArea = document.getElementById('slots-area');
     const hiloArea = document.getElementById('hilo-area');
+    const minesArea = document.getElementById('mines-area');
     const classicInputs = document.getElementById('classic-inputs');
     const diceArea = document.getElementById('dice-area');
     const gameResult = document.getElementById('game-result');
@@ -140,15 +150,18 @@ export class GameManager {
     const gameResultDice = document.getElementById('game-result-dice');
     const gameResultSlots = document.getElementById('game-result-slots');
     const gameResultHilo = document.getElementById('game-result-hilo');
+    const gameResultMines = document.getElementById('game-result-mines');
     const betArea = document.getElementById('bet-area');
 
     if (gameResultClassic) gameResultClassic.classList.add('hidden');
     if (gameResultDice) gameResultDice.classList.add('hidden');
     if (gameResultSlots) gameResultSlots.classList.add('hidden');
     if (gameResultHilo) gameResultHilo.classList.add('hidden');
+    if (gameResultMines) gameResultMines.classList.add('hidden');
 
     if (slotsArea) slotsArea.classList.add('hidden');
     if (hiloArea) hiloArea.classList.add('hidden');
+    if (minesArea) minesArea.classList.add('hidden');
     if (classicInputs) classicInputs.classList.add('hidden');
     if (diceArea) diceArea.classList.add('hidden');
     if (gameResult) gameResult.classList.add('hidden');
@@ -189,6 +202,15 @@ export class GameManager {
       document.getElementById('hilo-area').classList.remove('hidden');
       document.getElementById('hilo-area').classList.add('flex');
       this.hilo.init();
+    }
+
+    if (state.mines) {
+      const minesEl = document.getElementById('mines-area');
+      if (minesEl) {
+        minesEl.classList.remove('hidden');
+        minesEl.classList.add('flex');
+      }
+      this.mines.init();
     }
 
     titleEl.innerText = state.title;
@@ -273,12 +295,14 @@ export class GameManager {
     const resBoxDice = document.getElementById('game-result-dice');
     const resBoxSlots = document.getElementById('game-result-slots');
     const resBoxHilo = document.getElementById('game-result-hilo');
+    const resBoxMines = document.getElementById('game-result-mines');
     const gameConfig = GAME_CONFIG[this.activeGameId] || GAME_CONFIG[1];
 
     let targetResBox = resBoxClassic;
     if (gameConfig.resultBox === 'resBoxDice' && resBoxDice) targetResBox = resBoxDice;
     if (gameConfig.resultBox === 'resBoxSlots' && resBoxSlots) targetResBox = resBoxSlots;
     if (gameConfig.resultBox === 'resBoxHilo' && resBoxHilo) targetResBox = resBoxHilo;
+    if (gameConfig.resultBox === 'resBoxMines' && resBoxMines) targetResBox = resBoxMines;
 
     if (isWin) {
       const hiloColor = gameConfig.hiloColor ? '#ff4060' : 'var(--neon-orange)';
@@ -386,6 +410,39 @@ export class GameManager {
     const res = this.hilo.cashOut();
     if (!res) return;
     this.processGameResult(true, res.winAmount, "VíceMéně", res.resultText, res.multiplier >= 5, res.bet);
+  }
+
+  // Play Mines 5x5 game
+  async startMines() {
+    const modulesLoaded = await this._ensureGameModules();
+    if (!modulesLoaded) return;
+    if (this.mines.isActive) return;
+    if (!this._startRound()) return;
+    this.mines.start(this.activeBet);
+  }
+
+  revealMineTile(index) {
+    if (!this.mines || !this.mines.isActive) return;
+    const res = this.mines.revealTile(index);
+    if (!res) return;
+
+    if (res.status === 'mine') {
+      this.processGameResult(false, 0, "Miny", res.resultText, false, res.bet);
+    } else if (res.status === 'cleared') {
+      this.processGameResult(true, res.winAmount, "Miny", res.resultText, res.multiplier >= 5, res.bet);
+    }
+  }
+
+  cashOutMines() {
+    if (!this.mines) return;
+    const res = this.mines.cashOut();
+    if (!res) return;
+    this.processGameResult(true, res.winAmount, "Miny", res.resultText, res.multiplier >= 5, res.bet);
+  }
+
+  setMinesCount(count) {
+    if (!this.mines) return;
+    this.mines.setMinesCount(count);
   }
 
   // Spin slots

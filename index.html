@@ -291,6 +291,12 @@
           >
             Kostka 1-6 (6x)
           </button>
+          <button
+            class="btn btn-info w-full py-2 text-xs sm:text-sm whitespace-nowrap shrink-0 col-span-2"
+            onclick="spustitHru(7)"
+          >
+            💣 Miny 5×5 (Cash Out)
+          </button>
         </nav>
         <button
           id="btn-logout"
@@ -541,6 +547,82 @@
               </button>
               <button class="btn btn-danger flex-1" id="btn-hilo-low" onclick="hrajHiLo('L')">
                 <span class="icon-node" aria-hidden="true"></span> NIŽŠÍ
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article id="mines-area" class="game-container hidden" aria-labelledby="mines-title">
+          <h3 id="mines-title" class="sr-only">Miny 5×5</h3>
+          <div
+            class="game-main flex flex-col flex-1 min-h-0 overflow-hidden items-center justify-center gap-2"
+          >
+            <div class="flex items-center gap-1.5" role="group" aria-label="Počet min">
+              <span class="text-xs text-text-secondary font-semibold mr-1">Miny:</span>
+              <button
+                type="button"
+                class="btn-bet mines-count-btn px-2.5 py-1 text-xs"
+                data-mines-count="1"
+                onclick="setMinesCount(1)"
+              >
+                1
+              </button>
+              <button
+                type="button"
+                class="btn-bet mines-count-btn active px-2.5 py-1 text-xs"
+                data-mines-count="3"
+                onclick="setMinesCount(3)"
+              >
+                3
+              </button>
+              <button
+                type="button"
+                class="btn-bet mines-count-btn px-2.5 py-1 text-xs"
+                data-mines-count="5"
+                onclick="setMinesCount(5)"
+              >
+                5
+              </button>
+              <button
+                type="button"
+                class="btn-bet mines-count-btn px-2.5 py-1 text-xs"
+                data-mines-count="10"
+                onclick="setMinesCount(10)"
+              >
+                10
+              </button>
+            </div>
+            <div id="mines-grid" class="mines-grid" role="grid" aria-label="Herní pole min"></div>
+            <div
+              id="mines-status-info"
+              class="text-xs font-bold tracking-wider text-text-secondary text-center"
+              aria-live="polite"
+            >
+              Počet min: 3 | První krok: 1.09×
+            </div>
+            <div
+              id="game-result-mines"
+              class="game-result mb-1 hidden"
+              role="status"
+              aria-live="polite"
+            ></div>
+          </div>
+          <div class="game-actions pt-1 shrink-0">
+            <div class="flex justify-center gap-2 mb-2">
+              <button
+                class="btn btn-primary flex-1"
+                id="btn-mines-start"
+                onclick="startMines()"
+              >
+                ▶ START HRY
+              </button>
+              <button
+                class="btn btn-gold flex-1 hidden"
+                id="btn-mines-cashout"
+                onclick="cashOutMines()"
+                disabled
+              >
+                💰 VYBRAT
               </button>
             </div>
           </div>

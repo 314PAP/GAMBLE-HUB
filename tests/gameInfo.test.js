@@ -2,13 +2,13 @@ import { describe, it, expect } from 'vitest';
 import { GAME_INFOS } from '../src/ui/gameInfo.js';
 
 describe('GAME_INFOS', () => {
-  it('should have 6 games defined', () => {
-    expect(Object.keys(GAME_INFOS).length).toBe(6);
+  it('should have 7 games defined', () => {
+    expect(Object.keys(GAME_INFOS).length).toBe(7);
   });
 
   it('should have correct game IDs', () => {
     const ids = Object.keys(GAME_INFOS).map(Number).sort((a, b) => a - b);
-    expect(ids).toEqual([1, 2, 3, 4, 5, 6]);
+    expect(ids).toEqual([1, 2, 3, 4, 5, 6, 7]);
   });
 
   it('should have required fields in each game info', () => {
