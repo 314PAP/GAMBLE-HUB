@@ -18,6 +18,7 @@
 | `src/api.js` | ~150 | `API` | Firebase Firestore sync (`leaderboard`, `matches`, `visits`) | Firebase SDK |
 | `src/clientWebSocket.js` | ~64 | WebSocket client | Real-time client WebSocket connection | — |
 | `src/utils.js` | ~104 | `formatNumber`, `escapeHtml`, `COIN_SVG`, etc. | Number formatting, HTML escaping, shared SVG constants | — |
+| `src/achievements.js` | ~115 | `ACHIEVEMENTS`, `evaluateAchievements`, `getPlayerAchievements` | Player milestones & achievement badges (`c_achiv`) | — |
 
 ## Audio
 | File | Lines | Key Classes / Exports | Responsibility | Dependencies |

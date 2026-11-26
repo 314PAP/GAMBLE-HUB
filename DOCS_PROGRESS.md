@@ -40,11 +40,16 @@
     - Created `src/games/mines.js` (`MinesGame` with 5×5 grid, 1/3/5/10 mine presets, progressive 5%-edge multiplier formula, tile reveal, and Cash Out) and `src/css/_mines.css` imported in `src/css/main.css`.
     - Registered game ID `7` in `src/games/config.js`, `src/games/resultBoxes.js`, `src/games/controlsLock.js`, `src/games.js`, `src/events/globalHandlers.js`, `src/ui/gameInfo.js`, and `index.html`.
     - Added `tests/mines.test.js` and updated `tests/gameInfo.test.js` & `tests/gameManager.test.js` (153/153 passing).
+18. **Step 5 — Achievements & Milestones:**
+    - Created `src/achievements.js` (`ACHIEVEMENTS`, `evaluateAchievements`, `getPlayerAchievements`) persisted under `c_achiv` in `localStorage`.
+    - Hooked evaluation & neon toast alerts into `GameManager.processGameResult` (`src/games.js`) and bankruptcy bailout (`src/events/globalHandlers.js`).
+    - Rendered unlocked/locked achievement badges in `src/ui/Stats.js` and `#modal-achievements-data` in `index.html`.
+    - Added `tests/achievements.test.js` (157/157 passing).
 
 ## Current State ("Kde jsme skončili")
 - `src/events/globalHandlers.js` is at ~420 lines (plan to split in Step 7); all other `.js` and `.css` files in `src/` are under 400 lines.
 - `npm run lint`: 0 errors, 0 warnings.
-- `npm run test`: 18/18 test files passed (153/153 tests).
+- `npm run test`: 19/19 test files passed (157/157 tests).
 - `npm run build`: clean production build.
 
 ## Remaining / Optional Targets

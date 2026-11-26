@@ -1,4 +1,5 @@
 import { COIN_SVG, escapeHtml, wrapEmoji } from "../utils.js";
+import { getPlayerAchievements } from "../achievements.js";
 
 export class StatsManager {
   constructor(ui) {
@@ -73,6 +74,27 @@ export class StatsManager {
           historyContainer.appendChild(div);
         });
       }
+    }
+
+    const achievementsContainer = document.getElementById("modal-achievements-data");
+    if (achievementsContainer) {
+      const list = getPlayerAchievements(username);
+      achievementsContainer.innerHTML = list
+        .map(
+          (a) => `
+          <div class="flex items-center gap-2 p-2 rounded-lg border text-xs ${
+            a.unlocked
+              ? "border-neon-gold/60 bg-neon-gold/10 text-text-primary"
+              : "border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)] text-text-muted opacity-55"
+          }" title="${escapeHtml(a.desc)}">
+            <span class="text-base" aria-hidden="true">${a.icon}</span>
+            <div class="min-w-0">
+              <div class="font-bold truncate">${escapeHtml(a.title)}</div>
+              <div class="text-[11px] truncate opacity-80">${escapeHtml(a.desc)}</div>
+            </div>
+          </div>`
+        )
+        .join("");
     }
 
     statsModal.classList.remove("hidden");

@@ -1,6 +1,7 @@
 import { sound } from "../sound.js";
 import { BetSlider } from "../ui/BetSlider.js";
 import { GAME_CONFIG, DISPLAY_STATES } from "../games.js";
+import { evaluateAchievements } from "../achievements.js";
 
 export class GlobalEventHandlers {
   constructor(db, api, ui, gm) {
@@ -73,6 +74,10 @@ export class GlobalEventHandlers {
         this.ui.updateMiniProfile(username, balance);
         this.ui.updateDailyBonusButton(username);
         document.dispatchEvent(new CustomEvent("balanceChanged", { detail: { balance } }));
+        const unlocked = evaluateAchievements(username, { usedBailout: true, newBalance: balance });
+        unlocked.forEach((ach) => {
+          this.ui.showAlert("success", `${ach.icon} Úspěch: ${ach.title}`, ach.desc);
+        });
         sound.playWin?.();
         this.ui.showAlert(
           "success",
@@ -97,6 +102,10 @@ export class GlobalEventHandlers {
         this.ui.updateMiniProfile(username, balance);
         this.ui.updateDailyBonusButton(username);
         document.dispatchEvent(new CustomEvent("balanceChanged", { detail: { balance } }));
+        const unlocked = evaluateAchievements(username, { usedBailout: true, newBalance: balance });
+        unlocked.forEach((ach) => {
+          this.ui.showAlert("success", `${ach.icon} Úspěch: ${ach.title}`, ach.desc);
+        });
         sound.playWin?.();
         this.ui.showAlert(
           "success",

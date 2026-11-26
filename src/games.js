@@ -8,6 +8,7 @@ import { DISPLAY_STATES, GAME_CONFIG } from './games/config.js';
 import { toggleAutoPlay as runToggleAutoPlay, stopAutoPlay as runStopAutoPlay } from './games/autoPlay.js';
 import { lockGameControls as runLockGameControls } from './games/controlsLock.js';
 import { clearAllResultBoxes as runClearAllResultBoxes } from './games/resultBoxes.js';
+import { evaluateAchievements } from './achievements.js';
 
 export { DISPLAY_STATES, GAME_CONFIG };
 
@@ -278,6 +279,17 @@ export class GameManager {
     // Log in DB
     this.db.recordMatch(this.currentPlayer, gameName, betAmount, resultText, isWin);
     this.db.checkMilestones(this.currentPlayer, oldBalance - betAmount, newBalance);
+
+    const unlocked = evaluateAchievements(this.currentPlayer, {
+      gameName,
+      betAmount,
+      isWin,
+      isJackpot,
+      newBalance,
+    });
+    unlocked.forEach((ach) => {
+      this.ui.showAlert('success', `${ach.icon} Úspěch: ${ach.title}`, ach.desc);
+    });
     
     // Odeslat aktuální skóre na Firebase (async, fire & forget)
     if (this.api) {
