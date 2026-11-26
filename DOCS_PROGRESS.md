@@ -62,6 +62,15 @@
     - Installed Playwright Chromium (`npx playwright install chromium`) and added `E2E_PORT` override (default `5173`) to `playwright.config.ts`.
     - Moved `initServiceWorker` and `initLiveFeed` imports to the top of `src/main.js`.
     - Updated `.gitignore` (`playwright-report/`, `test-results/`), `AGENTS.md`, and `README.md` to match the 7-game architecture and Step 4–8 modules.
+23. **Step 10 — Bundle Optimization (Lazy-Loaded `chart.js`):**
+    - Replaced static `chart.js` import in `src/ui/Stats.js` with a dynamic `import("chart.js")` loader (`loadChart`) guarded by `_chartRenderId` to avoid stale renders.
+    - Split `chart-*.js` (`153.34 kB` / `53.88 kB` gzip) out of `index-*.js` (`387.75 kB` → `235.23 kB` / `61.38 kB` gzip).
+
+## Planned Next Steps
+24. **Step 11 — Expanded E2E Test Suite (`tests/e2e/`):**
+    - Add end-to-end tests covering player registration, Daily Bonus claim, Slots & Mines gameplay, and Stats/Explorer modals.
+25. **Step 12 — New Game: Crash (ID 8):**
+    - Implement `src/games/crash.js` and `src/css/_crash.css`, wire into game config/UI/handlers/info, add unit tests, and update docs.
 
 ## Current State ("Kde jsme skončili")
 - All `.js` and `.css` files in `src/` are under 378 lines (`src/sound.js` 377, `src/events/globalHandlers.js` 355, `src/ui.js` 345, `src/games.js` 342).

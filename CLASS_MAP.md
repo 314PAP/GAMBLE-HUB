@@ -50,7 +50,7 @@
 | `src/ui/resultAnimations.js` | ~166 | `triggerWinConfetti`, `cancelWinConfetti`, `animateWinResult`, `animateLossBalance` | Win confetti & GSAP result/balance animations | `gsap`, `canvas-confetti`, `dompurify`, `utils.js` |
 | `src/ui/BetSlider.js` | ~306 | `BetSlider` | Custom logarithmic bet slider with hold-to-repeat | `utils.js` |
 | `src/ui/Explorer.js` | ~170 | `Explorer` | Global history & leaderboard with filter/sort | `api.js`, `utils.js` |
-| `src/ui/Stats.js` | ~185 | `StatsManager` | Player stats, `chart.js` balance chart, per-game ROI, achievements, last 10 matches | `chart.js`, `db.js`, `utils.js`, `achievements.js` |
+| `src/ui/Stats.js` | ~194 | `StatsManager` | Player stats, lazy-loaded `chart.js` balance chart, per-game ROI, achievements, last 10 matches | `chart.js` (dynamic), `db.js`, `utils.js`, `achievements.js` |
 | `src/ui/Leaderboard.js` | ~87 | `LeaderboardManager` | Top 5 leaderboard with medals | `api.js`, `db.js`, `utils.js` |
 | `src/ui/Accounts.js` | ~48 | `Accounts` | Account selection & deletion list | `db.js`, `utils.js` |
 | `src/ui/DeleteConfirm.js` | ~30 | `DeleteConfirm` | Account deletion confirmation modal | — |

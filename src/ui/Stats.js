@@ -1,23 +1,30 @@
-import {
-  Chart,
-  LineController,
-  LineElement,
-  PointElement,
-  LinearScale,
-  CategoryScale,
-  Tooltip,
-  Filler,
-} from "chart.js";
-
 import { COIN_SVG, escapeHtml, formatLargeNumber, wrapEmoji } from "../utils.js";
 import { getPlayerAchievements } from "../achievements.js";
 
-Chart.register(LineController, LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Filler);
+let chartRegistered = false;
+async function loadChart() {
+  const {
+    Chart,
+    LineController,
+    LineElement,
+    PointElement,
+    LinearScale,
+    CategoryScale,
+    Tooltip,
+    Filler,
+  } = await import("chart.js");
+  if (!chartRegistered) {
+    Chart.register(LineController, LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Filler);
+    chartRegistered = true;
+  }
+  return Chart;
+}
 
 export class StatsManager {
   constructor(ui) {
     this.ui = ui;
     this.balanceChart = null;
+    this._chartRenderId = 0;
   }
 
   open(username) {
@@ -140,42 +147,50 @@ export class StatsManager {
     }
 
     wrap.classList.remove("hidden");
-    this.balanceChart = new Chart(ctx, {
-      type: "line",
-      data: {
-        labels: history.map((_, idx) => `#${idx + 1}`),
-        datasets: [
-          {
-            label: "Zůstatek",
-            data: history,
-            borderColor: "#00f0ff",
-            backgroundColor: "rgba(0, 240, 255, 0.14)",
-            borderWidth: 2,
-            pointRadius: 2.5,
-            pointBackgroundColor: "#ffd700",
-            tension: 0.3,
-            fill: true,
+    const renderId = ++this._chartRenderId;
+    loadChart()
+      .then((Chart) => {
+        if (renderId !== this._chartRenderId) return;
+        this.balanceChart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: history.map((_, idx) => `#${idx + 1}`),
+            datasets: [
+              {
+                label: "Zůstatek",
+                data: history,
+                borderColor: "#00f0ff",
+                backgroundColor: "rgba(0, 240, 255, 0.14)",
+                borderWidth: 2,
+                pointRadius: 2.5,
+                pointBackgroundColor: "#ffd700",
+                tension: 0.3,
+                fill: true,
+              },
+            ],
           },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-        },
-        scales: {
-          x: {
-            ticks: { color: "#94a3b8", font: { size: 10 } },
-            grid: { color: "rgba(255,255,255,0.05)" },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+            },
+            scales: {
+              x: {
+                ticks: { color: "#94a3b8", font: { size: 10 } },
+                grid: { color: "rgba(255,255,255,0.05)" },
+              },
+              y: {
+                ticks: { color: "#94a3b8", font: { size: 10 } },
+                grid: { color: "rgba(255,255,255,0.06)" },
+              },
+            },
           },
-          y: {
-            ticks: { color: "#94a3b8", font: { size: 10 } },
-            grid: { color: "rgba(255,255,255,0.06)" },
-          },
-        },
-      },
-    });
+        });
+      })
+      .catch((err) => {
+        console.warn("Failed to load chart.js:", err);
+      });
   }
 
   _renderPerGameStats(perGame) {
