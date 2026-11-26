@@ -18,6 +18,7 @@ const gameModules = {
   5: () => import('./games/slots.js'),
   6: () => import('./games/hilo.js'),
   7: () => import('./games/mines.js'),
+  8: () => import('./games/crash.js'),
 };
 
 export class GameManager {
@@ -36,6 +37,7 @@ export class GameManager {
     this.guessing = null;
     this.dice = null;
     this.mines = null;
+    this.crash = null;
 
     // Active States
     this.activeGameId = 0; // 1: Guess 1-10, 2: Guess 1-5, 3: Dice, 4: Roulette, 5: Slots, 6: Hi-Lo
@@ -66,12 +68,13 @@ export class GameManager {
     
     for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
       try {
-        const [slotsModule, hiloModule, guessingModule, diceModule, minesModule] = await Promise.all([
+        const [slotsModule, hiloModule, guessingModule, diceModule, minesModule, crashModule] = await Promise.all([
           import('./games/slots.js'),
           import('./games/hilo.js'),
           import('./games/guessing.js'),
           import('./games/dice.js'),
           import('./games/mines.js'),
+          import('./games/crash.js'),
         ]);
         
         this.slots = new slotsModule.SlotMachineGame(this.symbols, this.winningLines);
@@ -79,6 +82,7 @@ export class GameManager {
         this.guessing = new guessingModule.GuessingGame();
         this.dice = new diceModule.DiceGame();
         this.mines = new minesModule.MinesGame();
+        this.crash = new crashModule.CrashGame();
         
         this._gameModulesLoaded = true;
         
@@ -132,6 +136,9 @@ export class GameManager {
       this.cashOutMines();
     } else if (this.mines?.isActive) {
       this.mines.init();
+    }
+    if (this.crash?.isActive) {
+      this.cashOutCrash();
     }
 
     // Kill all running GSAP animations before switching games
@@ -303,6 +310,24 @@ export class GameManager {
   setMinesCount(count) {
     if (!this.mines) return;
     this.mines.setMinesCount(count);
+  }
+
+  // Play Crash game
+  async startCrash() {
+    const modulesLoaded = await this._ensureGameModules();
+    if (!modulesLoaded) return;
+    if (this.crash.isActive) return;
+    if (!this._startRound()) return;
+    this.crash.start(this.activeBet, (res) => {
+      this.processGameResult(false, 0, "Crash", res.resultText, false, res.bet);
+    });
+  }
+
+  cashOutCrash() {
+    if (!this.crash) return;
+    const res = this.crash.cashOut();
+    if (!res) return;
+    this.processGameResult(true, res.winAmount, "Crash", res.resultText, res.multiplier >= 5, res.bet);
   }
 
   // Spin slots

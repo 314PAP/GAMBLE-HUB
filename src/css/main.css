@@ -25,6 +25,7 @@
   @import "./_hilo.css";
   @import "./_dice.css";
   @import "./_mines.css";
+  @import "./_crash.css";
 }
 
 /* Custom utilities */

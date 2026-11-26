@@ -24,7 +24,8 @@ src/
 │   ├── _slot.css          # Slot machine (komponenta)
 │   ├── _hilo.css          # Hi-Lo karta (komponenta)
 │   ├── _dice.css          # Dice frame – sheen animace, win glow
-│   └── _mines.css         # Mines 5×5 mřížka a stavy políček
+│   ├── _mines.css         # Mines 5×5 mřížka a stavy políček
+│   └── _crash.css         # Crash násobitel a progress bar
 ├── partials/              # HTML partials (načítané přes Vite plugin)
 │   ├── screen-game.html   # Herní obrazovka (#screen-game)
 │   └── modals.html        # Explorer, Stats a DeleteConfirm modály
@@ -48,7 +49,8 @@ src/
 │   ├── hilo.js            # HiloGame – Hi-Lo karta, 3D flip, série & Cash Out
 │   ├── guessing.js        # GuessingGame – číselné mřížky (Hádanka, Ruleta + side bets)
 │   ├── dice.js            # DiceGame – kostka 1-6, shuffle animace
-│   └── mines.js           # MinesGame – 5×5 miny, progresivní koeficienty & Cash Out
+│   ├── mines.js           # MinesGame – 5×5 miny, progresivní koeficienty & Cash Out
+│   └── crash.js           # CrashGame – exponenciální násobitel & Cash Out
 ├── animations/            # Animace
 │   ├── buttons.js         # GSAP entrance animace tlačítek
 │   ├── infoToggle.js      # Neónové kmitání, idle pulzace, screen přechody info panelu

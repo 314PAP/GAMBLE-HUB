@@ -237,10 +237,10 @@
         <article id="mines-area" class="game-container hidden" aria-labelledby="mines-title">
           <h3 id="mines-title" class="sr-only">Miny 5×5</h3>
           <div
-            class="game-main flex flex-col flex-1 min-h-0 overflow-hidden items-center justify-center gap-2"
+            class="game-main flex flex-col flex-1 min-h-0 overflow-y-auto items-center justify-center gap-1.5 py-1"
           >
-            <div class="flex items-center gap-1.5" role="group" aria-label="Počet min">
-              <span class="text-xs text-text-secondary font-semibold mr-1">Miny:</span>
+            <div class="flex items-center gap-1.5 shrink-0" role="group" aria-label="Počet min">
+              <span class="text-xs text-text-secondary font-semibold mr-1">Počet min:</span>
               <button
                 type="button"
                 class="btn-bet mines-count-btn px-2.5 py-1 text-xs"
@@ -302,6 +302,48 @@
                 class="btn btn-gold flex-1 hidden"
                 id="btn-mines-cashout"
                 onclick="cashOutMines()"
+                disabled
+              >
+                💰 VYBRAT
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article id="crash-area" class="game-container hidden" aria-labelledby="crash-title">
+          <h3 id="crash-title" class="sr-only">Crash</h3>
+          <div class="game-main flex flex-col flex-1 min-h-0 overflow-hidden items-center justify-center">
+            <div class="crash-display mb-3">
+              <div id="crash-multiplier" class="crash-multiplier" aria-live="polite">1.00×</div>
+              <div class="crash-bar-track">
+                <div id="crash-bar-fill" class="crash-bar-fill"></div>
+              </div>
+            </div>
+            <div
+              id="crash-status-info"
+              class="text-center text-xs text-text-secondary font-bold mb-2 min-h-[1.25rem]"
+              aria-live="polite"
+            >
+              Vsaď si a klikni na START — vyber výhru dřív, než raketa spadne!
+            </div>
+            <div
+              class="status-box hidden text-center text-sm mb-3 px-4 py-2 rounded-lg font-bold"
+              id="game-result-crash"
+              role="status"
+              aria-live="polite"
+            ></div>
+            <div class="flex gap-2.5 w-full max-w-[300px]" role="group" aria-label="Crash ovládání">
+              <button
+                class="btn btn-primary flex-1"
+                id="btn-crash-start"
+                onclick="startCrash()"
+              >
+                🚀 START
+              </button>
+              <button
+                class="btn btn-gold flex-1"
+                id="btn-crash-cashout"
+                onclick="cashOutCrash()"
                 disabled
               >
                 💰 VYBRAT

@@ -45,7 +45,7 @@ Aplikace respektuje standardy WCAG a používá sémantické HTML5 tagy v kombin
 
 ## 🎮 Hry
 
-Aplikace obsahuje **7 her**, každá s vlastním herním modulem v `src/games/`:
+Aplikace obsahuje **8 her**, každá s vlastním herním modulem v `src/games/`:
 
 | # | Název | ID | Popis |
 |---|-------|----|-------|
@@ -56,6 +56,7 @@ Aplikace obsahuje **7 her**, každá s vlastním herním modulem v `src/games/`:
 | 5 | **Automat (Slots)** | 5 | 3 válce × 3 řady, 6 symbolů, 5 výherních linií, Jackpot na třech `7️⃣`, Výplata: **2× – 100×** podle symbolu |
 | 6 | **Hi-Low** | 6 | Karty 1–10, tip VYŠŠÍ/NIŽŠÍ, série výher s násobením koeficientu a tlačítkem **Cash Out**, 3D flip animace |
 | 7 | **Miny 5×5** | 7 | Mřížka 5×5, volba 1/3/5/10 min, progresivní koeficient s každým bezpečným políčkem a **Cash Out** |
+| 8 | **Crash** | 8 | Exponenciálně stoupající násobitel od **1.00×** až do **100×** s **Cash Out** před pádem |
 
 ### Herní tok
 1. Vybrání hry z hub obrazovky → zobrazí se 2s animovaný splash → herní obrazovka.
@@ -116,7 +117,8 @@ Aplikace obsahuje **7 her**, každá s vlastním herním modulem v `src/games/`:
 │   │   ├── hilo.js                 # HiloGame – Hi-Lo karta, 3D flip, série & Cash Out
 │   │   ├── guessing.js             # GuessingGame – číselné mřížky (Hádanka, Ruleta + side bets)
 │   │   ├── dice.js                 # DiceGame – kostka 1-6, shuffle animace
-│   │   └── mines.js                # MinesGame – 5×5 miny, progresivní koeficienty & Cash Out
+│   │   ├── mines.js                # MinesGame – 5×5 miny, progresivní koeficienty & Cash Out
+│   │   └── crash.js                # CrashGame – exponenciální násobitel & Cash Out
 │   ├── ui/
 │   │   ├── Leaderboard.js          # Žebříček hráčů (top 5, medaile, online/lokální badge)
 │   │   ├── Explorer.js             # Globální historie a leaderboard s filtry/sortem
@@ -150,7 +152,8 @@ Aplikace obsahuje **7 her**, každá s vlastním herním modulem v `src/games/`:
 │       ├── _slot.css               # Slot machine – glass panel, reel glow, symbol glows
 │       ├── _hilo.css               # Hi-Lo karta – 3D preserve-3d, flip animace
 │       ├── _dice.css               # Dice frame – sheen animace, win glow
-│       └── _mines.css              # Mines 5×5 mřížka a stavy políček
+│       ├── _mines.css              # Mines 5×5 mřížka a stavy políček
+│       └── _crash.css              # Crash násobitel a progress bar
 ├── tests/                          # Vitest unit testy a Playwright E2E testy (`tests/e2e/`)
 ├── playwright.config.ts            # Konfigurace Playwrightu (včetně `webServer`)
 ├── index.html                      # Hlavní šablona – sémantické tagy, screeny, modály

@@ -43,6 +43,20 @@ test.describe('GAMBLE HUB - Gameplay & Modals', () => {
     await expect(tiles).toHaveCount(25);
   });
 
+  test('should launch Crash and start a round', async ({ page }) => {
+    await registerAndEnterHub(page, 'E2E4');
+
+    await page.click('#screen-hub button:has-text("Crash")');
+    await page.waitForSelector('#screen-game.active', { timeout: 10000 });
+
+    await expect(page.locator('#crash-area')).toBeVisible();
+    await expect(page.locator('#crash-multiplier')).toBeVisible();
+    await expect(page.locator('#btn-crash-start')).toBeVisible();
+
+    await page.click('#btn-crash-start');
+    await expect(page.locator('#crash-status-info')).not.toHaveText('');
+  });
+
   test('should launch Slots and display spin controls', async ({ page }) => {
     await registerAndEnterHub(page, 'E2E3');
 

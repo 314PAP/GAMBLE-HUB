@@ -67,15 +67,20 @@
     - Split `chart-*.js` (`153.34 kB` / `53.88 kB` gzip) out of `index-*.js` (`387.75 kB` → `235.23 kB` / `61.38 kB` gzip).
 24. **Step 11 — Expanded E2E Test Suite (`tests/e2e/gameplay.spec.ts`):**
     - Added 4 new E2E tests (8 runs across `chromium` and `Mobile Chrome`) covering player registration, Daily Bonus claim, Mines 5×5 round start, Slots controls, and Stats/Explorer modals (`18/18` E2E tests passing).
-
-## Planned Next Steps
 25. **Step 12 — New Game: Crash (ID 8):**
-    - Implement `src/games/crash.js` and `src/css/_crash.css`, wire into game config/UI/handlers/info, add unit tests, and update docs.
+    - Created `src/games/crash.js` (`CrashGame` with 4% house edge crash point generator, exponential climb curve, and Cash Out) and `src/css/_crash.css` imported in `src/css/main.css`.
+    - Registered game ID `8` in `src/games/config.js`, `src/games/resultBoxes.js`, `src/games/controlsLock.js`, `src/games/screenSetup.js`, `src/games.js`, `src/events/globalHandlers.js`, `src/ui/gameInfo.js`, `src/partials/screen-game.html`, and `index.html`.
+    - Added `tests/crash.test.js` and updated `tests/gameInfo.test.js` & `tests/gameManager.test.js` (165/165 unit tests passing).
+26. **Step 13 — UI Polish, Abbrev Modal Fix & Crash E2E:**
+    - Fixed Mines 5×5 grid sizing (`width: min(100%, 230px, 31dvh)`) in `src/css/_mines.css`, added `#mines-area`/`#crash-area` to `src/css/_layout.css`, and switched `#mines-area .game-main` to `overflow-y-auto` with `Počet min:` label in `src/partials/screen-game.html` so mine count buttons and `START HRY` never overlap or clip.
+    - Raised `#abbrev-modal` z-index (`z-[500]` → `z-[1100]`) in `src/partials/modals.html` so it opens above SweetAlert2 info modals, and clarified Mines 5×5 instructions in `src/ui/gameInfo.js`.
+    - Removed emoji icons (`💣`, `🚀`) from hub game buttons in `index.html` for visual consistency.
+    - Added Crash E2E test in `tests/e2e/gameplay.spec.ts` (`20/20` E2E tests passing).
 
 ## Current State ("Kde jsme skončili")
-- All `.js` and `.css` files in `src/` are under 378 lines (`src/sound.js` 377, `src/events/globalHandlers.js` 355, `src/ui.js` 345, `src/games.js` 342).
-- `index.html` is 341 lines with `src/partials/screen-game.html` and `src/partials/modals.html`.
+- All `.js` and `.css` files in `src/` are under 378 lines (`src/sound.js` 377, `src/games.js` 363, `src/events/globalHandlers.js` 362, `src/ui.js` 345).
+- `index.html` is 346 lines with `src/partials/screen-game.html` and `src/partials/modals.html`.
 - `npm run lint`: 0 errors, 0 warnings.
-- `npm run test`: 20/20 test files passed (161/161 tests).
-- `npm run test:e2e`: 10/10 Playwright tests passed (Chromium + Mobile Chrome).
-- `npm run build`: clean production build.
+- `npm run test`: 21/21 test files passed (165/165 tests).
+- `npm run test:e2e`: 20/20 Playwright tests passed (Chromium + Mobile Chrome).
+- `npm run build`: clean production build with lazy-loaded `chart.js`.

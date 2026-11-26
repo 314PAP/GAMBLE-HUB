@@ -43,6 +43,7 @@
 | `src/games/hilo.js` | ~225 | `HiloGame` | Hi-Lo card game, 3D flip, dynamic multiplier, streaks & Cash Out | `sound.js`, `utils.js` |
 | `src/games/dice.js` | ~100 | `DiceGame` | Dice 1–6 game, shuffle animation | `sound.js` |
 | `src/games/mines.js` | ~240 | `MinesGame` | 5×5 Mines grid game, progressive multipliers & Cash Out | `sound.js`, `utils.js` |
+| `src/games/crash.js` | ~155 | `CrashGame`, `generateCrashPoint`, `multiplierAtElapsed` | Exponential multiplier Crash game with Cash Out | `sound.js`, `utils.js` |
 
 ## UI Components (`src/ui/`)
 | File | Lines | Key Classes / Exports | Responsibility | Dependencies |
@@ -72,6 +73,7 @@
 | `src/css/_layout.css` | ~197 | Screen management, form inputs, grid layouts |
 | `src/css/_dice.css` | ~162 | Dice frame, sheen animation, win glow |
 | `src/css/_mines.css` | ~58 | Mines 5×5 grid & tile states |
+| `src/css/_crash.css` | ~63 | Crash multiplier display & progress bar |
 | `src/css/_bet-slider.css` | ~150 | BetSlider track, fill, thumb, value, arrow buttons |
 | `src/css/_slot.css` | ~147 | Slot machine 3x3 grid & reel styles |
 | `src/css/_modals.css` | ~133 | Explorer modal overrides & stats modal progress bar |

@@ -48,8 +48,8 @@ describe('GameManager', () => {
   });
 
   describe('GAME_CONFIG', () => {
-    it('should have 7 games', () => {
-      expect(Object.keys(GAME_CONFIG).length).toBe(7);
+    it('should have 8 games', () => {
+      expect(Object.keys(GAME_CONFIG).length).toBe(8);
     });
 
     it('should have required fields', () => {
@@ -65,13 +65,13 @@ describe('GameManager', () => {
   });
 
   describe('DISPLAY_STATES', () => {
-    it('should have 7 games', () => {
-      expect(Object.keys(DISPLAY_STATES).length).toBe(7);
+    it('should have 8 games', () => {
+      expect(Object.keys(DISPLAY_STATES).length).toBe(8);
     });
 
     it('should have exactly one true display flag per game', () => {
       Object.values(DISPLAY_STATES).forEach((state) => {
-        const flags = [state.classic, state.dice, state.slots, state.hilo, state.mines];
+        const flags = [state.classic, state.dice, state.slots, state.hilo, state.mines, state.crash];
         expect(flags.filter(Boolean).length).toBe(1);
       });
     });

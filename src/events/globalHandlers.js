@@ -286,6 +286,13 @@ export class GlobalEventHandlers {
       this.gm.setMinesCount(count);
     };
 
+    window.startCrash = () => {
+      this.gm.startCrash();
+    };
+    window.cashOutCrash = () => {
+      this.gm.cashOutCrash();
+    };
+
     window.vsaditRuletaVedlejsi = (betType) => {
       const cfg = GAME_CONFIG[4];
       this.gm.playGuessingGame(betType, cfg.minVal, cfg.maxVal, cfg.multVal, cfg.label);

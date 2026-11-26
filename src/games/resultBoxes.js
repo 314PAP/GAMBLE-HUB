@@ -5,6 +5,7 @@ const RESULT_BOX_IDS = [
   'game-result-slots',
   'game-result-hilo',
   'game-result-mines',
+  'game-result-crash',
 ];
 
 /**
