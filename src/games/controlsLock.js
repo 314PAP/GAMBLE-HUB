@@ -15,7 +15,7 @@ export function lockGameControls(lock) {
     sliderContainer.style.opacity = lock ? '0.4' : '';
   }
 
-  document.querySelectorAll('.btn-num, .dice-num-btn').forEach((b) => {
+  document.querySelectorAll('.btn-num, .dice-num-btn, .roulette-side-btn').forEach((b) => {
     b.disabled = lock;
   });
 

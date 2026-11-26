@@ -12,8 +12,8 @@ export const GAME_INFOS = {
     html: '<p>Vyberte si libovolné číslo v rozmezí <strong>1 až 6</strong> a vsaďte si.</p><ul><li><strong>Cíl hry:</strong> Uhodnout hozené číslo na hrací kostce.</li><li><strong>Výhra:</strong> <strong>6násobek (6x)</strong> vsazené částky.</li></ul><div class="mt-4 pt-3 border-t border-[rgba(255,255,255,0.06)]"><button class="w-full py-2 px-3 text-xs font-bold text-neon-cyan border border-[rgba(255,255,255,0.1)] rounded-xl bg-[rgba(255,255,255,0.03)] hover:bg-[rgba(255,255,255,0.06)] transition-colors cursor-pointer" onclick="otevriAbbrevModal()">📊 Číselné zkratky</button></div>',
   },
   4: {
-    title: "Ruleta 0-36",
-    html: '<p>Vyberte si libovolné číslo v rozmezí <strong>0 až 36</strong> na hracím poli a vsaďte si.</p><ul><li><strong>Cíl hry:</strong> Uhodnout vylosované číslo.</li><li><strong>Výhra:</strong> <strong>36násobek (36x)</strong> vsazené částky.</li></ul><div class="mt-4 pt-3 border-t border-[rgba(255,255,255,0.06)]"><button class="w-full py-2 px-3 text-xs font-bold text-neon-cyan border border-[rgba(255,255,255,0.1)] rounded-xl bg-[rgba(255,255,255,0.03)] hover:bg-[rgba(255,255,255,0.06)] transition-colors cursor-pointer" onclick="otevriAbbrevModal()">📊 Číselné zkratky</button></div>',
+    title: "Ruleta 0-35",
+    html: '<p>Vyberte si libovolné číslo v rozmezí <strong>0 až 35</strong> nebo některou z <strong>vedlejších sázek</strong>.</p><ul><li><strong>Přímé číslo:</strong> <strong>35násobek (35x)</strong> vsazené částky.</li><li><strong>Červená / Černá, Sudá / Lichá, 1–18 / 19–35:</strong> <strong>2násobek (2x)</strong> (nula 0 prohrává).</li><li><strong>Tucty (1–12, 13–24, 25–35):</strong> <strong>3násobek (3x)</strong>.</li></ul><div class="mt-4 pt-3 border-t border-[rgba(255,255,255,0.06)]"><button class="w-full py-2 px-3 text-xs font-bold text-neon-cyan border border-[rgba(255,255,255,0.1)] rounded-xl bg-[rgba(255,255,255,0.03)] hover:bg-[rgba(255,255,255,0.06)] transition-colors cursor-pointer" onclick="otevriAbbrevModal()">📊 Číselné zkratky</button></div>',
   },
   5: {
     title: "AUTOMAT",

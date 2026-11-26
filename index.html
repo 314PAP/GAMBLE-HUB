@@ -559,6 +559,71 @@
               </div>
             </div>
             <div
+              id="roulette-side-bets"
+              class="hidden w-full max-w-[360px] flex-col gap-1 mb-1 px-1 shrink-0"
+              role="group"
+              aria-label="Vedlejší sázky rulety"
+            >
+              <div class="grid grid-cols-4 gap-1">
+                <button
+                  class="roulette-side-btn btn btn-red py-1 text-[10px] sm:text-xs"
+                  onclick="vsaditRuletaVedlejsi('red')"
+                >
+                  Červená 2x
+                </button>
+                <button
+                  class="roulette-side-btn btn py-1 text-[10px] sm:text-xs border border-white/30 bg-black/70 text-white"
+                  onclick="vsaditRuletaVedlejsi('black')"
+                >
+                  Černá 2x
+                </button>
+                <button
+                  class="roulette-side-btn btn btn-info py-1 text-[10px] sm:text-xs"
+                  onclick="vsaditRuletaVedlejsi('even')"
+                >
+                  Sudá 2x
+                </button>
+                <button
+                  class="roulette-side-btn btn btn-purple py-1 text-[10px] sm:text-xs"
+                  onclick="vsaditRuletaVedlejsi('odd')"
+                >
+                  Lichá 2x
+                </button>
+              </div>
+              <div class="grid grid-cols-5 gap-1">
+                <button
+                  class="roulette-side-btn btn btn-primary py-1 text-[10px]"
+                  onclick="vsaditRuletaVedlejsi('low')"
+                >
+                  1-18
+                </button>
+                <button
+                  class="roulette-side-btn btn btn-primary py-1 text-[10px]"
+                  onclick="vsaditRuletaVedlejsi('high')"
+                >
+                  19-35
+                </button>
+                <button
+                  class="roulette-side-btn btn btn-gold py-1 text-[10px]"
+                  onclick="vsaditRuletaVedlejsi('dozen1')"
+                >
+                  1-12 (3x)
+                </button>
+                <button
+                  class="roulette-side-btn btn btn-gold py-1 text-[10px]"
+                  onclick="vsaditRuletaVedlejsi('dozen2')"
+                >
+                  13-24 (3x)
+                </button>
+                <button
+                  class="roulette-side-btn btn btn-gold py-1 text-[10px]"
+                  onclick="vsaditRuletaVedlejsi('dozen3')"
+                >
+                  25-35 (3x)
+                </button>
+              </div>
+            </div>
+            <div
               id="game-result-classic"
               class="game-result-classic mb-1"
               role="status"

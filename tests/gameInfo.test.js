@@ -49,7 +49,9 @@ describe('GAME_INFOS', () => {
     // Game 3 (dice)
     expect(GAME_INFOS[3].html).toContain('6násobek');
     // Game 4 (roulette)
-    expect(GAME_INFOS[4].html).toContain('36násobek');
+    expect(GAME_INFOS[4].html).toContain('35násobek');
+    expect(GAME_INFOS[4].html).toContain('2násobek');
+    expect(GAME_INFOS[4].html).toContain('3násobek');
   });
 
   it('should have slots payout table', () => {

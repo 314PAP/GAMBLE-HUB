@@ -193,6 +193,11 @@ export class GlobalEventHandlers {
       if (state.classic) {
         const el = document.getElementById("classic-inputs");
         if (el) el.classList.remove("hidden");
+        const sideBetsEl = document.getElementById("roulette-side-bets");
+        if (sideBetsEl) {
+          sideBetsEl.classList.toggle("hidden", gameId !== 4);
+          sideBetsEl.classList.toggle("flex", gameId === 4);
+        }
       }
       if (state.dice) {
         const el = document.getElementById("dice-area");
@@ -243,6 +248,11 @@ export class GlobalEventHandlers {
 
     window.hrajHiLo = (tip) => {
       this.gm.playHilo(tip);
+    };
+
+    window.vsaditRuletaVedlejsi = (betType) => {
+      const cfg = GAME_CONFIG[4];
+      this.gm.playGuessingGame(betType, cfg.minVal, cfg.maxVal, cfg.multVal, cfg.label);
     };
 
     window.otevriStatsModal = () => {

@@ -3,6 +3,36 @@ import gsap from "gsap";
 
 import { sound } from "../sound";
 
+export const ROULETTE_RED_NUMS = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
+
+export const ROULETTE_SIDE_BETS = {
+  red: { label: "Červená", multiplier: 2, match: (n) => n > 0 && ROULETTE_RED_NUMS.includes(n) },
+  black: { label: "Černá", multiplier: 2, match: (n) => n > 0 && !ROULETTE_RED_NUMS.includes(n) },
+  even: { label: "Sudá", multiplier: 2, match: (n) => n > 0 && n % 2 === 0 },
+  odd: { label: "Lichá", multiplier: 2, match: (n) => n > 0 && n % 2 === 1 },
+  low: { label: "1–18", multiplier: 2, match: (n) => n >= 1 && n <= 18 },
+  high: { label: "19–35", multiplier: 2, match: (n) => n >= 19 && n <= 35 },
+  dozen1: { label: "1–12", multiplier: 3, match: (n) => n >= 1 && n <= 12 },
+  dozen2: { label: "13–24", multiplier: 3, match: (n) => n >= 13 && n <= 24 },
+  dozen3: { label: "25–35", multiplier: 3, match: (n) => n >= 25 && n <= 35 },
+};
+
+export function evaluateRouletteBet(selection, winningNum, numberMultiplier = 35) {
+  if (typeof selection === "string" && ROULETTE_SIDE_BETS[selection]) {
+    const betDef = ROULETTE_SIDE_BETS[selection];
+    return {
+      isWin: betDef.match(winningNum),
+      multiplier: betDef.multiplier,
+      label: betDef.label,
+    };
+  }
+  return {
+    isWin: selection === winningNum,
+    multiplier: numberMultiplier,
+    label: String(selection),
+  };
+}
+
 export class GuessingGame {
   constructor() {
     this.isPlaying = false;
@@ -24,9 +54,6 @@ export class GuessingGame {
       gridContainer.classList.add("grid-cols-5");
     }
 
-    // Classic roulette number colors
-    const redNums = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
-
     for (let i = min; i <= max; i++) {
       const btn = document.createElement("button");
       btn.className = "btn-num";
@@ -35,7 +62,7 @@ export class GuessingGame {
       if (min === 0 && max === 35) {
         if (i === 0) {
           btn.classList.add("green-num");
-        } else if (redNums.includes(i)) {
+        } else if (ROULETTE_RED_NUMS.includes(i)) {
           btn.classList.add("red-num");
         } else {
           btn.classList.add("black-num");
@@ -58,8 +85,10 @@ export class GuessingGame {
     this.isPlaying = true;
 
     const winningNum = Math.floor(Math.random() * (max - min + 1)) + min;
-    const isWin = selectedNum === winningNum;
-    const winAmount = isWin ? betAmount * multiplier : 0;
+    const evaluation = evaluateRouletteBet(selectedNum, winningNum, multiplier);
+    const isWin = evaluation.isWin;
+    const winAmount = isWin ? betAmount * evaluation.multiplier : 0;
+    const isSideBet = typeof selectedNum === "string" && Boolean(ROULETTE_SIDE_BETS[selectedNum]);
 
     const buttons = Array.from(document.querySelectorAll(".btn-num"));
 
@@ -67,7 +96,8 @@ export class GuessingGame {
     buttons.forEach((btn) => {
       btn.disabled = true;
       btn.classList.remove("selected", "winning");
-      if (parseInt(btn.dataset.num) === selectedNum) {
+      const btnNum = parseInt(btn.dataset.num);
+      if (isSideBet ? ROULETTE_SIDE_BETS[selectedNum].match(btnNum) : btnNum === selectedNum) {
         btn.classList.add("selected");
       }
     });
@@ -86,7 +116,7 @@ export class GuessingGame {
         }
 
         // Keep selected button highlighted
-        const selBtn = buttons.find((b) => parseInt(b.dataset.num) === selectedNum);
+        const selBtn = !isSideBet ? buttons.find((b) => parseInt(b.dataset.num) === selectedNum) : null;
         if (selBtn) {
           if (isWin) {
             selBtn.classList.remove("selected");
