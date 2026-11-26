@@ -1,26 +1,42 @@
 import gsap from "gsap";
 
 import { sound } from "../sound";
+import { formatLargeNumber } from "../utils";
 
 /**
- * HiloGame — Hi-Lo card game with dynamic multipliers
+ * HiloGame — Hi-Lo card game with dynamic multipliers, streaks, and Cash Out
  *
  * Rules:
  * - Cards 1–10, player guesses Higher or Lower
  * - Next card is always different from current
  * - Multiplier scales with risk: fewer winning cards = higher payout
  *   Formula: (9 / winningCards) * 0.95  (5% house edge)
+ * - Correct guesses chain into a streak with compounding multiplier;
+ *   player can Cash Out at any time or risk another card.
  */
 export class HiloGame {
   constructor() {
     this.currentNumber = 5;
     this.isAnimating = false;
+    this.streak = 0;
+    this.currentMultiplier = 1;
+    this.streakBet = 0;
+    this.isStreakActive = false;
   }
 
   init() {
     this.currentNumber = Math.floor(Math.random() * 8) + 2;
+    this.resetStreak();
     this.updateCardDisplay(this.currentNumber);
     this._initIdleCardPulse();
+  }
+
+  resetStreak() {
+    this.streak = 0;
+    this.currentMultiplier = 1;
+    this.streakBet = 0;
+    this.isStreakActive = false;
+    this.updateStreakUI();
   }
 
   _initIdleCardPulse() {
@@ -40,6 +56,49 @@ export class HiloGame {
     const card = document.getElementById("hilo-current-card");
     if (card) {
       card.innerText = num;
+    }
+    this.updateStreakUI();
+  }
+
+  updateStreakUI() {
+    const infoEl = document.getElementById("hilo-streak-info");
+    const cashoutBtn = document.getElementById("btn-hilo-cashout");
+    const highBtn = document.getElementById("btn-hilo-high");
+    const lowBtn = document.getElementById("btn-hilo-low");
+
+    const highMult = this.getMultiplier("H");
+    const lowMult = this.getMultiplier("L");
+
+    if (highBtn) {
+      highBtn.disabled = highMult <= 0;
+    }
+    if (lowBtn) {
+      lowBtn.disabled = lowMult <= 0;
+    }
+
+    if (infoEl) {
+      if (this.isStreakActive && this.streak > 0) {
+        const potentialWin = Math.round(this.streakBet * this.currentMultiplier);
+        infoEl.textContent = `Série: ${this.streak}× | Násobitel: ${this.currentMultiplier}× | Výhra: ${formatLargeNumber(potentialWin)}`;
+        infoEl.classList.add("text-neon-gold");
+        infoEl.classList.remove("text-text-secondary");
+      } else {
+        infoEl.textContent = `Vyšší: ${highMult > 0 ? `${highMult}×` : "—"} | Nižší: ${lowMult > 0 ? `${lowMult}×` : "—"}`;
+        infoEl.classList.remove("text-neon-gold");
+        infoEl.classList.add("text-text-secondary");
+      }
+    }
+
+    if (cashoutBtn) {
+      if (this.isStreakActive && this.streak > 0) {
+        const potentialWin = Math.round(this.streakBet * this.currentMultiplier);
+        cashoutBtn.classList.remove("hidden");
+        cashoutBtn.disabled = false;
+        cashoutBtn.textContent = `💰 VYBRAT (${formatLargeNumber(potentialWin)})`;
+      } else {
+        cashoutBtn.classList.add("hidden");
+        cashoutBtn.disabled = true;
+      }
     }
   }
 
@@ -65,8 +124,68 @@ export class HiloGame {
     return Math.round((9 / winCount) * 0.95 * 100) / 100;
   }
 
+  _finalizePlay(isWin, stepMultiplier, betAmount, originalNumber, nextNumber, onComplete) {
+    this.isAnimating = false;
+    if (!this.isStreakActive) {
+      this.streakBet = betAmount;
+    }
+
+    if (isWin) {
+      sound.playWinBonus();
+      this.streak += 1;
+      this.currentMultiplier = Math.round(this.currentMultiplier * stepMultiplier * 100) / 100;
+      this.isStreakActive = true;
+      const potentialWin = Math.round(this.streakBet * this.currentMultiplier);
+      this.updateStreakUI();
+      onComplete({
+        isWin: true,
+        isStreakContinue: true,
+        streak: this.streak,
+        multiplier: this.currentMultiplier,
+        potentialWin,
+        winAmount: 0,
+        bet: this.streakBet,
+        resultText: `${originalNumber}→${nextNumber}`,
+      });
+    } else {
+      sound.playLoss();
+      const bet = this.streakBet || betAmount;
+      const lostStreak = this.streak;
+      this.resetStreak();
+      onComplete({
+        isWin: false,
+        isStreakContinue: false,
+        lostStreak,
+        winAmount: 0,
+        bet,
+        resultText: `${originalNumber}→${nextNumber}`,
+      });
+    }
+  }
+
+  cashOut() {
+    if (!this.isStreakActive || this.streak <= 0 || this.isAnimating) return null;
+    const winAmount = Math.round(this.streakBet * this.currentMultiplier);
+    const streak = this.streak;
+    const multiplier = this.currentMultiplier;
+    const bet = this.streakBet;
+    this.resetStreak();
+    sound.playWinBonus();
+    return {
+      isWin: true,
+      winAmount,
+      bet,
+      streak,
+      multiplier,
+      resultText: `Série ${streak}× (${multiplier}×)`,
+    };
+  }
+
   play(tip, betAmount, onComplete) {
     if (this.isAnimating) return;
+    const stepMultiplier = this.getMultiplier(tip);
+    if (stepMultiplier <= 0) return;
+
     this.isAnimating = true;
     sound.playCardFlip();
 
@@ -80,9 +199,6 @@ export class HiloGame {
     if (tip === "H" && nextNumber > this.currentNumber) isWin = true;
     if (tip === "L" && nextNumber < this.currentNumber) isWin = true;
 
-    const multiplier = this.getMultiplier(tip);
-    const winAmount = isWin ? Math.round(betAmount * multiplier) : 0;
-
     const originalNumber = this.currentNumber;
     const card = document.getElementById("hilo-current-card");
 
@@ -95,39 +211,19 @@ export class HiloGame {
         yoyo: true,
         repeat: 1,
         onRepeat: () => {
-          this.updateCardDisplay(nextNumber);
           this.currentNumber = nextNumber;
+          this.updateCardDisplay(nextNumber);
         },
         onComplete: () => {
-          this.isAnimating = false;
           card.classList.remove("hilo-card-pop");
           void card.offsetWidth;
           card.classList.add("hilo-card-pop");
-          if (isWin) {
-            sound.playWinBonus();
-          } else {
-            sound.playLoss();
-          }
-          onComplete({
-            isWin,
-            winAmount,
-            resultText: `${originalNumber}→${nextNumber}`,
-          });
+          this._finalizePlay(isWin, stepMultiplier, betAmount, originalNumber, nextNumber, onComplete);
         },
       });
     } else {
       this.currentNumber = nextNumber;
-      this.isAnimating = false;
-      if (isWin) {
-        sound.playWinBonus();
-      } else {
-        sound.playLoss();
-      }
-      onComplete({
-        isWin,
-        winAmount,
-        resultText: `${originalNumber}→${nextNumber}`,
-      });
+      this._finalizePlay(isWin, stepMultiplier, betAmount, originalNumber, nextNumber, onComplete);
     }
   }
 

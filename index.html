@@ -510,6 +510,13 @@
               </div>
             </div>
             <div
+              id="hilo-streak-info"
+              class="text-xs font-bold tracking-wider mb-1 text-text-secondary"
+              aria-live="polite"
+            >
+              Vyšší: 1.71× | Nižší: 2.14×
+            </div>
+            <div
               id="game-result-hilo"
               class="game-result-hilo mb-1"
               role="status"
@@ -524,6 +531,13 @@
             >
               <button class="btn btn-primary flex-1" id="btn-hilo-high" onclick="hrajHiLo('H')">
                 <span class="icon-node" aria-hidden="true"></span> VYŠŠÍ
+              </button>
+              <button
+                class="btn btn-gold flex-1 hidden"
+                id="btn-hilo-cashout"
+                onclick="cashOutHiLo()"
+              >
+                💰 VYBRAT
               </button>
               <button class="btn btn-danger flex-1" id="btn-hilo-low" onclick="hrajHiLo('L')">
                 <span class="icon-node" aria-hidden="true"></span> NIŽŠÍ

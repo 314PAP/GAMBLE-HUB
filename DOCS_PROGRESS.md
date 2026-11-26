@@ -32,11 +32,15 @@
     - Added `ROULETTE_SIDE_BETS` and `evaluateRouletteBet` in `src/games/guessing.js` (Red/Black, Even/Odd, 1–18/19–35 at 2×; Dozens 1–12, 13–24, 25–35 at 3×; 0 loses side bets).
     - Added `#roulette-side-bets` UI in `index.html`, control locking in `src/games/controlsLock.js`, handler `vsaditRuletaVedlejsi` in `src/events/globalHandlers.js`, and updated `src/ui/gameInfo.js`.
     - Added unit tests in `tests/guessing.test.js` and updated `tests/gameInfo.test.js` (144/144 passing).
+16. **Step 3 — Hi-Lo Streaks & Cash Out:**
+    - Added streak tracking (`streak`, `currentMultiplier`, `streakBet`, `isStreakActive`), `cashOut()`, and `updateStreakUI()` in `src/games/hilo.js` (with impossible-guess button disabling and dynamic step multipliers).
+    - Added `#hilo-streak-info` and `#btn-hilo-cashout` in `index.html`, control locking in `src/games/controlsLock.js`, `cashOutHilo()` + auto-cashout on game switch in `src/games.js`, and `window.cashOutHiLo` in `src/events/globalHandlers.js`.
+    - Added streak & cashOut unit tests in `tests/hilo.test.js` (147/147 passing).
 
 ## Current State ("Kde jsme skončili")
 - `src/events/globalHandlers.js` is at ~420 lines (plan to split in Step 7); all other `.js` and `.css` files in `src/` are under 400 lines.
 - `npm run lint`: 0 errors, 0 warnings.
-- `npm run test`: 17/17 test files passed (144/144 tests).
+- `npm run test`: 17/17 test files passed (147/147 tests).
 - `npm run build`: clean production build.
 
 ## Remaining / Optional Targets

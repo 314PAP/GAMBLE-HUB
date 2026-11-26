@@ -34,7 +34,7 @@
 | `src/games/resultBoxes.js` | ~20 | `clearAllResultBoxes` | Hide and clear all game result boxes | — |
 | `src/games/slots.js` | ~215 | `SlotMachineGame` | 3x3 slot grid, 5 paylines, GSAP reel spin | `sound.js` |
 | `src/games/guessing.js` | ~183 | `GuessingGame`, `ROULETTE_SIDE_BETS`, `evaluateRouletteBet` | Number grid games (Guessing, Roulette + side bets) | `sound.js` |
-| `src/games/hilo.js` | ~139 | `HiloGame` | Hi-Lo card game, 3D flip, dynamic multiplier | `sound.js` |
+| `src/games/hilo.js` | ~225 | `HiloGame` | Hi-Lo card game, 3D flip, dynamic multiplier, streaks & Cash Out | `sound.js`, `utils.js` |
 | `src/games/dice.js` | ~100 | `DiceGame` | Dice 1–6 game, shuffle animation | `sound.js` |
 
 ## UI Components (`src/ui/`)

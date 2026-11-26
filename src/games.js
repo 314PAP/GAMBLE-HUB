@@ -118,6 +118,11 @@ export class GameManager {
     this.stopAutoPlay();
     this.ui.cancelWinConfetti();
 
+    // Auto-cashout active Hi-Lo streak when switching games
+    if (this.hilo?.isStreakActive) {
+      this.cashOutHilo();
+    }
+
     // Kill all running GSAP animations before switching games
     gsap.globalTimeline.clear();
 
@@ -229,7 +234,8 @@ export class GameManager {
   }
 
    // Unified win/loss result processor
-    processGameResult(isWin, winAmount, gameName, resultText, isJackpot = false) {
+    processGameResult(isWin, winAmount, gameName, resultText, isJackpot = false, betOverride = null) {
+      const betAmount = betOverride !== null ? betOverride : this.activeBet;
       const oldBalance = this.db.getPlayerBalance(this.currentPlayer);
       
       // Deduct bet (note: bet was already deducted in original, but to make it clean,
@@ -248,13 +254,13 @@ export class GameManager {
        }
     
     // Log in DB
-    this.db.recordMatch(this.currentPlayer, gameName, this.activeBet, resultText, isWin);
-    this.db.checkMilestones(this.currentPlayer, oldBalance - this.activeBet, newBalance);
+    this.db.recordMatch(this.currentPlayer, gameName, betAmount, resultText, isWin);
+    this.db.checkMilestones(this.currentPlayer, oldBalance - betAmount, newBalance);
     
     // Odeslat aktuální skóre na Firebase (async, fire & forget)
     if (this.api) {
       this.api.submitScore(this.currentPlayer, newBalance);
-      this.api.submitMatch(this.currentPlayer, gameName, this.activeBet, resultText, isWin, isWin ? winAmount : -this.activeBet);
+      this.api.submitMatch(this.currentPlayer, gameName, betAmount, resultText, isWin, isWin ? winAmount : -betAmount);
     }
 
     // Update UI profile
@@ -342,12 +348,18 @@ export class GameManager {
     this.ui.resetNumberButtons();
   }
 
-  // Play Hi-Lo card game
+  // Play Hi-Lo card game (supports streaks & Cash Out)
   async playHilo(tip) {
     const modulesLoaded = await this._ensureGameModules();
     if (!modulesLoaded) return;
     if (this.hilo.isAnimating) return;
-    if (!this._startRound()) return;
+    if (this.hilo.getWinningCount(tip) <= 0) return;
+
+    if (!this.hilo.isStreakActive) {
+      if (!this._startRound()) return;
+    } else {
+      this.clearAllResultBoxes();
+    }
 
     this.lockGameControls(true);
     animateBetButtonsGlow();
@@ -355,7 +367,25 @@ export class GameManager {
     const res = await this.hilo.playAsync(tip, this.activeBet);
     this.lockGameControls(false);
     stopBetButtonsGlow();
-    this.processGameResult(res.isWin, res.winAmount, "VíceMéně", res.resultText);
+
+    if (res.isWin && res.isStreakContinue) {
+      const resBoxHilo = document.getElementById('game-result-hilo');
+      if (resBoxHilo) {
+        resBoxHilo.innerText = `🔥 Série ${res.streak}× (${res.multiplier}×) — Výhra: ${res.potentialWin}`;
+        resBoxHilo.classList.remove('hidden');
+        resBoxHilo.style.color = 'var(--neon-gold)';
+      }
+      this.hilo.updateStreakUI();
+    } else {
+      this.processGameResult(false, 0, "VíceMéně", res.resultText, false, res.bet);
+    }
+  }
+
+  cashOutHilo() {
+    if (!this.hilo) return;
+    const res = this.hilo.cashOut();
+    if (!res) return;
+    this.processGameResult(true, res.winAmount, "VíceMéně", res.resultText, res.multiplier >= 5, res.bet);
   }
 
   // Spin slots
