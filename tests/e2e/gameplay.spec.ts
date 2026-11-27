@@ -2,12 +2,12 @@ import { test, expect } from '@playwright/test';
 
 async function registerAndEnterHub(page, name = 'E2E') {
   await page.goto('/');
-  await page.waitForSelector('#screen-login.active', { timeout: 5000 });
-  await page.click('#btn-create-player');
-  await page.waitForSelector('#screen-register.active', { timeout: 3000 });
-  await page.fill('#reg-name', name);
-  await page.click('#screen-register button:has-text("Vytvořit účet")');
-  await page.waitForSelector('#screen-hub.active', { timeout: 4000 });
+  await expect(page.locator('#screen-login.active')).toBeVisible({ timeout: 10000 });
+  await page.locator('#btn-create-player').click();
+  await expect(page.locator('#screen-register.active')).toBeVisible({ timeout: 5000 });
+  await page.locator('#reg-name').fill(name);
+  await page.locator('#screen-register button:has-text("Vytvořit účet")').click();
+  await expect(page.locator('#screen-hub.active')).toBeVisible({ timeout: 5000 });
 }
 
 test.describe('GAMBLE HUB - Gameplay & Modals', () => {
@@ -69,7 +69,7 @@ test.describe('GAMBLE HUB - Gameplay & Modals', () => {
 
   test('should open Explorer modal and switch tabs', async ({ page }) => {
     await page.goto('/');
-    await page.waitForSelector('#screen-login.active', { timeout: 5000 });
+    await expect(page.locator('#screen-login.active')).toBeVisible({ timeout: 10000 });
 
     await page.click('#leaderboard-card');
     await expect(page.locator('#explorer-modal')).toBeVisible();
