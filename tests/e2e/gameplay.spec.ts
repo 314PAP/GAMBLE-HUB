@@ -78,4 +78,29 @@ test.describe('GAMBLE HUB - Gameplay & Modals', () => {
     await page.locator('#explorer-tab-history').click();
     await expect(page.locator('#explorer-sec-history')).toBeVisible();
   });
+
+  test('should launch Blackjack and start a round', async ({ page }) => {
+    await registerAndEnterHub(page, 'E2E5');
+    await page.locator('#screen-hub button:has-text("Blackjack")').evaluate((el) => (el as HTMLElement).click());
+    await expect(page.locator('#screen-game.active')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('#blackjack-area')).toBeVisible();
+    await page.locator('#btn-bj-start').click();
+    await expect(page.locator('#bj-player-cards')).not.toBeEmpty();
+  });
+
+  test('should launch Wheel of Fortune and display spin controls', async ({ page }) => {
+    await registerAndEnterHub(page, 'E2E6');
+    await page.locator('#screen-hub button:has-text("Kolo štěstí")').evaluate((el) => (el as HTMLElement).click());
+    await expect(page.locator('#screen-game.active')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('#wheel-area')).toBeVisible();
+    await expect(page.locator('#btn-wheel-spin')).toBeVisible();
+  });
+
+  test('should launch Guessing 1-5 and display 5 number buttons', async ({ page }) => {
+    await registerAndEnterHub(page, 'E2E7');
+    await page.locator('#screen-hub button:has-text("Hádanka 1-5")').evaluate((el) => (el as HTMLElement).click());
+    await expect(page.locator('#screen-game.active')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('#classic-area')).toBeVisible();
+    await expect(page.locator('#classic-area .btn-num')).toHaveCount(5);
+  });
 });

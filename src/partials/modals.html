@@ -106,6 +106,39 @@
     </div>
 
     <div
+      id="fairness-modal"
+      class="fixed inset-0 z-[1100] flex items-center justify-center bg-[rgba(0,0,0,0.85)] hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="fairness-modal-title"
+      onclick="zavriFairnessModal()"
+    >
+      <div
+        class="modal-content p-4 w-[92vw] max-w-[460px] rounded-2xl border-2 border-neon-cyan/40 shadow-[0_0_30px_rgba(0,243,255,0.25)]"
+        role="document"
+        onclick="event.stopPropagation()"
+      >
+        <div class="flex items-center justify-between mb-3">
+          <h3 id="fairness-modal-title" class="text-base font-bold text-neon-cyan m-0">
+            🛡️ Provably Fair
+          </h3>
+          <button type="button" class="btn btn-sm btn-danger" onclick="zavriFairnessModal()">✕</button>
+        </div>
+        <p class="text-xs text-text-muted mb-3">
+          Kryptografický seed pro ověření férovosti herních kol:
+        </p>
+        <div class="flex flex-col gap-2 text-xs bg-black/50 p-3 rounded-xl border border-white/10 mb-3">
+          <div><span class="text-text-muted">Server Hash:</span> <code id="fairness-server-hash" class="text-neon-gold break-all"></code></div>
+          <div><span class="text-text-muted">Client Seed:</span> <code id="fairness-client-seed" class="text-neon-cyan break-all"></code></div>
+          <div><span class="text-text-muted">Nonce:</span> <code id="fairness-nonce" class="text-neon-green">0</code></div>
+        </div>
+        <button type="button" class="btn btn-sm btn-gold w-full" onclick="obnovitFairnessSeed()">
+          🔄 Vygenerovat nový seed
+        </button>
+      </div>
+    </div>
+
+    <div
       id="info-panel"
       class="info-panel p-4"
       role="dialog"
@@ -199,6 +232,39 @@
     </div>
 
     <div
+      id="fairness-modal"
+      class="fixed inset-0 z-[1100] flex items-center justify-center bg-[rgba(0,0,0,0.85)] hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="fairness-modal-title"
+      onclick="zavriFairnessModal()"
+    >
+      <div
+        class="modal-content p-4 w-[92vw] max-w-[460px] rounded-2xl border-2 border-neon-cyan/40 shadow-[0_0_30px_rgba(0,243,255,0.25)]"
+        role="document"
+        onclick="event.stopPropagation()"
+      >
+        <div class="flex items-center justify-between mb-3">
+          <h3 id="fairness-modal-title" class="text-base font-bold text-neon-cyan m-0">
+            🛡️ Provably Fair
+          </h3>
+          <button type="button" class="btn btn-sm btn-danger" onclick="zavriFairnessModal()">✕</button>
+        </div>
+        <p class="text-xs text-text-muted mb-3">
+          Kryptografický seed pro ověření férovosti herních kol:
+        </p>
+        <div class="flex flex-col gap-2 text-xs bg-black/50 p-3 rounded-xl border border-white/10 mb-3">
+          <div><span class="text-text-muted">Server Hash:</span> <code id="fairness-server-hash" class="text-neon-gold break-all"></code></div>
+          <div><span class="text-text-muted">Client Seed:</span> <code id="fairness-client-seed" class="text-neon-cyan break-all"></code></div>
+          <div><span class="text-text-muted">Nonce:</span> <code id="fairness-nonce" class="text-neon-green">0</code></div>
+        </div>
+        <button type="button" class="btn btn-sm btn-gold w-full" onclick="obnovitFairnessSeed()">
+          🔄 Vygenerovat nový seed
+        </button>
+      </div>
+    </div>
+
+    <div
       id="install-panel"
       class="info-panel p-4 hidden"
       role="dialog"
@@ -263,6 +329,39 @@
     </div>
 
     <div
+      id="fairness-modal"
+      class="fixed inset-0 z-[1100] flex items-center justify-center bg-[rgba(0,0,0,0.85)] hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="fairness-modal-title"
+      onclick="zavriFairnessModal()"
+    >
+      <div
+        class="modal-content p-4 w-[92vw] max-w-[460px] rounded-2xl border-2 border-neon-cyan/40 shadow-[0_0_30px_rgba(0,243,255,0.25)]"
+        role="document"
+        onclick="event.stopPropagation()"
+      >
+        <div class="flex items-center justify-between mb-3">
+          <h3 id="fairness-modal-title" class="text-base font-bold text-neon-cyan m-0">
+            🛡️ Provably Fair
+          </h3>
+          <button type="button" class="btn btn-sm btn-danger" onclick="zavriFairnessModal()">✕</button>
+        </div>
+        <p class="text-xs text-text-muted mb-3">
+          Kryptografický seed pro ověření férovosti herních kol:
+        </p>
+        <div class="flex flex-col gap-2 text-xs bg-black/50 p-3 rounded-xl border border-white/10 mb-3">
+          <div><span class="text-text-muted">Server Hash:</span> <code id="fairness-server-hash" class="text-neon-gold break-all"></code></div>
+          <div><span class="text-text-muted">Client Seed:</span> <code id="fairness-client-seed" class="text-neon-cyan break-all"></code></div>
+          <div><span class="text-text-muted">Nonce:</span> <code id="fairness-nonce" class="text-neon-green">0</code></div>
+        </div>
+        <button type="button" class="btn btn-sm btn-gold w-full" onclick="obnovitFairnessSeed()">
+          🔄 Vygenerovat nový seed
+        </button>
+      </div>
+    </div>
+
+    <div
       id="delete-confirm-dialog"
       class="delete-confirm-dialog hidden"
       role="dialog"
@@ -291,6 +390,39 @@
             Smazat
           </button>
         </div>
+      </div>
+    </div>
+
+    <div
+      id="fairness-modal"
+      class="fixed inset-0 z-[1100] flex items-center justify-center bg-[rgba(0,0,0,0.85)] hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="fairness-modal-title"
+      onclick="zavriFairnessModal()"
+    >
+      <div
+        class="modal-content p-4 w-[92vw] max-w-[460px] rounded-2xl border-2 border-neon-cyan/40 shadow-[0_0_30px_rgba(0,243,255,0.25)]"
+        role="document"
+        onclick="event.stopPropagation()"
+      >
+        <div class="flex items-center justify-between mb-3">
+          <h3 id="fairness-modal-title" class="text-base font-bold text-neon-cyan m-0">
+            🛡️ Provably Fair
+          </h3>
+          <button type="button" class="btn btn-sm btn-danger" onclick="zavriFairnessModal()">✕</button>
+        </div>
+        <p class="text-xs text-text-muted mb-3">
+          Kryptografický seed pro ověření férovosti herních kol:
+        </p>
+        <div class="flex flex-col gap-2 text-xs bg-black/50 p-3 rounded-xl border border-white/10 mb-3">
+          <div><span class="text-text-muted">Server Hash:</span> <code id="fairness-server-hash" class="text-neon-gold break-all"></code></div>
+          <div><span class="text-text-muted">Client Seed:</span> <code id="fairness-client-seed" class="text-neon-cyan break-all"></code></div>
+          <div><span class="text-text-muted">Nonce:</span> <code id="fairness-nonce" class="text-neon-green">0</code></div>
+        </div>
+        <button type="button" class="btn btn-sm btn-gold w-full" onclick="obnovitFairnessSeed()">
+          🔄 Vygenerovat nový seed
+        </button>
       </div>
     </div>
 
@@ -345,5 +477,38 @@
             <strong class="text-neon-cyan">Klávesové zkratky:</strong> Space = Spin/Start · ←/→ = Sázka · H/L = Hi-Lo · M = Zvuk
           </div>
         </div>
+      </div>
+    </div>
+
+    <div
+      id="fairness-modal"
+      class="fixed inset-0 z-[1100] flex items-center justify-center bg-[rgba(0,0,0,0.85)] hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="fairness-modal-title"
+      onclick="zavriFairnessModal()"
+    >
+      <div
+        class="modal-content p-4 w-[92vw] max-w-[460px] rounded-2xl border-2 border-neon-cyan/40 shadow-[0_0_30px_rgba(0,243,255,0.25)]"
+        role="document"
+        onclick="event.stopPropagation()"
+      >
+        <div class="flex items-center justify-between mb-3">
+          <h3 id="fairness-modal-title" class="text-base font-bold text-neon-cyan m-0">
+            🛡️ Provably Fair
+          </h3>
+          <button type="button" class="btn btn-sm btn-danger" onclick="zavriFairnessModal()">✕</button>
+        </div>
+        <p class="text-xs text-text-muted mb-3">
+          Kryptografický seed pro ověření férovosti herních kol:
+        </p>
+        <div class="flex flex-col gap-2 text-xs bg-black/50 p-3 rounded-xl border border-white/10 mb-3">
+          <div><span class="text-text-muted">Server Hash:</span> <code id="fairness-server-hash" class="text-neon-gold break-all"></code></div>
+          <div><span class="text-text-muted">Client Seed:</span> <code id="fairness-client-seed" class="text-neon-cyan break-all"></code></div>
+          <div><span class="text-text-muted">Nonce:</span> <code id="fairness-nonce" class="text-neon-green">0</code></div>
+        </div>
+        <button type="button" class="btn btn-sm btn-gold w-full" onclick="obnovitFairnessSeed()">
+          🔄 Vygenerovat nový seed
+        </button>
       </div>
     </div>

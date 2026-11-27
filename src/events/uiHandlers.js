@@ -1,4 +1,5 @@
 import { sound } from "../sound.js";
+import { generateFairSeedPair } from "../fairness.js";
 
 /**
  * Bind modal, explorer, info panel, data import/export, audio, and theme window handlers.
@@ -94,6 +95,30 @@ export function registerUiHandlers(db, ui, gm) {
     const next = current === "cyan" ? "purple" : "cyan";
     html.setAttribute("data-theme", next === "cyan" ? "cyan" : "");
     localStorage.setItem("c_theme", next);
+  };
+
+  window.obnovitFairnessSeed = async () => {
+    const pair = await generateFairSeedPair();
+    const hashEl = document.getElementById("fairness-server-hash");
+    const clientEl = document.getElementById("fairness-client-seed");
+    const nonceEl = document.getElementById("fairness-nonce");
+    if (hashEl) hashEl.textContent = pair.serverSeedHash;
+    if (clientEl) clientEl.textContent = pair.clientSeed;
+    if (nonceEl) nonceEl.textContent = String(pair.nonce);
+  };
+
+  window.otevriFairnessModal = async () => {
+    const modal = document.getElementById("fairness-modal");
+    if (!modal) return;
+    const hashEl = document.getElementById("fairness-server-hash");
+    if (hashEl && !hashEl.textContent) {
+      await window.obnovitFairnessSeed();
+    }
+    modal.classList.remove("hidden");
+  };
+
+  window.zavriFairnessModal = () => {
+    document.getElementById("fairness-modal")?.classList.add("hidden");
   };
 
   const savedTheme = localStorage.getItem("c_theme");

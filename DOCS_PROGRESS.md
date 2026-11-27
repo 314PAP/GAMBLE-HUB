@@ -116,3 +116,7 @@
 - [x] **Step 25 — Hub VIP Badge, Daily Missions Widget, Live Ticker & Wheel Tick Audio:**
   - Created `src/ui/hubWidgets.js` (`renderHubVip`, `renderHubMissions`, `pushLiveTicker`) and wired `#hub-vip-badge`, `#hub-missions-widget`, and `#hub-live-ticker` into `index.html` and `src/ui.js`.
   - Added segment-crossing tick audio (`sound.playCrashTick`) during GSAP spin in `src/games/wheel.js` and redesigned `src/css/_wheel.css`.
+- [x] **Step 26 — Provably Fair Modal, Single-Win Popup Verification & Expanded E2E:**
+  - Added `#fairness-modal` in `src/partials/modals.html` and `otevriFairnessModal` / `obnovitFairnessSeed` in `src/events/uiHandlers.js` using `src/fairness.js`.
+  - Verified `animateWinResult` in `src/ui/resultAnimations.js` displays only the single-round win amount (`+winAmount`), never the total balance.
+  - Added E2E tests for Blackjack, Wheel of Fortune, and Guessing 1–5 in `tests/e2e/gameplay.spec.ts`.
