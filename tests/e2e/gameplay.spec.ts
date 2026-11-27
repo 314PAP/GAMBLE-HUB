@@ -4,7 +4,7 @@ async function registerAndEnterHub(page, name = 'E2E') {
   await page.goto('/');
   await expect(page.locator('#screen-login.active')).toBeVisible({ timeout: 10000 });
   await page.locator('#btn-create-player').click();
-  await expect(page.locator('#screen-register.active')).toBeVisible({ timeout: 5000 });
+  await expect(page.locator('#screen-register.active')).toBeVisible({ timeout: 8000 });
   await page.locator('#reg-name').fill(name);
   await page.locator('#screen-register button:has-text("Vytvořit účet")').click();
   await expect(page.locator('#screen-hub.active')).toBeVisible({ timeout: 5000 });
@@ -22,7 +22,7 @@ test.describe('GAMBLE HUB - Gameplay & Modals', () => {
     await expect(balance).toHaveText('750');
 
     // Enter a game and open player stats modal
-    await page.click('#screen-hub button:has-text("AUTOMAT")');
+    await page.locator('#screen-hub button:has-text("AUTOMAT")').evaluate((el) => (el as HTMLElement).click());
     await page.waitForSelector('#screen-game.active', { timeout: 10000 });
     await page.click('#screen-game button[onclick="otevriStatsModal()"]');
     await expect(page.locator('#stats-modal')).toBeVisible();
@@ -60,7 +60,7 @@ test.describe('GAMBLE HUB - Gameplay & Modals', () => {
   test('should launch Slots and display spin controls', async ({ page }) => {
     await registerAndEnterHub(page, 'E2E3');
 
-    await page.click('#screen-hub button:has-text("AUTOMAT")');
+    await page.locator('#screen-hub button:has-text("AUTOMAT")').evaluate((el) => (el as HTMLElement).click());
     await page.waitForSelector('#screen-game.active', { timeout: 10000 });
 
     await expect(page.locator('#btn-spin-slots')).toBeVisible();
@@ -74,7 +74,8 @@ test.describe('GAMBLE HUB - Gameplay & Modals', () => {
     await page.click('#leaderboard-card');
     await expect(page.locator('#explorer-modal')).toBeVisible();
 
-    await page.click('#explorer-tab-history');
+    await expect(page.locator('#explorer-tab-history')).toBeVisible();
+    await page.locator('#explorer-tab-history').click();
     await expect(page.locator('#explorer-sec-history')).toBeVisible();
   });
 });

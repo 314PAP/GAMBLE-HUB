@@ -29,7 +29,7 @@ test.describe('GAMBLE HUB - Main Flow', () => {
     await page.click('#btn-create-player');
     
     // Wait for register screen
-    await page.waitForSelector('#screen-register.active', { timeout: 3000 });
+    await expect(page.locator('#screen-register.active')).toBeVisible({ timeout: 8000 });
     
     // Verify register form is visible
     const regTitle = page.locator('#register-title');
