@@ -113,3 +113,6 @@
 - [x] **Step 24 — Redesign `Hádanka 1-5` (Chrome-style Glass Circle) & Remove `Hádanka 1-10`:**
   - Removed `Hádanka 1-10` (ID 1) from `index.html`, `src/games/config.js`, and `src/ui/gameInfo.js`.
   - Redesigned `Hádanka 1-5` (ID 2) in `src/games/guessing.js` & `src/css/_number-buttons.css` into a glowing glass circle with `5` in the center and `1–4` as 4 surrounding colored segments.
+- [x] **Step 25 — Hub VIP Badge, Daily Missions Widget, Live Ticker & Wheel Tick Audio:**
+  - Created `src/ui/hubWidgets.js` (`renderHubVip`, `renderHubMissions`, `pushLiveTicker`) and wired `#hub-vip-badge`, `#hub-missions-widget`, and `#hub-live-ticker` into `index.html` and `src/ui.js`.
+  - Added segment-crossing tick audio (`sound.playCrashTick`) during GSAP spin in `src/games/wheel.js` and redesigned `src/css/_wheel.css`.

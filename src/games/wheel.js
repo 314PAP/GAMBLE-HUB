@@ -85,11 +85,20 @@ export class WheelGame {
     const wrapper = spinner?.closest(".wheel-wrapper");
     wrapper?.classList.add("is-spinning");
     if (spinner) {
+      let lastSeg = -1;
       await new Promise((resolve) => {
         gsap.to(spinner, {
           rotation: nextRotation,
           duration: 2.2,
           ease: "power3.out",
+          onUpdate: () => {
+            const rot = Number(gsap.getProperty(spinner, "rotation")) || 0;
+            const seg = Math.floor((((360 - (rot % 360)) % 360) + 360) % 360 / step);
+            if (seg !== lastSeg) {
+              lastSeg = seg;
+              sound.playCrashTick?.();
+            }
+          },
           onComplete: resolve,
         });
       });

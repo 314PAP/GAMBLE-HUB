@@ -56,6 +56,7 @@
 | `src/ui/Accounts.js` | ~48 | `Accounts` | Account selection & deletion list | `db.js`, `utils.js` |
 | `src/ui/DeleteConfirm.js` | ~30 | `DeleteConfirm` | Account deletion confirmation modal | — |
 | `src/ui/gameInfo.js` | ~26 | `GAME_INFOS` | HTML content for game info panels | — |
+| `src/ui/hubWidgets.js` | ~75 | `renderHubVip`, `renderHubMissions`, `pushLiveTicker` | Hub VIP badge, daily missions widget & live win ticker | `vip.js`, `missions.js`, `db.js`, `utils.js`, `sound.js` |
 
 ## Animations (`src/animations/`)
 | File | Lines | Key Classes / Exports | Responsibility | Dependencies |

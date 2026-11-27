@@ -157,8 +157,9 @@
           aria-label="Herní lišta"
         >
           <div class="flex items-center justify-between w-full gap-2 min-w-0 shrink">
-            <div class="text-sm truncate text-neon-gold">
+            <div class="text-sm truncate text-neon-gold flex items-center gap-2">
               <span id="hub-player-name" class="sr-only">Jméno hráče</span>
+              <span id="hub-vip-badge" class="text-xs px-2 py-0.5 rounded-full bg-white/5 border border-neon-gold/30"></span>
             </div>
             <div
               class="text-base sm:text-lg font-bold whitespace-nowrap text-neon-green text-glow-green"
@@ -240,6 +241,16 @@
             </div>
           </div>
         </header>
+        <div
+          id="hub-live-ticker"
+          class="hidden text-[11px] text-neon-gold bg-black/60 border border-neon-gold/30 rounded-lg px-2.5 py-1 mb-1.5 truncate shrink-0"
+          aria-live="polite"
+        ></div>
+        <div
+          id="hub-missions-widget"
+          class="grid grid-cols-1 sm:grid-cols-3 gap-1.5 mb-1.5 shrink-0"
+          aria-label="Denní mise"
+        ></div>
         <div
           id="game-loading"
           class="hidden flex-col items-center justify-center p-4 absolute inset-0 z-20 bg-black/80 backdrop-blur-sm"

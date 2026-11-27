@@ -9,6 +9,7 @@ import { GAME_INFOS } from "./ui/gameInfo.js";
 import { LeaderboardManager } from "./ui/Leaderboard.js";
 import { ExplorerManager } from "./ui/Explorer.js";
 import { StatsManager } from "./ui/Stats.js";
+import { renderHubVip, renderHubMissions } from "./ui/hubWidgets.js";
 import { AccountsManager } from "./ui/Accounts.js";
 import { DeleteConfirmDialog } from "./ui/DeleteConfirm.js";
 import { sound } from "./sound";
@@ -101,6 +102,12 @@ export class GameUI {
 
   // Updates player profile info in the navigation bars
   updateMiniProfile(username, balance) {
+    renderHubVip(username);
+    renderHubMissions(username, () => {
+      if (this.gameManager?.aktualniHrac === username) {
+        this.updateMiniProfile(username, this.db.getBalance(username));
+      }
+    });
     const hubName = document.getElementById("hub-player-name");
     const hubMoney = document.getElementById("hub-player-money");
     const gameMoney = document.getElementById("game-player-money");
