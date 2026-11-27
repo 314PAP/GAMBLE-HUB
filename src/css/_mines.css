@@ -2,8 +2,8 @@
 .mines-grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 5px;
-  width: min(100%, 230px, 31dvh);
+  gap: 4px;
+  width: min(100%, 210px, 26dvh);
   aspect-ratio: 1 / 1;
   flex-shrink: 0;
 }

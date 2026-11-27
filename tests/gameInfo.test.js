@@ -2,13 +2,13 @@ import { describe, it, expect } from 'vitest';
 import { GAME_INFOS } from '../src/ui/gameInfo.js';
 
 describe('GAME_INFOS', () => {
-  it('should have 8 games defined', () => {
-    expect(Object.keys(GAME_INFOS).length).toBe(8);
+  it('should have 9 games defined', () => {
+    expect(Object.keys(GAME_INFOS).length).toBe(9);
   });
 
   it('should have correct game IDs', () => {
     const ids = Object.keys(GAME_INFOS).map(Number).sort((a, b) => a - b);
-    expect(ids).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+    expect(ids).toEqual([2, 3, 4, 5, 6, 7, 8, 9, 10]);
   });
 
   it('should have required fields in each game info', () => {
@@ -35,15 +35,13 @@ describe('GAME_INFOS', () => {
     });
   });
 
-  it('should include game info abbreviation button', () => {
+  it('should not duplicate abbreviation button inside every game info', () => {
     Object.values(GAME_INFOS).forEach((info) => {
-      expect(info.html).toContain('otevriAbbrevModal');
+      expect(info.html).not.toContain('otevriAbbrevModal');
     });
   });
 
   it('should have valid multiplier information', () => {
-    // Game 1 (1-10)
-    expect(GAME_INFOS[1].html).toContain('10násobek');
     // Game 2 (1-5)
     expect(GAME_INFOS[2].html).toContain('5násobek');
     // Game 3 (dice)

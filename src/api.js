@@ -54,6 +54,9 @@ export class API {
   }
 
   async _initAuth() {
+    if (import.meta.env.VITE_FIREBASE_ANON_AUTH !== "true") {
+      return null;
+    }
     try {
       const auth = getAuth(this.app);
       if (auth.currentUser) {
@@ -64,7 +67,9 @@ export class API {
       this.uid = cred?.user?.uid || null;
       return this.uid;
     } catch (e) {
-      console.warn("Firebase anonymous auth unavailable:", e?.message || e);
+      if (e?.code !== "auth/configuration-not-found") {
+        console.warn("Firebase anonymous auth unavailable:", e?.message || e);
+      }
       return null;
     }
   }

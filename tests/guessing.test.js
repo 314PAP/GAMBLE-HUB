@@ -71,7 +71,7 @@ describe('GuessingGame', () => {
       mockContainer.classList.add.mockClear();
 
       game.generateGrid(0, 35, () => {});
-      expect(mockContainer.classList.remove).toHaveBeenCalledWith('grid-cols-5');
+      expect(mockContainer.classList.remove).toHaveBeenCalledWith('grid-cols-5', 'grid-cols-6', 'guess-chrome-wheel');
       expect(mockContainer.classList.add).toHaveBeenCalledWith('grid-cols-6');
     });
   });

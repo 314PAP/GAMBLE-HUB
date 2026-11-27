@@ -26,6 +26,8 @@
   @import "./_dice.css";
   @import "./_mines.css";
   @import "./_crash.css";
+  @import "./_blackjack.css";
+  @import "./_wheel.css";
 }
 
 /* Custom utilities */

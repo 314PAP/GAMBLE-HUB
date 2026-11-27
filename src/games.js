@@ -38,6 +38,8 @@ export class GameManager {
     this.dice = null;
     this.mines = null;
     this.crash = null;
+    this.blackjack = null;
+    this.wheel = null;
 
     // Active States
     this.activeGameId = 0; // 1: Guess 1-10, 2: Guess 1-5, 3: Dice, 4: Roulette, 5: Slots, 6: Hi-Lo
@@ -68,13 +70,15 @@ export class GameManager {
     
     for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
       try {
-        const [slotsModule, hiloModule, guessingModule, diceModule, minesModule, crashModule] = await Promise.all([
+        const [slotsModule, hiloModule, guessingModule, diceModule, minesModule, crashModule, blackjackModule, wheelModule] = await Promise.all([
           import('./games/slots.js'),
           import('./games/hilo.js'),
           import('./games/guessing.js'),
           import('./games/dice.js'),
           import('./games/mines.js'),
           import('./games/crash.js'),
+          import('./games/blackjack.js'),
+          import('./games/wheel.js'),
         ]);
         
         this.slots = new slotsModule.SlotMachineGame(this.symbols, this.winningLines);
@@ -83,6 +87,8 @@ export class GameManager {
         this.dice = new diceModule.DiceGame();
         this.mines = new minesModule.MinesGame();
         this.crash = new crashModule.CrashGame();
+        this.blackjack = new blackjackModule.BlackjackGame();
+        this.wheel = new wheelModule.WheelGame();
         
         this._gameModulesLoaded = true;
         
@@ -328,6 +334,79 @@ export class GameManager {
     const res = this.crash.cashOut();
     if (!res) return;
     this.processGameResult(true, res.winAmount, "Crash", res.resultText, res.multiplier >= 5, res.bet);
+  }
+
+  // Play Blackjack game
+  async startBlackjack() {
+    const modulesLoaded = await this._ensureGameModules();
+    if (!modulesLoaded) return;
+    if (this.blackjack.isRoundActive) return;
+    if (!this._startRound()) return;
+    const res = this.blackjack.start(this.activeBet);
+    if (res) {
+      this._handleBlackjackResult(res);
+    }
+  }
+
+  hitBlackjack() {
+    if (!this.blackjack || !this.blackjack.isRoundActive) return;
+    const res = this.blackjack.hit();
+    if (res) {
+      this._handleBlackjackResult(res);
+    }
+  }
+
+  standBlackjack() {
+    if (!this.blackjack || !this.blackjack.isRoundActive) return;
+    const res = this.blackjack.stand();
+    if (res) {
+      this._handleBlackjackResult(res);
+    }
+  }
+
+  doubleBlackjack() {
+    if (!this.blackjack || !this.blackjack.isRoundActive) return;
+    const balance = this.db.getPlayerBalance(this.currentPlayer);
+    if (balance < this.blackjack.bet) {
+      this.ui.showAlert('Nedostatek mincí pro Double!', 'error');
+      return;
+    }
+    this.db.updateBalance(this.currentPlayer, balance - this.blackjack.bet);
+    this.ui.updateBalanceDisplay(this.currentPlayer);
+    const res = this.blackjack.doubleDown();
+    if (res) {
+      this._handleBlackjackResult(res);
+    }
+  }
+
+  _handleBlackjackResult(res) {
+    this.processGameResult(
+      res.isWin,
+      res.winAmount,
+      "Blackjack",
+      res.resultText,
+      res.isBlackjack,
+      res.bet
+    );
+  }
+
+  // Play Wheel of Fortune game
+  async spinWheel() {
+    const modulesLoaded = await this._ensureGameModules();
+    if (!modulesLoaded) return;
+    if (this.wheel.isSpinning) return;
+    if (!this._startRound()) return;
+
+    this.lockGameControls(true);
+    const res = await this.wheel.spinAsync(this.activeBet);
+    this.lockGameControls(false);
+    if (res) {
+      this.processGameResult(res.isWin, res.winAmount, "Kolo štěstí", res.resultText, res.multiplier >= 5, res.bet);
+    }
+  }
+
+  setWheelRisk(risk) {
+    if (this.wheel) this.wheel.setRisk(risk);
   }
 
   // Spin slots

@@ -1,5 +1,8 @@
 import { sound } from "../sound.js";
 import { evaluateAchievements } from "../achievements.js";
+import { updateMissionsProgress } from "../missions.js";
+import { addPlayerXp } from "../vip.js";
+import { vibrateWin, vibrateLoss } from "../haptics.js";
 import { broadcastBigWin } from "../liveFeed.js";
 
 import { GAME_CONFIG } from "./config.js";
@@ -62,6 +65,27 @@ export function processGameResult(
   unlocked.forEach((ach) => {
     gm.ui.showAlert("success", `${ach.icon} Úspěch: ${ach.title}`, ach.desc);
   });
+
+  const multiplier = betAmount > 0 ? winAmount / betAmount : 1;
+  const completedMissions = updateMissionsProgress(gm.currentPlayer, {
+    gameName,
+    isWin,
+    multiplier,
+  });
+  completedMissions.forEach((m) => {
+    const curBal = gm.db.getPlayerBalance(gm.currentPlayer);
+    gm.db.updateBalance(gm.currentPlayer, curBal + m.reward);
+    gm.ui.updateBalanceDisplay(gm.currentPlayer);
+    gm.ui.showAlert("success", `🎯 Denní mise splněna!`, `${m.title} (+${m.reward} mincí)`);
+  });
+
+  if (isWin) vibrateWin();
+  else vibrateLoss();
+
+  const vipRes = addPlayerXp(gm.currentPlayer, betAmount);
+  if (vipRes.leveledUp) {
+    gm.ui.showAlert("success", `⭐ VIP Level ${vipRes.info.level}!`, `Nová hodnost: ${vipRes.info.name}`);
+  }
 
   if (gm.api) {
     gm.api.submitScore(gm.currentPlayer, newBalance);

@@ -44,13 +44,35 @@ export class GuessingGame {
     if (!gridContainer) return;
 
     gridContainer.innerHTML = "";
+    gridContainer.classList.remove("grid-cols-5", "grid-cols-6", "guess-chrome-wheel");
+
+    if (min === 1 && max === 5) {
+      gridContainer.classList.add("guess-chrome-wheel");
+      const segments = [
+        { num: 1, cls: "chrome-seg-1" },
+        { num: 2, cls: "chrome-seg-2" },
+        { num: 3, cls: "chrome-seg-3" },
+        { num: 4, cls: "chrome-seg-4" },
+        { num: 5, cls: "chrome-center" },
+      ];
+      segments.forEach(({ num, cls }) => {
+        const btn = document.createElement("button");
+        btn.className = `btn-num ${cls}`;
+        btn.innerText = num;
+        btn.dataset.num = num;
+        btn.onclick = () => {
+          if (this.isPlaying) return;
+          onNumberClick(num);
+        };
+        gridContainer.appendChild(btn);
+      });
+      return;
+    }
 
     // For Roulette (0-36), adjust columns if needed
     if (max - min > 10) {
-      gridContainer.classList.remove("grid-cols-5");
       gridContainer.classList.add("grid-cols-6");
     } else {
-      gridContainer.classList.remove("grid-cols-6");
       gridContainer.classList.add("grid-cols-5");
     }
 

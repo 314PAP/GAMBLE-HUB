@@ -1,0 +1,36 @@
+/* Blackjack card & hand styles */
+.bj-hand {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  min-height: 54px;
+}
+
+.bj-card {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 54px;
+  padding: 0 6px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  background: rgba(15, 22, 42, 0.92);
+  color: var(--text-primary);
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
+}
+
+.bj-card-red {
+  color: #ff5c7c;
+  border-color: rgba(255, 92, 124, 0.45);
+}
+
+.bj-card-hidden {
+  background: linear-gradient(135deg, rgba(189, 0, 255, 0.25), rgba(0, 240, 255, 0.15));
+  border-color: var(--neon-purple);
+  color: var(--neon-cyan);
+}

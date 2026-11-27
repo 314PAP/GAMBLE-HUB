@@ -292,14 +292,14 @@
           <div class="game-actions pt-1 shrink-0">
             <div class="flex justify-center gap-2 mb-2">
               <button
-                class="btn btn-primary flex-1"
+                class="btn btn-primary w-full max-w-[240px]"
                 id="btn-mines-start"
                 onclick="startMines()"
               >
                 ▶ START HRY
               </button>
               <button
-                class="btn btn-gold flex-1 hidden"
+                class="btn btn-gold w-full max-w-[240px] hidden"
                 id="btn-mines-cashout"
                 onclick="cashOutMines()"
                 disabled
@@ -349,6 +349,62 @@
                 💰 VYBRAT
               </button>
             </div>
+          </div>
+        </article>
+
+        <article id="blackjack-area" class="game-container hidden" aria-labelledby="blackjack-title">
+          <h3 id="blackjack-title" class="sr-only">Blackjack</h3>
+          <div class="game-main flex flex-col flex-1 min-h-0 overflow-y-auto items-center justify-center gap-3 py-2">
+            <div class="bj-table">
+              <div class="bj-hand-section">
+                <div class="bj-hand-header">
+                  <span>Krupiér</span>
+                  <span id="bj-dealer-score" class="bj-score">?</span>
+                </div>
+                <div id="bj-dealer-hand" class="bj-hand" aria-label="Karty krupiéra"></div>
+              </div>
+              <div class="bj-hand-section">
+                <div class="bj-hand-header">
+                  <span>Hráč</span>
+                  <span id="bj-player-score" class="bj-score">0</span>
+                </div>
+                <div id="bj-player-hand" class="bj-hand" aria-label="Karty hráče"></div>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-2 w-full max-w-[340px]" role="group" aria-label="Blackjack ovládání">
+              <button class="btn btn-primary flex-1" id="btn-bj-deal" onclick="startBlackjack()">
+                🃏 ROZDAT
+              </button>
+              <button class="btn btn-info flex-1" id="btn-bj-hit" onclick="hitBlackjack()" disabled>
+                HIT
+              </button>
+              <button class="btn btn-gold flex-1" id="btn-bj-stand" onclick="standBlackjack()" disabled>
+                STAND
+              </button>
+              <button class="btn btn-neon flex-1" id="btn-bj-double" onclick="doubleBlackjack()" disabled>
+                2× DOUBLE
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article id="wheel-area" class="game-container hidden" aria-labelledby="wheel-title">
+          <h3 id="wheel-title" class="sr-only">Kolo štěstí</h3>
+          <div class="game-main flex flex-col flex-1 min-h-0 overflow-y-auto items-center justify-center gap-3 py-2">
+            <div class="wheel-wrapper">
+              <div class="wheel-pointer" aria-hidden="true"></div>
+              <div id="wheel-spinner" class="wheel-spinner">
+                <div id="wheel-labels" class="wheel-labels"></div>
+              </div>
+            </div>
+            <div class="flex gap-2" role="group" aria-label="Úroveň rizika">
+              <button type="button" class="btn btn-sm wheel-risk-btn" data-risk="low" onclick="setWheelRisk('low')">Nízké</button>
+              <button type="button" class="btn btn-sm wheel-risk-btn active" data-risk="medium" onclick="setWheelRisk('medium')">Střední</button>
+              <button type="button" class="btn btn-sm wheel-risk-btn" data-risk="high" onclick="setWheelRisk('high')">Vysoké</button>
+            </div>
+            <button id="btn-wheel-spin" class="btn btn-gold w-full max-w-[240px]" onclick="spinWheel()">
+              🎡 ROZTOČIT KOLO
+            </button>
           </div>
         </article>
 
@@ -576,12 +632,6 @@
           </div>
           <!-- Řada 2: Bet Slider -->
           <div id="bet-slider-container" role="none"></div>
-          <div
-            class="text-[10px] text-text-muted text-center tracking-wide hidden sm:block"
-            aria-label="Klávesové zkratky"
-          >
-            Zkratky: Space = Spin/Start | ←/→ = Sázka | H/L = Hi-Lo | M = Zvuk
-          </div>
         </nav>
 
         <div

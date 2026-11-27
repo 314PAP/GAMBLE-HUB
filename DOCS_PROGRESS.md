@@ -84,3 +84,32 @@
 - `npm run test`: 21/21 test files passed (165/165 tests).
 - `npm run test:e2e`: 20/20 Playwright tests passed (Chromium + Mobile Chrome).
 - `npm run build`: clean production build with lazy-loaded `chart.js`.
+
+## Planned Roadmap
+- [x] **Step 14 — Console Hygiene & Global `Číselné zkratky`:**
+  - Silence expected `auth/configuration-not-found` in `src/api.js` and guard `reg.update()` against `InvalidStateError` in `src/swRegister.js`.
+  - Move `📊 Číselné zkratky` out of every game's info modal (`src/ui/gameInfo.js`) into a single global location (Stats / Hub) so game info modals stay concise.
+  - Sync `CLASS_MAP.md` line counts.
+- [x] **Step 15 — New Game: Blackjack (ID 9):**
+  - Implement `src/games/blackjack.js` (`Hit`, `Stand`, `Double`, `Blackjack 2.5×`, dealer AI to 17) + `src/css/_blackjack.css` reusing card flip styles.
+  - Register in `config.js`, `screenSetup.js`, `controlsLock.js`, `resultBoxes.js`, `games.js`, `globalHandlers.js`, `gameInfo.js`, `screen-game.html`, `index.html`, plus unit tests (`tests/blackjack.test.js`, 171/171 passing).
+- [x] **Step 16 — New Game: Kolo štěstí / Wheel (ID 10) & Daily Missions:**
+  - Implemented `src/games/wheel.js` (`WheelGame`, Low/Medium/High risk, GSAP spin) + `src/css/_wheel.css` and `src/missions.js` (daily missions `c_missions` with coin rewards), plus unit tests (`tests/wheel.test.js`, `tests/missions.test.js`).
+- [x] **Step 17 — Game History Strip, Mobile Ergonomics & Audio/Visual Juice:**
+  - Added mobile touch-target improvements (`< 400px`) in `src/css/_bet-buttons.css` and dedicated Mines/Crash audio cues (`playDiamond`, `playExplosion`, `playCrashTick`) in `src/sound.js`.
+- [x] **Step 18 — Provably Fair Seeds (Local Verification):**
+  - Created `src/fairness.js` (`sha256Hex`, `generateFairSeedPair`, `verifyFairSeed`) with unit tests (`tests/fairness.test.js`).
+- [x] **Step 19 — Haptics (`src/haptics.js`):**
+  - Added `vibrate`, `vibrateTap`, `vibrateWin`, `vibrateLoss` wired into `src/games/resultProcessor.js` with unit tests (`tests/haptics.test.js`).
+- [x] **Step 20 — VIP / XP Progression (`src/vip.js`):**
+  - Added `VIP_LEVELS`, `getPlayerVip`, `addPlayerXp` (`c_vip` in `localStorage`) wired into `src/games/resultProcessor.js` with Level-Up alerts and unit tests (`tests/vip.test.js`).
+- [x] **Step 21 — Production Console & Network Fixes:**
+  - Redirected missing `8bit-select` sound in `src/soundIndex.js` to existing `click-retro.mp3` (eliminating 404).
+  - Gated `signInAnonymously` in `src/api.js` behind `VITE_FIREBASE_ANON_AUTH === "true"` to prevent `400` requests on `identitytoolkit.googleapis.com`.
+- [x] **Step 22 — Mines 5×5 Responsiveness & `START HRY` Button Width:**
+  - Constrained `START HRY` / `VYBRAT` buttons in `src/partials/screen-game.html` (`max-w-[240px]`) and tightened `.mines-grid` sizing in `src/css/_mines.css`.
+- [x] **Step 23 — `Číselné zkratky`, Keyboard Hints & CSS Cleanup:**
+  - Moved the always-visible keyboard shortcut footer from `src/partials/screen-game.html` into `#abbrev-modal` in `src/partials/modals.html`.
+- [x] **Step 24 — Redesign `Hádanka 1-5` (Chrome-style Glass Circle) & Remove `Hádanka 1-10`:**
+  - Removed `Hádanka 1-10` (ID 1) from `index.html`, `src/games/config.js`, and `src/ui/gameInfo.js`.
+  - Redesigned `Hádanka 1-5` (ID 2) in `src/games/guessing.js` & `src/css/_number-buttons.css` into a glowing glass circle with `5` in the center and `1–4` as 4 surrounding colored segments.

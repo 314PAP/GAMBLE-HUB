@@ -134,3 +134,6 @@ npm run test:e2e      # Playwright e2e tests
 - **Firebase Env in CI:** V `pages.yml` předávej všechny `VITE_FIREBASE_*` proměnné přímo v `env:` kroku `Build` (kromě `.env`), aby je Vite vždy spolehlivě načetl z `Repository secrets`.
 - **Playwright `webServer`:** `playwright.config.ts` musí definovat `webServer` (`npm run dev -- --port 5173`), jinak `npm run test:e2e` v CI spadne na `ERR_CONNECTION_REFUSED`. Při úpravách UI/ID nezapomeň ověřit selektory v `tests/e2e/main-flow.spec.ts`.
 - **Service Worker (`public/sw.js` & `src/main.js`):** Navigační požadavky (`index.html`) obsluhuj strategií **network-first** (fallback na cache / `./offline.html`), a tlačítko aktualizace musí před `window.location.reload()` po `SKIP_WAITING` počkat na `controllerchange`, jinak prohlížeč zůstane na staré cache.
+
+## Git & Deploy
+- Po každém dokončeném a ověřeném úkolu (`npm run lint`, `npm run test`, `npm run build`) změny vždy commitni a pushni do větve `main`, aby se automaticky nasadily na GitHub Pages.

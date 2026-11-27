@@ -19,7 +19,7 @@ export function lockGameControls(lock) {
     b.disabled = lock;
   });
 
-  ['btn-spin-slots', 'btn-hilo-high', 'btn-hilo-low', 'btn-hilo-cashout', 'btn-mines-start', 'btn-mines-cashout', 'btn-crash-start', 'btn-crash-cashout'].forEach((id) => {
+  ['btn-spin-slots', 'btn-hilo-high', 'btn-hilo-low', 'btn-hilo-cashout', 'btn-mines-start', 'btn-mines-cashout', 'btn-crash-start', 'btn-crash-cashout', 'btn-bj-deal', 'btn-bj-hit', 'btn-bj-stand', 'btn-bj-double', 'btn-wheel-spin'].forEach((id) => {
     const el = document.getElementById(id);
     if (el) el.disabled = lock;
   });

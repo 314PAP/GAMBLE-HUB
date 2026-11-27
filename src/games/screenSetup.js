@@ -1,7 +1,7 @@
 import { DISPLAY_STATES, GAME_CONFIG } from "./config.js";
 import { clearAllResultBoxes } from "./resultBoxes.js";
 
-const GAME_AREA_IDS = ["slots-area", "hilo-area", "mines-area", "crash-area", "classic-inputs", "dice-area"];
+const GAME_AREA_IDS = ["slots-area", "hilo-area", "mines-area", "crash-area", "blackjack-area", "wheel-area", "classic-inputs", "dice-area"];
 
 /**
  * Configure DOM visibility and game-specific controls when switching to a game.
@@ -73,6 +73,24 @@ export function setupGameScreen(gm, gameId) {
       crashEl.classList.add("flex");
     }
     gm.crash.init();
+  }
+
+  if (state.blackjack) {
+    const bjEl = document.getElementById("blackjack-area");
+    if (bjEl) {
+      bjEl.classList.remove("hidden");
+      bjEl.classList.add("flex");
+    }
+    gm.blackjack.init();
+  }
+
+  if (state.wheel) {
+    const wheelEl = document.getElementById("wheel-area");
+    if (wheelEl) {
+      wheelEl.classList.remove("hidden");
+      wheelEl.classList.add("flex");
+    }
+    gm.wheel.init();
   }
 
   if (titleEl) {

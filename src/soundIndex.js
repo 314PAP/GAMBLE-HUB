@@ -25,7 +25,7 @@ export const SOUND_ASSETS = {
   '8bit-jump': `${BASE}sounds/sfx/8bit-jump.mp3`,
   '8bit-powerup': `${BASE}sounds/sfx/8bit-powerup.mp3`,
   '8bit-coin': `${BASE}sounds/sfx/8bit-coin.mp3`,
-  '8bit-select': `${BASE}sounds/sfx/8bit-select.mp3`,
+  '8bit-select': `${BASE}sounds/sfx/click-retro.mp3`,
 
   'win-8bit': `${BASE}sounds/sfx/floraphonic-level-up-bonus-sequence-3-186892.mp3`,
   'lose-8bit': `${BASE}sounds/sfx/click-heavy.mp3`,

@@ -293,6 +293,30 @@ export class GlobalEventHandlers {
       this.gm.cashOutCrash();
     };
 
+    window.startBlackjack = () => {
+      this.gm.startBlackjack();
+    };
+
+    window.hitBlackjack = () => {
+      this.gm.hitBlackjack();
+    };
+
+    window.standBlackjack = () => {
+      this.gm.standBlackjack();
+    };
+
+    window.doubleBlackjack = () => {
+      this.gm.doubleBlackjack();
+    };
+
+    window.spinWheel = () => {
+      this.gm.spinWheel();
+    };
+
+    window.setWheelRisk = (risk) => {
+      this.gm.setWheelRisk(risk);
+    };
+
     window.vsaditRuletaVedlejsi = (betType) => {
       const cfg = GAME_CONFIG[4];
       this.gm.playGuessingGame(betType, cfg.minVal, cfg.maxVal, cfg.multVal, cfg.label);

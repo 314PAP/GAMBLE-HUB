@@ -115,3 +115,13 @@
     inset -1px -1px 0px rgba(0, 0, 0, 0.7);
 }
 
+
+@media (max-width: 400px) {
+  .bet-btn,
+  .btn-bet {
+    min-height: 40px;
+    padding-top: 0.45rem;
+    padding-bottom: 0.45rem;
+    font-size: 0.8rem;
+  }
+}

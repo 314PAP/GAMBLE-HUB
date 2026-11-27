@@ -6,6 +6,8 @@ const RESULT_BOX_IDS = [
   'game-result-hilo',
   'game-result-mines',
   'game-result-crash',
+  'game-result-blackjack',
+  'game-result-wheel',
 ];
 
 /**

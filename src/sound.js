@@ -372,6 +372,29 @@ class SoundManager {
       this._activeFileAudios.delete(audio);
     });
   }
+
+  playDiamond() {
+    if (this.sfxMuted) return;
+    this.initContext();
+    if (!this.ctx) return;
+    this.playTone(880, 'sine', 0.08, 0.12);
+    setTimeout(() => this.playTone(1320, 'sine', 0.1, 0.12), 55);
+  }
+
+  playExplosion() {
+    if (this.sfxMuted) return;
+    this.initContext();
+    if (!this.ctx) return;
+    this.playTone(110, 'sawtooth', 0.28, 0.2);
+    setTimeout(() => this.playTone(65, 'triangle', 0.3, 0.18), 60);
+  }
+
+  playCrashTick() {
+    if (this.sfxMuted) return;
+    this.initContext();
+    if (!this.ctx) return;
+    this.playTone(520, 'sine', 0.03, 0.05);
+  }
 }
 
 export const sound = new SoundManager();

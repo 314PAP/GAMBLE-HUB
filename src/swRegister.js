@@ -57,23 +57,27 @@ export function initServiceWorker() {
 
   const registerSW = async () => {
     try {
+      const baseUrl = import.meta.env.BASE_URL || "/";
+      const expectedScope = new URL(baseUrl, window.location.origin).href;
       const existingRegistrations = await navigator.serviceWorker.getRegistrations();
       for (const registration of existingRegistrations) {
-        if (registration.scope !== `${window.location.origin}/`) {
+        if (registration.scope !== expectedScope) {
           await registration.unregister();
         }
       }
 
-      const swPath = `${import.meta.env.BASE_URL}sw.js`;
-      const baseUrl = import.meta.env.BASE_URL || "/";
+      const swPath = `${baseUrl}sw.js`;
       const registration = await navigator.serviceWorker.register(swPath, { scope: baseUrl });
 
       const checkForUpdates = async () => {
         try {
           const ready = await navigator.serviceWorker.ready;
+          if (!ready || (!ready.active && !ready.waiting && !ready.installing)) return;
           await ready.update();
         } catch (e) {
-          console.warn("SW update check failed:", e);
+          if (e?.name !== "InvalidStateError") {
+            console.warn("SW update check failed:", e);
+          }
         }
       };
 

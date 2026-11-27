@@ -88,3 +88,49 @@
     filter: brightness(1.25);
   }
 }
+
+/* Chrome-style glowing glass wheel for Hádanka 1-5 */
+.guess-chrome-wheel {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px;
+  width: min(220px, 34dvh);
+  height: min(220px, 34dvh);
+  margin: 0 auto;
+  padding: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.14), rgba(10, 14, 30, 0.85));
+  border: 2px solid rgba(0, 243, 255, 0.45);
+  box-shadow: 0 0 28px rgba(0, 243, 255, 0.25), inset 0 0 20px rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.guess-chrome-wheel .btn-num {
+  width: 100%;
+  height: 100%;
+  font-size: 1.25rem;
+  font-weight: 800;
+  backdrop-filter: blur(6px);
+}
+
+.guess-chrome-wheel .chrome-seg-1 { border-radius: 90% 14px 14px 14px; background: rgba(255, 59, 92, 0.25); border-color: #ff3b5c; color: #ff8fa3; box-shadow: 0 0 14px rgba(255, 59, 92, 0.35); }
+.guess-chrome-wheel .chrome-seg-2 { border-radius: 14px 90% 14px 14px; background: rgba(0, 230, 118, 0.22); border-color: #00e676; color: #69f0ae; box-shadow: 0 0 14px rgba(0, 230, 118, 0.35); }
+.guess-chrome-wheel .chrome-seg-3 { border-radius: 14px 14px 14px 90%; background: rgba(255, 215, 0, 0.22); border-color: #ffd700; color: #ffe57f; box-shadow: 0 0 14px rgba(255, 215, 0, 0.35); }
+.guess-chrome-wheel .chrome-seg-4 { border-radius: 14px 14px 90% 14px; background: rgba(188, 19, 254, 0.24); border-color: #bc13fe; color: #ea80fc; box-shadow: 0 0 14px rgba(188, 19, 254, 0.35); }
+
+.guess-chrome-wheel .chrome-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 38%;
+  height: 38%;
+  border-radius: 50%;
+  z-index: 5;
+  background: radial-gradient(circle at 30% 30%, rgba(0, 243, 255, 0.55), rgba(10, 25, 60, 0.95));
+  border: 2px solid #00f3ff;
+  color: #fff;
+  box-shadow: 0 0 22px rgba(0, 243, 255, 0.65), inset 0 0 12px rgba(255, 255, 255, 0.3);
+}
