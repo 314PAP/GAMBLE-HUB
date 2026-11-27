@@ -84,8 +84,8 @@ test.describe('GAMBLE HUB - Gameplay & Modals', () => {
     await page.locator('#screen-hub button:has-text("Blackjack")').evaluate((el) => (el as HTMLElement).click());
     await expect(page.locator('#screen-game.active')).toBeVisible({ timeout: 10000 });
     await expect(page.locator('#blackjack-area')).toBeVisible();
-    await page.locator('#btn-bj-start').click();
-    await expect(page.locator('#bj-player-cards')).not.toBeEmpty();
+    await page.locator('#btn-bj-deal').click();
+    await expect(page.locator('#bj-player-hand')).not.toBeEmpty();
   });
 
   test('should launch Wheel of Fortune and display spin controls', async ({ page }) => {
@@ -100,7 +100,7 @@ test.describe('GAMBLE HUB - Gameplay & Modals', () => {
     await registerAndEnterHub(page, 'E2E7');
     await page.locator('#screen-hub button:has-text("Hádanka 1-5")').evaluate((el) => (el as HTMLElement).click());
     await expect(page.locator('#screen-game.active')).toBeVisible({ timeout: 10000 });
-    await expect(page.locator('#classic-area')).toBeVisible();
-    await expect(page.locator('#classic-area .btn-num')).toHaveCount(5);
+    await expect(page.locator('#classic-inputs')).toBeVisible();
+    await expect(page.locator('#classic-inputs .btn-num')).toHaveCount(5);
   });
 });
