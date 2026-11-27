@@ -33,14 +33,35 @@ export class WheelGame {
 
   renderSegments() {
     const labelsEl = document.getElementById("wheel-labels");
+    const spinnerEl = document.getElementById("wheel-spinner");
     if (!labelsEl) return;
     const segments = WHEEL_SEGMENTS[this.risk];
     const step = 360 / segments.length;
+
+    if (spinnerEl) {
+      const stops = segments
+        .map((mult, i) => {
+          const start = i * step;
+          const end = (i + 1) * step;
+          const color =
+            mult === 0
+              ? "rgba(255, 45, 85, 0.30)"
+              : mult >= 5
+                ? "rgba(255, 215, 0, 0.42)"
+                : mult >= 2
+                  ? "rgba(188, 19, 254, 0.36)"
+                  : "rgba(0, 243, 255, 0.28)";
+          return `${color} ${start}deg ${end - 1.5}deg, rgba(255,255,255,0.24) ${end - 1.5}deg ${end}deg`;
+        })
+        .join(", ");
+      spinnerEl.style.background = `conic-gradient(${stops})`;
+    }
+
     labelsEl.innerHTML = segments
       .map((mult, i) => {
         const angle = i * step + step / 2;
         const cls = mult === 0 ? "wheel-seg-zero" : mult >= 5 ? "wheel-seg-high" : "wheel-seg-win";
-        return `<span class="wheel-label ${cls}" style="transform: rotate(${angle}deg) translateY(-58px)">${mult}×</span>`;
+        return `<span class="wheel-label ${cls}" style="transform: rotate(${angle}deg) translateY(-70px)">${mult}×</span>`;
       })
       .join("");
   }
@@ -61,6 +82,8 @@ export class WheelGame {
     sound.playSpin?.();
 
     const spinner = document.getElementById("wheel-spinner");
+    const wrapper = spinner?.closest(".wheel-wrapper");
+    wrapper?.classList.add("is-spinning");
     if (spinner) {
       await new Promise((resolve) => {
         gsap.to(spinner, {
@@ -71,6 +94,7 @@ export class WheelGame {
         });
       });
     }
+    wrapper?.classList.remove("is-spinning");
 
     this.isSpinning = false;
     const winAmount = Math.round(bet * multiplier);

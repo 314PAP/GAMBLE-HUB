@@ -1,10 +1,19 @@
 .wheel-wrapper {
   position: relative;
-  width: 170px;
-  height: 170px;
+  width: min(220px, 34dvh);
+  height: min(220px, 34dvh);
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 243, 255, 0.18) 0%, rgba(188, 19, 254, 0.12) 55%, transparent 74%);
+  box-shadow: 0 0 30px rgba(0, 243, 255, 0.18), 0 0 50px rgba(188, 19, 254, 0.12);
+  transition: box-shadow 0.3s ease;
+}
+
+.wheel-wrapper.is-spinning {
+  box-shadow: 0 0 40px rgba(0, 243, 255, 0.45), 0 0 70px rgba(255, 215, 0, 0.25);
 }
 
 .wheel-pointer {
@@ -14,11 +23,11 @@
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 9px solid transparent;
-  border-right: 9px solid transparent;
-  border-top: 16px solid var(--neon-gold);
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-top: 22px solid var(--neon-gold);
   z-index: 10;
-  filter: drop-shadow(0 0 6px var(--neon-gold));
+  filter: drop-shadow(0 0 10px var(--neon-gold)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
 }
 
 .wheel-spinner {
@@ -26,12 +35,33 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 3px solid var(--neon-cyan);
+  border: 4px solid rgba(0, 243, 255, 0.85);
   background: radial-gradient(circle at center, rgba(20, 20, 40, 0.95) 0%, rgba(10, 10, 25, 0.98) 100%);
-  box-shadow: 0 0 20px rgba(0, 243, 255, 0.25), inset 0 0 18px rgba(188, 19, 254, 0.2);
+  box-shadow:
+    0 0 24px rgba(0, 243, 255, 0.35),
+    inset 0 0 24px rgba(10, 10, 25, 0.85),
+    inset 0 0 12px rgba(188, 19, 254, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.wheel-spinner::after {
+  content: "★";
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff3b0, #ffb703 55%, #fb8500 100%);
+  border: 2px solid #fff8dc;
+  box-shadow: 0 0 18px rgba(255, 215, 0, 0.85), inset 0 2px 4px rgba(255, 255, 255, 0.6);
+  color: #1a1025;
+  font-size: 1.15rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 6;
 }
 
 .wheel-labels {
@@ -44,22 +74,34 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-left: -16px;
+  margin-left: -18px;
   margin-top: -10px;
-  width: 32px;
+  width: 36px;
   height: 20px;
-  font-size: 0.72rem;
-  font-weight: 800;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
   text-align: center;
   line-height: 20px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95);
 }
 
-.wheel-seg-zero { color: #ff4d6d; }
-.wheel-seg-win { color: var(--neon-cyan); }
-.wheel-seg-high { color: var(--neon-gold); text-shadow: 0 0 8px var(--neon-gold); }
+.wheel-seg-zero {
+  color: #ff6b81;
+}
+
+.wheel-seg-win {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px rgba(0, 243, 255, 0.6), 0 2px 6px rgba(0, 0, 0, 0.95);
+}
+
+.wheel-seg-high {
+  color: var(--neon-gold);
+  text-shadow: 0 0 10px var(--neon-gold), 0 2px 6px rgba(0, 0, 0, 0.95);
+}
 
 .wheel-risk-btn.active {
   background: var(--neon-purple);
   color: #fff;
-  box-shadow: 0 0 10px rgba(188, 19, 254, 0.5);
+  box-shadow: 0 0 12px rgba(188, 19, 254, 0.55);
 }

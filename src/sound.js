@@ -395,6 +395,10 @@ class SoundManager {
     if (!this.ctx) return;
     this.playTone(520, 'sine', 0.03, 0.05);
   }
+
+  playCard() {
+    this.playCardFlip();
+  }
 }
 
 export const sound = new SoundManager();
