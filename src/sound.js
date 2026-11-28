@@ -350,7 +350,7 @@ class SoundManager {
   play8BitSelect() { this._playFile(SOUND_ASSETS['8bit-select'], 0.6); }
 
   playWinBonus() { this._playFile(SOUND_ASSETS['win-8bit'], 0.9); }
-  playClickRetro() { this._playFile(SOUND_ASSETS['button-click-retro'], 0.8); }
+  playClickRetro() { this.playClick(); }
   playCardFlip() {
     if (this.sfxMuted) return;
     this.initContext();
