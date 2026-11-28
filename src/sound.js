@@ -338,7 +338,7 @@ class SoundManager {
   playSlotReelStop() { this._playFile(SOUND_ASSETS['slot-reel-stop'], 0.8); }
   playSlotWheel() { this._playFile(SOUND_ASSETS['slot-wheel'], 0.7); }
   playSlotCoin() { this._playFile(SOUND_ASSETS['slot-coin'], 0.8); }
-  playSlotWin() { this._playFile(SOUND_ASSETS['slot-win'], 0.9); }
+  playSlotWin() { this._playFile(SOUND_ASSETS['slot-win'], 0.45); }
   playSlotJackpot() { this._playFile(SOUND_ASSETS['slot-jackpot'], 1.0); }
   playSlotBonus() { this._playFile(SOUND_ASSETS['slot-bonus'], 0.8); }
   playSlotNearMiss() { this._playFile(SOUND_ASSETS['slot-near-miss'], 0.6); }
@@ -349,7 +349,7 @@ class SoundManager {
   play8BitCoin() { this._playFile(SOUND_ASSETS['8bit-coin'], 0.7); }
   play8BitSelect() { this._playFile(SOUND_ASSETS['8bit-select'], 0.6); }
 
-  playWinBonus() { this._playFile(SOUND_ASSETS['win-8bit'], 0.9); }
+  playWinBonus() { this._playFile(SOUND_ASSETS['win-8bit'], 0.45); }
   playClickRetro() { this.playClick(); }
   playCardFlip() {
     if (this.sfxMuted) return;
