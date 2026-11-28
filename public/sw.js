@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gamblehub-1.0.1';
+const CACHE_NAME = 'gamblehub-1.0.2';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -62,8 +62,8 @@ self.addEventListener('fetch', (event) => {
   }
 
   event.respondWith(
-    caches.match(request).then((cached) => {
-      const networkPromise = fetch(request).then((response) => {
+    fetch(request)
+      .then((response) => {
         if (response && response.status === 200 && response.type !== 'opaque') {
           const clone = response.clone();
           caches.open(CACHE_NAME).then((cache) => {
@@ -71,12 +71,10 @@ self.addEventListener('fetch', (event) => {
           });
         }
         return response;
-      }).catch(() => {
-        return new Response('Offline', { status: 503, statusText: 'Service Unavailable' });
-      });
-
-      return cached || networkPromise;
-    })
+      })
+      .catch(() =>
+        caches.match(request).then((cached) => cached || new Response('Offline', { status: 503, statusText: 'Service Unavailable' }))
+      )
   );
 });
 

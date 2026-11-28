@@ -10,8 +10,9 @@
   html,
   body {
     width: 100%;
-    min-height: 100vh;
-    min-height: 100dvh;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
     overscroll-behavior: none;
     -webkit-tap-highlight-color: transparent;
   }
@@ -22,8 +23,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    height: 100dvh;
     padding: clamp(12px, 3vw, 20px);
     overflow-x: hidden;
     touch-action: manipulation;

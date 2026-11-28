@@ -28,9 +28,9 @@ export const SOUND_ASSETS = {
   '8bit-select': `${BASE}sounds/sfx/click-retro.mp3`,
 
   'win-8bit': `${BASE}sounds/sfx/floraphonic-level-up-bonus-sequence-3-186892.mp3`,
-  'lose-8bit': `${BASE}sounds/sfx/click-heavy.mp3`,
+  'lose-8bit': `${BASE}sounds/sfx/lose-soft.wav`,
   'flip-8bit': `${BASE}sounds/sfx/8bit-select.mp3`,
-  'dice-roll-8bit': `${BASE}sounds/sfx/slot-reel-stop.mp3`,
+  'dice-roll-8bit': `${BASE}sounds/sfx/dice-roll.wav`,
   'card-flip': `${BASE}sounds/sfx/mixkit-poker-card-flick-2002.wav`,
 };
 

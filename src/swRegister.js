@@ -81,7 +81,7 @@ export function initServiceWorker() {
         }
       };
 
-      setTimeout(checkForUpdates, 1000);
+      checkForUpdates();
       setInterval(checkForUpdates, 4 * 60 * 60 * 1000);
       document.addEventListener("visibilitychange", () => {
         if (document.visibilityState === "visible") {
