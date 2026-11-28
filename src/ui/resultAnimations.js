@@ -69,6 +69,15 @@ export function animateWinResult(
 ) {
   if (!resBox) return;
 
+  const container = document.getElementById("screen-game");
+  if (isJackpot && container) {
+    gsap.fromTo(
+      container,
+      { x: -6, y: 4 },
+      { x: 0, y: 0, duration: 0.4, ease: "elastic.out(1.2, 0.25)" },
+    );
+  }
+
   gsap.killTweensOf(resBox);
   resBox.classList.remove("hidden");
   resBox.classList.add("block");
@@ -118,6 +127,35 @@ export function animateWinResult(
       { opacity: 0, scale: 1.1, duration: 0.4, ease: "power2.in", delay: 2.55 },
       0,
     );
+  }
+
+  // Spawn floating arcade coin particles around the win banner
+  const parent = resBox.parentElement;
+  if (parent) {
+    const icons = ["🪙", "✨", "💎", "🪙", "⭐"];
+    icons.forEach((icon, i) => {
+      const p = document.createElement("span");
+      p.textContent = icon;
+      p.setAttribute("aria-hidden", "true");
+      p.style.cssText =
+        "position:fixed;left:50%;top:45%;pointer-events:none;z-index:1200;font-size:1.25rem;";
+      document.body.appendChild(p);
+      const dx = (i - 2) * 36 + (Math.random() * 20 - 10);
+      const dy = -70 - Math.random() * 50;
+      gsap.fromTo(
+        p,
+        { x: 0, y: 0, scale: 0.5, opacity: 1 },
+        {
+          x: dx,
+          y: dy,
+          scale: 1.25,
+          opacity: 0,
+          duration: 0.9 + Math.random() * 0.3,
+          ease: "power2.out",
+          onComplete: () => p.remove(),
+        },
+      );
+    });
   }
 
   if (isJackpot) {

@@ -399,6 +399,24 @@ class SoundManager {
   playCard() {
     this.playCardFlip();
   }
+
+  playCoinBurst() {
+    if (this.sfxMuted) return;
+    this.initContext();
+    if (!this.ctx) return;
+    [987.77, 1318.51, 1567.98].forEach((freq, i) => {
+      setTimeout(() => this.playTone(freq, 'sine', 0.08, 0.09), i * 45);
+    });
+  }
+
+  playJackpotFanfare() {
+    if (this.sfxMuted) return;
+    this.initContext();
+    if (!this.ctx) return;
+    [523.25, 659.25, 783.99, 1046.5, 1318.51].forEach((freq, i) => {
+      setTimeout(() => this.playTone(freq, 'triangle', 0.18, 0.14), i * 70);
+    });
+  }
 }
 
 export const sound = new SoundManager();
