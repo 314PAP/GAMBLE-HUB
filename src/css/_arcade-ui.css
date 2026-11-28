@@ -1,5 +1,17 @@
 /* === Arcade UI Enhancements & No-Scroll Viewport Layout === */
 
+html,
+body {
+  min-height: 100dvh;
+  height: 100%;
+}
+
+#screen-hub,
+#screen-game,
+#screen-login {
+  min-height: 100dvh;
+}
+
 /* 1. Subtle animated Cyber Grid background */
 body::before {
   content: "";
