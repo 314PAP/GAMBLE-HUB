@@ -10,6 +10,7 @@ import { formatLargeNumber } from "../utils.js";
 import { evaluateAchievements } from "../achievements.js";
 import { updateMissionsProgress } from "../missions.js";
 import { addPlayerXp } from "../vip.js";
+import { recordStreak } from "../streak.js";
 import { vibrateWin, vibrateLoss } from "../haptics.js";
 import { broadcastBigWin } from "../liveFeed.js";
 
@@ -92,7 +93,15 @@ export function processGameResult(
   if (isWin) vibrateWin();
   else vibrateLoss();
 
-  const vipRes = addPlayerXp(gm.currentPlayer, betAmount);
+  const streakInfo = recordStreak(gm.currentPlayer, isWin);
+  const vipRes = addPlayerXp(gm.currentPlayer, betAmount + streakInfo.bonusXp);
+  if (streakInfo.isHot) {
+    spawnFloatingText(`🔥 HOT STREAK ×${streakInfo.count}!`, {
+      color: "var(--neon-orange)",
+      yOffset: -140,
+      fontSize: "1.15rem",
+    });
+  }
   if (vipRes.leveledUp) {
     playLevelUp();
     spawnFloatingText(`⭐ VIP LEVEL ${vipRes.info.level}!`, {
