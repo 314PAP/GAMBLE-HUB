@@ -4,6 +4,8 @@ html,
 body {
   min-height: 100dvh;
   height: 100%;
+  padding: 0;
+  align-items: stretch;
 }
 
 #screen-hub,
