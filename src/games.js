@@ -188,7 +188,9 @@ export class GameManager {
     this.db.updatePlayerBalance(this.currentPlayer, balance - this.activeBet);
     this.ui.updateMiniProfile(this.currentPlayer, balance - this.activeBet);
 
-    this.clearAllResultBoxes();
+    if (!this.isAutoPlaying) {
+      this.clearAllResultBoxes();
+    }
     return true;
   }
 
@@ -255,7 +257,9 @@ export class GameManager {
     if (!this.hilo.isStreakActive) {
       if (!this._startRound()) return;
     } else {
+      if (!this.isAutoPlaying) {
       this.clearAllResultBoxes();
+    }
     }
 
     this.lockGameControls(true);
