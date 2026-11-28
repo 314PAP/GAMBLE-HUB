@@ -1,4 +1,5 @@
 import { stopBetButtonsGlow } from '../animations/ui.js';
+import { requestWakeLock, releaseWakeLock } from '../wakeLock.js';
 
 /**
  * Toggle slot machine autoplay on or off.
@@ -19,6 +20,7 @@ export async function toggleAutoPlay(gm, intervalMs) {
 
   autoBtn.classList.add('active');
   autoBtn.innerHTML = '<span class="icon-node"></span> STOP';
+  requestWakeLock();
 
   gm.playSlots();
 
@@ -37,6 +39,7 @@ export async function toggleAutoPlay(gm, intervalMs) {
  * @param {import('../games.js').GameManager} gm
  */
 export function stopAutoPlay(gm) {
+  releaseWakeLock();
   if (gm.autoPlayInterval) {
     clearInterval(gm.autoPlayInterval);
     gm.autoPlayInterval = null;

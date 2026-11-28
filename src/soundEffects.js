@@ -61,3 +61,34 @@ export function playNearMiss() {
   safeTone(392, "sawtooth", 0.1, 0.06); // G4
   setTimeout(() => safeTone(311.13, "sawtooth", 0.14, 0.06), 80); // D#4
 }
+
+/**
+ * Soft wooden rattle for Dice roll.
+ */
+export function playDiceSoft() {
+  if (sound.isMuted || typeof sound.playTone !== "function") return;
+  safeTone(280, "triangle", 0.035, 0.05);
+  setTimeout(() => safeTone(360, "triangle", 0.035, 0.045), 55);
+}
+
+/**
+ * Crisp paper-slide tone for Blackjack card deal.
+ */
+export function playBlackjackCard() {
+  safeTone(460, "sine", 0.04, 0.05);
+}
+
+/**
+ * Light chime for Guessing / Roulette number selection.
+ */
+export function playGuessSelect() {
+  safeTone(740, "sine", 0.045, 0.05);
+}
+
+/**
+ * Gentle rising blip for Crash multiplier ticks.
+ */
+export function playCrashRise(multiplier = 1) {
+  const freq = Math.min(1200, 380 + multiplier * 45);
+  safeTone(freq, "sine", 0.03, 0.035);
+}

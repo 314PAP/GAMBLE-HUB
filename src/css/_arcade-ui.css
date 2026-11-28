@@ -20,10 +20,16 @@ body::before {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-between;
   gap: 0.45rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+}
+
+#screen-game > * {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #screen-game .game-header,

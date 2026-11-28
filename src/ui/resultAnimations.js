@@ -111,7 +111,7 @@ export function animateWinResult(
     y: -10,
     duration: 0.5,
     ease: "power2.in",
-    delay: 2.5,
+    delay: 4.2,
     onComplete: () => {
       resBox.classList.add("hidden");
     },
