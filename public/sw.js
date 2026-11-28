@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gamblehub-1.0.3';
+const CACHE_NAME = 'gamblehub-1.0.4';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -48,7 +48,7 @@ self.addEventListener('fetch', (event) => {
 
   if (isNavigation) {
     event.respondWith(
-      fetch(request)
+      fetch(request, { cache: 'no-store' })
         .then((response) => {
           if (response && response.status === 200 && response.type !== 'opaque') {
             const clone = response.clone();
