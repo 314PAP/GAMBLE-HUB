@@ -67,7 +67,10 @@ export function initServiceWorker() {
       }
 
       const swPath = `${baseUrl}sw.js`;
-      const registration = await navigator.serviceWorker.register(swPath, { scope: baseUrl });
+      const registration = await navigator.serviceWorker.register(swPath, {
+        scope: baseUrl,
+        updateViaCache: "none",
+      });
 
       const checkForUpdates = async () => {
         try {

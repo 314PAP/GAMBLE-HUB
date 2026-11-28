@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gamblehub-1.0.2';
+const CACHE_NAME = 'gamblehub-1.0.3';
 const STATIC_ASSETS = [
   './',
   './index.html',
