@@ -49,6 +49,7 @@
   display: none;
   position: relative;
   z-index: 1;
+  width: 100%;
 }
 
 .screen.active {
