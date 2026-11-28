@@ -25,7 +25,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: clamp(12px, 3vw, 20px);
+    padding: max(12px, env(safe-area-inset-top)) clamp(12px, 3vw, 20px) max(12px, env(safe-area-inset-bottom));
     overflow: hidden;
     touch-action: manipulation;
   }

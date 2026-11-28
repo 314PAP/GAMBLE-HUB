@@ -7,18 +7,6 @@
   will-change: transform, opacity;
 }
 
-/* === REDUCED MOTION === */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
 /* === ANIMATION POLICY ===
     - Infinite / idle animations (LED pulse, glow, warning pulse, coin flicker):
       implemented in CSS @keyframes — most efficient for `repeat: infinite`.
@@ -37,12 +25,8 @@
    The visible-to-hidden transition is handled by GSAP (animateScreenIn),
    not CSS transitions, to avoid layout thrashing on display:none→grid. */
 
-/* Game visibility: Tailwind utilities are loaded FIRST, but
-   component styles here must override them (cascade order).
-   .game-container.hidden needs !important because .game-container
-   has display:flex and its later position overrides Tailwind .hidden. */
 .game-container.hidden {
-  display: none !important;
+  display: none;
 }
 
 /* === CONTAINER GRID OVERLAY (glass sheen background) === */
@@ -68,7 +52,7 @@
 }
 
 .screen.active {
-  display: flex !important;
+  display: flex;
   flex-direction: column;
 }
 
