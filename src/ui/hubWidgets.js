@@ -10,8 +10,9 @@ export function renderHubVip(username) {
   const el = document.getElementById("hub-vip-badge");
   if (!el || !username) return;
   const vip = getPlayerVip(username);
-  el.innerHTML = `<span class="text-neon-gold font-bold">${vip.icon} ${escapeHtml(vip.name)}</span>
-    <span class="text-[10px] text-text-muted ml-1">${vip.nextLevel ? `${vip.progress}%` : "MAX"}</span>`;
+  const icon = vip.icon || "⭐";
+  el.innerHTML = `<span class="text-neon-gold font-bold whitespace-nowrap">${icon} Lv.${vip.level || 1}</span>
+    <span class="text-[10px] text-text-muted ml-1 hidden sm:inline">${vip.nextLevel ? `${vip.progress}%` : "MAX"}</span>`;
   el.title = vip.nextLevel
     ? `VIP ${vip.name} (${vip.xp} XP) — další úroveň: ${vip.nextLevel.name} (${vip.nextLevel.minXp} XP)`
     : `VIP ${vip.name} (${vip.xp} XP) — maximální úroveň`;
