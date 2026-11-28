@@ -18,13 +18,15 @@
   }
 
   body {
+    position: fixed;
+    inset: 0;
     background: var(--bg-gradient);
     color: var(--text-primary);
     display: flex;
     justify-content: center;
     align-items: center;
     padding: clamp(12px, 3vw, 20px);
-    overflow-x: hidden;
+    overflow: hidden;
     touch-action: manipulation;
   }
 
