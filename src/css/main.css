@@ -28,6 +28,7 @@
   @import "./_crash.css";
   @import "./_blackjack.css";
   @import "./_wheel.css";
+  @import "./_arcade-ui.css";
 }
 
 /* Custom utilities */

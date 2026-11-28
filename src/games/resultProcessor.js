@@ -95,6 +95,11 @@ export function processGameResult(
 
   const streakInfo = recordStreak(gm.currentPlayer, isWin);
   const vipRes = addPlayerXp(gm.currentPlayer, betAmount + streakInfo.bonusXp);
+  const moneyBadges = [
+    document.getElementById("game-player-money"),
+    document.getElementById("hub-player-money"),
+  ].filter(Boolean);
+  moneyBadges.forEach((el) => el.classList.toggle("hot-streak-active", streakInfo.isHot));
   if (streakInfo.isHot) {
     spawnFloatingText(`🔥 HOT STREAK ×${streakInfo.count}!`, {
       color: "var(--neon-orange)",
