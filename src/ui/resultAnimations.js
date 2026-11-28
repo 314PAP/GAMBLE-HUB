@@ -83,12 +83,12 @@ export function animateWinResult(
   resBox.classList.add("block");
   resBox.classList.remove("visibility-hidden");
   resBox.innerHTML = `
-    <span class="text-neon-gold text-lg font-bold text-glow-gold flex items-center justify-center gap-1.5">
+    <span class="font-['Orbitron',sans-serif] text-neon-gold text-xl sm:text-2xl font-extrabold tracking-wide text-glow-gold flex items-center justify-center gap-2">
       <span>🎉 +${formatLargeNumber(winAmount)}</span>
-      <svg class="coin-icon-svg w-[1.1em] h-[1.1em]" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg>
+      <svg class="coin-icon-svg w-[1.1em] h-[1.1em] shrink-0" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg>
       ${isJackpot ? "🔥" : ""}
     </span>
-    <small class="font-['Press_Start_2P',monospace] block mt-1.5 text-[10px] tracking-wider text-glow-orange" style="color:${resultColor}">${DOMPurify.sanitize(resultText)}</small>
+    <small class="font-['Orbitron',sans-serif] block mt-1.5 text-xs font-semibold tracking-wider uppercase leading-snug text-glow-orange" style="color:${resultColor}">${DOMPurify.sanitize(resultText)}</small>
   `;
 
   gsap.set(resBox, {
@@ -111,7 +111,7 @@ export function animateWinResult(
     y: -10,
     duration: 0.5,
     ease: "power2.in",
-    delay: 4.2,
+    delay: 5.5,
     onComplete: () => {
       resBox.classList.add("hidden");
     },
