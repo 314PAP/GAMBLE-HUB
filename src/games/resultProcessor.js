@@ -1,4 +1,12 @@
 import { sound } from "../sound.js";
+import { playAchievementUnlock, playLevelUp } from "../soundEffects.js";
+import {
+  spawnCoinShower,
+  spawnFloatingText,
+  triggerCameraShake,
+  triggerScreenFlash,
+} from "../arcadeEffects.js";
+import { formatLargeNumber } from "../utils.js";
 import { evaluateAchievements } from "../achievements.js";
 import { updateMissionsProgress } from "../missions.js";
 import { addPlayerXp } from "../vip.js";
@@ -63,6 +71,7 @@ export function processGameResult(
     newBalance,
   });
   unlocked.forEach((ach) => {
+    playAchievementUnlock();
     gm.ui.showAlert("success", `${ach.icon} Úspěch: ${ach.title}`, ach.desc);
   });
 
@@ -73,6 +82,7 @@ export function processGameResult(
     multiplier,
   });
   completedMissions.forEach((m) => {
+    playAchievementUnlock();
     const curBal = gm.db.getPlayerBalance(gm.currentPlayer);
     gm.db.updateBalance(gm.currentPlayer, curBal + m.reward);
     gm.ui.updateBalanceDisplay(gm.currentPlayer);
@@ -84,6 +94,11 @@ export function processGameResult(
 
   const vipRes = addPlayerXp(gm.currentPlayer, betAmount);
   if (vipRes.leveledUp) {
+    playLevelUp();
+    spawnFloatingText(`⭐ VIP LEVEL ${vipRes.info.level}!`, {
+      color: "var(--neon-cyan)",
+      yOffset: -120,
+    });
     gm.ui.showAlert("success", `⭐ VIP Level ${vipRes.info.level}!`, `Nová hodnost: ${vipRes.info.name}`);
   }
 
@@ -110,8 +125,24 @@ export function processGameResult(
     const hiloColor = gameConfig.hiloColor ? "#ff4060" : "var(--neon-orange)";
     gm.ui.animateWinResult(targetResBox, winAmount, resultText, isJackpot, "game-result", hiloColor);
     broadcastBigWin(gm.currentPlayer, gameName, winAmount, isJackpot);
+
+    if (isJackpot) {
+      triggerScreenFlash("rgba(255, 215, 0, 0.45)", 0.55);
+      triggerCameraShake(10, 0.45);
+      spawnCoinShower(26);
+      spawnFloatingText(`🔥 JACKPOT +${formatLargeNumber(winAmount)} 🪙`, {
+        color: "var(--neon-gold)",
+        fontSize: "1.5rem",
+      });
+    } else {
+      triggerScreenFlash("rgba(0, 255, 136, 0.22)", 0.35);
+      spawnFloatingText(`+${formatLargeNumber(winAmount)} 🪙`, {
+        color: "var(--neon-green)",
+      });
+    }
   } else {
     gm.ui.animateLossBalance(newBalance);
+    triggerScreenFlash("rgba(255, 42, 133, 0.22)", 0.35);
   }
 
   if (newBalance <= 0) {

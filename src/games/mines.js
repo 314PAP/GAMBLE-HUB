@@ -1,6 +1,7 @@
 import gsap from "gsap";
 
 import { sound } from "../sound";
+import { playCashOut } from "../soundEffects.js";
 import { formatLargeNumber } from "../utils";
 
 export const MINES_GRID_SIZE = 25;
@@ -156,6 +157,7 @@ export class MinesGame {
     const count = this.revealedIndices.size;
     this.isActive = false;
     sound.playWinBonus();
+    playCashOut();
     this.renderBoard(true);
     this.updateStatusUI();
     return {

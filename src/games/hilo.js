@@ -1,6 +1,7 @@
 import gsap from "gsap";
 
 import { sound } from "../sound";
+import { playCashOut } from "../soundEffects.js";
 import { formatLargeNumber } from "../utils";
 
 /**
@@ -171,6 +172,7 @@ export class HiloGame {
     const bet = this.streakBet;
     this.resetStreak();
     sound.playWinBonus();
+    playCashOut();
     return {
       isWin: true,
       winAmount,

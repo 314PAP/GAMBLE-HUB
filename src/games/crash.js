@@ -1,4 +1,5 @@
 import { sound } from "../sound.js";
+import { playCashOut } from "../soundEffects.js";
 import { formatLargeNumber } from "../utils.js";
 
 /**
@@ -114,6 +115,7 @@ export class CrashGame {
     const mult = this.currentMultiplier;
     const winAmount = Math.floor(this.currentBet * mult);
     sound.playWin();
+    playCashOut();
     this._updateDisplay(`✅ ${mult.toFixed(2)}×`, "cashed-out", 100);
     this._updateStatus(`✅ Vybráno na ${mult.toFixed(2)}× — Výhra ${formatLargeNumber(winAmount)}!`);
     this._syncButtons();
