@@ -83,19 +83,14 @@ export function animateWinResult(
   resBox.classList.add("block");
   resBox.classList.remove("visibility-hidden");
   resBox.innerHTML = `
-    <span class="font-['Orbitron',sans-serif] text-neon-gold text-xl sm:text-2xl font-extrabold tracking-wide text-glow-gold flex items-center justify-center gap-2">
-      <span>🎉 +${formatLargeNumber(winAmount)}</span>
-      <svg class="coin-icon-svg w-[1.1em] h-[1.1em] shrink-0" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg>
+    <span class="font-['Orbitron',sans-serif] text-neon-gold text-2xl sm:text-3xl font-black tracking-[0.14em] text-glow-gold flex items-center justify-center gap-2 drop-shadow-[0_0_16px_rgba(255,215,0,0.85)]">
+      <span>+${formatLargeNumber(winAmount)}</span>
+      <svg class="coin-icon-svg w-[1.05em] h-[1.05em] shrink-0" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="url(#goldGradient)"/><text x="12" y="17" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a2e">$</text></svg>
       ${isJackpot ? "🔥" : ""}
     </span>
-    <small class="font-['Orbitron',sans-serif] block mt-1.5 text-xs font-semibold tracking-wider uppercase leading-snug text-glow-orange" style="color:${resultColor}">${DOMPurify.sanitize(resultText)}</small>
+    <small class="font-['Orbitron',sans-serif] block mt-1 text-xs sm:text-sm font-bold tracking-[0.16em] uppercase leading-snug text-glow-orange drop-shadow-[0_0_10px_rgba(0,0,0,0.95)]" style="color:${resultColor}">${DOMPurify.sanitize(resultText)}</small>
   `;
 
-  gsap.set(resBox, {
-    borderColor: "var(--neon-gold)",
-    boxShadow:
-      "0 10px 25px rgba(0,0,0,0.5), 0 0 20px var(--neon-gold-glow), 0 0 40px var(--neon-gold-glow)",
-  });
   gsap.set(resBox, { opacity: 0, scale: 0.8, y: 20 });
   const multiplierEl = resBox.querySelector(".hilo-result-multiplier");
   const tl = gsap.timeline();
