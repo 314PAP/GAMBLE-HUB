@@ -24,7 +24,7 @@
     align-items: center;
     height: 100vh;
     height: 100dvh;
-    padding: clamp(6px, 1.5vw, 16px);
+    padding: clamp(12px, 3vw, 20px);
     overflow-x: hidden;
     touch-action: manipulation;
   }
