@@ -86,6 +86,7 @@ export class BlackjackGame {
     this.dealerHand = [this.deck.pop(), this.deck.pop()];
     this.isRoundActive = true;
     this.hideDealerHole = true;
+    this.lastOutcome = null;
 
     sound.playCard();
     this.render();
@@ -254,9 +255,24 @@ export class BlackjackGame {
     }
 
     if (statusEl) {
-      statusEl.textContent = this.isRoundActive
-        ? `Sázka: ${formatNumber(this.bet)} | Zvol HIT, STAND nebo DOUBLE`
-        : "Vsaď si a klikni na ROZDAT";
+      if (this.isRoundActive) {
+        statusEl.className = "text-xs text-neon-cyan font-semibold";
+        statusEl.textContent = `Sázka: ${formatNumber(this.bet)} | Zvol HIT, STAND nebo DOUBLE`;
+      } else if (this.lastOutcome) {
+        if (this.lastOutcome.isPush) {
+          statusEl.className = "text-xs text-neon-gold font-bold";
+          statusEl.textContent = `🤝 REMÍZA — ${this.lastOutcome.text}`;
+        } else if (this.lastOutcome.isWin) {
+          statusEl.className = "text-xs text-neon-green font-bold";
+          statusEl.textContent = `🏆 VÝHRA! ${this.lastOutcome.text}`;
+        } else {
+          statusEl.className = "text-xs text-neon-red font-bold";
+          statusEl.textContent = `💀 PROHRA — ${this.lastOutcome.text}`;
+        }
+      } else {
+        statusEl.className = "text-xs text-text-muted";
+        statusEl.textContent = "Vsaď si a klikni na ROZDAT";
+      }
     }
   }
 }
