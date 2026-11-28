@@ -81,8 +81,21 @@ export function initServiceWorker() {
         }
       };
 
-      setTimeout(checkForUpdates, 5000);
+      setTimeout(checkForUpdates, 1000);
       setInterval(checkForUpdates, 4 * 60 * 60 * 1000);
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") {
+          checkForUpdates();
+        }
+      });
+
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (!refreshing) {
+          refreshing = true;
+          window.location.reload();
+        }
+      });
 
       registration.addEventListener("updatefound", () => {
         const newWorker = registration.installing;

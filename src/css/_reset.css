@@ -24,15 +24,9 @@
     align-items: center;
     height: 100vh;
     height: 100dvh;
-    padding: 0;
+    padding: clamp(6px, 1.5vw, 16px);
     overflow-x: hidden;
     touch-action: manipulation;
-  }
-
-  @media (min-width: 640px) {
-    body {
-      padding: clamp(8px, 2vw, 16px);
-    }
   }
 
   ::-webkit-scrollbar {
